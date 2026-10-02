@@ -10,6 +10,7 @@ import MouseLight from "@/components/MouseLight";
 import AnimatedBackground from "@/components/AnimatedBackground";
 import BorderLight from "@/components/BorderLight";
 import FloatingFeedbackButton from "@/components/FloatingFeedbackButton";
+import FloatingWhatsApp from "@/components/FloatingWhatsApp";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -87,6 +88,7 @@ export default function RootLayout({
           {children}
         </main>
         <FloatingFeedbackButton />
+        <FloatingWhatsApp />
         <Footer />
       </body>
     </html>
