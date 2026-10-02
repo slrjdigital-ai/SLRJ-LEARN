@@ -4,30 +4,35 @@ import React from "react";
 
 export default function BorderLight() {
   return (
-    <>
-      <style>{`
-        @keyframes spin-center {
-          0% { transform: translate(-50%, -50%) rotate(0deg); }
-          100% { transform: translate(-50%, -50%) rotate(360deg); }
-        }
-        .global-border-light-mask {
-          padding: 2px; /* Thinner border width */
-          -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-          -webkit-mask-composite: xor;
-          mask-composite: exclude;
-        }
-      `}</style>
+    <div className="fixed inset-0 z-40 pointer-events-none overflow-hidden" suppressHydrationWarning>
+      {/* Top subtle glowing runner */}
       <div 
-        className="fixed inset-0 z-[9999] pointer-events-none overflow-hidden global-border-light-mask"
-      >
-        <div 
-          className="absolute top-1/2 left-1/2 w-[200vmax] h-[200vmax]"
-          style={{
-            background: "conic-gradient(from 0deg, transparent 0%, transparent 85%, #A855F7 88%, #06B6D4 92%, #EC4899 96%, transparent 100%)",
-            animation: "spin-center 6s linear infinite"
-          }}
-        />
-      </div>
-    </>
+        className="absolute top-0 left-0 right-0 h-[1.5px] opacity-75"
+        style={{
+          background: "linear-gradient(90deg, transparent 0%, #A855F7 25%, #06B6D4 50%, #EC4899 75%, transparent 100%)",
+        }}
+      />
+      {/* Bottom subtle glowing runner */}
+      <div 
+        className="absolute bottom-0 left-0 right-0 h-[1.5px] opacity-60"
+        style={{
+          background: "linear-gradient(90deg, transparent 0%, #EC4899 25%, #06B6D4 50%, #A855F7 75%, transparent 100%)",
+        }}
+      />
+      {/* Left border */}
+      <div 
+        className="absolute top-0 bottom-0 left-0 w-[1px] opacity-30"
+        style={{
+          background: "linear-gradient(180deg, transparent 0%, #A855F7 50%, transparent 100%)",
+        }}
+      />
+      {/* Right border */}
+      <div 
+        className="absolute top-0 bottom-0 right-0 w-[1px] opacity-30"
+        style={{
+          background: "linear-gradient(180deg, transparent 0%, #06B6D4 50%, transparent 100%)",
+        }}
+      />
+    </div>
   );
 }
