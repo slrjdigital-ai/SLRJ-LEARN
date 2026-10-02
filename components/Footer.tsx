@@ -83,7 +83,7 @@ export default function Footer() {
                 <FaEnvelope size={18} className="group-hover:scale-110 transition-transform duration-300" />
               </a>
               <a
-                href="https://facebook.com"
+                href="https://www.facebook.com/share/1M726Nnd7y/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-gray-400 hover:text-[#1877F2] hover:border-[#1877F2]/50 hover:bg-[#1877F2]/10 transition-all duration-300 group"
