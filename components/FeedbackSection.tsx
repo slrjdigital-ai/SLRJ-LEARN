@@ -1,0 +1,856 @@
+"use client";
+
+import { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import {
+  Star,
+  MessageSquare,
+  ThumbsUp,
+  CheckCircle2,
+  X,
+  Search,
+  PlusCircle,
+  Sparkles,
+  ShieldCheck,
+  Send,
+  Loader2,
+  Award,
+  TrendingUp,
+  Crown,
+  Flame,
+} from "lucide-react";
+import SpotlightCard from "./SpotlightCard";
+import ScrollReveal from "./ScrollReveal";
+import {
+  FeedbackItem,
+  FeedbackStats,
+  initialFeedbackList,
+  calculateFeedbackStats,
+  getTopRatedFeedbacks,
+} from "@/data/feedback";
+
+const ratingLabels: Record<number, string> = {
+  1: "Needs Improvement 😞",
+  2: "Fair / Average 😐",
+  3: "Good & Satisfactory 🙂",
+  4: "Very Good Work! 😊",
+  5: "Outstanding / Exceptional! 🚀🌟",
+};
+
+const serviceOptions = [
+  "General Experience",
+  "Business Websites",
+  "E-Commerce",
+  "Web Applications",
+  "UI/UX Design",
+  "Maintenance & Support",
+];
+
+export default function FeedbackSection() {
+  const [mounted, setMounted] = useState(false);
+  const [feedbackList, setFeedbackList] = useState<FeedbackItem[]>(initialFeedbackList);
+  const [stats, setStats] = useState<FeedbackStats>(calculateFeedbackStats(initialFeedbackList));
+  const [loading, setLoading] = useState(false);
+
+  // View mode state: 'top5' by default as requested!
+  const [viewMode, setViewMode] = useState<"top5" | "all">("top5");
+
+  // Modal State
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [rating, setRating] = useState<number>(5);
+  const [hoverRating, setHoverRating] = useState<number>(0);
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [role, setRole] = useState("");
+  const [company, setCompany] = useState("");
+  const [service, setService] = useState("Business Websites");
+  const [comment, setComment] = useState("");
+  const [recommend, setRecommend] = useState(true);
+  const [honeypot, setHoneypot] = useState("");
+
+  const [submitting, setSubmitting] = useState(false);
+  const [errorMsg, setErrorMsg] = useState("");
+  const [successMsg, setSuccessMsg] = useState("");
+
+  // Filters State
+  const [selectedRatingFilter, setSelectedRatingFilter] = useState<number | "all">("all");
+  const [selectedServiceFilter, setSelectedServiceFilter] = useState<string>("all");
+  const [searchQuery, setSearchQuery] = useState("");
+
+  // Track liked items locally
+  const [likedIds, setLikedIds] = useState<Set<string>>(new Set());
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  // Fetch live feedback from API on mount
+  useEffect(() => {
+    async function fetchFeedback() {
+      try {
+        setLoading(true);
+        const res = await fetch("/api/feedback");
+        if (res.ok) {
+          const data = await res.json();
+          if (data.success && data.feedback) {
+            setFeedbackList(data.feedback);
+            setStats(data.stats);
+          }
+        }
+      } catch (err) {
+        console.error("Failed to load feedback API:", err);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    fetchFeedback();
+  }, []);
+
+  const handleLike = async (id: string) => {
+    if (likedIds.has(id)) return;
+
+    // Optimistic UI update
+    setLikedIds((prev) => new Set(prev).add(id));
+    setFeedbackList((prev) =>
+      prev.map((item) => (item.id === id ? { ...item, likes: item.likes + 1 } : item))
+    );
+
+    try {
+      await fetch("/api/feedback", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ action: "like", feedbackId: id }),
+      });
+    } catch (err) {
+      console.error("Failed to record like:", err);
+    }
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setErrorMsg("");
+    setSuccessMsg("");
+
+    if (!rating) {
+      setErrorMsg("Please select a star rating.");
+      return;
+    }
+
+    if (!name.trim() || name.trim().length < 2) {
+      setErrorMsg("Please enter your name (at least 2 characters).");
+      return;
+    }
+
+    if (!comment.trim() || comment.trim().length < 5) {
+      setErrorMsg("Please write a detailed review (at least 5 characters).");
+      return;
+    }
+
+    try {
+      setSubmitting(true);
+      const res = await fetch("/api/feedback", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          rating,
+          name: name.trim(),
+          email: email.trim(),
+          role: role.trim(),
+          company: company.trim(),
+          service,
+          comment: comment.trim(),
+          recommend,
+          honeypot,
+        }),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok || !data.success) {
+        setErrorMsg(data.error || "Failed to submit feedback. Please try again.");
+        return;
+      }
+
+      // Success
+      setSuccessMsg(data.message || "Thank you! Your feedback has been published.");
+      if (data.feedback) {
+        setFeedbackList((prev) => [data.feedback, ...prev]);
+      }
+      if (data.stats) {
+        setStats(data.stats);
+      }
+
+      // Reset Form fields
+      setName("");
+      setEmail("");
+      setRole("");
+      setCompany("");
+      setComment("");
+      setRating(5);
+
+      setTimeout(() => {
+        setIsModalOpen(false);
+        setSuccessMsg("");
+      }, 2200);
+    } catch (err: any) {
+      setErrorMsg(err.message || "Something went wrong. Please check network connection.");
+    } finally {
+      setSubmitting(false);
+    }
+  };
+
+  // Base list depending on viewMode (Top 5 vs All)
+  const baseList = viewMode === "top5" ? getTopRatedFeedbacks(feedbackList, 5) : feedbackList;
+
+  // Filtered List
+  const displayedFeedback = baseList.filter((item) => {
+    if (selectedRatingFilter !== "all" && Math.round(item.rating) !== selectedRatingFilter) {
+      return false;
+    }
+    if (selectedServiceFilter !== "all" && item.service !== selectedServiceFilter) {
+      return false;
+    }
+    if (searchQuery.trim()) {
+      const q = searchQuery.toLowerCase();
+      const matchName = item.name.toLowerCase().includes(q);
+      const matchComment = item.comment.toLowerCase().includes(q);
+      const matchCompany = (item.company || "").toLowerCase().includes(q);
+      const matchRole = (item.role || "").toLowerCase().includes(q);
+      return matchName || matchComment || matchCompany || matchRole;
+    }
+    return true;
+  });
+
+  // Top 5 IDs set for badge check
+  const top5Ids = new Set(getTopRatedFeedbacks(feedbackList, 5).map((item) => item.id));
+
+  return (
+    <section id="feedback" className="py-32 relative overflow-hidden" suppressHydrationWarning>
+      {/* Glow Effects */}
+      <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[850px] h-[500px] bg-gradient-to-r from-purple-600/10 via-pink-600/10 to-cyan-600/10 blur-[150px] pointer-events-none" />
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10" suppressHydrationWarning>
+        {/* Section Header */}
+        <ScrollReveal>
+          <div className="text-center mb-16">
+            <motion.span
+              initial={{ opacity: 0, scale: 0.9 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              className="inline-flex items-center gap-2 px-5 py-1.5 rounded-full border border-pink-500/20 bg-pink-500/5 text-pink-400 text-xs font-semibold tracking-[0.3em] uppercase mb-6"
+            >
+              <Crown size={14} className="text-amber-400" />
+              Client Ratings & Top Feedbacks
+            </motion.span>
+
+            <h2 className="text-4xl md:text-5xl lg:text-6xl font-black mb-6 leading-tight">
+              Top Rated by{" "}
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-pink-500 to-cyan-400">
+                Our Clients
+              </span>
+            </h2>
+
+            <p className="text-gray-400 max-w-2xl mx-auto text-lg leading-relaxed">
+              Explore our highest-rated client feedback and transparent rating system. Share your own experience below!
+            </p>
+          </div>
+        </ScrollReveal>
+
+        {/* Rating Summary & Score System Card */}
+        <ScrollReveal delay={0.1}>
+          <div className="bg-gradient-to-b from-white/[0.08] to-white/[0.02] border border-white/10 rounded-2xl sm:rounded-3xl p-6 sm:p-8 md:p-10 mb-8 sm:mb-12 backdrop-blur-xl shadow-2xl relative overflow-hidden">
+            <div className="grid md:grid-cols-12 gap-8 items-center">
+              {/* Score Highlight */}
+              <div className="md:col-span-4 flex flex-col items-center md:items-start text-center md:text-left border-b md:border-b-0 md:border-r border-white/10 pb-8 md:pb-0 md:pr-8">
+                <div className="flex items-baseline gap-3 mb-3">
+                  <span className="text-6xl font-black text-white tracking-tight">
+                    {stats.averageRating}
+                  </span>
+                  <span className="text-gray-400 text-2xl font-bold">/ 5.0</span>
+                </div>
+
+                {/* Stars */}
+                <div className="flex items-center gap-1.5 mb-3 text-amber-400">
+                  {[1, 2, 3, 4, 5].map((s) => (
+                    <Star
+                      key={s}
+                      size={24}
+                      className={
+                        s <= Math.floor(stats.averageRating)
+                          ? "fill-amber-400 text-amber-400 drop-shadow-[0_0_8px_rgba(251,191,36,0.6)]"
+                          : s - 0.5 <= stats.averageRating
+                          ? "fill-amber-400/50 text-amber-400"
+                          : "text-gray-600"
+                      }
+                    />
+                  ))}
+                </div>
+
+                <p className="text-gray-300 font-medium text-sm mb-4">
+                  Based on <span className="text-white font-bold">{stats.totalReviews}</span> client feedback submissions
+                </p>
+
+                <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-semibold">
+                  <TrendingUp size={14} />
+                  <span>{stats.recommendPercentage}% Recommend SLRJ Digital</span>
+                </div>
+              </div>
+
+              {/* Progress Bars Breakdown */}
+              <div className="md:col-span-5 space-y-2.5">
+                {[5, 4, 3, 2, 1].map((starKey) => {
+                  const count = stats.distribution[starKey as keyof typeof stats.distribution] || 0;
+                  const pct = stats.totalReviews > 0 ? Math.round((count / stats.totalReviews) * 100) : 0;
+                  return (
+                    <div key={starKey} className="flex items-center gap-3 text-sm">
+                      <div className="flex items-center gap-1 w-12 text-gray-300 font-semibold">
+                        <span>{starKey}</span>
+                        <Star size={12} className="fill-amber-400 text-amber-400" />
+                      </div>
+                      <div className="flex-1 h-2.5 bg-white/5 rounded-full overflow-hidden border border-white/5">
+                        <motion.div
+                          initial={{ width: 0 }}
+                          whileInView={{ width: `${pct}%` }}
+                          viewport={{ once: true }}
+                          transition={{ duration: 0.8, ease: "easeOut" }}
+                          className="h-full bg-gradient-to-r from-purple-500 via-pink-500 to-amber-400 rounded-full"
+                        />
+                      </div>
+                      <span className="w-10 text-right text-xs text-gray-400 font-medium">{pct}%</span>
+                    </div>
+                  );
+                })}
+              </div>
+
+              {/* CTA Action */}
+              <div className="md:col-span-3 flex flex-col items-center justify-center text-center pl-0 md:pl-4" suppressHydrationWarning>
+                <p className="text-gray-300 text-sm mb-5 font-medium">
+                  Have you worked with SLRJ Digital? Add your rating & review!
+                </p>
+
+                <motion.button
+                  suppressHydrationWarning
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  onClick={() => setIsModalOpen(true)}
+                  className="w-full py-4 px-6 rounded-2xl bg-gradient-to-r from-purple-600 via-pink-600 to-cyan-500 text-white font-bold text-sm shadow-[0_0_25px_rgba(168,85,247,0.4)] hover:shadow-[0_0_35px_rgba(236,72,153,0.6)] transition-all flex items-center justify-center gap-2 group"
+                >
+                  <PlusCircle size={18} className="group-hover:rotate-90 transition-transform duration-300" />
+                  <span>Rate Us & Give Feedback</span>
+                </motion.button>
+              </div>
+            </div>
+          </div>
+        </ScrollReveal>
+
+        {/* View Mode Switcher (Top 5 Rated vs All Feedbacks) */}
+        <ScrollReveal delay={0.12}>
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-8" suppressHydrationWarning>
+            <div className="flex flex-wrap items-center gap-2 bg-white/5 border border-white/10 p-1.5 rounded-2xl w-full sm:w-auto" suppressHydrationWarning>
+              <button
+                suppressHydrationWarning
+                onClick={() => setViewMode("top5")}
+                className={`flex-1 sm:flex-none flex items-center justify-center gap-2 px-3.5 sm:px-4 py-2 rounded-xl text-xs font-bold transition-all ${
+                  viewMode === "top5"
+                    ? "bg-gradient-to-r from-amber-500 to-pink-500 text-white shadow-lg shadow-amber-500/25"
+                    : "text-gray-400 hover:text-white"
+                }`}
+              >
+                <Crown size={14} className={viewMode === "top5" ? "fill-white text-white" : "text-amber-400"} />
+                <span>Top 5 Rated Feedbacks</span>
+              </button>
+
+              <button
+                suppressHydrationWarning
+                onClick={() => setViewMode("all")}
+                className={`flex-1 sm:flex-none flex items-center justify-center gap-2 px-3.5 sm:px-4 py-2 rounded-xl text-xs font-bold transition-all ${
+                  viewMode === "all"
+                    ? "bg-purple-600 text-white shadow-lg shadow-purple-600/30"
+                    : "text-gray-400 hover:text-white"
+                }`}
+              >
+                <MessageSquare size={14} />
+                <span>All Feedbacks ({feedbackList.length})</span>
+              </button>
+            </div>
+
+            {viewMode === "top5" && (
+              <span className="text-xs text-amber-400 font-semibold flex items-center gap-1.5 bg-amber-500/10 border border-amber-500/20 px-3.5 py-1.5 rounded-full">
+                <Flame size={14} /> Showing top 5 highest-rated client reviews
+              </span>
+            )}
+          </div>
+        </ScrollReveal>
+
+        {/* Filter Controls Bar */}
+        <ScrollReveal delay={0.15}>
+          <div className="flex flex-col md:flex-row items-center justify-between gap-4 mb-10 bg-white/[0.03] border border-white/10 rounded-2xl p-4 backdrop-blur-md" suppressHydrationWarning>
+            {/* Rating Filter Tabs */}
+            <div className="flex flex-wrap items-center gap-2 w-full md:w-auto" suppressHydrationWarning>
+              <span className="text-xs font-semibold text-gray-400 uppercase tracking-wider mr-2 hidden sm:inline">
+                Stars:
+              </span>
+              <button
+                suppressHydrationWarning
+                onClick={() => setSelectedRatingFilter("all")}
+                className={`px-3.5 py-1.5 rounded-xl text-xs font-semibold transition-all ${
+                  selectedRatingFilter === "all"
+                    ? "bg-purple-600 text-white shadow-md shadow-purple-600/30"
+                    : "bg-white/5 text-gray-400 hover:text-white hover:bg-white/10"
+                }`}
+              >
+                All
+              </button>
+              {[5, 4, 3].map((r) => (
+                <button
+                  key={r}
+                  suppressHydrationWarning
+                  onClick={() => setSelectedRatingFilter(r)}
+                  className={`px-3.5 py-1.5 rounded-xl text-xs font-semibold flex items-center gap-1 transition-all ${
+                    selectedRatingFilter === r
+                      ? "bg-purple-600 text-white shadow-md shadow-purple-600/30"
+                      : "bg-white/5 text-gray-400 hover:text-white hover:bg-white/10"
+                  }`}
+                >
+                  <span>{r}</span>
+                  <Star size={12} className="fill-amber-400 text-amber-400" />
+                </button>
+              ))}
+            </div>
+
+            {/* Service & Search Filter */}
+            <div className="flex flex-col sm:flex-row items-center gap-3 w-full md:w-auto" suppressHydrationWarning>
+              <select
+                suppressHydrationWarning
+                value={selectedServiceFilter}
+                onChange={(e) => setSelectedServiceFilter(e.target.value)}
+                className="w-full sm:w-auto bg-black/40 border border-white/10 text-gray-300 text-xs rounded-xl px-3.5 py-2 focus:outline-none focus:border-purple-500"
+              >
+                <option value="all">All Services</option>
+                {serviceOptions.map((opt) => (
+                  <option key={opt} value={opt} className="bg-gray-900 text-white">
+                    {opt}
+                  </option>
+                ))}
+              </select>
+
+              <div className="relative w-full sm:w-64" suppressHydrationWarning>
+                <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
+                <input
+                  suppressHydrationWarning
+                  type="text"
+                  placeholder="Search feedback..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className="w-full bg-black/40 border border-white/10 text-gray-200 text-xs rounded-xl pl-9 pr-3.5 py-2 focus:outline-none focus:border-purple-500 placeholder-gray-500"
+                />
+              </div>
+            </div>
+          </div>
+        </ScrollReveal>
+
+        {/* Feedback Cards Grid */}
+        {displayedFeedback.length === 0 ? (
+          <div className="text-center py-20 px-6 bg-gradient-to-b from-white/[0.04] to-white/[0.01] border border-white/10 rounded-3xl backdrop-blur-md max-w-2xl mx-auto shadow-xl" suppressHydrationWarning>
+            <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-purple-500/20 to-pink-500/20 border border-purple-500/30 flex items-center justify-center mx-auto mb-5 text-purple-400">
+              <MessageSquare size={32} />
+            </div>
+
+            {feedbackList.length === 0 ? (
+              <>
+                <h3 className="text-2xl font-black text-white mb-2">No Client Reviews Yet</h3>
+                <p className="text-gray-400 text-sm max-w-md mx-auto mb-8 leading-relaxed">
+                  Be the very first client to share your feedback and rating for SLRJ Digital!
+                </p>
+                <motion.button
+                  suppressHydrationWarning
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  onClick={() => setIsModalOpen(true)}
+                  className="px-6 py-3.5 rounded-2xl bg-gradient-to-r from-purple-600 via-pink-600 to-amber-500 text-white font-bold text-xs shadow-lg shadow-purple-600/30 hover:shadow-purple-600/50 transition-all inline-flex items-center gap-2"
+                >
+                  <PlusCircle size={16} />
+                  <span>Be the First to Rate Us</span>
+                </motion.button>
+              </>
+            ) : (
+              <>
+                <h3 className="text-xl font-bold text-gray-200 mb-2">No reviews match your search or filter</h3>
+                <p className="text-gray-400 text-sm mb-6">Try clearing active search keywords or resetting star filters.</p>
+                <button
+                  suppressHydrationWarning
+                  onClick={() => {
+                    setSelectedRatingFilter("all");
+                    setSelectedServiceFilter("all");
+                    setSearchQuery("");
+                    setViewMode("all");
+                  }}
+                  className="px-5 py-2.5 rounded-xl bg-purple-600/20 text-purple-300 text-xs font-semibold hover:bg-purple-600/30 border border-purple-500/30 transition-colors"
+                >
+                  Reset All Filters
+                </button>
+              </>
+            )}
+          </div>
+        ) : (
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {displayedFeedback.map((item, idx) => {
+              const isLiked = likedIds.has(item.id);
+              const isTop5 = top5Ids.has(item.id);
+              const initials = item.name
+                .split(" ")
+                .map((n) => n[0])
+                .join("")
+                .substring(0, 2)
+                .toUpperCase();
+
+              return (
+                <ScrollReveal key={item.id} delay={idx * 0.05}>
+                  <SpotlightCard
+                    spotlightColor={isTop5 ? "rgba(245, 158, 11, 0.2)" : "rgba(168, 85, 247, 0.15)"}
+                    className={`h-full p-6 md:p-8 rounded-3xl flex flex-col justify-between group transition-all duration-300 relative ${
+                      isTop5 ? "border-amber-500/30 hover:border-amber-400/60" : "hover:border-purple-500/40"
+                    }`}
+                  >
+                    <div>
+                      {/* Top Badge Row */}
+                      <div className="flex items-center justify-between mb-4">
+                        <div className="flex items-center gap-1 text-amber-400">
+                          {[1, 2, 3, 4, 5].map((s) => (
+                            <Star
+                              key={s}
+                              size={16}
+                              className={
+                                s <= item.rating
+                                  ? "fill-amber-400 text-amber-400 drop-shadow-[0_0_6px_rgba(251,191,36,0.6)]"
+                                  : "text-gray-600"
+                              }
+                            />
+                          ))}
+                        </div>
+
+                        <div className="flex items-center gap-2">
+                          {isTop5 && (
+                            <span className="text-[10px] font-extrabold px-2 py-0.5 rounded-full bg-amber-500/20 border border-amber-500/40 text-amber-300 uppercase tracking-widest flex items-center gap-1">
+                              <Crown size={10} className="fill-amber-300 text-amber-300" /> Top Rated
+                            </span>
+                          )}
+
+                          {item.service && (
+                            <span className="text-[11px] font-semibold px-2.5 py-1 rounded-full bg-purple-500/10 border border-purple-500/20 text-purple-300">
+                              {item.service}
+                            </span>
+                          )}
+                        </div>
+                      </div>
+
+                      {/* Comment */}
+                      <p className="text-gray-300 text-sm leading-relaxed mb-6 italic group-hover:text-white transition-colors">
+                        &quot;{item.comment}&quot;
+                      </p>
+                    </div>
+
+                    {/* Bottom Author & Actions */}
+                    <div className="border-t border-white/10 pt-4 mt-auto">
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-3">
+                          {/* Avatar Circle */}
+                          <div className="w-10 h-10 rounded-full bg-gradient-to-br from-purple-500 via-pink-500 to-amber-500 flex items-center justify-center font-bold text-white text-xs shadow-md">
+                            {initials}
+                          </div>
+
+                          <div>
+                            <div className="flex items-center gap-1.5">
+                              <h4 className="font-bold text-white text-sm">{item.name}</h4>
+                              {item.verified && (
+                                <span title="Verified Client">
+                                  <ShieldCheck size={14} className="text-cyan-400" />
+                                </span>
+                              )}
+                            </div>
+                            <p className="text-xs text-gray-400">
+                              {item.role} {item.company ? `@ ${item.company}` : ""}
+                            </p>
+                          </div>
+                        </div>
+
+                        {/* Like Button */}
+                        <motion.button
+                          suppressHydrationWarning
+                          whileTap={{ scale: 0.85 }}
+                          onClick={() => handleLike(item.id)}
+                          className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl border text-xs font-semibold transition-all ${
+                            isLiked
+                              ? "bg-pink-500/20 border-pink-500/40 text-pink-400"
+                              : "bg-white/5 border-white/10 text-gray-400 hover:text-white hover:bg-white/10"
+                          }`}
+                        >
+                          <ThumbsUp size={13} className={isLiked ? "fill-pink-400 text-pink-400" : ""} />
+                          <span>{item.likes}</span>
+                        </motion.button>
+                      </div>
+                    </div>
+                  </SpotlightCard>
+                </ScrollReveal>
+              );
+            })}
+          </div>
+        )}
+      </div>
+
+      {/* SUBMISSION MODAL */}
+      <AnimatePresence>
+        {isModalOpen && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-black/85 backdrop-blur-md overflow-y-auto" suppressHydrationWarning>
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.9, y: 20 }}
+              className="relative w-full max-w-xl bg-[#0d111d] border border-white/15 rounded-2xl sm:rounded-3xl p-5 sm:p-8 shadow-2xl my-auto max-h-[90vh] overflow-y-auto"
+              suppressHydrationWarning
+            >
+              {/* Background Accent */}
+              <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-1 bg-gradient-to-r from-purple-500 via-pink-500 to-amber-400" />
+
+              {/* Close Button */}
+              <button
+                suppressHydrationWarning
+                onClick={() => setIsModalOpen(false)}
+                className="absolute top-6 right-6 text-gray-400 hover:text-white p-2 rounded-full hover:bg-white/10 transition-colors"
+              >
+                <X size={20} />
+              </button>
+
+              {/* Modal Title */}
+              <div className="mb-6">
+                <span className="text-xs font-bold text-amber-400 uppercase tracking-widest flex items-center gap-1 mb-2">
+                  <Sparkles size={14} /> SLRJ Digital Client Review
+                </span>
+                <h3 className="text-2xl font-black text-white">Rate & Submit Feedback</h3>
+                <p className="text-gray-400 text-xs mt-1">
+                  Your feedback helps us continuously elevate our service standards and design quality.
+                </p>
+              </div>
+
+              {/* Alerts */}
+              {errorMsg && (
+                <div className="mb-4 p-3 rounded-xl bg-red-500/10 border border-red-500/20 text-red-400 text-xs font-medium">
+                  {errorMsg}
+                </div>
+              )}
+
+              {successMsg && (
+                <div className="mb-4 p-4 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-300 text-xs font-medium flex items-center gap-2">
+                  <CheckCircle2 size={18} className="text-emerald-400 shrink-0" />
+                  <span>{successMsg}</span>
+                </div>
+              )}
+
+              <form onSubmit={handleSubmit} className="space-y-5" suppressHydrationWarning>
+                {/* Spam Honeypot */}
+                <input
+                  suppressHydrationWarning
+                  type="text"
+                  name="honeypot"
+                  value={honeypot}
+                  onChange={(e) => setHoneypot(e.target.value)}
+                  className="hidden"
+                  tabIndex={-1}
+                  autoComplete="off"
+                />
+
+                {/* Star Rating Picker */}
+                <div suppressHydrationWarning>
+                  <label className="block text-xs font-semibold text-gray-300 uppercase tracking-wider mb-2">
+                    Overall Rating <span className="text-pink-500">*</span>
+                  </label>
+
+                  <div className="flex items-center gap-2 mb-2" suppressHydrationWarning>
+                    {[1, 2, 3, 4, 5].map((starVal) => {
+                      const isActive = starVal <= (hoverRating || rating);
+                      return (
+                        <button
+                          key={starVal}
+                          suppressHydrationWarning
+                          type="button"
+                          onClick={() => setRating(starVal)}
+                          onMouseEnter={() => setHoverRating(starVal)}
+                          onMouseLeave={() => setHoverRating(0)}
+                          className="p-1 focus:outline-none transition-transform hover:scale-125"
+                        >
+                          <Star
+                            size={28}
+                            className={`transition-all duration-200 ${
+                              isActive
+                                ? "fill-amber-400 text-amber-400 drop-shadow-[0_0_10px_rgba(251,191,36,0.8)]"
+                                : "text-gray-600 hover:text-gray-400"
+                            }`}
+                          />
+                        </button>
+                      );
+                    })}
+                  </div>
+
+                  <p className="text-xs font-medium text-amber-400 h-4">
+                    {ratingLabels[hoverRating || rating]}
+                  </p>
+                </div>
+
+                {/* Grid Inputs */}
+                <div className="grid sm:grid-cols-2 gap-4" suppressHydrationWarning>
+                  {/* Name */}
+                  <div>
+                    <label className="block text-xs font-semibold text-gray-300 uppercase tracking-wider mb-1.5">
+                      Your Name <span className="text-pink-500">*</span>
+                    </label>
+                    <input
+                      suppressHydrationWarning
+                      type="text"
+                      required
+                      placeholder="e.g. Rahul Verma"
+                      value={name}
+                      onChange={(e) => setName(e.target.value)}
+                      className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-purple-500 transition-colors"
+                    />
+                  </div>
+
+                  {/* Email */}
+                  <div>
+                    <label className="block text-xs font-semibold text-gray-300 uppercase tracking-wider mb-1.5">
+                      Email Address <span className="text-gray-500">(Optional)</span>
+                    </label>
+                    <input
+                      suppressHydrationWarning
+                      type="email"
+                      placeholder="rahul@example.com"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-purple-500 transition-colors"
+                    />
+                  </div>
+
+                  {/* Role / Job Title */}
+                  <div>
+                    <label className="block text-xs font-semibold text-gray-300 uppercase tracking-wider mb-1.5">
+                      Your Role / Designation
+                    </label>
+                    <input
+                      suppressHydrationWarning
+                      type="text"
+                      placeholder="e.g. Founder, Director"
+                      value={role}
+                      onChange={(e) => setRole(e.target.value)}
+                      className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-purple-500 transition-colors"
+                    />
+                  </div>
+
+                  {/* Company */}
+                  <div>
+                    <label className="block text-xs font-semibold text-gray-300 uppercase tracking-wider mb-1.5">
+                      Company / Organization
+                    </label>
+                    <input
+                      suppressHydrationWarning
+                      type="text"
+                      placeholder="e.g. TechCorp"
+                      value={company}
+                      onChange={(e) => setCompany(e.target.value)}
+                      className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-purple-500 transition-colors"
+                    />
+                  </div>
+                </div>
+
+                {/* Service Dropdown */}
+                <div>
+                  <label className="block text-xs font-semibold text-gray-300 uppercase tracking-wider mb-1.5">
+                    Service Rated
+                  </label>
+                  <select
+                    suppressHydrationWarning
+                    value={service}
+                    onChange={(e) => setService(e.target.value)}
+                    className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-purple-500 transition-colors"
+                  >
+                    {serviceOptions.map((opt) => (
+                      <option key={opt} value={opt} className="bg-gray-900 text-white">
+                        {opt}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+
+                {/* Comment Text Area */}
+                <div>
+                  <div className="flex justify-between items-center mb-1.5">
+                    <label className="block text-xs font-semibold text-gray-300 uppercase tracking-wider">
+                      Feedback / Detailed Review <span className="text-pink-500">*</span>
+                    </label>
+                    <span className="text-[11px] text-gray-500">{comment.length} / 500</span>
+                  </div>
+                  <textarea
+                    suppressHydrationWarning
+                    rows={4}
+                    required
+                    maxLength={500}
+                    placeholder="Tell us about your experience working with SLRJ Digital..."
+                    value={comment}
+                    onChange={(e) => setComment(e.target.value)}
+                    className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-purple-500 transition-colors resize-none"
+                  />
+                </div>
+
+                {/* Recommend Checkbox */}
+                <div className="flex items-center gap-3 pt-1">
+                  <input
+                    suppressHydrationWarning
+                    type="checkbox"
+                    id="recommend"
+                    checked={recommend}
+                    onChange={(e) => setRecommend(e.target.checked)}
+                    className="w-4 h-4 rounded border-gray-700 text-purple-600 focus:ring-purple-500 accent-purple-600"
+                  />
+                  <label htmlFor="recommend" className="text-xs text-gray-300 cursor-pointer select-none">
+                    I would recommend SLRJ Digital to other businesses & clients.
+                  </label>
+                </div>
+
+                {/* Actions */}
+                <div className="flex items-center justify-end gap-3 pt-4 border-t border-white/10" suppressHydrationWarning>
+                  <button
+                    suppressHydrationWarning
+                    type="button"
+                    onClick={() => setIsModalOpen(false)}
+                    className="px-5 py-2.5 rounded-xl border border-white/10 text-gray-300 text-xs font-semibold hover:bg-white/5 transition-colors"
+                  >
+                    Cancel
+                  </button>
+                  <motion.button
+                    suppressHydrationWarning
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                    disabled={submitting}
+                    type="submit"
+                    className="px-6 py-2.5 rounded-xl bg-gradient-to-r from-purple-600 via-pink-600 to-amber-500 text-white text-xs font-bold flex items-center gap-2 shadow-lg shadow-purple-600/30 disabled:opacity-50"
+                  >
+                    {submitting ? (
+                      <>
+                        <Loader2 size={16} className="animate-spin" />
+                        <span>Publishing...</span>
+                      </>
+                    ) : (
+                      <>
+                        <Send size={14} />
+                        <span>Submit Feedback</span>
+                      </>
+                    )}
+                  </motion.button>
+                </div>
+              </form>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
+    </section>
+  );
+}
