@@ -61,16 +61,6 @@ export default function SplashScreen() {
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, []);
 
-  // 4. Auto-Enter 6 seconds after loading completes
-  useEffect(() => {
-    if (!isLoaded || !showSplash) return;
-    const autoEnterTimer = setTimeout(() => {
-      handleExplore();
-    }, 6000);
-
-    return () => clearTimeout(autoEnterTimer);
-  }, [isLoaded, showSplash]);
-
   const handleExplore = () => {
     sessionStorage.setItem("splashSeen", "true");
     setShowSplash(false);
