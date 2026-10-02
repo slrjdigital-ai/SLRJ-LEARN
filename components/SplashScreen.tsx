@@ -158,12 +158,12 @@ export default function SplashScreen() {
                 className="flex items-center gap-2.5 sm:gap-4 md:gap-5 drop-shadow-[0_0_30px_rgba(168,85,247,0.5)]"
               >
                 <Image
-                  src="/logo.png?v=2"
+                  src="/logo.png?v=3"
                   alt="SLRJ Digital Logo"
                   width={120}
                   height={120}
                   unoptimized
-                  className="w-14 h-14 sm:w-20 sm:h-20 md:w-32 md:h-32 object-contain bg-transparent filter drop-shadow-[0_0_25px_rgba(168,85,247,0.8)]"
+                  className="w-14 h-14 sm:w-20 sm:h-20 md:w-32 md:h-32 object-contain bg-transparent filter drop-shadow-[0_0_25px_rgba(234,179,8,0.6)]"
                 />
                 <h1 className="text-[3.5rem] sm:text-[5.5rem] md:text-[7.5rem] lg:text-[9.5rem] font-black tracking-tight flex items-center uppercase leading-none font-brand">
                   <span className="text-transparent bg-clip-text bg-gradient-to-b from-cyan-300 via-purple-400 to-purple-700">
