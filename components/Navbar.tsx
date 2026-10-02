@@ -42,12 +42,12 @@ export default function Navbar() {
             >
               <Link href="/" className="text-2xl sm:text-3xl font-black tracking-tight font-brand flex items-center gap-2 sm:gap-2.5">
                 <Image
-                  src="/logo.png?v=4"
+                  src="/logo.png?v=5"
                   alt="SLRJ Digital Logo"
                   width={48}
                   height={48}
                   unoptimized
-                  className="w-10 h-10 sm:w-11 sm:h-11 md:w-12 md:h-12 object-contain bg-transparent filter drop-shadow-[0_0_14px_rgba(250,204,21,0.7)] drop-shadow-[0_0_3px_rgba(255,255,255,0.4)]"
+                  className="w-10 h-10 sm:w-11 sm:h-11 md:w-12 md:h-12 object-contain bg-transparent filter drop-shadow-[0_0_15px_rgba(168,85,247,0.7)] drop-shadow-[0_0_4px_rgba(56,189,248,0.6)]"
                 />
                 <span className="flex">
                   <span className="text-transparent bg-clip-text bg-gradient-to-b from-cyan-300 via-purple-400 to-purple-700">SL</span>
