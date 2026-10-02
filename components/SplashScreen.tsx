@@ -193,22 +193,37 @@ export default function SplashScreen() {
               <span className="text-transparent bg-clip-text bg-gradient-to-b from-emerald-300 via-emerald-500 to-emerald-700 font-bold">J<span className="text-gray-400 font-normal">osh</span></span>
             </div>
 
-            {/* Founder & Team */}
-            <div className="flex flex-col items-center gap-1 mb-5">
-              <div className="flex items-center gap-1.5">
-                <span className="text-purple-400 text-[9px] md:text-[11px] font-semibold tracking-[0.25em] uppercase">FOUNDED BY</span>
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-200 via-white to-purple-200 font-bold text-[10px] md:text-xs tracking-[0.25em] uppercase">
+            {/* Founder & Team Section */}
+            <div className="flex flex-col items-center gap-3 mb-6">
+              {/* Founder */}
+              <div className="flex flex-col items-center gap-1">
+                <span className="text-purple-400 text-[10px] md:text-xs font-bold tracking-[0.3em] uppercase">
+                  FOUNDED BY
+                </span>
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-200 via-white to-purple-200 font-extrabold text-xs sm:text-sm md:text-base tracking-[0.3em] uppercase drop-shadow-[0_0_12px_rgba(168,85,247,0.7)]">
                   SHAHID KOULURI
                 </span>
               </div>
-              <div className="flex flex-wrap items-center justify-center gap-2 text-gray-400 text-[9px] md:text-[11px] font-medium tracking-[0.2em] uppercase mt-0.5">
-                <span>Lokeish Pamarthi</span>
-                <Sparkles className="w-2.5 h-2.5 text-pink-400 inline" />
-                <span>Subhash Kasani</span>
-                <Sparkles className="w-2.5 h-2.5 text-purple-400 inline" />
-                <span>Rupesh Chaluvadi</span>
-                <Sparkles className="w-2.5 h-2.5 text-cyan-400 inline" />
-                <span>Jaswanth Pula</span>
+
+              {/* Subtle separator */}
+              <div className="w-20 h-[1px] bg-gradient-to-r from-transparent via-cyan-500/50 to-transparent my-0.5" />
+
+              {/* Team Members */}
+              <div className="flex flex-col items-center gap-1.5">
+                <span className="text-cyan-400 text-[9px] md:text-[11px] font-bold tracking-[0.3em] uppercase flex items-center gap-1.5">
+                  <Sparkles size={11} className="text-cyan-400 inline" />
+                  TEAM MEMBERS
+                  <Sparkles size={11} className="text-cyan-400 inline" />
+                </span>
+                <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-3 text-gray-200 text-[10px] sm:text-xs md:text-sm font-semibold tracking-[0.2em] md:tracking-[0.25em] uppercase">
+                  <span className="hover:text-cyan-300 transition-colors">Lokeish Pamarthi</span>
+                  <span className="text-purple-400/60 font-normal">•</span>
+                  <span className="hover:text-purple-300 transition-colors">Subhash Kasani</span>
+                  <span className="text-pink-400/60 font-normal">•</span>
+                  <span className="hover:text-pink-300 transition-colors">Rupesh Chaluvadi</span>
+                  <span className="text-cyan-400/60 font-normal">•</span>
+                  <span className="hover:text-emerald-300 transition-colors">Jaswanth Pula</span>
+                </div>
               </div>
             </div>
 
