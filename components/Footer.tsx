@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-import { FaInstagram, FaWhatsapp, FaEnvelope, FaSnapchatGhost, FaFacebookF, FaTelegramPlane, FaLinkedinIn } from "react-icons/fa";
+import { FaInstagram, FaWhatsapp, FaEnvelope, FaSnapchatGhost, FaFacebookF, FaLinkedinIn } from "react-icons/fa";
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
@@ -99,15 +99,6 @@ export default function Footer() {
                 aria-label="Snapchat"
               >
                 <FaSnapchatGhost size={18} className="group-hover:scale-110 transition-transform duration-300 drop-shadow-sm" />
-              </a>
-              <a
-                href="https://telegram.org"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-gray-400 hover:text-[#0088cc] hover:border-[#0088cc]/50 hover:bg-[#0088cc]/10 transition-all duration-300 group"
-                aria-label="Telegram"
-              >
-                <FaTelegramPlane size={18} className="group-hover:scale-110 transition-transform duration-300" />
               </a>
               <a
                 href="https://www.linkedin.com/in/slrj-digital-461868440?utm_source=share_via&utm_content=profile&utm_medium=member_android"
