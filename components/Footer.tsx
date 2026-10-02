@@ -14,12 +14,12 @@ export default function Footer() {
           <div className="lg:col-span-1">
             <Link href="/" className="text-2xl sm:text-3xl font-black tracking-tight font-brand flex flex-wrap items-center gap-2 sm:gap-2.5 mb-3">
               <Image
-                src="/logo.png?v=3"
+                src="/logo.png?v=4"
                 alt="SLRJ Digital Logo"
-                width={36}
-                height={36}
+                width={44}
+                height={44}
                 unoptimized
-                className="w-8 h-8 sm:w-9 sm:h-9 object-contain bg-transparent filter drop-shadow-[0_0_10px_rgba(234,179,8,0.5)]"
+                className="w-10 h-10 sm:w-11 sm:h-11 object-contain bg-transparent filter drop-shadow-[0_0_12px_rgba(250,204,21,0.65)]"
               />
               <span className="flex"><span className="text-transparent bg-clip-text bg-gradient-to-b from-cyan-300 via-purple-400 to-purple-700">SL</span><span className="text-transparent bg-clip-text bg-gradient-to-b from-pink-300 via-pink-500 to-fuchsia-700 ml-[-0.05em]">RJ</span></span><span className="text-white text-sm sm:text-base font-bold tracking-[0.25em] sm:tracking-[0.4em] font-brand mt-1">DIGITAL</span>
             </Link>
