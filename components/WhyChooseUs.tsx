@@ -11,45 +11,45 @@ export default function WhyChooseUs() {
   const features = [
     {
       icon: Target,
-      title: "Business Focused",
-      desc: "We build around your actual business goals — not generic templates. Every decision is intentional.",
+      title: "Custom Solutions",
+      desc: "We build around your actual business goals without generic templates. Every decision is intentional and tailored.",
       gradient: "from-[#FF6B35] to-[#F7931E]",
       accent: "#FF6B35",
     },
     {
-      icon: Smartphone,
-      title: "Responsive",
-      desc: "Your website works flawlessly across mobile, tablet, and desktop with pixel-perfect precision.",
-      gradient: "from-[#00E5FF] to-[#007AFF]",
-      accent: "#00E5FF",
-    },
-    {
       icon: Sparkles,
-      title: "Modern Design",
-      desc: "Clean, award-winning designs powered by cutting-edge technologies and design systems.",
+      title: "Modern Technology",
+      desc: "Engineered with modern, reliable stacks like Next.js 16, React 19, TypeScript, and clean component systems.",
       gradient: "from-[#FF007A] to-[#7000FF]",
       accent: "#FF007A",
     },
     {
       icon: Search,
-      title: "SEO Ready",
-      desc: "Built with search visibility and blazing performance in mind from day one.",
+      title: "Transparent Process",
+      desc: "Clear milestones, honest timelines, regular preview links, and collaborative communication throughout the build.",
       gradient: "from-[#00FF87] to-[#00B8FF]",
       accent: "#00FF87",
     },
     {
-      icon: Headphones,
-      title: "Personal Support",
-      desc: "Direct communication with our development team — always. No ticket queues.",
-      gradient: "from-[#FF4D4D] to-[#FF0000]",
-      accent: "#FF4D4D",
-    },
-    {
       icon: TrendingUp,
-      title: "Built to Grow",
-      desc: "Your website evolves as your business scales and expands into new markets.",
+      title: "Performance Focused",
+      desc: "Built for speed, clean architecture, search visibility, and smooth interactions from the ground up.",
       gradient: "from-[#9D00FF] to-[#FF00E5]",
       accent: "#9D00FF",
+    },
+    {
+      icon: Smartphone,
+      title: "Responsive Design",
+      desc: "Your website works reliably across mobile phones, tablets, laptops, and desktop displays.",
+      gradient: "from-[#00E5FF] to-[#007AFF]",
+      accent: "#00E5FF",
+    },
+    {
+      icon: Headphones,
+      title: "Long-Term Support",
+      desc: "Direct communication with our engineering team, maintenance options, and code that scales as you grow.",
+      gradient: "from-[#FF4D4D] to-[#FF0000]",
+      accent: "#FF4D4D",
     },
   ];
 
@@ -76,19 +76,19 @@ export default function WhyChooseUs() {
               transition={{ duration: 0.5 }}
               className="inline-block px-5 py-1.5 rounded-full border border-purple-500/20 bg-purple-500/5 text-purple-400 text-xs font-semibold tracking-[0.3em] uppercase mb-6"
             >
-              Why Choose Us
+              Why Work With SLRJ?
             </motion.span>
 
             <h2 className="text-3xl sm:text-5xl md:text-6xl font-black mb-4 sm:mb-6 leading-tight">
               Built with{" "}
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#A855F7] via-pink-500 to-cyan-500">
-                Purpose
+                Purpose &amp; Clarity
               </span>
             </h2>
 
             <p className="text-gray-400 max-w-2xl mx-auto text-base sm:text-lg md:text-xl leading-relaxed">
-              We don&apos;t just build websites — we craft digital ecosystems designed to
-              <span className="text-white font-medium"> accelerate your growth</span>.
+              We design and develop digital experiences with honest communication, modern code, and
+              <span className="text-white font-medium"> client-focused dedication</span>.
             </p>
           </div>
         </ScrollReveal>

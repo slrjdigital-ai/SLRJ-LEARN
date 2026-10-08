@@ -7,30 +7,30 @@ export default function TrustBar() {
   const metrics = [
     {
       icon: Zap,
-      value: "100/100",
-      label: "Core Web Vitals",
-      desc: "Sub-second speed & SEO priority",
+      value: "Performance First",
+      label: "Built for Speed",
+      desc: "Optimized web architecture & swift interactions",
       accent: "#06B6D4",
     },
     {
-      icon: ShieldCheck,
-      value: "99.8%",
-      label: "Client Satisfaction",
-      desc: "Milestone-verified delivery",
+      icon: Award,
+      value: "Modern Technology",
+      label: "Next.js 16 & React 19",
+      desc: "Clean architecture without legacy technical debt",
       accent: "#A855F7",
     },
     {
-      icon: Award,
-      value: "Next 16 & React 19",
-      label: "Modern Stack",
-      desc: "Zero legacy technical debt",
+      icon: ShieldCheck,
+      value: "Transparent Process",
+      label: "Client-Focused Development",
+      desc: "Milestone-verified collaboration & regular updates",
       accent: "#EC4899",
     },
     {
       icon: Clock,
-      value: "24/7",
-      label: "Support SLA",
-      desc: "Direct engineer communication",
+      value: "Long-Term Support",
+      label: "Dedicated Communication",
+      desc: "Direct engineer access & ongoing guidance",
       accent: "#10B981",
     },
   ];
@@ -80,7 +80,7 @@ export default function TrustBar() {
                 </div>
                 <span className="text-[10px] font-mono text-gray-400 uppercase tracking-widest flex items-center gap-1">
                   <Sparkles size={10} style={{ color: item.accent }} />
-                  Verified
+                  Standard
                 </span>
               </div>
 

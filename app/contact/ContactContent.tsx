@@ -83,12 +83,12 @@ function ContactForm() {
         setTimeout(() => setIsSubmitted(false), 8000);
       } else {
         setErrorMessage(
-          data.error || "Failed to send email. Please check your information or try WhatsApp."
+          data.error || "Something went wrong. Please try again or contact us directly."
         );
       }
     } catch {
       setErrorMessage(
-        "Network connection error. Please check your internet connection or use WhatsApp."
+        "Something went wrong. Please try again or contact us directly."
       );
     } finally {
       setIsSubmitting(false);
@@ -141,9 +141,9 @@ function ContactForm() {
         <div className="w-20 h-20 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center mb-6 shadow-[0_0_25px_rgba(16,185,129,0.3)]">
           <Send size={32} />
         </div>
-        <h3 className="text-3xl font-bold mb-4 font-brand text-white">Message Received!</h3>
-        <p className="text-gray-300 max-w-md leading-relaxed">
-          Thank you for reaching out to SLRJ Digital. We have received your project details and dispatched a confirmation to your email. Our engineering team will review your requirements and respond within 24 hours.
+        <h3 className="text-3xl font-bold mb-4 font-brand text-white">Project Request Received</h3>
+        <p className="text-gray-300 max-w-md leading-relaxed text-base">
+          Thanks! Your project request has been received. We&apos;ll get back to you soon.
         </p>
       </div>
     );
@@ -260,7 +260,7 @@ function ContactForm() {
             <option value="Web Application"         className="bg-[#0A0D14]">Web Application / SaaS MVP</option>
             <option value="UI/UX Design"            className="bg-[#0A0D14]">UI/UX Design System</option>
             <option value="Performance Optimization"className="bg-[#0A0D14]">Performance & Speed Optimization</option>
-            <option value="Website Maintenance"     className="bg-[#0A0D14]">Website Maintenance & SLA</option>
+            <option value="Website Maintenance"     className="bg-[#0A0D14]">Website Maintenance & Support</option>
             <option value="Other"                   className="bg-[#0A0D14]">Custom Project Scope</option>
           </select>
         </div>

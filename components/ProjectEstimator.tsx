@@ -53,18 +53,18 @@ export default function ProjectEstimator() {
       name: "Futuristic UI/UX Redesign",
       basePrice: 12999,
       days: 8,
-      desc: "Transform your existing website into a modern, award-winning experience.",
+      desc: "Transform your existing website into a modern, high-performance experience.",
       icon: "🎨",
     },
   ];
 
   const features: Feature[] = [
-    { id: "seo", name: "100/100 Core Web Vitals & SEO Suite", price: 3999, days: 2, category: "Performance" },
+    { id: "seo", name: "Speed Optimization & Technical SEO", price: 3999, days: 2, category: "Performance" },
     { id: "payments", name: "Payment Gateway Integration (Stripe / Razorpay)", price: 4999, days: 3, category: "Commerce" },
     { id: "cms", name: "Headless CMS for Dynamic Content & Media Management", price: 5999, days: 3, category: "Content" },
-    { id: "animations", name: "3D Isometric Models & Custom Framer Motion", price: 6999, days: 4, category: "Design" },
-    { id: "analytics", name: "Conversion Tracking & Analytics Dashboard", price: 2999, days: 1, category: "Growth" },
-    { id: "whatsapp", name: "Direct WhatsApp Live Chat & AI Lead Bot", price: 2499, days: 1, category: "Support" },
+    { id: "animations", name: "Custom Motion Physics & Interactive Visuals", price: 6999, days: 4, category: "Design" },
+    { id: "analytics", name: "Analytics & User Flow Tracking Setup", price: 2999, days: 1, category: "Growth" },
+    { id: "whatsapp", name: "Direct WhatsApp Live Chat Integration", price: 2499, days: 1, category: "Support" },
   ];
 
   const [selectedType, setSelectedType] = useState<string>("business");
@@ -271,15 +271,15 @@ export default function ProjectEstimator() {
                   <Sparkles size={13} className="text-cyan-400" />
                   Live Estimation
                 </span>
-                <span className="text-[10px] px-2 py-0.5 rounded bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 font-bold uppercase tracking-wider">
-                  Guaranteed SLA
+                <span className="text-[10px] px-2 py-0.5 rounded bg-cyan-500/10 border border-cyan-500/30 text-cyan-300 font-bold uppercase tracking-wider">
+                  Estimate
                 </span>
               </div>
 
               {/* Estimate Price Display */}
               <div className="mb-6">
                 <span className="text-xs text-gray-400 uppercase tracking-wider font-mono">
-                  Estimated Investment
+                  Estimated starting price
                 </span>
                 <div className="text-3xl sm:text-4xl font-black text-transparent bg-clip-text bg-gradient-to-r from-white via-cyan-100 to-purple-200 font-brand mt-1">
                   ₹{Math.round(rawTotal).toLocaleString("en-IN")}{" "}
@@ -287,8 +287,8 @@ export default function ProjectEstimator() {
                     / ~${Math.round(rawTotal / 85)} USD
                   </span>
                 </div>
-                <p className="text-[11px] text-gray-400 mt-1">
-                  *Transparent scope. No hidden recurring fees.
+                <p className="text-[11px] text-gray-400 mt-2 leading-relaxed">
+                  *Final pricing depends on project scope, features, integrations, design requirements, and development complexity.
                 </p>
               </div>
 

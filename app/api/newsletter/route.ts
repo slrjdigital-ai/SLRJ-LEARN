@@ -188,7 +188,7 @@ Need a high-performance web platform or app for your business?
 - Email our engineers: slrj.digital@gmail.com
 
 Stay ahead of the curve,
-Shahid Kouluri
+Kouluri Shahid
 Founder & Lead Engineer, SLRJ Digital
 https://slrjdigital.in
           `.trim(),
@@ -229,7 +229,7 @@ https://slrjdigital.in
         <p style="margin-top: 0; color: #06B6D4; font-weight: 700; font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase;">What you can look forward to:</p>
         <div class="benefit-item">🚀 <strong>Next-Gen Web Architecture:</strong> Next.js 16, React 19, and full-stack performance blueprints.</div>
         <div class="benefit-item">⚡ <strong>Conversion-Engineered UI/UX:</strong> Real client breakdowns and interface optimization strategies.</div>
-        <div class="benefit-item">💎 <strong>Core Web Vitals & Speed:</strong> How we achieve sub-second load times and 100/100 performance scores.</div>
+        <div class="benefit-item">💎 <strong>Core Web Vitals & Speed:</strong> How we achieve sub-second load times and high performance scores.</div>
       </div>
 
       <p>Planning your next flagship web application, e-commerce store, or digital rebrand?</p>
@@ -241,7 +241,7 @@ https://slrjdigital.in
 
       <p style="margin-top: 24px; font-size: 12px; color: #64748b;">
         Warm regards,<br />
-        <strong style="color: #cbd5e1;">Shahid Kouluri</strong><br />
+        <strong style="color: #cbd5e1;">Kouluri Shahid</strong><br />
         Founder & Lead Engineer &bull; SLRJ Digital
       </p>
     </div>

@@ -5,7 +5,7 @@ import { projects } from "@/data/projects";
 import { Project } from "@/types";
 import Image from "next/image";
 import Link from "next/link";
-import { ExternalLink, TrendingUp, X, CheckCircle2, Sparkles, Code2, ArrowRight } from "lucide-react";
+import { ExternalLink, TrendingUp, X, CheckCircle2, Code2, ArrowRight } from "lucide-react";
 import ContactCTA from "@/components/ContactCTA";
 import * as motion from "framer-motion/client";
 import { AnimatePresence } from "framer-motion";
@@ -78,8 +78,8 @@ export default function ProjectsContent() {
                     </a>
                     
                     <span className="absolute top-4 left-4 bg-black/80 backdrop-blur-md text-[10px] font-mono font-bold px-3 py-1 rounded-full border border-cyan-400/30 text-cyan-300 z-20 uppercase tracking-wider flex items-center gap-1.5">
-                      <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-ping" />
-                      Production Prototype
+                      <span className="w-1.5 h-1.5 rounded-full bg-cyan-400" />
+                      {project.status || "Concept Project"}
                     </span>
 
                     <span className="absolute top-4 right-4 bg-purple-900/70 backdrop-blur-md text-[10px] font-semibold px-2.5 py-1 rounded-full border border-purple-400/30 text-purple-200 z-20 uppercase tracking-wider">
@@ -162,51 +162,95 @@ export default function ProjectsContent() {
                 <X size={20} />
               </button>
 
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-300 text-xs font-mono font-bold mb-4">
-                <Code2 size={13} />
-                <span>Architecture Case Study</span>
+              <div className="flex flex-wrap items-center gap-2 mb-4">
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-400/30 text-cyan-300 text-xs font-mono font-bold">
+                  <Code2 size={13} />
+                  <span>{activeCaseStudy.status || "Concept Project"}</span>
+                </div>
+                <span className="px-3 py-1 rounded-full bg-purple-500/10 border border-purple-400/30 text-purple-300 text-xs font-mono font-bold">
+                  {activeCaseStudy.category}
+                </span>
               </div>
 
               <h3 className="text-2xl sm:text-3xl font-black text-white font-brand mb-2">
                 {activeCaseStudy.title}
               </h3>
               <p className="text-sm text-gray-300 mb-6 leading-relaxed">
-                {activeCaseStudy.overview || activeCaseStudy.description}
+                {activeCaseStudy.description}
               </p>
 
-              <div className="mb-6 p-4 rounded-xl bg-emerald-500/10 border border-emerald-500/30">
-                <div className="text-xs font-mono font-bold text-emerald-400 uppercase mb-1 flex items-center gap-1.5">
-                  <Sparkles size={13} /> Technical Benchmark
-                </div>
-                <div className="text-base font-bold text-white">
-                  {activeCaseStudy.metric}
-                </div>
+              {/* Problem & Solution Grid */}
+              <div className="grid md:grid-cols-2 gap-4 mb-6">
+                {activeCaseStudy.problem && (
+                  <div className="p-4 rounded-xl bg-white/[0.02] border border-white/10">
+                    <h4 className="text-xs font-mono font-bold text-rose-400 uppercase tracking-wider mb-2">
+                      Challenge / Problem
+                    </h4>
+                    <p className="text-xs text-gray-300 leading-relaxed">
+                      {activeCaseStudy.problem}
+                    </p>
+                  </div>
+                )}
+
+                {activeCaseStudy.solution && (
+                  <div className="p-4 rounded-xl bg-white/[0.02] border border-white/10">
+                    <h4 className="text-xs font-mono font-bold text-cyan-400 uppercase tracking-wider mb-2">
+                      Engineered Solution
+                    </h4>
+                    <p className="text-xs text-gray-300 leading-relaxed">
+                      {activeCaseStudy.solution}
+                    </p>
+                  </div>
+                )}
               </div>
 
-              {activeCaseStudy.architectureHighlights && (
+              {/* Key Features */}
+              {activeCaseStudy.keyFeatures && (
                 <div className="mb-6">
                   <h4 className="text-xs font-mono font-bold text-purple-400 uppercase tracking-wider mb-3">
-                    Architectural Highlights &amp; Solutions
+                    Key Features &amp; Implementation
                   </h4>
                   <div className="space-y-2">
-                    {activeCaseStudy.architectureHighlights.map((highlight, hIdx) => (
-                      <div key={hIdx} className="flex items-start gap-2.5 text-xs sm:text-sm text-gray-300">
+                    {activeCaseStudy.keyFeatures.map((feat, fIdx) => (
+                      <div key={fIdx} className="flex items-start gap-2.5 text-xs sm:text-sm text-gray-300">
                         <CheckCircle2 size={15} className="text-cyan-400 shrink-0 mt-0.5" />
-                        <span>{highlight}</span>
+                        <span>{feat}</span>
                       </div>
                     ))}
                   </div>
                 </div>
               )}
 
+              {/* Goal */}
+              {activeCaseStudy.goal && (
+                <div className="mb-6 p-4 rounded-xl bg-purple-500/10 border border-purple-500/25 text-xs text-purple-200">
+                  <span className="font-bold text-white block mb-1">Architecture Goal:</span>
+                  {activeCaseStudy.goal}
+                </div>
+              )}
+
+              {/* Tech Stack */}
+              <div className="mb-6">
+                <h4 className="text-xs font-mono font-bold text-gray-400 uppercase tracking-wider mb-2">
+                  Technologies
+                </h4>
+                <div className="flex flex-wrap gap-1.5">
+                  {activeCaseStudy.tags.map((t) => (
+                    <span key={t} className="px-2.5 py-0.5 rounded-md bg-white/[0.05] border border-white/10 text-[11px] font-mono text-gray-300">
+                      {t}
+                    </span>
+                  ))}
+                </div>
+              </div>
+
               <div className="pt-6 border-t border-white/10 flex flex-wrap items-center justify-between gap-4">
                 <a
                   href={activeCaseStudy.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="px-6 py-3 rounded-full bg-gradient-to-r from-purple-600 to-cyan-500 text-white font-bold text-xs uppercase tracking-wider flex items-center gap-2 shadow-[0_0_20px_rgba(168,85,247,0.4)]"
+                  className="px-6 py-3 rounded-full bg-gradient-to-r from-purple-600 to-cyan-500 text-white font-bold text-xs uppercase tracking-wider flex items-center gap-2 shadow-[0_0_20px_rgba(168,85,247,0.4)] hover:scale-102 transition-transform"
                 >
-                  <span>Launch Prototype Live</span>
+                  <span>Launch Live Demo</span>
                   <ExternalLink size={14} />
                 </a>
 
@@ -214,7 +258,7 @@ export default function ProjectsContent() {
                   href="/contact"
                   className="text-xs text-gray-300 hover:text-white font-semibold underline underline-offset-4"
                 >
-                  Request Similar Architecture →
+                  Discuss Your Project Idea →
                 </Link>
               </div>
             </motion.div>

@@ -102,7 +102,7 @@ export default function ContactCTA() {
               <div className="absolute inset-0 -translate-x-full group-hover:animate-[shimmer_1.5s_infinite] bg-gradient-to-r from-transparent via-white/30 to-transparent skew-x-[-20deg]" />
               
               <span className="relative flex items-center">
-                Let&apos;s Build Together 
+                Start a Project
                 <ArrowRight size={20} className="ml-2 group-hover:translate-x-2 transition-transform" />
               </span>
             </Link>

@@ -8,7 +8,7 @@ export default function JsonLd() {
     url: "https://slrjdigital.in",
     logo: "https://slrjdigital.in/logo.png",
     image: "https://slrjdigital.in/og-image.jpg",
-    description: "Premium digital agency and software engineering firm specializing in Next.js, React, high-performance web applications, and custom UI/UX design.",
+    description: "SLRJ creates modern websites, AI solutions, applications and digital experiences for businesses, startups and ambitious ideas.",
     telephone: "+91-84669-74408",
     email: "slrj.digital@gmail.com",
     address: {
@@ -44,12 +44,13 @@ export default function JsonLd() {
     priceRange: "₹₹₹",
     knowsAbout: [
       "Web Development",
+      "AI Solutions",
       "Next.js App Router",
       "React 19",
       "UI/UX Design",
       "E-Commerce Solutions",
       "Full-Stack Web Applications",
-      "Core Web Vitals Optimization"
+      "Performance Optimization"
     ]
   };
 
@@ -59,7 +60,7 @@ export default function JsonLd() {
     "@id": "https://slrjdigital.in/#website",
     url: "https://slrjdigital.in",
     name: "SLRJ Digital",
-    description: "Turning Ideas Into Digital Experiences. Premium Next.js and React web development agency.",
+    description: "SLRJ creates modern websites, AI solutions, applications and digital experiences for businesses, startups and ambitious ideas.",
     publisher: {
       "@id": "https://slrjdigital.in/#organization"
     }

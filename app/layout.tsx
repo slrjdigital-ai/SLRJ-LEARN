@@ -33,22 +33,24 @@ const orbitron = Orbitron({
 
 export const metadata: Metadata = {
   title: {
-    default: "SLRJ Digital | Premium Web Development & Digital Agency",
+    default: "SLRJ — Digital Solutions, AI & Web Development",
     template: "%s | SLRJ Digital",
   },
   description:
-    "We are a premium digital engineering agency that transforms bold ideas into high-performance, futuristic web solutions. Specializing in Next.js 16, React 19, and high-converting UI/UX.",
+    "SLRJ creates modern websites, AI solutions, applications and digital experiences for businesses, startups and ambitious ideas.",
   keywords: [
+    "Digital Solutions",
+    "AI Solutions",
     "Web Development Agency",
     "Next.js Development",
     "React Web Applications",
     "UI/UX Design Systems",
     "E-Commerce Solutions",
-    "Core Web Vitals Optimization",
+    "Performance Optimization",
     "SLRJ Digital",
-    "Shahid Kouluri"
+    "Kouluri Shahid"
   ],
-  authors: [{ name: "Shahid Kouluri", url: "https://slrjdigital.in/about" }],
+  authors: [{ name: "Kouluri Shahid", url: "https://slrjdigital.in/about" }],
   creator: "SLRJ Digital",
   alternates: {
     canonical: "https://slrjdigital.in",
@@ -58,9 +60,9 @@ export const metadata: Metadata = {
     locale: "en_US",
     url: "https://slrjdigital.in",
     siteName: "SLRJ Digital",
-    title: "SLRJ Digital | Premium Web Development & Digital Agency",
+    title: "SLRJ — Digital Solutions, AI & Web Development",
     description:
-      "Partner with a premium digital agency that transforms bold ideas into high-performance, futuristic web solutions.",
+      "SLRJ creates modern websites, AI solutions, applications and digital experiences for businesses, startups and ambitious ideas.",
     images: [
       {
         url: "https://slrjdigital.in/og-image.jpg",
@@ -72,8 +74,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "SLRJ Digital | Premium Web Development Agency",
-    description: "We build digital experiences that inspire and scale your business.",
+    title: "SLRJ — Digital Solutions, AI & Web Development",
+    description: "SLRJ creates modern websites, AI solutions, applications and digital experiences for businesses, startups and ambitious ideas.",
     images: ["https://slrjdigital.in/og-image.jpg"],
   },
   icons: {

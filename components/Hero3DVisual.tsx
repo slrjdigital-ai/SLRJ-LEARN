@@ -307,7 +307,7 @@ export default function Hero3DVisual() {
                 Performance
               </span>
               <span className="text-[10px] font-bold text-emerald-400 bg-emerald-500/10 px-1.5 py-0.5 rounded border border-emerald-500/30">
-                +148%
+                Optimized
               </span>
             </div>
 
@@ -437,8 +437,8 @@ export default function Hero3DVisual() {
 
                 {/* Mini Metric Banner */}
                 <div className="mt-1 px-2.5 py-1.5 rounded-lg bg-purple-500/10 border border-cyan-500/20 flex items-center justify-between text-[10px]">
-                  <span className="text-gray-300 font-medium">Conversion</span>
-                  <span className="text-cyan-400 font-bold">+99.4%</span>
+                  <span className="text-gray-300 font-medium">UX Flow</span>
+                  <span className="text-cyan-400 font-bold">Streamlined</span>
                 </div>
               </div>
 

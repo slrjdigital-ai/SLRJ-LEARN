@@ -84,16 +84,16 @@ export default function Footer() {
         { name: "E-Commerce Stores", href: "/services#e-commerce" },
         { name: "Full-Stack Web Apps", href: "/services#web-apps" },
         { name: "UI/UX Design Systems", href: "/services#ui-ux" },
-        { name: "Maintenance & SLA", href: "/services#maintenance" },
+        { name: "Maintenance & Support", href: "/services#maintenance" },
       ],
     },
     {
       title: "Company",
       links: [
-        { name: "About Us & Values", href: "/about" },
+        { name: "About SLRJ", href: "/about" },
         { name: "Portfolio & Work", href: "/projects" },
         { name: "Client Reviews", href: "/#feedback" },
-        { name: "Engineering Process", href: "/about" },
+        { name: "Our Process", href: "/about" },
         { name: "Contact & Inquiries", href: "/contact" },
       ],
     },
@@ -101,10 +101,10 @@ export default function Footer() {
       title: "Resources",
       links: [
         { name: "Project Estimator", href: "/#estimator" },
-        { name: "Client Guarantees", href: "/about" },
+        { name: "FAQs", href: "/#faq" },
         { name: "Client Reviews", href: "/#feedback" },
         { name: "Privacy Policy", href: "/privacy-policy" },
-        { name: "Terms of Service", href: "/terms-and-conditions" },
+        { name: "Terms & Conditions", href: "/terms-and-conditions" },
       ],
     },
   ];
@@ -306,7 +306,11 @@ export default function Footer() {
               </span>
             </Link>
 
-            <p className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-pink-400 to-cyan-400 font-bold text-xs tracking-[0.25em] uppercase mb-4 font-mono">
+            <p className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-pink-400 to-cyan-400 font-bold text-xs tracking-[0.25em] uppercase mb-1 font-mono">
+              Think Bold. Create Limitless.
+            </p>
+
+            <p className="text-gray-400 text-xs font-mono tracking-wider uppercase mb-4">
               Sankalp &bull; Lakshya &bull; Rachna &bull; Josh
             </p>
 
@@ -320,7 +324,7 @@ export default function Footer() {
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
               </span>
-              <span>All Systems Operational // 100% SLA</span>
+              <span>Active Engineering // Transparent Process</span>
             </div>
           </div>
 

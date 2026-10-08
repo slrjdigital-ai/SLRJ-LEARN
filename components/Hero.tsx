@@ -71,25 +71,25 @@ export default function Hero() {
               transition={{ duration: 0.8, delay: 0.55 }}
               className="mt-8 sm:mt-10 flex flex-wrap items-center gap-4 w-full sm:w-auto"
             >
-              {/* Primary Button: Explore Our Services */}
+              {/* Primary Button: Start a Project */}
               <Link
-                href="/services"
+                href="/contact"
                 className="group relative inline-flex items-center justify-center px-7 sm:px-8 py-3.5 sm:py-4 rounded-xl font-bold text-sm sm:text-base text-white bg-gradient-to-r from-purple-600 via-pink-600 to-purple-600 bg-[length:200%_auto] hover:bg-right shadow-[0_0_25px_rgba(168,85,247,0.4)] hover:shadow-[0_0_40px_rgba(168,85,247,0.65)] hover:scale-[1.02] active:scale-[0.98] transition-all duration-500 overflow-hidden"
               >
                 {/* Shimmer sweep */}
                 <span className="absolute inset-0 -translate-x-full group-hover:animate-[shimmer_1.4s_infinite] bg-gradient-to-r from-transparent via-white/30 to-transparent skew-x-[-20deg]" />
                 <span className="relative flex items-center gap-2">
-                  Explore Our Services
+                  Start a Project
                   <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                 </span>
               </Link>
 
-              {/* Secondary Button: Get in Touch */}
+              {/* Secondary Button: View Our Work */}
               <Link
-                href="/contact"
+                href="/projects"
                 className="inline-flex items-center justify-center px-7 sm:px-8 py-3.5 sm:py-4 rounded-xl font-semibold text-sm sm:text-base text-cyan-200 hover:text-white bg-[#0A0A1A]/80 hover:bg-cyan-500/10 border border-cyan-500/40 hover:border-cyan-400 shadow-[0_0_20px_rgba(6,182,212,0.15)] hover:shadow-[0_0_30px_rgba(6,182,212,0.35)] hover:scale-[1.02] active:scale-[0.98] transition-all duration-300"
               >
-                Get in Touch
+                View Our Work
               </Link>
             </motion.div>
           </motion.div>

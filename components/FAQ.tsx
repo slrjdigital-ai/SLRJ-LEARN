@@ -13,46 +13,64 @@ interface FAQItem {
 
 const faqs: FAQItem[] = [
   {
-    category: "Pricing & Billing",
-    question: "How much does a custom digital platform typically cost?",
+    category: "Process",
+    question: "How does the SLRJ project process work?",
     answer:
-      "Our projects are tailored to your strategic scope rather than one-size-fits-all packages. Flagship business websites typically start around $1,500 – $3,500 (₹50k – ₹1.5L), while high-volume headless e-commerce architectures and custom full-stack web applications range from $4,000 – $10,000+ depending on database complexity, APIs, and real-time features. We provide itemized, fixed-price milestone quotes with zero hidden fees.",
+      "We follow a transparent, collaborative process: Discovery (understanding your business and goals), Design (wireframes and interactive previews), Development (clean coding using modern technology), Review & Testing (quality checks across viewports), and Launch (deployment and asset handoff). You review and sign off on key milestones along the way.",
   },
   {
-    category: "Delivery Timeline",
-    question: "What is your typical project delivery turnaround time?",
+    category: "Timeline",
+    question: "How long does a project take?",
     answer:
-      "Most high-performance business websites and interactive brand experiences launch within 2 to 4 weeks using our agile sprint methodology. Complex SaaS platforms, client portals, and multi-vendor e-commerce systems typically take 6 to 8 weeks. We define hard deliverable dates in our contract and adhere strictly to them.",
+      "A standard business website typically takes 2 to 3 weeks. E-commerce platforms and custom web applications usually require 3 to 6 weeks depending on feature complexity and scope. We provide an honest timeline during discovery and keep you updated at every stage.",
   },
   {
-    category: "Ownership & Code",
-    question: "Do I own 100% of the source code and intellectual property?",
+    category: "Pricing",
+    question: "How much does a website cost?",
     answer:
-      "Yes, completely and unconditionally. Upon milestone completion and final launch, we transfer full ownership of the clean GitHub repository, design system tokens, database schemas, and all production assets directly to your team. You will never experience proprietary vendor lock-in with SLRJ Digital.",
+      "Our estimated starting prices begin around ₹14,999 for focused business websites. E-commerce platforms and custom web apps vary depending on features, integrations, and design complexity. You can explore our interactive Project Estimator for starting figures, and we provide transparent, itemized quotes before starting any work.",
   },
   {
-    category: "Payments & Terms",
-    question: "How do your milestone-based payment schedules work?",
+    category: "Preparation",
+    question: "What information do I need to provide?",
     answer:
-      "To ensure zero risk and mutual alignment, projects are structured into clear milestone phases: typically 30% upon kickoff and architectural approval, 30% upon interactive prototype and design sign-off, 30% upon staging QA verification, and 10% upon successful edge deployment. You approve each stage before releasing funds.",
+      "To get started, we need an overview of your business or idea, any reference websites you like, your branding assets (logo, preferred colors), and your content (text and images). If you don't have all content ready yet, we will help you organize and structure what is needed.",
   },
   {
-    category: "Architecture & Stack",
-    question: "Why do you engineer in Next.js 16 and React 19 instead of WordPress?",
+    category: "Hosting & Domain",
+    question: "Do you provide domain and hosting setup?",
     answer:
-      "Traditional CMS platforms like WordPress suffer from heavy database overhead, fragile third-party plugins, security vulnerabilities, and sluggish mobile speeds. By leveraging Next.js 16 App Router, React 19 Server Components, and edge rendering, our applications achieve 100/100 Core Web Vitals, sub-second TTFB, bank-grade serverless security, and superior organic search rankings.",
+      "Yes. We assist you with domain registration and configure cloud hosting on fast, modern platforms such as Vercel. You maintain 100% direct ownership of both your domain and hosting accounts — we never hold your infrastructure hostage.",
   },
   {
-    category: "Support & Warranty",
-    question: "What post-launch support and maintenance do you offer?",
+    category: "Ownership",
+    question: "Do I own my website after completion?",
     answer:
-      "Every production launch includes 30 days of complimentary Hypercare support, covering real-time edge monitoring, bug fixes, and performance fine-tuning. Following hypercare, we offer dedicated monthly SLA maintenance retainers covering security audits, dependency upgrades, content updates, and feature additions.",
+      "Yes, completely. Once the project is completed and handed over, you own the entire source code, GitHub repository, design assets, and content. There is no vendor lock-in.",
+  },
+  {
+    category: "Support",
+    question: "Do you provide maintenance and support?",
+    answer:
+      "Yes. Every launch includes post-launch support to ensure smooth operation. We also offer ongoing maintenance options for routine updates, security checks, content adjustments, and technical assistance as your business grows.",
+  },
+  {
+    category: "AI & Innovation",
+    question: "Can you build custom AI solutions?",
+    answer:
+      "Yes. We build practical AI integrations tailored for business needs, such as automated customer inquiry chatbots, AI-assisted lead capture, OpenAI API integrations, and smart internal search tools that fit directly into your website or application.",
+  },
+  {
+    category: "Redesign",
+    question: "Can you redesign an existing website?",
+    answer:
+      "Yes. We regularly help businesses modernize sluggish or outdated websites. We evaluate your current user experience, preserve what works, migrate your content, and rebuild the site with modern design and fast, responsive technology.",
   },
   {
     category: "Getting Started",
-    question: "How do we kick off a project with SLRJ Digital?",
+    question: "How do I start a project?",
     answer:
-      "Simply fill out our project inquiry form or request a direct WhatsApp consultation. We review your requirements within 24 hours, schedule a 20-minute technical discovery call, and present an actionable architectural blueprint and itemized estimate.",
+      "You can begin by submitting our contact form, calculating an initial scope with our Project Estimator, or messaging us directly on WhatsApp at +91 8466974408. We will review your goals and schedule a friendly discussion to plan the next steps.",
   },
 ];
 

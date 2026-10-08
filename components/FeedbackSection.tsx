@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Link from "next/link";
 import { motion } from "framer-motion";
 import {
   Star,
@@ -12,6 +13,7 @@ import {
   TrendingUp,
   Crown,
   Flame,
+  Sparkles,
 } from "lucide-react";
 import SpotlightCard from "./SpotlightCard";
 import ScrollReveal from "./ScrollReveal";
@@ -134,118 +136,182 @@ export default function FeedbackSection() {
       <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[850px] h-[500px] bg-gradient-to-r from-purple-600/10 via-pink-600/10 to-cyan-600/10 blur-[150px] pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10" suppressHydrationWarning>
-        {/* Section Header */}
-        <ScrollReveal>
-          <div className="text-center mb-16">
-            <motion.span
-              initial={{ opacity: 0, scale: 0.9 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              className="inline-flex items-center gap-2 px-5 py-1.5 rounded-full border border-pink-500/20 bg-pink-500/5 text-pink-400 text-xs font-semibold tracking-[0.3em] uppercase mb-6"
-            >
-              <Crown size={14} className="text-amber-400" />
-              Client Ratings & Top Feedbacks
-            </motion.span>
+        {feedbackList.length === 0 ? (
+          <ScrollReveal>
+            <div className="text-center max-w-3xl mx-auto">
+              <motion.span
+                initial={{ opacity: 0, scale: 0.9 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                className="inline-flex items-center gap-2 px-5 py-1.5 rounded-full border border-purple-500/20 bg-purple-500/5 text-purple-400 text-xs font-semibold tracking-[0.3em] uppercase mb-6"
+              >
+                <Sparkles size={14} className="text-purple-400" />
+                Client Feedback &amp; Integrity
+              </motion.span>
 
-            <h2 className="text-4xl md:text-5xl lg:text-6xl font-black mb-6 leading-tight">
-              Top Rated by{" "}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-pink-500 to-cyan-400">
-                Our Clients
-              </span>
-            </h2>
+              <h2 className="text-4xl md:text-5xl lg:text-6xl font-black mb-6 leading-tight font-brand">
+                Client Reviews{" "}
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-pink-500 to-cyan-400">
+                  Coming Soon
+                </span>
+              </h2>
 
-            <p className="text-gray-400 max-w-2xl mx-auto text-lg leading-relaxed">
-              Explore our highest-rated client feedback and transparent rating system. Share your own experience below!
-            </p>
-          </div>
-        </ScrollReveal>
+              <p className="text-gray-300 max-w-2xl mx-auto text-base sm:text-lg leading-relaxed mb-12">
+                We&apos;re building meaningful digital experiences and collecting feedback from our clients as we grow.
+              </p>
 
-        {/* Rating Summary & Score System Card */}
-        <ScrollReveal delay={0.1}>
-          <div className="bg-gradient-to-b from-white/[0.08] to-white/[0.02] border border-white/10 rounded-2xl sm:rounded-3xl p-6 sm:p-8 md:p-10 mb-8 sm:mb-12 backdrop-blur-xl shadow-2xl relative overflow-hidden">
-            <div className="grid md:grid-cols-12 gap-8 items-center">
-              {/* Score Highlight */}
-              <div className="md:col-span-4 flex flex-col items-center md:items-start text-center md:text-left border-b md:border-b-0 md:border-r border-white/10 pb-8 md:pb-0 md:pr-8">
-                <div className="flex items-baseline gap-3 mb-3">
-                  <span className="text-6xl font-black text-white tracking-tight">
-                    {stats.averageRating}
-                  </span>
-                  <span className="text-gray-400 text-2xl font-bold">/ 5.0</span>
+              {/* Attractive empty state showcase card */}
+              <SpotlightCard
+                spotlightColor="rgba(168, 85, 247, 0.25)"
+                className="p-8 sm:p-12 rounded-3xl bg-gradient-to-b from-white/[0.05] to-white/[0.01] border border-white/10 backdrop-blur-xl shadow-2xl relative overflow-hidden"
+              >
+                <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-purple-500/20 to-cyan-500/20 border border-purple-500/30 flex items-center justify-center mx-auto mb-6 text-purple-300 shadow-[0_0_30px_rgba(168,85,247,0.3)]">
+                  <MessageSquare size={30} />
                 </div>
 
-                {/* Stars */}
-                <div className="flex items-center gap-1.5 mb-3 text-amber-400">
-                  {[1, 2, 3, 4, 5].map((s) => (
-                    <Star
-                      key={s}
-                      size={24}
-                      className={
-                        s <= Math.floor(stats.averageRating)
-                          ? "fill-amber-400 text-amber-400 drop-shadow-[0_0_8px_rgba(251,191,36,0.6)]"
-                          : s - 0.5 <= stats.averageRating
-                          ? "fill-amber-400/50 text-amber-400"
-                          : "text-gray-600"
-                      }
-                    />
-                  ))}
-                </div>
+                <h3 className="text-xl sm:text-2xl font-bold text-white mb-3 font-brand">
+                  Authentic Partnerships &amp; Real Reviews
+                </h3>
 
-                <p className="text-gray-300 font-medium text-sm mb-4">
-                  Based on <span className="text-white font-bold">{stats.totalReviews}</span> client feedback submissions
+                <p className="text-gray-400 text-sm sm:text-base max-w-xl mx-auto leading-relaxed mb-8">
+                  We prioritize transparent relationships and genuine feedback over inflated metrics. If you have partnered with SLRJ Digital on a project, we welcome your direct feedback.
                 </p>
 
-                <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-semibold">
-                  <TrendingUp size={14} />
-                  <span>{stats.recommendPercentage}% Recommend SLRJ Digital</span>
+                <div className="flex flex-wrap items-center justify-center gap-4">
+                  <motion.button
+                    whileHover={{ scale: 1.03 }}
+                    whileTap={{ scale: 0.97 }}
+                    onClick={() => openFeedbackModal()}
+                    className="py-3.5 px-6 rounded-2xl bg-gradient-to-r from-purple-600 via-pink-600 to-cyan-500 text-white font-bold text-sm shadow-[0_0_25px_rgba(168,85,247,0.4)] hover:shadow-[0_0_35px_rgba(236,72,153,0.6)] transition-all flex items-center justify-center gap-2 cursor-pointer"
+                  >
+                    <PlusCircle size={17} />
+                    <span>Share Client Feedback</span>
+                  </motion.button>
+
+                  <Link
+                    href="/contact"
+                    className="py-3.5 px-6 rounded-2xl bg-white/5 hover:bg-white/10 border border-white/10 text-white font-semibold text-sm transition-all hover:border-purple-500/40"
+                  >
+                    Start a Project
+                  </Link>
                 </div>
-              </div>
-
-              {/* Progress Bars Breakdown */}
-              <div className="md:col-span-5 space-y-2.5">
-                {[5, 4, 3, 2, 1].map((starKey) => {
-                  const count = stats.distribution[starKey as keyof typeof stats.distribution] || 0;
-                  const pct = stats.totalReviews > 0 ? Math.round((count / stats.totalReviews) * 100) : 0;
-                  return (
-                    <div key={starKey} className="flex items-center gap-3 text-sm">
-                      <div className="flex items-center gap-1 w-12 text-gray-300 font-semibold">
-                        <span>{starKey}</span>
-                        <Star size={12} className="fill-amber-400 text-amber-400" />
-                      </div>
-                      <div className="flex-1 h-2.5 bg-white/5 rounded-full overflow-hidden border border-white/5">
-                        <motion.div
-                          initial={{ width: 0 }}
-                          whileInView={{ width: `${pct}%` }}
-                          viewport={{ once: true }}
-                          transition={{ duration: 0.8, ease: "easeOut" }}
-                          className="h-full bg-gradient-to-r from-purple-500 via-pink-500 to-amber-400 rounded-full"
-                        />
-                      </div>
-                      <span className="w-10 text-right text-xs text-gray-400 font-medium">{pct}%</span>
-                    </div>
-                  );
-                })}
-              </div>
-
-              {/* CTA Action */}
-              <div className="md:col-span-3 flex flex-col items-center justify-center text-center pl-0 md:pl-4" suppressHydrationWarning>
-                <p className="text-gray-300 text-sm mb-5 font-medium">
-                  Have you worked with SLRJ Digital? Add your rating & review!
-                </p>
-
-                <motion.button
-                  suppressHydrationWarning
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  onClick={() => openFeedbackModal()}
-                  className="w-full py-4 px-6 rounded-2xl bg-gradient-to-r from-purple-600 via-pink-600 to-cyan-500 text-white font-bold text-sm shadow-[0_0_25px_rgba(168,85,247,0.4)] hover:shadow-[0_0_35px_rgba(236,72,153,0.6)] transition-all flex items-center justify-center gap-2 group cursor-pointer"
-                >
-                  <PlusCircle size={18} className="group-hover:rotate-90 transition-transform duration-300" />
-                  <span>Rate Us & Give Feedback</span>
-                </motion.button>
-              </div>
+              </SpotlightCard>
             </div>
-          </div>
-        </ScrollReveal>
+          </ScrollReveal>
+        ) : (
+          <>
+            {/* Section Header */}
+            <ScrollReveal>
+              <div className="text-center mb-16">
+                <motion.span
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: true }}
+                  className="inline-flex items-center gap-2 px-5 py-1.5 rounded-full border border-pink-500/20 bg-pink-500/5 text-pink-400 text-xs font-semibold tracking-[0.3em] uppercase mb-6"
+                >
+                  <Crown size={14} className="text-amber-400" />
+                  Client Ratings &amp; Reviews
+                </motion.span>
+
+                <h2 className="text-4xl md:text-5xl lg:text-6xl font-black mb-6 leading-tight">
+                  Verified by{" "}
+                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-pink-500 to-cyan-400">
+                    Our Clients
+                  </span>
+                </h2>
+
+                <p className="text-gray-400 max-w-2xl mx-auto text-lg leading-relaxed">
+                  Authentic reviews from clients who have partnered with SLRJ Digital.
+                </p>
+              </div>
+            </ScrollReveal>
+
+            {/* Rating Summary & Score System Card */}
+            <ScrollReveal delay={0.1}>
+              <div className="bg-gradient-to-b from-white/[0.08] to-white/[0.02] border border-white/10 rounded-2xl sm:rounded-3xl p-6 sm:p-8 md:p-10 mb-8 sm:mb-12 backdrop-blur-xl shadow-2xl relative overflow-hidden">
+                <div className="grid md:grid-cols-12 gap-8 items-center">
+                  {/* Score Highlight */}
+                  <div className="md:col-span-4 flex flex-col items-center md:items-start text-center md:text-left border-b md:border-b-0 md:border-r border-white/10 pb-8 md:pb-0 md:pr-8">
+                    <div className="flex items-baseline gap-3 mb-3">
+                      <span className="text-6xl font-black text-white tracking-tight">
+                        {stats.averageRating}
+                      </span>
+                      <span className="text-gray-400 text-2xl font-bold">/ 5.0</span>
+                    </div>
+
+                    {/* Stars */}
+                    <div className="flex items-center gap-1.5 mb-3 text-amber-400">
+                      {[1, 2, 3, 4, 5].map((s) => (
+                        <Star
+                          key={s}
+                          size={24}
+                          className={
+                            s <= Math.floor(stats.averageRating)
+                              ? "fill-amber-400 text-amber-400 drop-shadow-[0_0_8px_rgba(251,191,36,0.6)]"
+                              : s - 0.5 <= stats.averageRating
+                              ? "fill-amber-400/50 text-amber-400"
+                              : "text-gray-600"
+                          }
+                        />
+                      ))}
+                    </div>
+
+                    <p className="text-gray-300 font-medium text-sm mb-4">
+                      Based on <span className="text-white font-bold">{stats.totalReviews}</span> client feedback submissions
+                    </p>
+
+                    <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-semibold">
+                      <TrendingUp size={14} />
+                      <span>{stats.recommendPercentage}% Recommend SLRJ</span>
+                    </div>
+                  </div>
+
+                  {/* Progress Bars Breakdown */}
+                  <div className="md:col-span-5 space-y-2.5">
+                    {[5, 4, 3, 2, 1].map((starKey) => {
+                      const count = stats.distribution[starKey as keyof typeof stats.distribution] || 0;
+                      const pct = stats.totalReviews > 0 ? Math.round((count / stats.totalReviews) * 100) : 0;
+                      return (
+                        <div key={starKey} className="flex items-center gap-3 text-sm">
+                          <div className="flex items-center gap-1 w-12 text-gray-300 font-semibold">
+                            <span>{starKey}</span>
+                            <Star size={12} className="fill-amber-400 text-amber-400" />
+                          </div>
+                          <div className="flex-1 h-2.5 bg-white/5 rounded-full overflow-hidden border border-white/5">
+                            <motion.div
+                              initial={{ width: 0 }}
+                              whileInView={{ width: `${pct}%` }}
+                              viewport={{ once: true }}
+                              transition={{ duration: 0.8, ease: "easeOut" }}
+                              className="h-full bg-gradient-to-r from-purple-500 via-pink-500 to-amber-400 rounded-full"
+                            />
+                          </div>
+                          <span className="w-10 text-right text-xs text-gray-400 font-medium">{pct}%</span>
+                        </div>
+                      );
+                    })}
+                  </div>
+
+                  {/* CTA Action */}
+                  <div className="md:col-span-3 flex flex-col items-center justify-center text-center pl-0 md:pl-4" suppressHydrationWarning>
+                    <p className="text-gray-300 text-sm mb-5 font-medium">
+                      Have you worked with SLRJ Digital? Add your rating &amp; review!
+                    </p>
+
+                    <motion.button
+                      suppressHydrationWarning
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                      onClick={() => openFeedbackModal()}
+                      className="w-full py-4 px-6 rounded-2xl bg-gradient-to-r from-purple-600 via-pink-600 to-cyan-500 text-white font-bold text-sm shadow-[0_0_25px_rgba(168,85,247,0.4)] hover:shadow-[0_0_35px_rgba(236,72,153,0.6)] transition-all flex items-center justify-center gap-2 group cursor-pointer"
+                    >
+                      <PlusCircle size={18} className="group-hover:rotate-90 transition-transform duration-300" />
+                      <span>Rate Us &amp; Give Feedback</span>
+                    </motion.button>
+                  </div>
+                </div>
+              </div>
+            </ScrollReveal>
 
         {/* View Mode Switcher (Top 5 Rated vs All Feedbacks) */}
         <ScrollReveal delay={0.12}>
@@ -500,7 +566,9 @@ export default function FeedbackSection() {
             })}
           </div>
         )}
-      </div>
-    </section>
+      </>
+    )}
+  </div>
+</section>
   );
 }

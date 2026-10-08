@@ -42,7 +42,7 @@ export const services: Service[] = [
     id: 5,
     slug: "optimization",
     title: "Performance Optimization",
-    description: "Comprehensive audits and full-codebase refactoring to transform slow, bloated websites into sub-second, 100/100 Core Web Vitals powerhouses.",
+    description: "Comprehensive audits and full-codebase refactoring to transform slow, bloated websites into lightning-fast, high-performance web experiences.",
     deliverables: "Sub-Second TTFB Tuning, Next-Gen Asset Compression, Script Pruning, Edge Caching Strategies",
     icon: Zap,
     link: "/contact?service=optimization"
@@ -50,9 +50,9 @@ export const services: Service[] = [
   {
     id: 6,
     slug: "maintenance",
-    title: "Maintenance & SLA Support",
-    description: "Continuous proactive monitoring, security patching, cloud backups, and on-demand engineer support to ensure zero downtime and peak performance.",
-    deliverables: "24/7 Uptime Telemetry, Weekly Automated Backups, Security Vulnerability Scans, Dedicated Engineer Sprints",
+    title: "Ongoing Maintenance & Support",
+    description: "Proactive monitoring, security patching, cloud backups, and on-demand engineer support to keep your website secure, modern, and running reliably.",
+    deliverables: "Continuous Proactive Monitoring, Regular Automated Backups, Security Vulnerability Scans, Dedicated Support Requests",
     icon: Settings,
     link: "/contact?service=maintenance"
   }

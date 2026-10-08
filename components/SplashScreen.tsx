@@ -260,7 +260,7 @@ export default function SplashScreen() {
 
               <div className="px-3 py-1 rounded-full bg-white/5 border border-emerald-500/30 text-[10px] sm:text-xs font-medium text-emerald-300 flex items-center gap-1.5 backdrop-blur-md shadow-[0_0_12px_rgba(16,185,129,0.15)]">
                 <Zap size={12} className="text-emerald-400" />
-                <span>100/100 Core Web Vitals</span>
+                <span>Built For Speed & Modern Web</span>
               </div>
             </div>
 

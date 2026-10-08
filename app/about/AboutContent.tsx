@@ -68,10 +68,10 @@ export default function AboutContent() {
 
   // ── Operational Milestones ─────────────────────────────────────────
   const metrics = [
-    { label: "Core Web Vitals", value: "100/100", desc: "Sub-second speed & Google SEO priority", accent: "#06B6D4" },
-    { label: "Client Satisfaction", value: "99.8%", desc: "Milestone-verified delivery rating", accent: "#A855F7" },
-    { label: "Modern Stack Native", value: "Next 16", desc: "React 19 & Turbopack architecture", accent: "#EC4899" },
-    { label: "Support & Uptime SLA", value: "99.9%", desc: "Continuous edge monitoring & support", accent: "#10B981" },
+    { label: "Built for Speed", value: "Performance First", desc: "Sub-second speed & responsive optimization", accent: "#06B6D4" },
+    { label: "Transparent Delivery", value: "Client-Focused", desc: "Milestone-verified collaboration & updates", accent: "#A855F7" },
+    { label: "Modern Stack Native", value: "Next 16 & React 19", desc: "Clean architecture without legacy debt", accent: "#EC4899" },
+    { label: "Dedicated Partnership", value: "Direct Engineer Access", desc: "Clear communication & post-launch support", accent: "#10B981" },
   ];
 
   // ── 5-Phase Precision Delivery Framework ───────────────────────────
@@ -100,7 +100,7 @@ export default function AboutContent() {
     {
       step: "04",
       title: "Rigorous QA & Core Web Vitals Auditing",
-      desc: "Cross-device responsiveness testing, accessibility compliance, database indexing, and optimization to ensure sub-second global load times and perfect 100/100 scores.",
+      desc: "Cross-device responsiveness testing, accessibility compliance, database indexing, and optimization to ensure sub-second global load times and strong Core Web Vitals performance.",
       tags: ["Lighthouse Benchmark", "Cross-Browser QA", "Security Penetration"],
       icon: Zap,
     },
@@ -139,8 +139,8 @@ export default function AboutContent() {
     },
     {
       icon: Zap,
-      title: "Performance SLA Guarantee",
-      desc: "We guarantee 90+ Lighthouse mobile and desktop scores. Sub-second load times that keep visitors engaged and ranking high.",
+      title: "Performance-Focused Architecture",
+      desc: "Every project is optimized for rapid loading, low layout shift, and smooth responsive interactions across all modern devices.",
     },
     {
       icon: HeartHandshake,
@@ -403,7 +403,7 @@ export default function AboutContent() {
                     "Direct communication with the lead engineer and product architect — zero middleman delays.",
                     "100% transparent milestone-based escrow billing with zero hidden charges.",
                     "Full intellectual property and clean GitHub repository transfer on launch day.",
-                    "Guaranteed 90–100/100 Core Web Vitals speed scores and rigorous SEO structure.",
+                    "Performance-focused architecture, mobile-first design, and clean technical SEO structure.",
                   ].map((item, idx) => (
                     <li key={idx} className="flex items-start gap-3">
                       <div className="w-5 h-5 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center flex-shrink-0 mt-0.5 text-xs font-bold">
@@ -595,58 +595,50 @@ export default function AboutContent() {
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
             {[
               {
-                name: "Shahid Kouluri",
+                name: "Kouluri Shahid",
                 role: "Founder & Lead Architect",
-                bio: "Leads technical strategy, system architecture, Next.js engineering, and conversion rate optimization across all SLRJ production platforms.",
-                expertise: ["Full-Stack Architecture", "Next.js 16 / React 19", "Conversion Strategy", "Performance Optimization"],
-                monogram: "SK",
+                bio: "Leads technical strategy, system architecture, full-stack Next.js engineering, and digital solutions across SLRJ production platforms.",
+                expertise: ["Full-Stack Architecture", "Next.js 16 / React 19", "UI/UX Engineering", "System Design"],
+                monogram: "KS",
                 accent: "#A855F7",
                 linkedin: "https://www.linkedin.com/in/shahid-kouluri-990818296/",
                 github: "https://github.com/slrjdigital-ai",
                 isFounder: true,
               },
               {
-                name: "Lokeish Pamarthi",
-                role: "Lead Frontend & UI/UX Engineer",
-                bio: "Crafts bespoke design systems, fluid micro-interactions, responsive cyber aesthetics, and 60 FPS motion choreography.",
-                expertise: ["Design Systems", "Framer Motion Physics", "Tailwind CSS v4", "Interactive Prototyping"],
+                name: "Lokiesh Pamarthi",
+                role: "Frontend & UI/UX Engineer",
+                bio: "Specializes in bespoke design systems, fluid micro-interactions, responsive styling, and modern interface engineering.",
+                expertise: ["Design Systems", "Framer Motion", "Tailwind CSS", "Interactive Prototyping"],
                 monogram: "LP",
                 accent: "#06B6D4",
-                linkedin: "https://linkedin.com",
-                github: "https://github.com",
                 isFounder: false,
               },
               {
                 name: "Subhash Kasani",
                 role: "Full-Stack & Backend Systems Engineer",
-                bio: "Engineers resilient database architectures, serverless edge functions, microservices, and PCI-compliant payment integrations.",
-                expertise: ["PostgreSQL & Supabase", "API Design & REST", "Stripe & Razorpay", "Distributed Systems"],
+                bio: "Engineers structured database architectures, secure API routes, serverless edge functions, and payment workflows.",
+                expertise: ["Database Architecture", "REST & API Design", "Full-Stack Web Apps", "Serverless Logic"],
                 monogram: "SK",
                 accent: "#EC4899",
-                linkedin: "https://linkedin.com",
-                github: "https://github.com",
                 isFounder: false,
               },
               {
                 name: "Rupesh Chaluvadi",
                 role: "Performance & Cloud DevOps Engineer",
-                bio: "Specializes in Core Web Vitals optimization, global Vercel CDN deployment, sub-second TTFB caching, and CI/CD automation.",
-                expertise: ["Edge CDN Caching", "Core Web Vitals 100/100", "DevOps & CI/CD", "Security Hardening"],
+                bio: "Focuses on build optimization, global edge CDN deployment, asset compression, and performance tuning.",
+                expertise: ["Edge Caching", "Build Optimization", "Cloud Deployment", "Asset Optimization"],
                 monogram: "RC",
                 accent: "#10B981",
-                linkedin: "https://linkedin.com",
-                github: "https://github.com",
                 isFounder: false,
               },
               {
                 name: "Jaswanth Pula",
                 role: "QA & Growth Systems Engineer",
-                bio: "Drives multi-viewport device auditing, automated regression testing, accessibility compliance, and analytics tracking.",
-                expertise: ["WCAG 2.1 AA Compliance", "Automated QA Auditing", "Cross-Browser Testing", "Conversion Analytics"],
+                bio: "Conducts multi-device viewport testing, cross-browser compatibility checks, accessibility compliance, and usability verification.",
+                expertise: ["Cross-Device Auditing", "Responsive Testing", "User Flow QA", "Conversion Analytics"],
                 monogram: "JP",
                 accent: "#F59E0B",
-                linkedin: "https://linkedin.com",
-                github: "https://github.com",
                 isFounder: false,
               },
             ].map((member, idx) => (
@@ -684,24 +676,28 @@ export default function AboutContent() {
                       </div>
 
                       <div className="flex items-center gap-2">
-                        <a
-                          href={member.linkedin}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          aria-label={`${member.name} LinkedIn Profile`}
-                          className="w-8 h-8 rounded-lg bg-white/5 hover:bg-white/10 flex items-center justify-center text-gray-400 hover:text-white transition-colors border border-white/10"
-                        >
-                          <FaLinkedinIn size={14} />
-                        </a>
-                        <a
-                          href={member.github}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          aria-label={`${member.name} GitHub Profile`}
-                          className="w-8 h-8 rounded-lg bg-white/5 hover:bg-white/10 flex items-center justify-center text-gray-400 hover:text-white transition-colors border border-white/10"
-                        >
-                          <FaGithub size={14} />
-                        </a>
+                        {member.linkedin && (
+                          <a
+                            href={member.linkedin}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            aria-label={`${member.name} LinkedIn Profile`}
+                            className="w-8 h-8 rounded-lg bg-white/5 hover:bg-white/10 flex items-center justify-center text-gray-400 hover:text-white transition-colors border border-white/10"
+                          >
+                            <FaLinkedinIn size={14} />
+                          </a>
+                        )}
+                        {member.github && (
+                          <a
+                            href={member.github}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            aria-label={`${member.name} GitHub Profile`}
+                            className="w-8 h-8 rounded-lg bg-white/5 hover:bg-white/10 flex items-center justify-center text-gray-400 hover:text-white transition-colors border border-white/10"
+                          >
+                            <FaGithub size={14} />
+                          </a>
+                        )}
                       </div>
                     </div>
 
