@@ -115,8 +115,9 @@ export async function POST(request: Request) {
     // Verify SMTP Connectivity
     try {
       await transporter.verify();
-    } catch (verifyError: any) {
-      console.error('SMTP Connectivity Error:', verifyError.message || verifyError);
+    } catch (verifyError: unknown) {
+      const errMsg = verifyError instanceof Error ? verifyError.message : String(verifyError);
+      console.error('SMTP Connectivity Error:', errMsg);
       return NextResponse.json(
         {
           success: false,
@@ -221,12 +222,13 @@ https://slrjdigital.com
       },
       { status: 200 }
     );
-  } catch (error: any) {
-    console.error('Contact API Error:', error.message || error);
+  } catch (error: unknown) {
+    const errMsg = error instanceof Error ? error.message : 'Failed to send message. Please check your network connection or try WhatsApp.';
+    console.error('Contact API Error:', errMsg);
     return NextResponse.json(
       {
         success: false,
-        error: error.message || 'Failed to send message. Please check your network connection or try WhatsApp.',
+        error: errMsg,
       },
       { status: 500 }
     );

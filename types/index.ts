@@ -1,3 +1,5 @@
+import type { ElementType } from "react";
+
 export interface Project {
   id: number;
   title: string;
@@ -6,13 +8,16 @@ export interface Project {
   tags: string[];
   image: string;
   concept?: boolean;
+  metric?: string;
+  url?: string;
 }
 
 export interface Service {
   id: number;
   title: string;
   description: string;
-  icon: any; // Lucide icon
+  deliverables?: string;
+  icon: ElementType;
   link: string;
 }
 
@@ -27,3 +32,4 @@ export interface BlogPost {
   content?: string;
   htmlContent?: string;
 }
+

@@ -1,48 +1,69 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback, useSyncExternalStore } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { ArrowUpRight, Sparkles, CornerDownLeft, Code2, Palette, ShoppingBag, Zap } from "lucide-react";
+import SplashBackgroundAnimation from "./SplashBackgroundAnimation";
+
+const emptySubscribe = () => () => {};
+
+function subscribeSplashSeen(callback: () => void) {
+  if (typeof window === "undefined") return () => {};
+  window.addEventListener("storage", callback);
+  return () => window.removeEventListener("storage", callback);
+}
+
+function getSplashSeenSnapshot() {
+  if (typeof window === "undefined") return false;
+  return Boolean(sessionStorage.getItem("splashSeen"));
+}
 
 export default function SplashScreen() {
-  const [showSplash, setShowSplash] = useState(true);
-  const [mounted, setMounted] = useState(false);
+  const mounted = useSyncExternalStore(emptySubscribe, () => true, () => false);
+  const alreadySeen = useSyncExternalStore(subscribeSplashSeen, getSplashSeenSnapshot, () => false);
+  const [dismissed, setDismissed] = useState(false);
   const [progress, setProgress] = useState(0);
   const [isLoaded, setIsLoaded] = useState(false);
+
+  const showSplash = mounted && !alreadySeen && !dismissed;
 
   // High performance MotionValues: updates compositor directly without React re-renders!
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
 
-  const rotateX = useSpring(useTransform(mouseY, [-1, 1], [6, -6]), { stiffness: 120, damping: 20 });
-  const rotateY = useSpring(useTransform(mouseX, [-1, 1], [-6, 6]), { stiffness: 120, damping: 20 });
-  const bgParallaxX = useSpring(useTransform(mouseX, [-1, 1], [20, -20]), { stiffness: 80, damping: 25 });
-  const bgParallaxY = useSpring(useTransform(mouseY, [-1, 1], [20, -20]), { stiffness: 80, damping: 25 });
+  const rotateX = useSpring(useTransform(mouseY, [-1, 1], [5, -5]), { stiffness: 120, damping: 20 });
+  const rotateY = useSpring(useTransform(mouseX, [-1, 1], [-5, 5]), { stiffness: 120, damping: 20 });
+
+  const handleExplore = useCallback(() => {
+    if (typeof window !== "undefined") {
+      sessionStorage.setItem("splashSeen", "true");
+    }
+    setDismissed(true);
+  }, []);
 
   useEffect(() => {
-    setMounted(true);
-    const hasSeenSplash = sessionStorage.getItem("splashSeen");
-    if (hasSeenSplash) {
-      setShowSplash(false);
+    if (alreadySeen || dismissed) {
       return;
     }
 
-    // Fast, smooth loading progress
+    // Smooth, cinematic 5.5-second progress progression
+    const totalDuration = 5500;
+    const startTime = Date.now();
+
     const interval = setInterval(() => {
-      setProgress((prev) => {
-        if (prev >= 100) {
-          clearInterval(interval);
-          setIsLoaded(true);
-          return 100;
-        }
-        const nextVal = prev + Math.floor(Math.random() * 12) + 8;
-        return Math.min(100, nextVal);
-      });
-    }, 50);
+      const elapsed = Date.now() - startTime;
+      const nextVal = Math.min(100, Math.floor((elapsed / totalDuration) * 100));
+      setProgress(nextVal);
+
+      if (nextVal >= 100) {
+        clearInterval(interval);
+        setIsLoaded(true);
+      }
+    }, 40);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [alreadySeen, dismissed]);
 
   // Keyboard shortcut [Enter], [Space], [Esc]
   useEffect(() => {
@@ -54,17 +75,12 @@ export default function SplashScreen() {
 
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, []);
+  }, [handleExplore]);
 
   const handleMouseMove = (e: React.MouseEvent) => {
     const { innerWidth, innerHeight } = window;
     mouseX.set((e.clientX / innerWidth - 0.5) * 2);
     mouseY.set((e.clientY / innerHeight - 0.5) * 2);
-  };
-
-  const handleExplore = () => {
-    sessionStorage.setItem("splashSeen", "true");
-    setShowSplash(false);
   };
 
   if (!mounted) return null;
@@ -75,12 +91,19 @@ export default function SplashScreen() {
         <motion.div
           key="splash"
           initial={{ opacity: 1, scale: 1 }}
-          exit={{ opacity: 0, scale: 1.05, filter: "blur(12px)" }}
-          transition={{ duration: 0.6, ease: "easeInOut" }}
+          exit={{
+            opacity: 0,
+            scale: 1.05,
+            filter: "blur(14px)",
+          }}
+          transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
           onMouseMove={handleMouseMove}
-          className="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-[#030712] text-white overflow-y-auto overflow-x-hidden py-8 px-4 select-none touch-none"
+          className="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-[#020108] text-white overflow-y-auto overflow-x-hidden py-8 px-4 select-none"
         >
-          {/* --- TOP BAR: SKIP BUTTON & SYSTEM STATUS --- */}
+          {/* ── CINEMATIC 3D BACKGROUND ANIMATION ──────────────────────── */}
+          <SplashBackgroundAnimation />
+
+          {/* ── TOP BAR: SKIP BUTTON & SYSTEM STATUS ───────────────────── */}
           <div className="absolute top-4 sm:top-6 left-4 sm:left-8 right-4 sm:right-8 flex items-center justify-between z-30 pointer-events-auto">
             <div className="flex items-center gap-2 text-[10px] sm:text-xs font-mono text-gray-400">
               <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
@@ -97,66 +120,54 @@ export default function SplashScreen() {
             </button>
           </div>
 
-          {/* --- DYNAMIC COSMIC BACKGROUND (HARDWARE ACCELERATED) --- */}
-          <div className="absolute inset-0 overflow-hidden bg-[#030712] pointer-events-none">
-            {/* Base Mesh */}
-            <div 
-              className="absolute inset-0 opacity-50"
-              style={{
-                background: `
-                  radial-gradient(circle at 15% 10%, rgba(88, 28, 135, 0.3) 0%, transparent 45%),
-                  radial-gradient(circle at 85% 30%, rgba(29, 78, 216, 0.25) 0%, transparent 45%),
-                  radial-gradient(circle at 50% 80%, rgba(14, 165, 233, 0.2) 0%, transparent 45%)
-                `
-              }}
-            />
-            
-            {/* Parallax Orbs using MotionValue (Zero React re-render) */}
-            <motion.div 
-              style={{ x: bgParallaxX, y: bgParallaxY }}
-              className="absolute inset-0 pointer-events-none will-change-transform"
-            >
-              <div 
-                className="absolute -top-[10%] -left-[10%] w-[45vw] h-[45vw] rounded-full opacity-30 mix-blend-screen animate-float-slow"
-                style={{ background: 'radial-gradient(circle, rgba(168,85,247,0.35) 0%, transparent 70%)' }}
-              />
-              <div 
-                className="absolute top-[20%] -right-[10%] w-[35vw] h-[35vw] rounded-full opacity-25 mix-blend-screen animate-float-medium"
-                style={{ background: 'radial-gradient(circle, rgba(56,189,248,0.3) 0%, transparent 70%)', animationDelay: '-5s' }}
-              />
-            </motion.div>
-          </div>
-
-          {/* --- MAIN 3D PARALLAX CONTAINER --- */}
+          {/* ── MAIN 3D PARALLAX CONTAINER (FOREGROUND CONTENT) ────────── */}
           <motion.div
             style={{ 
               rotateX, 
               rotateY, 
               transformStyle: "preserve-3d" 
             }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
             className="relative z-10 flex flex-col items-center text-center px-4 max-w-4xl mx-auto my-auto will-change-transform"
           >
             {/* Top Subheader */}
-            <div className="text-gray-300 text-[10px] md:text-xs font-bold tracking-[0.25em] md:tracking-[0.35em] uppercase mb-6">
+            <div className="text-gray-300 text-[10px] md:text-xs font-bold tracking-[0.25em] md:tracking-[0.35em] uppercase mb-6 drop-shadow-[0_0_12px_rgba(168,85,247,0.3)]">
               INNOVATION <span className="text-purple-400 mx-1 md:mx-2">•</span> CREATIVITY <span className="text-cyan-400 mx-1 md:mx-2">•</span> TECHNOLOGY
             </div>
 
             {/* Logo Emblem & Brand Title */}
             <div className="flex flex-col items-center mb-4 relative">
-              {/* Glowing Aura Behind Logo */}
-              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[130%] h-[130%] bg-gradient-to-r from-cyan-500 via-purple-500 to-pink-500 blur-[50px] opacity-30 -z-10 rounded-full pointer-events-none" />
-
               {/* SLRJ Logo Emblem & Rainbow Text */}
-              <div className="flex items-center gap-3 sm:gap-4 md:gap-5 drop-shadow-[0_0_35px_rgba(168,85,247,0.6)]">
-                <Image
-                  src="/logo.png?v=5"
-                  alt="SLRJ Digital Logo"
-                  width={140}
-                  height={140}
-                  priority
-                  unoptimized
-                  className="w-16 h-16 sm:w-24 sm:h-24 md:w-36 md:h-36 object-contain bg-transparent filter drop-shadow-[0_0_35px_rgba(168,85,247,0.8)] drop-shadow-[0_0_12px_rgba(56,189,248,0.7)]"
-                />
+              <div className="flex items-center gap-3 sm:gap-4 md:gap-5 drop-shadow-[0_0_35px_rgba(168,85,247,0.5)]">
+                {/* Logo Image with Shimmer Light Sweep */}
+                <div className="relative group flex items-center justify-center">
+                  <div className="relative overflow-hidden rounded-xl">
+                    <Image
+                      src="/logo.png?v=5"
+                      alt="SLRJ Digital Logo"
+                      width={140}
+                      height={140}
+                      priority
+                      unoptimized
+                      className="w-16 h-16 sm:w-24 sm:h-24 md:w-36 md:h-36 object-contain bg-transparent filter drop-shadow-[0_0_35px_rgba(168,85,247,0.85)] drop-shadow-[0_0_12px_rgba(56,189,248,0.7)]"
+                    />
+
+                    {/* Gentle diagonal light sweep across logo */}
+                    <motion.div
+                      animate={{ x: ["-140%", "240%"] }}
+                      transition={{
+                        duration: 3.2,
+                        repeat: Infinity,
+                        repeatDelay: 1.6,
+                        ease: "easeInOut",
+                      }}
+                      className="absolute inset-0 bg-gradient-to-r from-transparent via-white/35 to-transparent skew-x-[-25deg] pointer-events-none"
+                    />
+                  </div>
+                </div>
+
                 <h1 className="text-[3.5rem] sm:text-[5.5rem] md:text-[7.5rem] lg:text-[9.5rem] font-black tracking-tight flex items-center uppercase leading-none font-brand">
                   <span className="text-transparent bg-clip-text bg-gradient-to-b from-cyan-300 via-purple-400 to-purple-700">
                     SL
@@ -178,7 +189,7 @@ export default function SplashScreen() {
             </div>
 
             {/* Slogan */}
-            <div className="text-white text-base sm:text-xl md:text-2xl font-bold tracking-wide mb-2 px-2">
+            <div className="text-white text-base sm:text-xl md:text-2xl font-bold tracking-wide mb-2 px-2 drop-shadow-[0_0_15px_rgba(255,255,255,0.2)]">
               We Imagine. We Create. We Build.
             </div>
 
@@ -229,22 +240,22 @@ export default function SplashScreen() {
 
             {/* Capability Badges */}
             <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-2.5 mb-6 max-w-xl">
-              <div className="px-3 py-1 rounded-full bg-white/5 border border-cyan-500/30 text-[10px] sm:text-xs font-medium text-cyan-300 flex items-center gap-1.5 backdrop-blur-md">
+              <div className="px-3 py-1 rounded-full bg-white/5 border border-cyan-500/30 text-[10px] sm:text-xs font-medium text-cyan-300 flex items-center gap-1.5 backdrop-blur-md shadow-[0_0_12px_rgba(6,182,212,0.15)]">
                 <Code2 size={12} className="text-cyan-400" />
                 <span>Next.js 16 & React 19</span>
               </div>
 
-              <div className="px-3 py-1 rounded-full bg-white/5 border border-purple-500/30 text-[10px] sm:text-xs font-medium text-purple-300 flex items-center gap-1.5 backdrop-blur-md">
+              <div className="px-3 py-1 rounded-full bg-white/5 border border-purple-500/30 text-[10px] sm:text-xs font-medium text-purple-300 flex items-center gap-1.5 backdrop-blur-md shadow-[0_0_12px_rgba(168,85,247,0.15)]">
                 <Palette size={12} className="text-purple-400" />
                 <span>Futuristic UI/UX</span>
               </div>
 
-              <div className="px-3 py-1 rounded-full bg-white/5 border border-pink-500/30 text-[10px] sm:text-xs font-medium text-pink-300 flex items-center gap-1.5 backdrop-blur-md">
+              <div className="px-3 py-1 rounded-full bg-white/5 border border-pink-500/30 text-[10px] sm:text-xs font-medium text-pink-300 flex items-center gap-1.5 backdrop-blur-md shadow-[0_0_12px_rgba(236,72,153,0.15)]">
                 <ShoppingBag size={12} className="text-pink-400" />
                 <span>E-Commerce & SaaS</span>
               </div>
 
-              <div className="px-3 py-1 rounded-full bg-white/5 border border-emerald-500/30 text-[10px] sm:text-xs font-medium text-emerald-300 flex items-center gap-1.5 backdrop-blur-md">
+              <div className="px-3 py-1 rounded-full bg-white/5 border border-emerald-500/30 text-[10px] sm:text-xs font-medium text-emerald-300 flex items-center gap-1.5 backdrop-blur-md shadow-[0_0_12px_rgba(16,185,129,0.15)]">
                 <Zap size={12} className="text-emerald-400" />
                 <span>100/100 Core Web Vitals</span>
               </div>

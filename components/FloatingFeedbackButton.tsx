@@ -1,22 +1,20 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useSyncExternalStore } from "react";
 import { motion } from "framer-motion";
 import { Star } from "lucide-react";
+import { openFeedbackModal } from "@/components/FeedbackModal";
+
+const emptySubscribe = () => () => {};
 
 export default function FloatingFeedbackButton() {
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
+  const mounted = useSyncExternalStore(emptySubscribe, () => true, () => false);
 
   const handleClick = () => {
+    openFeedbackModal();
     const section = document.getElementById("feedback");
     if (section) {
       section.scrollIntoView({ behavior: "smooth" });
-    } else {
-      window.location.href = "/#feedback";
     }
   };
 

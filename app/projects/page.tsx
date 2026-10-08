@@ -2,9 +2,8 @@
 
 import { useState } from "react";
 import { projects } from "@/data/projects";
-import Link from "next/link";
 import Image from "next/image";
-import { ArrowRight, ExternalLink } from "lucide-react";
+import { ExternalLink } from "lucide-react";
 import ContactCTA from "@/components/ContactCTA";
 import * as motion from "framer-motion/client";
 

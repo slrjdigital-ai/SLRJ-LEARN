@@ -66,7 +66,7 @@ export default function ContactPage() {
           data.error || "Failed to send email. Please check your information or try WhatsApp."
         );
       }
-    } catch (error: any) {
+    } catch {
       setErrorMessage(
         "Network connection error. Please check your internet connection or use WhatsApp."
       );

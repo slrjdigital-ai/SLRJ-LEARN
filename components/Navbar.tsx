@@ -86,6 +86,7 @@ export default function Navbar() {
             <button
               onClick={toggleMenu}
               aria-label="Toggle navigation menu"
+              suppressHydrationWarning
               className="inline-flex items-center justify-center p-2.5 rounded-xl text-gray-300 hover:text-white hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-purple-500 transition-colors"
             >
               <span className="sr-only">Open main menu</span>

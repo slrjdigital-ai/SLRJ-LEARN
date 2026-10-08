@@ -116,10 +116,10 @@ export default function Services() {
                 </p>
 
                 {/* Deliverables */}
-                {(service as any).deliverables && (
+                {service.deliverables && (
                   <div className="mb-8 border-t border-white/5 pt-4">
                     <p className="text-xs uppercase tracking-widest text-gray-500 mb-2 font-semibold">Key Deliverables</p>
-                    <p className="text-sm text-gray-300">{(service as any).deliverables}</p>
+                    <p className="text-sm text-gray-300">{service.deliverables}</p>
                   </div>
                 )}
 

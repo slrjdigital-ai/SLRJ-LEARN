@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import { Store, Rocket, ShoppingBag, UserCircle, Building2, Video, ArrowRight } from "lucide-react";
 import { motion } from "framer-motion";
 import SpotlightCard from "./SpotlightCard";

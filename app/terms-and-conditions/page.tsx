@@ -1,10 +1,8 @@
 import React from "react";
 import Link from "next/link";
 import {
-  FileText,
   AlertTriangle,
   CheckCircle2,
-  Lock,
   Code2,
   ShieldCheck,
   Mail,

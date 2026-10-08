@@ -11,6 +11,8 @@ import AnimatedBackground from "@/components/AnimatedBackground";
 import BorderLight from "@/components/BorderLight";
 import FloatingFeedbackButton from "@/components/FloatingFeedbackButton";
 import FloatingWhatsApp from "@/components/FloatingWhatsApp";
+import FeedbackModal from "@/components/FeedbackModal";
+import PageTransition from "@/components/PageTransition";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -72,7 +74,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en" suppressHydrationWarning data-scroll-behavior="smooth">
       <body
         suppressHydrationWarning
         className={`${geistSans.variable} ${geistMono.variable} ${orbitron.variable} antialiased flex flex-col min-h-screen relative`}
@@ -84,11 +86,14 @@ export default function RootLayout({
         <ScrollProgress />
         <SplashScreen />
         <Navbar />
-        <main className="flex-grow">
-          {children}
-        </main>
+        <PageTransition>
+          <main className="flex-grow">
+            {children}
+          </main>
+        </PageTransition>
         <FloatingFeedbackButton />
         <FloatingWhatsApp />
+        <FeedbackModal />
         <Footer />
       </body>
     </html>

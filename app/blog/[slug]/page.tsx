@@ -20,7 +20,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
 
   return (
     <article className="pt-32 pb-16 min-h-screen">
-      <div className={`${(post as any).htmlContent ? "max-w-5xl" : "max-w-3xl"} mx-auto px-4 sm:px-6 lg:px-8`}>
+      <div className={`${post.htmlContent ? "max-w-5xl" : "max-w-3xl"} mx-auto px-4 sm:px-6 lg:px-8`}>
         
         {/* Back button */}
         <Link 
@@ -49,9 +49,9 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
         </header>
 
         {/* Content */}
-        {(post as any).htmlContent ? (
+        {post.htmlContent ? (
           <div 
-            dangerouslySetInnerHTML={{ __html: (post as any).htmlContent }} 
+            dangerouslySetInnerHTML={{ __html: post.htmlContent }} 
           />
         ) : (
           <div className="prose prose-invert prose-yellow max-w-none">

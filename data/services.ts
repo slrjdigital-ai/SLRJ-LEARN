@@ -1,6 +1,7 @@
 import { Briefcase, ShoppingCart, Layout, PenTool, Zap, Settings } from 'lucide-react';
+import { Service } from '@/types';
 
-export const services = [
+export const services: Service[] = [
   {
     id: 1,
     title: "Business Websites",

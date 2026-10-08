@@ -1,15 +1,16 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useSyncExternalStore } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { FaWhatsapp } from "react-icons/fa";
 import { X, Send, CheckCheck, Sparkles } from "lucide-react";
 
+const emptySubscribe = () => () => {};
+
 export default function FloatingWhatsApp() {
-  const [mounted, setMounted] = useState(false);
+  const mounted = useSyncExternalStore(emptySubscribe, () => true, () => false);
   const [isOpen, setIsOpen] = useState(false);
-  const [selectedPrompt, setSelectedPrompt] = useState("");
   const popoverRef = useRef<HTMLDivElement>(null);
 
   const phoneNumber = "918466974408";
@@ -20,10 +21,6 @@ export default function FloatingWhatsApp() {
     "⚡ I want to redesign my existing website",
     "💼 Let's discuss pricing and custom features",
   ];
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
 
   // Close on outside click
   useEffect(() => {
@@ -41,7 +38,7 @@ export default function FloatingWhatsApp() {
   }, [isOpen]);
 
   const handleStartChat = (customText?: string) => {
-    const textToSend = customText || selectedPrompt || "Hi SLRJ Digital, I would like to inquire about a project for my business.";
+    const textToSend = customText || "Hi SLRJ Digital, I would like to inquire about a project for my business.";
     const url = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(textToSend)}`;
     window.open(url, "_blank", "noopener,noreferrer");
     setIsOpen(false);

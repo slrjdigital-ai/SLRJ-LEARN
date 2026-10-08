@@ -1,26 +1,21 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import {
   Star,
   MessageSquare,
   ThumbsUp,
-  CheckCircle2,
-  X,
   Search,
   PlusCircle,
-  Sparkles,
   ShieldCheck,
-  Send,
-  Loader2,
-  Award,
   TrendingUp,
   Crown,
   Flame,
 } from "lucide-react";
 import SpotlightCard from "./SpotlightCard";
 import ScrollReveal from "./ScrollReveal";
+import { openFeedbackModal } from "./FeedbackModal";
 import {
   FeedbackItem,
   FeedbackStats,
@@ -28,14 +23,6 @@ import {
   calculateFeedbackStats,
   getTopRatedFeedbacks,
 } from "@/data/feedback";
-
-const ratingLabels: Record<number, string> = {
-  1: "Needs Improvement 😞",
-  2: "Fair / Average 😐",
-  3: "Good & Satisfactory 🙂",
-  4: "Very Good Work! 😊",
-  5: "Outstanding / Exceptional! 🚀🌟",
-};
 
 const serviceOptions = [
   "General Experience",
@@ -47,30 +34,11 @@ const serviceOptions = [
 ];
 
 export default function FeedbackSection() {
-  const [mounted, setMounted] = useState(false);
   const [feedbackList, setFeedbackList] = useState<FeedbackItem[]>(initialFeedbackList);
   const [stats, setStats] = useState<FeedbackStats>(calculateFeedbackStats(initialFeedbackList));
-  const [loading, setLoading] = useState(false);
 
   // View mode state: 'top5' by default as requested!
   const [viewMode, setViewMode] = useState<"top5" | "all">("top5");
-
-  // Modal State
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [rating, setRating] = useState<number>(5);
-  const [hoverRating, setHoverRating] = useState<number>(0);
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [role, setRole] = useState("");
-  const [company, setCompany] = useState("");
-  const [service, setService] = useState("Business Websites");
-  const [comment, setComment] = useState("");
-  const [recommend, setRecommend] = useState(true);
-  const [honeypot, setHoneypot] = useState("");
-
-  const [submitting, setSubmitting] = useState(false);
-  const [errorMsg, setErrorMsg] = useState("");
-  const [successMsg, setSuccessMsg] = useState("");
 
   // Filters State
   const [selectedRatingFilter, setSelectedRatingFilter] = useState<number | "all">("all");
@@ -80,15 +48,25 @@ export default function FeedbackSection() {
   // Track liked items locally
   const [likedIds, setLikedIds] = useState<Set<string>>(new Set());
 
+  // Listen for newly submitted feedback to update local list and stats in real-time
   useEffect(() => {
-    setMounted(true);
+    const handleFeedbackSubmitted = (e: Event) => {
+      const customEvent = e as CustomEvent<{ feedback?: FeedbackItem; stats?: FeedbackStats }>;
+      if (customEvent.detail?.feedback) {
+        setFeedbackList((prev) => [customEvent.detail.feedback!, ...prev]);
+      }
+      if (customEvent.detail?.stats) {
+        setStats(customEvent.detail.stats);
+      }
+    };
+    window.addEventListener("feedback-submitted", handleFeedbackSubmitted);
+    return () => window.removeEventListener("feedback-submitted", handleFeedbackSubmitted);
   }, []);
 
   // Fetch live feedback from API on mount
   useEffect(() => {
     async function fetchFeedback() {
       try {
-        setLoading(true);
         const res = await fetch("/api/feedback");
         if (res.ok) {
           const data = await res.json();
@@ -99,8 +77,6 @@ export default function FeedbackSection() {
         }
       } catch (err) {
         console.error("Failed to load feedback API:", err);
-      } finally {
-        setLoading(false);
       }
     }
 
@@ -124,79 +100,6 @@ export default function FeedbackSection() {
       });
     } catch (err) {
       console.error("Failed to record like:", err);
-    }
-  };
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setErrorMsg("");
-    setSuccessMsg("");
-
-    if (!rating) {
-      setErrorMsg("Please select a star rating.");
-      return;
-    }
-
-    if (!name.trim() || name.trim().length < 2) {
-      setErrorMsg("Please enter your name (at least 2 characters).");
-      return;
-    }
-
-    if (!comment.trim() || comment.trim().length < 5) {
-      setErrorMsg("Please write a detailed review (at least 5 characters).");
-      return;
-    }
-
-    try {
-      setSubmitting(true);
-      const res = await fetch("/api/feedback", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          rating,
-          name: name.trim(),
-          email: email.trim(),
-          role: role.trim(),
-          company: company.trim(),
-          service,
-          comment: comment.trim(),
-          recommend,
-          honeypot,
-        }),
-      });
-
-      const data = await res.json();
-
-      if (!res.ok || !data.success) {
-        setErrorMsg(data.error || "Failed to submit feedback. Please try again.");
-        return;
-      }
-
-      // Success
-      setSuccessMsg(data.message || "Thank you! Your feedback has been published.");
-      if (data.feedback) {
-        setFeedbackList((prev) => [data.feedback, ...prev]);
-      }
-      if (data.stats) {
-        setStats(data.stats);
-      }
-
-      // Reset Form fields
-      setName("");
-      setEmail("");
-      setRole("");
-      setCompany("");
-      setComment("");
-      setRating(5);
-
-      setTimeout(() => {
-        setIsModalOpen(false);
-        setSuccessMsg("");
-      }, 2200);
-    } catch (err: any) {
-      setErrorMsg(err.message || "Something went wrong. Please check network connection.");
-    } finally {
-      setSubmitting(false);
     }
   };
 
@@ -333,8 +236,8 @@ export default function FeedbackSection() {
                   suppressHydrationWarning
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  onClick={() => setIsModalOpen(true)}
-                  className="w-full py-4 px-6 rounded-2xl bg-gradient-to-r from-purple-600 via-pink-600 to-cyan-500 text-white font-bold text-sm shadow-[0_0_25px_rgba(168,85,247,0.4)] hover:shadow-[0_0_35px_rgba(236,72,153,0.6)] transition-all flex items-center justify-center gap-2 group"
+                  onClick={() => openFeedbackModal()}
+                  className="w-full py-4 px-6 rounded-2xl bg-gradient-to-r from-purple-600 via-pink-600 to-cyan-500 text-white font-bold text-sm shadow-[0_0_25px_rgba(168,85,247,0.4)] hover:shadow-[0_0_35px_rgba(236,72,153,0.6)] transition-all flex items-center justify-center gap-2 group cursor-pointer"
                 >
                   <PlusCircle size={18} className="group-hover:rotate-90 transition-transform duration-300" />
                   <span>Rate Us & Give Feedback</span>
@@ -467,8 +370,8 @@ export default function FeedbackSection() {
                   suppressHydrationWarning
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  onClick={() => setIsModalOpen(true)}
-                  className="px-6 py-3.5 rounded-2xl bg-gradient-to-r from-purple-600 via-pink-600 to-amber-500 text-white font-bold text-xs shadow-lg shadow-purple-600/30 hover:shadow-purple-600/50 transition-all inline-flex items-center gap-2"
+                  onClick={() => openFeedbackModal()}
+                  className="px-6 py-3.5 rounded-2xl bg-gradient-to-r from-purple-600 via-pink-600 to-amber-500 text-white font-bold text-xs shadow-lg shadow-purple-600/30 hover:shadow-purple-600/50 transition-all inline-flex items-center gap-2 cursor-pointer"
                 >
                   <PlusCircle size={16} />
                   <span>Be the First to Rate Us</span>
@@ -598,259 +501,6 @@ export default function FeedbackSection() {
           </div>
         )}
       </div>
-
-      {/* SUBMISSION MODAL */}
-      <AnimatePresence>
-        {isModalOpen && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-black/85 backdrop-blur-md overflow-y-auto" suppressHydrationWarning>
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9, y: 20 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.9, y: 20 }}
-              className="relative w-full max-w-xl bg-[#0d111d] border border-white/15 rounded-2xl sm:rounded-3xl p-5 sm:p-8 shadow-2xl my-auto max-h-[90vh] overflow-y-auto"
-              suppressHydrationWarning
-            >
-              {/* Background Accent */}
-              <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-1 bg-gradient-to-r from-purple-500 via-pink-500 to-amber-400" />
-
-              {/* Close Button */}
-              <button
-                suppressHydrationWarning
-                onClick={() => setIsModalOpen(false)}
-                className="absolute top-6 right-6 text-gray-400 hover:text-white p-2 rounded-full hover:bg-white/10 transition-colors"
-              >
-                <X size={20} />
-              </button>
-
-              {/* Modal Title */}
-              <div className="mb-6">
-                <span className="text-xs font-bold text-amber-400 uppercase tracking-widest flex items-center gap-1 mb-2">
-                  <Sparkles size={14} /> SLRJ Digital Client Review
-                </span>
-                <h3 className="text-2xl font-black text-white">Rate & Submit Feedback</h3>
-                <p className="text-gray-400 text-xs mt-1">
-                  Your feedback helps us continuously elevate our service standards and design quality.
-                </p>
-              </div>
-
-              {/* Alerts */}
-              {errorMsg && (
-                <div className="mb-4 p-3 rounded-xl bg-red-500/10 border border-red-500/20 text-red-400 text-xs font-medium">
-                  {errorMsg}
-                </div>
-              )}
-
-              {successMsg && (
-                <div className="mb-4 p-4 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-300 text-xs font-medium flex items-center gap-2">
-                  <CheckCircle2 size={18} className="text-emerald-400 shrink-0" />
-                  <span>{successMsg}</span>
-                </div>
-              )}
-
-              <form onSubmit={handleSubmit} className="space-y-5" suppressHydrationWarning>
-                {/* Spam Honeypot */}
-                <input
-                  suppressHydrationWarning
-                  type="text"
-                  name="honeypot"
-                  value={honeypot}
-                  onChange={(e) => setHoneypot(e.target.value)}
-                  className="hidden"
-                  tabIndex={-1}
-                  autoComplete="off"
-                />
-
-                {/* Star Rating Picker */}
-                <div suppressHydrationWarning>
-                  <label className="block text-xs font-semibold text-gray-300 uppercase tracking-wider mb-2">
-                    Overall Rating <span className="text-pink-500">*</span>
-                  </label>
-
-                  <div className="flex items-center gap-2 mb-2" suppressHydrationWarning>
-                    {[1, 2, 3, 4, 5].map((starVal) => {
-                      const isActive = starVal <= (hoverRating || rating);
-                      return (
-                        <button
-                          key={starVal}
-                          suppressHydrationWarning
-                          type="button"
-                          onClick={() => setRating(starVal)}
-                          onMouseEnter={() => setHoverRating(starVal)}
-                          onMouseLeave={() => setHoverRating(0)}
-                          className="p-1 focus:outline-none transition-transform hover:scale-125"
-                        >
-                          <Star
-                            size={28}
-                            className={`transition-all duration-200 ${
-                              isActive
-                                ? "fill-amber-400 text-amber-400 drop-shadow-[0_0_10px_rgba(251,191,36,0.8)]"
-                                : "text-gray-600 hover:text-gray-400"
-                            }`}
-                          />
-                        </button>
-                      );
-                    })}
-                  </div>
-
-                  <p className="text-xs font-medium text-amber-400 h-4">
-                    {ratingLabels[hoverRating || rating]}
-                  </p>
-                </div>
-
-                {/* Grid Inputs */}
-                <div className="grid sm:grid-cols-2 gap-4" suppressHydrationWarning>
-                  {/* Name */}
-                  <div>
-                    <label className="block text-xs font-semibold text-gray-300 uppercase tracking-wider mb-1.5">
-                      Your Name <span className="text-pink-500">*</span>
-                    </label>
-                    <input
-                      suppressHydrationWarning
-                      type="text"
-                      required
-                      placeholder="e.g. Rahul Verma"
-                      value={name}
-                      onChange={(e) => setName(e.target.value)}
-                      className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-purple-500 transition-colors"
-                    />
-                  </div>
-
-                  {/* Email */}
-                  <div>
-                    <label className="block text-xs font-semibold text-gray-300 uppercase tracking-wider mb-1.5">
-                      Email Address <span className="text-gray-500">(Optional)</span>
-                    </label>
-                    <input
-                      suppressHydrationWarning
-                      type="email"
-                      placeholder="rahul@example.com"
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                      className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-purple-500 transition-colors"
-                    />
-                  </div>
-
-                  {/* Role / Job Title */}
-                  <div>
-                    <label className="block text-xs font-semibold text-gray-300 uppercase tracking-wider mb-1.5">
-                      Your Role / Designation
-                    </label>
-                    <input
-                      suppressHydrationWarning
-                      type="text"
-                      placeholder="e.g. Founder, Director"
-                      value={role}
-                      onChange={(e) => setRole(e.target.value)}
-                      className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-purple-500 transition-colors"
-                    />
-                  </div>
-
-                  {/* Company */}
-                  <div>
-                    <label className="block text-xs font-semibold text-gray-300 uppercase tracking-wider mb-1.5">
-                      Company / Organization
-                    </label>
-                    <input
-                      suppressHydrationWarning
-                      type="text"
-                      placeholder="e.g. TechCorp"
-                      value={company}
-                      onChange={(e) => setCompany(e.target.value)}
-                      className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-purple-500 transition-colors"
-                    />
-                  </div>
-                </div>
-
-                {/* Service Dropdown */}
-                <div>
-                  <label className="block text-xs font-semibold text-gray-300 uppercase tracking-wider mb-1.5">
-                    Service Rated
-                  </label>
-                  <select
-                    suppressHydrationWarning
-                    value={service}
-                    onChange={(e) => setService(e.target.value)}
-                    className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-purple-500 transition-colors"
-                  >
-                    {serviceOptions.map((opt) => (
-                      <option key={opt} value={opt} className="bg-gray-900 text-white">
-                        {opt}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-
-                {/* Comment Text Area */}
-                <div>
-                  <div className="flex justify-between items-center mb-1.5">
-                    <label className="block text-xs font-semibold text-gray-300 uppercase tracking-wider">
-                      Feedback / Detailed Review <span className="text-pink-500">*</span>
-                    </label>
-                    <span className="text-[11px] text-gray-500">{comment.length} / 500</span>
-                  </div>
-                  <textarea
-                    suppressHydrationWarning
-                    rows={4}
-                    required
-                    maxLength={500}
-                    placeholder="Tell us about your experience working with SLRJ Digital..."
-                    value={comment}
-                    onChange={(e) => setComment(e.target.value)}
-                    className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-purple-500 transition-colors resize-none"
-                  />
-                </div>
-
-                {/* Recommend Checkbox */}
-                <div className="flex items-center gap-3 pt-1">
-                  <input
-                    suppressHydrationWarning
-                    type="checkbox"
-                    id="recommend"
-                    checked={recommend}
-                    onChange={(e) => setRecommend(e.target.checked)}
-                    className="w-4 h-4 rounded border-gray-700 text-purple-600 focus:ring-purple-500 accent-purple-600"
-                  />
-                  <label htmlFor="recommend" className="text-xs text-gray-300 cursor-pointer select-none">
-                    I would recommend SLRJ Digital to other businesses & clients.
-                  </label>
-                </div>
-
-                {/* Actions */}
-                <div className="flex items-center justify-end gap-3 pt-4 border-t border-white/10" suppressHydrationWarning>
-                  <button
-                    suppressHydrationWarning
-                    type="button"
-                    onClick={() => setIsModalOpen(false)}
-                    className="px-5 py-2.5 rounded-xl border border-white/10 text-gray-300 text-xs font-semibold hover:bg-white/5 transition-colors"
-                  >
-                    Cancel
-                  </button>
-                  <motion.button
-                    suppressHydrationWarning
-                    whileHover={{ scale: 1.02 }}
-                    whileTap={{ scale: 0.98 }}
-                    disabled={submitting}
-                    type="submit"
-                    className="px-6 py-2.5 rounded-xl bg-gradient-to-r from-purple-600 via-pink-600 to-amber-500 text-white text-xs font-bold flex items-center gap-2 shadow-lg shadow-purple-600/30 disabled:opacity-50"
-                  >
-                    {submitting ? (
-                      <>
-                        <Loader2 size={16} className="animate-spin" />
-                        <span>Publishing...</span>
-                      </>
-                    ) : (
-                      <>
-                        <Send size={14} />
-                        <span>Submit Feedback</span>
-                      </>
-                    )}
-                  </motion.button>
-                </div>
-              </form>
-            </motion.div>
-          </div>
-        )}
-      </AnimatePresence>
     </section>
   );
 }

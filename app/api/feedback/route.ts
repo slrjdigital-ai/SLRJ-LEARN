@@ -3,7 +3,7 @@ import nodemailer from 'nodemailer';
 import { initialFeedbackList, calculateFeedbackStats, FeedbackItem } from '@/data/feedback';
 
 // In-memory feedback store (persists during runtime)
-let feedbackStore: FeedbackItem[] = [];
+let feedbackStore: FeedbackItem[] = [...initialFeedbackList];
 
 // In-memory rate limiting: IP address -> array of timestamps
 const rateLimitMap = new Map<string, number[]>();
@@ -229,10 +229,11 @@ ${comment}
       },
       { status: 201 }
     );
-  } catch (error: any) {
-    console.error('Feedback API Error:', error);
+  } catch (error: unknown) {
+    const errMsg = error instanceof Error ? error.message : 'Failed to submit feedback. Please try again.';
+    console.error('Feedback API Error:', errMsg);
     return NextResponse.json(
-      { success: false, error: error.message || 'Failed to submit feedback. Please try again.' },
+      { success: false, error: errMsg },
       { status: 500 }
     );
   }

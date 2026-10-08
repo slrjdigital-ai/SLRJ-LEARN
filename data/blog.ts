@@ -4,8 +4,9 @@ import { jsBasicsHtml } from "./notes/js-basics";
 import { reactRoadmapHtml } from "./notes/react-roadmap";
 import { gitGithubHtml } from "./notes/git-github";
 import { deploymentHtml } from "./notes/deployment";
+import { BlogPost } from "@/types";
 
-export const blogPosts = [
+export const blogPosts: BlogPost[] = [
   {
     id: 1,
     title: "HTML Complete Guide",

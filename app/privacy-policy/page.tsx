@@ -3,12 +3,9 @@ import Link from "next/link";
 import {
   ShieldCheck,
   Lock,
-  FileText,
-  AlertCircle,
   CheckCircle2,
   Mail,
   Phone,
-  MapPin,
   ArrowLeft,
   Calendar,
   Building2,
