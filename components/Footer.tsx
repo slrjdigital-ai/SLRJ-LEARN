@@ -100,9 +100,9 @@ export default function Footer() {
     {
       title: "Resources",
       links: [
-        { name: "Tech Insights & Blog", href: "/blog" },
-        { name: "HTML & Web Guide", href: "/blog/html-guide" },
-        { name: "CSS Architecture", href: "/blog/css-flexbox" },
+        { name: "Project Estimator", href: "/#estimator" },
+        { name: "Client Guarantees", href: "/about" },
+        { name: "Client Reviews", href: "/#feedback" },
         { name: "Privacy Policy", href: "/privacy-policy" },
         { name: "Terms of Service", href: "/terms-and-conditions" },
       ],

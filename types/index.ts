@@ -24,15 +24,3 @@ export interface Service {
   icon: ElementType;
   link: string;
 }
-
-export interface BlogPost {
-  id: number;
-  title: string;
-  description: string;
-  category: string;
-  date: string;
-  slug: string;
-  image?: string;
-  content?: string;
-  htmlContent?: string;
-}

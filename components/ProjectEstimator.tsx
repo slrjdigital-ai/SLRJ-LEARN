@@ -61,7 +61,7 @@ export default function ProjectEstimator() {
   const features: Feature[] = [
     { id: "seo", name: "100/100 Core Web Vitals & SEO Suite", price: 3999, days: 2, category: "Performance" },
     { id: "payments", name: "Payment Gateway Integration (Stripe / Razorpay)", price: 4999, days: 3, category: "Commerce" },
-    { id: "cms", name: "Headless CMS for Easy Blog & Content Updates", price: 5999, days: 3, category: "Content" },
+    { id: "cms", name: "Headless CMS for Dynamic Content & Media Management", price: 5999, days: 3, category: "Content" },
     { id: "animations", name: "3D Isometric Models & Custom Framer Motion", price: 6999, days: 4, category: "Design" },
     { id: "analytics", name: "Conversion Tracking & Analytics Dashboard", price: 2999, days: 1, category: "Growth" },
     { id: "whatsapp", name: "Direct WhatsApp Live Chat & AI Lead Bot", price: 2499, days: 1, category: "Support" },
