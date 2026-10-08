@@ -12,6 +12,7 @@ import FloatingFeedbackButton from "@/components/FloatingFeedbackButton";
 import FloatingWhatsApp from "@/components/FloatingWhatsApp";
 import FeedbackModal from "@/components/FeedbackModal";
 import PageTransition from "@/components/PageTransition";
+import SplashScreen from "@/components/SplashScreen";
 
 import JsonLd from "@/components/JsonLd";
 
@@ -97,6 +98,7 @@ export default function RootLayout({
         suppressHydrationWarning
         className={`${geistSans.variable} ${geistMono.variable} ${orbitron.variable} antialiased flex flex-col min-h-screen relative`}
       >
+        <SplashScreen />
         <BorderLight />
         <AnimatedBackground />
         <MouseLight />

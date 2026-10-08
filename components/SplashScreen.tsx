@@ -47,8 +47,8 @@ export default function SplashScreen() {
       return;
     }
 
-    // Smooth, cinematic 5.5-second progress progression
-    const totalDuration = 5500;
+    // Smooth, cinematic 1.8-second progress progression with automatic smooth reveal
+    const totalDuration = 1800;
     const startTime = Date.now();
 
     const interval = setInterval(() => {
@@ -59,11 +59,14 @@ export default function SplashScreen() {
       if (nextVal >= 100) {
         clearInterval(interval);
         setIsLoaded(true);
+        setTimeout(() => {
+          handleExplore();
+        }, 600);
       }
-    }, 40);
+    }, 25);
 
     return () => clearInterval(interval);
-  }, [alreadySeen, dismissed]);
+  }, [alreadySeen, dismissed, handleExplore]);
 
   // Keyboard shortcut [Enter], [Space], [Esc]
   useEffect(() => {
