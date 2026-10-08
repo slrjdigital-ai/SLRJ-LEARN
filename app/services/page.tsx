@@ -5,8 +5,12 @@ import { ArrowRight, CheckCircle2 } from "lucide-react";
 import ContactCTA from "@/components/ContactCTA";
 
 export const metadata = {
-  title: "Services | SLRJ Digital",
-  description: "Digital solutions for growing businesses. Web development, e-commerce, UI/UX and more."
+  title: "Services | SLRJ Digital - High-Performance Web & Digital Solutions",
+  description:
+    "Explore our full-stack digital services: high-converting business websites, custom e-commerce stores, modern Next.js web applications, UI/UX systems, and SLA maintenance.",
+  alternates: {
+    canonical: "https://slrjdigital.com/services",
+  },
 };
 
 export default function ServicesPage() {
@@ -15,11 +19,14 @@ export default function ServicesPage() {
       <section className="pt-28 sm:pt-32 pb-12 sm:pb-16 bg-transparent grid-bg relative">
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-purple-600/5 rounded-full blur-[100px] pointer-events-none" />
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+          <span className="inline-block px-4 py-1.5 rounded-full border border-cyan-500/20 bg-cyan-500/10 text-cyan-300 text-xs font-mono font-bold tracking-[0.25em] uppercase mb-4">
+            Engineered For Scale
+          </span>
           <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-4 sm:mb-6">
-            Digital Solutions <br className="hidden sm:block" /> <span className="gold-gradient-text">for Growing Businesses.</span>
+            Digital Solutions <br className="hidden sm:block" /> <span className="gold-gradient-text">Built for Growth.</span>
           </h1>
           <p className="text-base sm:text-xl text-gray-400 max-w-2xl mx-auto">
-            We offer end-to-end web development services to establish, scale, and maintain your online presence.
+            We offer end-to-end web engineering services designed to establish, scale, and maintain your online market authority.
           </p>
         </div>
       </section>
@@ -30,41 +37,34 @@ export default function ServicesPage() {
             {services.map((service, idx) => (
               <div 
                 key={service.id} 
-                id={service.link.split('#')[1]}
+                id={service.slug}
                 className={`flex flex-col lg:flex-row gap-12 items-center ${idx % 2 !== 0 ? 'lg:flex-row-reverse' : ''}`}
               >
                 <div className="w-full lg:w-1/2">
-                  <div className="w-16 h-16 rounded-2xl bg-white/5 flex items-center justify-center text-purple-400 mb-6">
+                  <div className="w-16 h-16 rounded-2xl bg-white/5 border border-purple-500/30 flex items-center justify-center text-purple-400 mb-6 shadow-[0_0_20px_rgba(168,85,247,0.15)]">
                     <service.icon size={32} />
                   </div>
-                  <h2 className="text-3xl md:text-4xl font-bold mb-4">{service.title}</h2>
-                  <p className="text-gray-400 text-lg mb-8 leading-relaxed">
-                    {service.description} We use modern technologies to ensure performance, security, and scalability for your specific business requirements.
+                  <h2 className="text-3xl md:text-4xl font-bold mb-4 font-brand">{service.title}</h2>
+                  <p className="text-gray-300 text-lg mb-8 leading-relaxed">
+                    {service.description}
                   </p>
                   
                   <div className="space-y-3 mb-8">
                     {service.deliverables ? (
                       service.deliverables.split(', ').map((item, dIdx) => (
-                        <div key={dIdx} className="flex items-center text-gray-300">
-                          <CheckCircle2 size={20} className="text-cyan-400 mr-3 shrink-0" />
+                        <div key={dIdx} className="flex items-center text-gray-300 text-sm sm:text-base">
+                          <CheckCircle2 size={18} className="text-cyan-400 mr-3 shrink-0" />
                           <span>{item}</span>
                         </div>
                       ))
-                    ) : (
-                      [1, 2, 3].map(item => (
-                        <div key={item} className="flex items-center text-gray-300">
-                          <CheckCircle2 size={20} className="text-cyan-400 mr-3 shrink-0" />
-                          <span>Premium quality and modern standards</span>
-                        </div>
-                      ))
-                    )}
+                    ) : null}
                   </div>
 
                   <Link 
-                    href="/contact" 
-                    className="inline-flex items-center px-6 py-3 bg-white/5 border border-white/10 hover:border-purple-500/50 hover:bg-white/10 text-white rounded-full font-medium transition-all duration-300"
+                    href={`/contact?service=${service.slug}`}
+                    className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 text-white rounded-full font-semibold transition-all duration-300 shadow-[0_0_20px_rgba(168,85,247,0.3)] hover:scale-105 active:scale-98"
                   >
-                    Start Your Project <ArrowRight size={18} className="ml-2" />
+                    Start Your {service.title} Project <ArrowRight size={18} className="ml-2" />
                   </Link>
                 </div>
                 

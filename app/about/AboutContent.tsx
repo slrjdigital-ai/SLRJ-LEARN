@@ -16,7 +16,7 @@ import {
   HeartHandshake,
   Flame,
 } from "lucide-react";
-import { FaWhatsapp } from "react-icons/fa";
+import { FaWhatsapp, FaGithub, FaLinkedinIn } from "react-icons/fa";
 import SpotlightCard from "@/components/SpotlightCard";
 import ScrollReveal from "@/components/ScrollReveal";
 import ContactCTA from "@/components/ContactCTA";
@@ -568,6 +568,165 @@ export default function AboutContent() {
                   {tech.desc}
                 </p>
               </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ══════════════════════════════════════════════════════════════
+          LEADERSHIP & ENGINEERING TEAM
+         ══════════════════════════════════════════════════════════════ */}
+      <section className="py-24 sm:py-32 relative z-10 border-t border-white/5">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <ScrollReveal>
+            <div className="text-center max-w-3xl mx-auto mb-16 sm:mb-20">
+              <span className="text-xs font-mono font-bold text-purple-400 tracking-[0.25em] uppercase mb-2 inline-block">
+                {"// CORE LEADERSHIP & ENGINEERING //"}
+              </span>
+              <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight font-brand mb-4">
+                The Architects Behind The Code
+              </h2>
+              <p className="text-gray-400 text-sm sm:text-base leading-relaxed">
+                No outsourced junior teams or hidden subcontractors. Meet the dedicated engineers and architects directly responsible for delivering your production platforms.
+              </p>
+            </div>
+          </ScrollReveal>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+            {[
+              {
+                name: "Shahid Kouluri",
+                role: "Founder & Lead Architect",
+                bio: "Leads technical strategy, system architecture, Next.js engineering, and conversion rate optimization across all SLRJ production platforms.",
+                expertise: ["Full-Stack Architecture", "Next.js 16 / React 19", "Conversion Strategy", "Performance Optimization"],
+                monogram: "SK",
+                accent: "#A855F7",
+                linkedin: "https://www.linkedin.com/in/shahid-kouluri-990818296/",
+                github: "https://github.com/slrjdigital-ai",
+                isFounder: true,
+              },
+              {
+                name: "Lokeish Pamarthi",
+                role: "Lead Frontend & UI/UX Engineer",
+                bio: "Crafts bespoke design systems, fluid micro-interactions, responsive cyber aesthetics, and 60 FPS motion choreography.",
+                expertise: ["Design Systems", "Framer Motion Physics", "Tailwind CSS v4", "Interactive Prototyping"],
+                monogram: "LP",
+                accent: "#06B6D4",
+                linkedin: "https://linkedin.com",
+                github: "https://github.com",
+                isFounder: false,
+              },
+              {
+                name: "Subhash Kasani",
+                role: "Full-Stack & Backend Systems Engineer",
+                bio: "Engineers resilient database architectures, serverless edge functions, microservices, and PCI-compliant payment integrations.",
+                expertise: ["PostgreSQL & Supabase", "API Design & REST", "Stripe & Razorpay", "Distributed Systems"],
+                monogram: "SK",
+                accent: "#EC4899",
+                linkedin: "https://linkedin.com",
+                github: "https://github.com",
+                isFounder: false,
+              },
+              {
+                name: "Rupesh Chaluvadi",
+                role: "Performance & Cloud DevOps Engineer",
+                bio: "Specializes in Core Web Vitals optimization, global Vercel CDN deployment, sub-second TTFB caching, and CI/CD automation.",
+                expertise: ["Edge CDN Caching", "Core Web Vitals 100/100", "DevOps & CI/CD", "Security Hardening"],
+                monogram: "RC",
+                accent: "#10B981",
+                linkedin: "https://linkedin.com",
+                github: "https://github.com",
+                isFounder: false,
+              },
+              {
+                name: "Jaswanth Pula",
+                role: "QA & Growth Systems Engineer",
+                bio: "Drives multi-viewport device auditing, automated regression testing, accessibility compliance, and analytics tracking.",
+                expertise: ["WCAG 2.1 AA Compliance", "Automated QA Auditing", "Cross-Browser Testing", "Conversion Analytics"],
+                monogram: "JP",
+                accent: "#F59E0B",
+                linkedin: "https://linkedin.com",
+                github: "https://github.com",
+                isFounder: false,
+              },
+            ].map((member, idx) => (
+              <ScrollReveal key={idx} delay={idx * 0.08}>
+                <SpotlightCard
+                  spotlightColor={`${member.accent}20`}
+                  className={`p-7 rounded-2xl bg-[#09061c]/80 border ${member.isFounder ? "border-purple-500/40 lg:col-span-1 shadow-[0_0_30px_rgba(168,85,247,0.15)]" : "border-white/10"} hover:border-white/20 transition-all duration-300 flex flex-col justify-between h-full`}
+                >
+                  <div>
+                    <div className="flex items-start justify-between mb-5">
+                      <div className="flex items-center gap-4">
+                        <div
+                          className="w-14 h-14 rounded-2xl flex items-center justify-center font-brand font-black text-lg shadow-lg"
+                          style={{
+                            background: `linear-gradient(135deg, ${member.accent}25, ${member.accent}45)`,
+                            border: `1px solid ${member.accent}60`,
+                            color: member.accent,
+                          }}
+                        >
+                          {member.monogram}
+                        </div>
+                        <div>
+                          <div className="flex items-center gap-2">
+                            <h3 className="font-brand font-bold text-lg text-white">{member.name}</h3>
+                            {member.isFounder && (
+                              <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded-full bg-purple-500/20 border border-purple-500/40 text-purple-300 uppercase">
+                                Founder
+                              </span>
+                            )}
+                          </div>
+                          <span className="text-xs font-mono font-medium block mt-0.5" style={{ color: member.accent }}>
+                            {member.role}
+                          </span>
+                        </div>
+                      </div>
+
+                      <div className="flex items-center gap-2">
+                        <a
+                          href={member.linkedin}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          aria-label={`${member.name} LinkedIn Profile`}
+                          className="w-8 h-8 rounded-lg bg-white/5 hover:bg-white/10 flex items-center justify-center text-gray-400 hover:text-white transition-colors border border-white/10"
+                        >
+                          <FaLinkedinIn size={14} />
+                        </a>
+                        <a
+                          href={member.github}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          aria-label={`${member.name} GitHub Profile`}
+                          className="w-8 h-8 rounded-lg bg-white/5 hover:bg-white/10 flex items-center justify-center text-gray-400 hover:text-white transition-colors border border-white/10"
+                        >
+                          <FaGithub size={14} />
+                        </a>
+                      </div>
+                    </div>
+
+                    <p className="text-gray-300 text-xs sm:text-sm leading-relaxed mb-5">
+                      {member.bio}
+                    </p>
+                  </div>
+
+                  <div className="pt-4 border-t border-white/5">
+                    <span className="text-[10px] font-mono text-gray-400 uppercase tracking-wider block mb-2 font-semibold">
+                      Core Specialization:
+                    </span>
+                    <div className="flex flex-wrap gap-1.5">
+                      {member.expertise.map((skill, sIdx) => (
+                        <span
+                          key={sIdx}
+                          className="text-[10px] font-mono px-2.5 py-1 rounded-md bg-white/[0.04] text-gray-300 border border-white/5"
+                        >
+                          {skill}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                </SpotlightCard>
+              </ScrollReveal>
             ))}
           </div>
         </div>

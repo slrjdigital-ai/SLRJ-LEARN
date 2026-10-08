@@ -4,14 +4,16 @@ import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { projects } from "@/data/projects";
-import { ArrowRight, ExternalLink, TrendingUp } from "lucide-react";
+import { Project } from "@/types";
+import { ArrowRight, ExternalLink, TrendingUp, X, CheckCircle2, Sparkles, Code2 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import SpotlightCard from "./SpotlightCard";
 
 export default function Projects() {
   const [activeCategory, setActiveCategory] = useState<string>("All");
+  const [activeCaseStudy, setActiveCaseStudy] = useState<Project | null>(null);
 
-  const categories = ["All", "Business Website", "E-Commerce", "Web Apps"];
+  const categories = ["All", "Business Website", "E-Commerce", "Web Apps", "UI/UX"];
 
   const filteredProjects =
     activeCategory === "All"
@@ -39,16 +41,16 @@ export default function Projects() {
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5 }}
-              className="inline-block px-5 py-1.5 rounded-full border border-purple-500/20 bg-purple-500/5 text-purple-400 text-xs font-semibold tracking-[0.3em] uppercase mb-6"
+              className="inline-block px-5 py-1.5 rounded-full border border-purple-500/20 bg-purple-500/5 text-purple-400 text-xs font-mono font-bold tracking-[0.25em] uppercase mb-6"
             >
-              Proven Track Record
+              Engineering Showcase
             </motion.span>
 
             <h2 className="text-3xl sm:text-5xl md:text-6xl font-black mb-4 leading-tight font-brand">
-              Projects That{" "}
+              Architected for{" "}
               <span className="relative inline-block">
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#A855F7] via-[#EC4899] to-[#06B6D4]">
-                  Deliver Real ROI
+                  Speed &amp; Impact
                 </span>
                 <motion.div
                   initial={{ scaleX: 0 }}
@@ -60,8 +62,8 @@ export default function Projects() {
               </span>
             </h2>
 
-            <p className="text-gray-400 text-base sm:text-lg md:text-xl max-w-xl">
-              High-converting digital platforms engineered to maximize user engagement, speed, and business revenue.
+            <p className="text-gray-300 text-base sm:text-lg md:text-xl max-w-xl">
+              Production-grade platforms and architectural blueprints engineered for sub-second speeds, zero layout shifts, and high conversion rates.
             </p>
           </div>
 
@@ -88,13 +90,13 @@ export default function Projects() {
               key={cat}
               onClick={() => setActiveCategory(cat)}
               suppressHydrationWarning
-              className={`px-4 py-2 rounded-full text-xs font-semibold tracking-wider uppercase transition-all duration-300 ${
+              className={`px-4 py-2 rounded-full text-xs font-semibold tracking-wider uppercase transition-all duration-300 cursor-pointer ${
                 activeCategory === cat
                   ? "bg-gradient-to-r from-purple-600 to-pink-600 text-white shadow-[0_0_15px_rgba(168,85,247,0.4)] scale-105"
                   : "bg-white/[0.03] text-gray-400 border border-white/5 hover:border-white/15 hover:text-white"
               }`}
             >
-              {cat === "All" ? "All Masterpieces" : cat}
+              {cat === "All" ? "All Showcases" : cat}
             </button>
           ))}
         </div>
@@ -136,15 +138,15 @@ export default function Projects() {
                       className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 z-20 backdrop-blur-[2px] bg-black/40"
                     >
                       <div className="px-5 py-2.5 rounded-full bg-gradient-to-r from-purple-600 via-pink-600 to-cyan-500 text-white font-bold text-xs uppercase tracking-wider flex items-center gap-2 shadow-[0_0_25px_rgba(168,85,247,0.6)] transform translate-y-3 group-hover:translate-y-0 transition-transform">
-                        <span>Launch Live Demo</span>
+                        <span>Launch Live Prototype</span>
                         <ExternalLink size={14} />
                       </div>
                     </a>
 
-                    {/* Top verified live badge */}
-                    <div className="absolute top-4 left-4 z-10 flex items-center gap-1.5 px-3 py-1 rounded-full bg-black/70 backdrop-blur-md border border-cyan-400/30 text-[10px] font-bold text-cyan-300 tracking-wider uppercase">
+                    {/* Top Prototype Badge */}
+                    <div className="absolute top-4 left-4 z-10 flex items-center gap-1.5 px-3 py-1 rounded-full bg-black/70 backdrop-blur-md border border-cyan-400/30 text-[10px] font-bold text-cyan-300 tracking-wider uppercase font-mono">
                       <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-ping" />
-                      <span>Live Production</span>
+                      <span>Production Prototype</span>
                     </div>
 
                     {/* Category badge */}
@@ -162,11 +164,11 @@ export default function Projects() {
                         {project.title}
                       </h3>
 
-                      <p className="text-gray-400 text-xs sm:text-sm mb-4 leading-relaxed line-clamp-2">
+                      <p className="text-gray-300 text-xs sm:text-sm mb-4 leading-relaxed line-clamp-2">
                         {project.description}
                       </p>
 
-                      {/* Prominent High-Impact ROI Metric */}
+                      {/* Technical Benchmark Metric */}
                       <div className="mb-4 p-2.5 rounded-xl bg-gradient-to-r from-emerald-500/10 via-cyan-500/10 to-transparent border border-emerald-500/25 flex items-center gap-2.5 shadow-[0_0_15px_rgba(16,185,129,0.1)]">
                         <div className="w-6 h-6 rounded-lg bg-emerald-500/20 border border-emerald-500/40 flex items-center justify-center text-emerald-400 flex-shrink-0">
                           <TrendingUp size={13} />
@@ -189,7 +191,7 @@ export default function Projects() {
                       </div>
                     </div>
 
-                    {/* Action Link */}
+                    {/* Action Links */}
                     <div className="pt-3 border-t border-white/5 flex items-center justify-between">
                       <a
                         href={project.url || "/projects"}
@@ -200,7 +202,13 @@ export default function Projects() {
                         <span>View Live Application</span>
                         <ArrowRight size={14} className="ml-1.5 group-hover/btn:translate-x-1 transition-transform" />
                       </a>
-                      <span className="text-[10px] font-mono text-gray-400 uppercase">Case Study</span>
+                      <button
+                        type="button"
+                        onClick={() => setActiveCaseStudy(project)}
+                        className="text-[10px] font-mono font-bold text-purple-400 hover:text-purple-200 uppercase bg-purple-500/10 hover:bg-purple-500/25 px-2.5 py-1 rounded-md border border-purple-500/30 transition-colors cursor-pointer"
+                      >
+                        Case Study →
+                      </button>
                     </div>
                   </div>
 
@@ -211,6 +219,89 @@ export default function Projects() {
             ))}
           </AnimatePresence>
         </motion.div>
+
+        {/* Case Study Modal */}
+        <AnimatePresence>
+          {activeCaseStudy && (
+            <div
+              className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-md"
+              onClick={() => setActiveCaseStudy(null)}
+            >
+              <motion.div
+                initial={{ opacity: 0, scale: 0.95, y: 20 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                exit={{ opacity: 0, scale: 0.95, y: 20 }}
+                onClick={(e) => e.stopPropagation()}
+                className="relative w-full max-w-2xl bg-[#0b081e] border border-purple-500/40 rounded-3xl p-6 sm:p-8 shadow-2xl overflow-hidden max-h-[90vh] overflow-y-auto"
+              >
+                <button
+                  type="button"
+                  onClick={() => setActiveCaseStudy(null)}
+                  className="absolute top-5 right-5 text-gray-400 hover:text-white p-2 rounded-full hover:bg-white/10 transition-colors cursor-pointer"
+                  aria-label="Close Case Study"
+                >
+                  <X size={20} />
+                </button>
+
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-300 text-xs font-mono font-bold mb-4">
+                  <Code2 size={13} />
+                  <span>Architecture Case Study</span>
+                </div>
+
+                <h3 className="text-2xl sm:text-3xl font-black text-white font-brand mb-2">
+                  {activeCaseStudy.title}
+                </h3>
+                <p className="text-sm text-gray-300 mb-6 leading-relaxed">
+                  {activeCaseStudy.overview || activeCaseStudy.description}
+                </p>
+
+                <div className="mb-6 p-4 rounded-xl bg-emerald-500/10 border border-emerald-500/30">
+                  <div className="text-xs font-mono font-bold text-emerald-400 uppercase mb-1 flex items-center gap-1.5">
+                    <Sparkles size={13} /> Technical Benchmark
+                  </div>
+                  <div className="text-base font-bold text-white">
+                    {activeCaseStudy.metric}
+                  </div>
+                </div>
+
+                {activeCaseStudy.architectureHighlights && (
+                  <div className="mb-6">
+                    <h4 className="text-xs font-mono font-bold text-purple-400 uppercase tracking-wider mb-3">
+                      Architectural Highlights &amp; Solutions
+                    </h4>
+                    <div className="space-y-2">
+                      {activeCaseStudy.architectureHighlights.map((highlight, hIdx) => (
+                        <div key={hIdx} className="flex items-start gap-2.5 text-xs sm:text-sm text-gray-300">
+                          <CheckCircle2 size={15} className="text-cyan-400 shrink-0 mt-0.5" />
+                          <span>{highlight}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                <div className="pt-6 border-t border-white/10 flex flex-wrap items-center justify-between gap-4">
+                  <a
+                    href={activeCaseStudy.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="px-6 py-3 rounded-full bg-gradient-to-r from-purple-600 to-cyan-500 text-white font-bold text-xs uppercase tracking-wider flex items-center gap-2 shadow-[0_0_20px_rgba(168,85,247,0.4)]"
+                  >
+                    <span>Launch Prototype Live</span>
+                    <ExternalLink size={14} />
+                  </a>
+
+                  <Link
+                    href={`/contact?service=web-apps`}
+                    className="text-xs text-gray-300 hover:text-white font-semibold underline underline-offset-4"
+                  >
+                    Request Similar Architecture →
+                  </Link>
+                </div>
+              </motion.div>
+            </div>
+          )}
+        </AnimatePresence>
 
         {/* Bottom accent */}
         <motion.div

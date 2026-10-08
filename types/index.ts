@@ -10,10 +10,14 @@ export interface Project {
   concept?: boolean;
   metric?: string;
   url?: string;
+  overview?: string;
+  architectureHighlights?: string[];
+  outcome?: string;
 }
 
 export interface Service {
   id: number;
+  slug: string;
   title: string;
   description: string;
   deliverables?: string;
@@ -32,4 +36,3 @@ export interface BlogPost {
   content?: string;
   htmlContent?: string;
 }
-

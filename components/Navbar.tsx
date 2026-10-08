@@ -71,6 +71,7 @@ export default function Navbar() {
               <Link href="/services" className="hover:text-purple-400 transition-colors px-3 py-2 text-sm font-medium">Services</Link>
               <Link href="/projects" className="hover:text-purple-400 transition-colors px-3 py-2 text-sm font-medium">Projects</Link>
               <Link href="/about" className="hover:text-purple-400 transition-colors px-3 py-2 text-sm font-medium">About</Link>
+              <Link href="/blog" className="hover:text-purple-400 transition-colors px-3 py-2 text-sm font-medium">Blog</Link>
               <Link href="/#feedback" className="hover:text-purple-400 transition-colors px-3 py-2 text-sm font-medium">Feedback</Link>
               <Link 
                 href="/contact" 
@@ -115,6 +116,7 @@ export default function Navbar() {
               <Link href="/services" className="block px-4 py-3 rounded-xl text-base font-medium hover:text-purple-400 hover:bg-white/5 transition-colors" onClick={toggleMenu}>Services</Link>
               <Link href="/projects" className="block px-4 py-3 rounded-xl text-base font-medium hover:text-purple-400 hover:bg-white/5 transition-colors" onClick={toggleMenu}>Projects</Link>
               <Link href="/about" className="block px-4 py-3 rounded-xl text-base font-medium hover:text-purple-400 hover:bg-white/5 transition-colors" onClick={toggleMenu}>About</Link>
+              <Link href="/blog" className="block px-4 py-3 rounded-xl text-base font-medium hover:text-purple-400 hover:bg-white/5 transition-colors" onClick={toggleMenu}>Blog</Link>
               <Link href="/#feedback" className="block px-4 py-3 rounded-xl text-base font-medium hover:text-purple-400 hover:bg-white/5 transition-colors" onClick={toggleMenu}>Feedback & Ratings</Link>
               <div className="pt-2">
                 <Link href="/contact" className="block w-full text-center bg-gradient-to-r from-purple-600 to-pink-600 text-white px-5 py-3.5 rounded-full text-base font-semibold shadow-lg shadow-purple-600/30 active:scale-98 transition-all" onClick={toggleMenu}>

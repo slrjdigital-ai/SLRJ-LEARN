@@ -181,7 +181,13 @@ export default function Footer() {
                   </span>
                   <Users size={12} className="text-cyan-300" />
                   <span suppressHydrationWarning>
-                    <strong className="text-white font-extrabold">{subscriberCount.toLocaleString()}</strong> Active Subscribers
+                    {subscriberCount > 0 ? (
+                      <>
+                        <strong className="text-white font-extrabold">{subscriberCount.toLocaleString()}</strong> Active Subscribers
+                      </>
+                    ) : (
+                      <>Bi-Weekly Engineering Dispatch</>
+                    )}
                   </span>
                 </div>
               </div>

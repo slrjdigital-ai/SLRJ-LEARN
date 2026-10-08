@@ -3,7 +3,6 @@ import { Geist, Geist_Mono, Orbitron } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import SplashScreen from "@/components/SplashScreen";
 import ScrollProgress from "@/components/ScrollProgress";
 import SmoothScroll from "@/components/SmoothScroll";
 import MouseLight from "@/components/MouseLight";
@@ -13,6 +12,8 @@ import FloatingFeedbackButton from "@/components/FloatingFeedbackButton";
 import FloatingWhatsApp from "@/components/FloatingWhatsApp";
 import FeedbackModal from "@/components/FeedbackModal";
 import PageTransition from "@/components/PageTransition";
+
+import JsonLd from "@/components/JsonLd";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -32,19 +33,33 @@ const orbitron = Orbitron({
 export const metadata: Metadata = {
   title: {
     default: "SLRJ Digital | Premium Web Development & Digital Agency",
-    template: "%s | SLRJ Digital"
+    template: "%s | SLRJ Digital",
   },
-  description: "We are a premium digital agency that transforms bold ideas into high-performance, futuristic web solutions. Specializing in Next.js, React, and striking UI/UX.",
-  keywords: ["Web Development", "Digital Agency", "UI/UX Design", "Next.js", "React", "E-Commerce", "SLRJ Digital"],
-  authors: [{ name: "Shahid Kouluri" }],
+  description:
+    "We are a premium digital engineering agency that transforms bold ideas into high-performance, futuristic web solutions. Specializing in Next.js 16, React 19, and high-converting UI/UX.",
+  keywords: [
+    "Web Development Agency",
+    "Next.js Development",
+    "React Web Applications",
+    "UI/UX Design Systems",
+    "E-Commerce Solutions",
+    "Core Web Vitals Optimization",
+    "SLRJ Digital",
+    "Shahid Kouluri"
+  ],
+  authors: [{ name: "Shahid Kouluri", url: "https://slrjdigital.com/about" }],
   creator: "SLRJ Digital",
+  alternates: {
+    canonical: "https://slrjdigital.com",
+  },
   openGraph: {
     type: "website",
     locale: "en_US",
     url: "https://slrjdigital.com",
     siteName: "SLRJ Digital",
-    title: "SLRJ Digital | Premium Web Development Agency",
-    description: "Partner with a premium digital agency that transforms bold ideas into high-performance, futuristic web solutions.",
+    title: "SLRJ Digital | Premium Web Development & Digital Agency",
+    description:
+      "Partner with a premium digital agency that transforms bold ideas into high-performance, futuristic web solutions.",
     images: [
       {
         url: "https://slrjdigital.com/og-image.jpg",
@@ -56,8 +71,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "SLRJ Digital | Premium Web Development",
-    description: "We build digital experiences that inspire.",
+    title: "SLRJ Digital | Premium Web Development Agency",
+    description: "We build digital experiences that inspire and scale your business.",
     images: ["https://slrjdigital.com/og-image.jpg"],
   },
   icons: {
@@ -74,7 +89,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning data-scroll-behavior="smooth">
+    <html lang="en" suppressHydrationWarning>
+      <head>
+        <JsonLd />
+      </head>
       <body
         suppressHydrationWarning
         className={`${geistSans.variable} ${geistMono.variable} ${orbitron.variable} antialiased flex flex-col min-h-screen relative`}
@@ -84,12 +102,9 @@ export default function RootLayout({
         <MouseLight />
         <SmoothScroll />
         <ScrollProgress />
-        <SplashScreen />
         <Navbar />
         <PageTransition>
-          <main className="flex-grow">
-            {children}
-          </main>
+          <main className="flex-grow">{children}</main>
         </PageTransition>
         <FloatingFeedbackButton />
         <FloatingWhatsApp />
@@ -99,5 +114,6 @@ export default function RootLayout({
     </html>
   );
 }
+
 
 

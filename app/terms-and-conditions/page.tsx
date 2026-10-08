@@ -17,6 +17,9 @@ import {
 export const metadata = {
   title: "Terms & Conditions | SLRJ Digital",
   description: "Official Terms and Conditions of Service for SLRJ Digital web engineering and agency services.",
+  alternates: {
+    canonical: "https://slrjdigital.com/terms-and-conditions",
+  },
 };
 
 export default function TermsAndConditionsPage() {

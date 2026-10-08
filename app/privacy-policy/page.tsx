@@ -14,6 +14,9 @@ import {
 export const metadata = {
   title: "Privacy Policy | SLRJ Digital",
   description: "Official Privacy Policy for SLRJ Digital web agency and digital services.",
+  alternates: {
+    canonical: "https://slrjdigital.com/privacy-policy",
+  },
 };
 
 export default function PrivacyPolicyPage() {

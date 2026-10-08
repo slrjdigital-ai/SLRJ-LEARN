@@ -52,20 +52,7 @@ export async function GET() {
   );
 }
 
-// DELETE: Clear all feedback (reset)
-export async function DELETE() {
-  feedbackStore = [];
-  const stats = calculateFeedbackStats(feedbackStore);
-  return NextResponse.json(
-    {
-      success: true,
-      message: 'All test feedback has been successfully cleared.',
-      feedback: feedbackStore,
-      stats,
-    },
-    { status: 200 }
-  );
-}
+// DELETE endpoint has been permanently removed for security protection against unauthorized data wipes.
 
 // POST: Submit new feedback & rating
 export async function POST(request: Request) {

@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { Store, Rocket, ShoppingBag, UserCircle, Building2, Video, ArrowRight } from "lucide-react";
 import { motion } from "framer-motion";
 import SpotlightCard from "./SpotlightCard";
@@ -7,12 +8,12 @@ import ScrollReveal from "./ScrollReveal";
 
 export default function BusinessTypes() {
   const businesses = [
-    { name: "Local Businesses", icon: Store, color: "#06B6D4", desc: "Shops, restaurants & services that need a strong local digital presence to attract nearby customers." },
-    { name: "Startups", icon: Rocket, color: "#FF6B6B", desc: "Launch fast, scale smarter. We build MVPs and full products that grow with your vision." },
-    { name: "E-Commerce", icon: ShoppingBag, color: "#4ECDC4", desc: "Online stores & marketplaces built for conversion, performance, and scalability." },
-    { name: "Professionals", icon: UserCircle, color: "#A78BFA", desc: "Portfolios & personal brands that make you stand out and win more clients." },
-    { name: "Companies", icon: Building2, color: "#60A5FA", desc: "Enterprise-grade solutions with complex integrations, dashboards, and team portals." },
-    { name: "Creators", icon: Video, color: "#F472B6", desc: "Content & media platforms built for audiences, monetization, and community." },
+    { name: "Local Businesses", icon: Store, color: "#06B6D4", desc: "Shops, restaurants & services that need a strong local digital presence to attract nearby customers.", link: "/contact?service=business-websites" },
+    { name: "Startups", icon: Rocket, color: "#FF6B6B", desc: "Launch fast, scale smarter. We build MVPs and full products that grow with your vision.", link: "/contact?service=web-apps" },
+    { name: "E-Commerce", icon: ShoppingBag, color: "#4ECDC4", desc: "Online stores & marketplaces built for conversion, performance, and scalability.", link: "/contact?service=e-commerce" },
+    { name: "Professionals", icon: UserCircle, color: "#A78BFA", desc: "Portfolios & personal brands that make you stand out and win more clients.", link: "/contact?service=business-websites" },
+    { name: "Companies", icon: Building2, color: "#60A5FA", desc: "Enterprise-grade solutions with complex integrations, dashboards, and team portals.", link: "/contact?service=web-apps" },
+    { name: "Creators", icon: Video, color: "#F472B6", desc: "Content & media platforms built for audiences, monetization, and community.", link: "/contact?service=ui-ux" },
   ];
 
   return (
@@ -69,60 +70,61 @@ export default function BusinessTypes() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
           {businesses.map((biz, idx) => (
             <ScrollReveal key={idx} delay={idx * 0.08}>
-              <SpotlightCard
-                spotlightColor={`${biz.color}25`}
-                className="group relative p-8 flex flex-col gap-5 overflow-hidden h-full min-h-[200px]"
-              >
-                {/* Watermark icon */}
-                <div
-                  className="absolute -bottom-6 -right-6 opacity-[0.04] group-hover:opacity-[0.08] transition-opacity duration-500 pointer-events-none"
-                  style={{ color: biz.color }}
+              <Link href={biz.link} className="block h-full group focus:outline-none">
+                <SpotlightCard
+                  spotlightColor={`${biz.color}25`}
+                  className="relative p-8 flex flex-col gap-5 overflow-hidden h-full min-h-[220px] border border-white/10 hover:border-white/20 transition-all duration-300"
                 >
-                  <biz.icon size={120} />
-                </div>
-
-                {/* Top accent line */}
-                <div
-                  className="absolute top-0 left-0 right-0 h-[2px] opacity-30 group-hover:opacity-100 transition-opacity duration-500"
-                  style={{ background: `linear-gradient(to right, ${biz.color}, transparent)` }}
-                />
-
-                {/* Icon */}
-                <motion.div
-                  whileHover={{ scale: 1.1, rotate: 5 }}
-                  className="relative w-16 h-16 rounded-2xl flex items-center justify-center flex-shrink-0 transition-all duration-300"
-                  style={{
-                    backgroundColor: `${biz.color}12`,
-                    border: `1px solid ${biz.color}25`,
-                    boxShadow: `0 0 0px ${biz.color}00`,
-                  }}
-                >
-                  <biz.icon size={32} style={{ color: biz.color }} />
+                  {/* Watermark icon */}
                   <div
-                    className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-                    style={{ boxShadow: `0 0 25px ${biz.color}40, inset 0 0 20px ${biz.color}10` }}
-                  />
-                </motion.div>
-
-                {/* Content */}
-                <div className="flex-1 relative z-10">
-                  <h3
-                    className="text-lg font-bold mb-2 transition-colors duration-300"
+                    className="absolute -bottom-6 -right-6 opacity-[0.04] group-hover:opacity-[0.08] transition-opacity duration-500 pointer-events-none"
                     style={{ color: biz.color }}
                   >
-                    {biz.name}
-                  </h3>
-                  <p className="text-gray-400 text-sm leading-relaxed group-hover:text-gray-300 transition-colors">
-                    {biz.desc}
-                  </p>
-                </div>
+                    <biz.icon size={120} />
+                  </div>
 
-                {/* Hover CTA */}
-                <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-2 group-hover:translate-y-0 relative z-10">
-                  <span className="text-xs font-semibold" style={{ color: biz.color }}>Learn More</span>
-                  <ArrowRight size={12} style={{ color: biz.color }} />
-                </div>
-              </SpotlightCard>
+                  {/* Top accent line */}
+                  <div
+                    className="absolute top-0 left-0 right-0 h-[2px] opacity-30 group-hover:opacity-100 transition-opacity duration-500"
+                    style={{ background: `linear-gradient(to right, ${biz.color}, transparent)` }}
+                  />
+
+                  {/* Icon */}
+                  <motion.div
+                    whileHover={{ scale: 1.08, rotate: 4 }}
+                    className="relative w-16 h-16 rounded-2xl flex items-center justify-center flex-shrink-0 transition-all duration-300"
+                    style={{
+                      backgroundColor: `${biz.color}12`,
+                      border: `1px solid ${biz.color}25`,
+                    }}
+                  >
+                    <biz.icon size={32} style={{ color: biz.color }} />
+                    <div
+                      className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                      style={{ boxShadow: `0 0 25px ${biz.color}40, inset 0 0 20px ${biz.color}10` }}
+                    />
+                  </motion.div>
+
+                  {/* Content */}
+                  <div className="flex-1 relative z-10">
+                    <h3
+                      className="text-lg font-bold mb-2 transition-colors duration-300"
+                      style={{ color: biz.color }}
+                    >
+                      {biz.name}
+                    </h3>
+                    <p className="text-gray-400 text-sm leading-relaxed group-hover:text-gray-300 transition-colors">
+                      {biz.desc}
+                    </p>
+                  </div>
+
+                  {/* Action Link CTA */}
+                  <div className="flex items-center gap-1.5 pt-2 text-xs font-semibold relative z-10 transition-transform group-hover:translate-x-1" style={{ color: biz.color }}>
+                    <span>Explore Solutions</span>
+                    <ArrowRight size={13} />
+                  </div>
+                </SpotlightCard>
+              </Link>
             </ScrollReveal>
           ))}
         </div>

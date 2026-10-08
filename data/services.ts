@@ -4,49 +4,55 @@ import { Service } from '@/types';
 export const services: Service[] = [
   {
     id: 1,
+    slug: "business-websites",
     title: "Business Websites",
-    description: "Professional websites designed to establish your brand authority and generate leads.",
-    deliverables: "Custom Design, SEO Optimization, CMS Integration, Analytics",
+    description: "High-authority corporate and local business websites engineered to build trust, capture inbound inquiries, and turn casual visitors into paying clients.",
+    deliverables: "Custom Responsive Architecture, Lead Generation Funnels, Headless CMS, Core Web Vitals SEO Suite",
     icon: Briefcase,
     link: "/contact?service=business-websites"
   },
   {
     id: 2,
+    slug: "e-commerce",
     title: "E-Commerce Platforms",
-    description: "High-converting online stores built for scale, performance, and seamless checkout.",
-    deliverables: "Payment Gateways, Inventory Management, Cart Optimization",
+    description: "Lightning-fast online stores engineered for frictionless checkout, high conversion rates, multi-currency support, and seamless catalog management.",
+    deliverables: "Secure Payment Gateways (Stripe/Razorpay), Inventory Architecture, Cart Abandonment Recovery, Instant Search",
     icon: ShoppingCart,
     link: "/contact?service=ecommerce"
   },
   {
     id: 3,
-    title: "Web Applications",
-    description: "Complex, interactive SaaS or internal tools built with modern React & Next.js architectures.",
-    deliverables: "Authentication, Dashboards, API Integration, Database",
+    slug: "web-apps",
+    title: "Web Applications & SaaS",
+    description: "Scalable, full-stack interactive web applications, client portals, and SaaS MVPs developed with modern Next.js 16 App Router and robust databases.",
+    deliverables: "Role-Based Authentication, Interactive Dashboards, REST/GraphQL Endpoints, Real-Time Database Architecture",
     icon: Layout,
     link: "/contact?service=web-apps"
   },
   {
     id: 4,
-    title: "UI/UX Design",
-    description: "Data-driven, accessible, and stunning interfaces that prioritize user experience.",
-    deliverables: "Wireframes, Interactive Prototypes, Design Systems",
+    slug: "ui-ux",
+    title: "UI/UX Design Systems",
+    description: "Research-backed, accessible digital interfaces that deliver captivating user journeys, reduce cognitive load, and command market leadership.",
+    deliverables: "Interactive Figma Prototypes, Component Design Tokens, User Journey Mapping, Micro-Interaction Choreography",
     icon: PenTool,
     link: "/contact?service=ui-ux"
   },
   {
     id: 5,
+    slug: "optimization",
     title: "Performance Optimization",
-    description: "Comprehensive audits and code refactoring to achieve perfect Core Web Vitals.",
-    deliverables: "Speed Optimization, Code Splitting, Image Compression",
+    description: "Comprehensive audits and full-codebase refactoring to transform slow, bloated websites into sub-second, 100/100 Core Web Vitals powerhouses.",
+    deliverables: "Sub-Second TTFB Tuning, Next-Gen Asset Compression, Script Pruning, Edge Caching Strategies",
     icon: Zap,
     link: "/contact?service=optimization"
   },
   {
     id: 6,
-    title: "Maintenance & Support",
-    description: "Continuous updates, security patches, and technical support to keep you running smoothly.",
-    deliverables: "24/7 Monitoring, Weekly Backups, Feature Updates",
+    slug: "maintenance",
+    title: "Maintenance & SLA Support",
+    description: "Continuous proactive monitoring, security patching, cloud backups, and on-demand engineer support to ensure zero downtime and peak performance.",
+    deliverables: "24/7 Uptime Telemetry, Weekly Automated Backups, Security Vulnerability Scans, Dedicated Engineer Sprints",
     icon: Settings,
     link: "/contact?service=maintenance"
   }
