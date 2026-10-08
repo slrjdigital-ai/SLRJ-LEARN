@@ -2,7 +2,7 @@ import { MetadataRoute } from 'next';
 import { blogPosts } from '@/data/blog';
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = 'https://slrjdigital.com';
+  const baseUrl = 'https://slrjdigital.in';
 
   const staticRoutes: MetadataRoute.Sitemap = [
     {

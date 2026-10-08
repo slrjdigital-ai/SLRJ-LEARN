@@ -9,7 +9,7 @@ export const metadata = {
   description:
     "Explore our full-stack digital services: high-converting business websites, custom e-commerce stores, modern Next.js web applications, UI/UX systems, and SLA maintenance.",
   alternates: {
-    canonical: "https://slrjdigital.com/services",
+    canonical: "https://slrjdigital.in/services",
   },
 };
 

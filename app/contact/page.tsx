@@ -6,13 +6,13 @@ export const metadata: Metadata = {
   description:
     "Request an architectural consultation, fixed-price project proposal, or direct WhatsApp inquiry for your web development or design project with SLRJ Digital.",
   alternates: {
-    canonical: "https://slrjdigital.com/contact",
+    canonical: "https://slrjdigital.in/contact",
   },
   openGraph: {
     title: "Contact & Project Consultation | SLRJ Digital",
     description:
       "Request an architectural consultation, fixed-price project proposal, or direct WhatsApp inquiry with SLRJ Digital.",
-    url: "https://slrjdigital.com/contact",
+    url: "https://slrjdigital.in/contact",
     siteName: "SLRJ Digital",
     type: "website",
   },

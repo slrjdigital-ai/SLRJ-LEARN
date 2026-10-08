@@ -2,12 +2,12 @@ export default function JsonLd() {
   const organizationSchema = {
     "@context": "https://schema.org",
     "@type": "ProfessionalService",
-    "@id": "https://slrjdigital.com/#organization",
+    "@id": "https://slrjdigital.in/#organization",
     name: "SLRJ Digital",
     alternateName: "SLRJ Digital Web Agency",
-    url: "https://slrjdigital.com",
-    logo: "https://slrjdigital.com/logo.png",
-    image: "https://slrjdigital.com/og-image.jpg",
+    url: "https://slrjdigital.in",
+    logo: "https://slrjdigital.in/logo.png",
+    image: "https://slrjdigital.in/og-image.jpg",
     description: "Premium digital agency and software engineering firm specializing in Next.js, React, high-performance web applications, and custom UI/UX design.",
     telephone: "+91-84669-74408",
     email: "slrj.digital@gmail.com",
@@ -56,12 +56,12 @@ export default function JsonLd() {
   const websiteSchema = {
     "@context": "https://schema.org",
     "@type": "WebSite",
-    "@id": "https://slrjdigital.com/#website",
-    url: "https://slrjdigital.com",
+    "@id": "https://slrjdigital.in/#website",
+    url: "https://slrjdigital.in",
     name: "SLRJ Digital",
     description: "Turning Ideas Into Digital Experiences. Premium Next.js and React web development agency.",
     publisher: {
-      "@id": "https://slrjdigital.com/#organization"
+      "@id": "https://slrjdigital.in/#organization"
     }
   };
 

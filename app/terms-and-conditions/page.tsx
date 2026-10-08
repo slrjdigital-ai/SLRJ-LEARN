@@ -18,7 +18,7 @@ export const metadata = {
   title: "Terms & Conditions | SLRJ Digital",
   description: "Official Terms and Conditions of Service for SLRJ Digital web engineering and agency services.",
   alternates: {
-    canonical: "https://slrjdigital.com/terms-and-conditions",
+    canonical: "https://slrjdigital.in/terms-and-conditions",
   },
 };
 
@@ -89,7 +89,7 @@ export default function TermsAndConditionsPage() {
                 </span>
               </h3>
               <p className="text-gray-200 text-sm leading-relaxed">
-                By browsing <strong className="text-amber-300">slrjdigital.com</strong>, submitting project inquiry forms, or entering into a software development engagement with SLRJ Digital, you agree to be bound by these Terms & Conditions. If you do not agree, please refrain from accessing our site or contracting our services.
+                By browsing <strong className="text-amber-300">slrjdigital.in</strong>, submitting project inquiry forms, or entering into a software development engagement with SLRJ Digital, you agree to be bound by these Terms & Conditions. If you do not agree, please refrain from accessing our site or contracting our services.
               </p>
             </div>
           </div>

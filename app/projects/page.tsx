@@ -6,13 +6,13 @@ export const metadata: Metadata = {
   description:
     "Explore our production prototypes, full-stack web applications, e-commerce architectures, and verified performance benchmarks.",
   alternates: {
-    canonical: "https://slrjdigital.com/projects",
+    canonical: "https://slrjdigital.in/projects",
   },
   openGraph: {
     title: "Projects & Architecture Portfolio | SLRJ Digital",
     description:
       "Explore our production prototypes, full-stack web applications, e-commerce architectures, and verified performance benchmarks.",
-    url: "https://slrjdigital.com/projects",
+    url: "https://slrjdigital.in/projects",
     siteName: "SLRJ Digital",
     type: "website",
   },

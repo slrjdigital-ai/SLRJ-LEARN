@@ -47,22 +47,22 @@ export const metadata: Metadata = {
     "SLRJ Digital",
     "Shahid Kouluri"
   ],
-  authors: [{ name: "Shahid Kouluri", url: "https://slrjdigital.com/about" }],
+  authors: [{ name: "Shahid Kouluri", url: "https://slrjdigital.in/about" }],
   creator: "SLRJ Digital",
   alternates: {
-    canonical: "https://slrjdigital.com",
+    canonical: "https://slrjdigital.in",
   },
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://slrjdigital.com",
+    url: "https://slrjdigital.in",
     siteName: "SLRJ Digital",
     title: "SLRJ Digital | Premium Web Development & Digital Agency",
     description:
       "Partner with a premium digital agency that transforms bold ideas into high-performance, futuristic web solutions.",
     images: [
       {
-        url: "https://slrjdigital.com/og-image.jpg",
+        url: "https://slrjdigital.in/og-image.jpg",
         width: 1200,
         height: 630,
         alt: "SLRJ Digital Agency",
@@ -73,14 +73,14 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "SLRJ Digital | Premium Web Development Agency",
     description: "We build digital experiences that inspire and scale your business.",
-    images: ["https://slrjdigital.com/og-image.jpg"],
+    images: ["https://slrjdigital.in/og-image.jpg"],
   },
   icons: {
     icon: "/icon.jpg",
     shortcut: "/icon.jpg",
     apple: "/icon.jpg",
   },
-  metadataBase: new URL("https://slrjdigital.com"),
+  metadataBase: new URL("https://slrjdigital.in"),
 };
 
 export default function RootLayout({

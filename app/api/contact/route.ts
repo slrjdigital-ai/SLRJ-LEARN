@@ -150,7 +150,7 @@ ${message}
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; background-color: #0b0f19; color: #f3f4f6; padding: 30px; border-radius: 12px; border: 1px solid #1f2937;">
           <div style="border-bottom: 2px solid #8b5cf6; padding-bottom: 15px; margin-bottom: 20px;">
             <h2 style="color: #a78bfa; margin: 0;">New Project Inquiry</h2>
-            <p style="color: #9ca3af; font-size: 14px; margin-top: 5px;">Submitted via slrjdigital.com contact form</p>
+            <p style="color: #9ca3af; font-size: 14px; margin-top: 5px;">Submitted via slrjdigital.in contact form</p>
           </div>
           
           <table style="width: 100%; border-collapse: collapse; color: #e5e7eb; font-size: 15px;">
@@ -181,7 +181,7 @@ Thank you for reaching out to SLRJ Digital. We have received your message and wi
 
 Best regards,
 SLRJ Digital Team
-https://slrjdigital.com
+https://slrjdigital.in
       `,
       html: `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; background-color: #0b0f19; color: #f3f4f6; padding: 32px; border-radius: 12px; border: 1px solid #1f2937;">

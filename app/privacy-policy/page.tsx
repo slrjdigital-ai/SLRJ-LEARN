@@ -15,7 +15,7 @@ export const metadata = {
   title: "Privacy Policy | SLRJ Digital",
   description: "Official Privacy Policy for SLRJ Digital web agency and digital services.",
   alternates: {
-    canonical: "https://slrjdigital.com/privacy-policy",
+    canonical: "https://slrjdigital.in/privacy-policy",
   },
 };
 
@@ -101,7 +101,7 @@ export default function PrivacyPolicyPage() {
               <span>Introduction & Scope</span>
             </h2>
             <p className="mb-4">
-              Welcome to <strong>SLRJ Digital</strong> (&quot;we,&quot; &quot;us,&quot; or &quot;our&quot;). We operate the website <Link href="/" className="text-purple-400 hover:underline">slrjdigital.com</Link> and provide custom web development, UI/UX design, software engineering, and e-commerce solutions.
+              Welcome to <strong>SLRJ Digital</strong> (&quot;we,&quot; &quot;us,&quot; or &quot;our&quot;). We operate the website <Link href="/" className="text-purple-400 hover:underline">slrjdigital.in</Link> and provide custom web development, UI/UX design, software engineering, and e-commerce solutions.
             </p>
             <p>
               This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our website, submit project inquiry forms, leave feedback, or contract our digital services.

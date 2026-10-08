@@ -158,7 +158,7 @@ IP: ${ip}
       </div>
     </div>
     <div class="footer">
-      SLRJ Digital Automated Dispatch System &bull; slrjdigital.com
+      SLRJ Digital Automated Dispatch System &bull; slrjdigital.in
     </div>
   </div>
 </body>
@@ -183,14 +183,14 @@ What you can expect:
 - Early access to new tools, case studies, and engineering drops
 
 Need a high-performance web platform or app for your business?
-- Explore our work: https://slrjdigital.com/projects
+- Explore our work: https://slrjdigital.in/projects
 - Direct WhatsApp Inquiry: https://wa.me/918466974408
 - Email our engineers: slrj.digital@gmail.com
 
 Stay ahead of the curve,
 Shahid Kouluri
 Founder & Lead Engineer, SLRJ Digital
-https://slrjdigital.com
+https://slrjdigital.in
           `.trim(),
           html: `
 <!DOCTYPE html>
@@ -235,7 +235,7 @@ https://slrjdigital.com
       <p>Planning your next flagship web application, e-commerce store, or digital rebrand?</p>
 
       <div style="margin: 24px 0; text-align: center;">
-        <a href="https://slrjdigital.com/projects" class="cta-button">Explore Our Work</a>
+        <a href="https://slrjdigital.in/projects" class="cta-button">Explore Our Work</a>
         <a href="https://wa.me/918466974408?text=Hi%20SLRJ%20Digital,%20I%20just%20subscribed%20to%20your%20newsletter!" class="whatsapp-btn">Chat on WhatsApp</a>
       </div>
 

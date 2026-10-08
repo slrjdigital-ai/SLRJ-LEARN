@@ -30,12 +30,12 @@ export async function generateMetadata({
     title: `${post.title} | SLRJ Digital Technical Insights`,
     description: post.description,
     alternates: {
-      canonical: `https://slrjdigital.com/blog/${post.slug}`,
+      canonical: `https://slrjdigital.in/blog/${post.slug}`,
     },
     openGraph: {
       title: `${post.title} | SLRJ Digital`,
       description: post.description,
-      url: `https://slrjdigital.com/blog/${post.slug}`,
+      url: `https://slrjdigital.in/blog/${post.slug}`,
       siteName: "SLRJ Digital",
       type: "article",
       publishedTime: post.date,
