@@ -3,13 +3,22 @@
 import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react";
 import { motion, useScroll, useMotionValueEvent, AnimatePresence } from "framer-motion";
 
 export default function Navbar() {
+  const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
   const [hidden, setHidden] = useState(false);
   const { scrollY } = useScroll();
+
+  const handleHomeClick = (e: React.MouseEvent) => {
+    if (pathname === "/") {
+      e.preventDefault();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  };
 
   useMotionValueEvent(scrollY, "change", (latest) => {
     const previous = scrollY.getPrevious();
@@ -40,7 +49,7 @@ export default function Navbar() {
               animate={{ scale: [1, 1.05, 1], filter: ["brightness(1)", "brightness(1.2)", "brightness(1)"] }}
               transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
             >
-              <Link href="/" className="text-2xl sm:text-3xl font-black tracking-tight font-brand flex items-center gap-2 sm:gap-2.5">
+              <Link href="/" onClick={handleHomeClick} className="text-2xl sm:text-3xl font-black tracking-tight font-brand flex items-center gap-2 sm:gap-2.5">
                 <Image
                   src="/logo.png?v=5"
                   alt="SLRJ Digital Logo"
@@ -67,7 +76,7 @@ export default function Navbar() {
           {/* Desktop Menu (Lg and above) */}
           <div className="hidden lg:block">
             <div className="ml-8 flex items-center space-x-6 xl:space-x-8">
-              <Link href="/" className="hover:text-purple-400 transition-colors px-3 py-2 text-sm font-medium">Home</Link>
+              <Link href="/" onClick={handleHomeClick} className="hover:text-purple-400 transition-colors px-3 py-2 text-sm font-medium">Home</Link>
               <Link href="/services" className="hover:text-purple-400 transition-colors px-3 py-2 text-sm font-medium">Services</Link>
               <Link href="/projects" className="hover:text-purple-400 transition-colors px-3 py-2 text-sm font-medium">Projects</Link>
               <Link href="/about" className="hover:text-purple-400 transition-colors px-3 py-2 text-sm font-medium">About</Link>
@@ -111,7 +120,7 @@ export default function Navbar() {
             className="lg:hidden border-b border-white/10 bg-[#04020F]/95 backdrop-blur-2xl max-h-[calc(100vh-5rem)] overflow-y-auto shadow-2xl"
           >
             <div className="px-4 pt-3 pb-6 space-y-1.5 sm:px-6">
-              <Link href="/" className="block px-4 py-3 rounded-xl text-base font-medium hover:text-purple-400 hover:bg-white/5 transition-colors" onClick={toggleMenu}>Home</Link>
+              <Link href="/" className="block px-4 py-3 rounded-xl text-base font-medium hover:text-purple-400 hover:bg-white/5 transition-colors" onClick={(e) => { toggleMenu(); handleHomeClick(e); }}>Home</Link>
               <Link href="/services" className="block px-4 py-3 rounded-xl text-base font-medium hover:text-purple-400 hover:bg-white/5 transition-colors" onClick={toggleMenu}>Services</Link>
               <Link href="/projects" className="block px-4 py-3 rounded-xl text-base font-medium hover:text-purple-400 hover:bg-white/5 transition-colors" onClick={toggleMenu}>Projects</Link>
               <Link href="/about" className="block px-4 py-3 rounded-xl text-base font-medium hover:text-purple-400 hover:bg-white/5 transition-colors" onClick={toggleMenu}>About</Link>

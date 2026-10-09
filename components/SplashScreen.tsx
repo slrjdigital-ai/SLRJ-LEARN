@@ -2,19 +2,34 @@
 
 import { useState, useEffect, useCallback, useSyncExternalStore } from "react";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 import { motion, AnimatePresence, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { ArrowUpRight, Sparkles, CornerDownLeft, Code2, Palette, ShoppingBag, Zap } from "lucide-react";
 import SplashBackgroundAnimation from "./SplashBackgroundAnimation";
 
 const emptySubscribe = () => () => {};
 
+function subscribeSplashSeen(callback: () => void) {
+  if (typeof window === "undefined") return () => {};
+  window.addEventListener("storage", callback);
+  return () => window.removeEventListener("storage", callback);
+}
+
+function getSplashSeenSnapshot() {
+  if (typeof window === "undefined") return false;
+  return Boolean(sessionStorage.getItem("splashSeen"));
+}
+
 export default function SplashScreen() {
+  const pathname = usePathname();
   const mounted = useSyncExternalStore(emptySubscribe, () => true, () => false);
+  const alreadySeen = useSyncExternalStore(subscribeSplashSeen, getSplashSeenSnapshot, () => false);
   const [dismissed, setDismissed] = useState(false);
   const [progress, setProgress] = useState(0);
   const [isLoaded, setIsLoaded] = useState(false);
 
-  const showSplash = mounted && !dismissed;
+  // Only show splash screen on home page and only once per session
+  const showSplash = mounted && pathname === "/" && !alreadySeen && !dismissed;
 
   // High performance MotionValues: updates compositor directly without React re-renders!
   const mouseX = useMotionValue(0);
@@ -24,11 +39,14 @@ export default function SplashScreen() {
   const rotateY = useSpring(useTransform(mouseX, [-1, 1], [-5, 5]), { stiffness: 120, damping: 20 });
 
   const handleExplore = useCallback(() => {
+    if (typeof window !== "undefined") {
+      sessionStorage.setItem("splashSeen", "true");
+    }
     setDismissed(true);
   }, []);
 
   useEffect(() => {
-    if (dismissed) {
+    if (alreadySeen || dismissed || pathname !== "/") {
       return;
     }
 
@@ -48,10 +66,11 @@ export default function SplashScreen() {
     }, 25);
 
     return () => clearInterval(interval);
-  }, [dismissed]);
+  }, [alreadySeen, dismissed, pathname]);
 
   // Keyboard shortcut [Enter], [Space], [Esc]
   useEffect(() => {
+    if (!showSplash) return;
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Enter" || e.key === " " || e.key === "Escape") {
         handleExplore();
@@ -60,7 +79,7 @@ export default function SplashScreen() {
 
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [handleExplore]);
+  }, [showSplash, handleExplore]);
 
   const handleMouseMove = (e: React.MouseEvent) => {
     const { innerWidth, innerHeight } = window;
