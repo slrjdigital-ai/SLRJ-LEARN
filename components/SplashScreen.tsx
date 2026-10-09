@@ -8,25 +8,13 @@ import SplashBackgroundAnimation from "./SplashBackgroundAnimation";
 
 const emptySubscribe = () => () => {};
 
-function subscribeSplashSeen(callback: () => void) {
-  if (typeof window === "undefined") return () => {};
-  window.addEventListener("storage", callback);
-  return () => window.removeEventListener("storage", callback);
-}
-
-function getSplashSeenSnapshot() {
-  if (typeof window === "undefined") return false;
-  return Boolean(sessionStorage.getItem("splashSeen"));
-}
-
 export default function SplashScreen() {
   const mounted = useSyncExternalStore(emptySubscribe, () => true, () => false);
-  const alreadySeen = useSyncExternalStore(subscribeSplashSeen, getSplashSeenSnapshot, () => false);
   const [dismissed, setDismissed] = useState(false);
   const [progress, setProgress] = useState(0);
   const [isLoaded, setIsLoaded] = useState(false);
 
-  const showSplash = mounted && !alreadySeen && !dismissed;
+  const showSplash = mounted && !dismissed;
 
   // High performance MotionValues: updates compositor directly without React re-renders!
   const mouseX = useMotionValue(0);
@@ -36,19 +24,16 @@ export default function SplashScreen() {
   const rotateY = useSpring(useTransform(mouseX, [-1, 1], [-5, 5]), { stiffness: 120, damping: 20 });
 
   const handleExplore = useCallback(() => {
-    if (typeof window !== "undefined") {
-      sessionStorage.setItem("splashSeen", "true");
-    }
     setDismissed(true);
   }, []);
 
   useEffect(() => {
-    if (alreadySeen || dismissed) {
+    if (dismissed) {
       return;
     }
 
-    // Smooth, cinematic 1.8-second progress progression with automatic smooth reveal
-    const totalDuration = 1800;
+    // Smooth, cinematic progress progression
+    const totalDuration = 1400;
     const startTime = Date.now();
 
     const interval = setInterval(() => {
@@ -59,14 +44,11 @@ export default function SplashScreen() {
       if (nextVal >= 100) {
         clearInterval(interval);
         setIsLoaded(true);
-        setTimeout(() => {
-          handleExplore();
-        }, 600);
       }
     }, 25);
 
     return () => clearInterval(interval);
-  }, [alreadySeen, dismissed, handleExplore]);
+  }, [dismissed]);
 
   // Keyboard shortcut [Enter], [Space], [Esc]
   useEffect(() => {
@@ -293,6 +275,18 @@ export default function SplashScreen() {
                     onClick={handleExplore}
                     whileHover={{ scale: 1.05, boxShadow: "0px 0px 35px rgba(168,85,247,0.8)" }}
                     whileTap={{ scale: 0.96 }}
+                    animate={{
+                      boxShadow: [
+                        "0 0 15px rgba(168,85,247,0.3)",
+                        "0 0 30px rgba(6,182,212,0.5)",
+                        "0 0 15px rgba(168,85,247,0.3)",
+                      ],
+                    }}
+                    transition={{
+                      duration: 2.2,
+                      repeat: Infinity,
+                      ease: "easeInOut",
+                    }}
                     className="group relative inline-flex items-center gap-3 px-8 py-3.5 bg-[#0e1322] hover:bg-[#1a1f36] border border-purple-500/50 backdrop-blur-md rounded-full transition-all duration-300 overflow-hidden cursor-pointer shadow-lg"
                   >
                     <div className="absolute inset-0 w-full h-full bg-gradient-to-r from-purple-600/30 via-pink-500/30 to-cyan-500/30 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out" />
