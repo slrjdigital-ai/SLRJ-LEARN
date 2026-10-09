@@ -237,6 +237,8 @@ export default function SplashScreen() {
                   <span className="hover:text-pink-300 transition-colors">Rupesh Chaluvadi</span>
                   <span className="text-cyan-400/60 font-normal">•</span>
                   <span className="hover:text-emerald-300 transition-colors">Jaswanth Pula</span>
+                  <span className="text-purple-400/60 font-normal">•</span>
+                  <span className="hover:text-blue-400 transition-colors">Sanjay Vadde</span>
                 </div>
               </div>
             </div>

@@ -641,6 +641,15 @@ export default function AboutContent() {
                 accent: "#F59E0B",
                 isFounder: false,
               },
+              {
+                name: "Sanjay Vadde",
+                role: "Full-Stack & Cloud Solutions Engineer",
+                bio: "Specializes in modern web applications, scalable client solutions, interactive UI development, and robust API integrations.",
+                expertise: ["Full-Stack Engineering", "Next.js & React", "TypeScript", "Cloud & API Integrations"],
+                monogram: "SV",
+                accent: "#3B82F6",
+                isFounder: false,
+              },
             ].map((member, idx) => (
               <ScrollReveal key={idx} delay={idx * 0.08}>
                 <SpotlightCard
