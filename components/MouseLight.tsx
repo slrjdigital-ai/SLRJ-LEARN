@@ -19,7 +19,6 @@ export default function MouseLight() {
       if (!isVisible) setIsVisible(true);
     };
 
-    // Initialize position off-screen or center, then track
     window.addEventListener("mousemove", handleMouseMove);
     return () => window.removeEventListener("mousemove", handleMouseMove);
   }, [mouseX, mouseY, isVisible]);
@@ -28,11 +27,11 @@ export default function MouseLight() {
 
   return (
     <motion.div
-      className="pointer-events-none fixed top-0 left-0 w-[600px] h-[600px] -ml-[300px] -mt-[300px] rounded-full z-50 opacity-40 mix-blend-screen will-change-transform"
+      className="pointer-events-none fixed top-0 left-0 w-[550px] h-[550px] -ml-[275px] -mt-[275px] rounded-full z-50 opacity-35 mix-blend-screen will-change-transform"
       style={{
         x: springX,
         y: springY,
-        background: "radial-gradient(circle, rgba(168, 85, 247, 0.15) 0%, rgba(6, 182, 212, 0.05) 30%, transparent 60%)",
+        background: "radial-gradient(circle, rgba(99, 102, 241, 0.16) 0%, rgba(139, 92, 246, 0.10) 35%, transparent 65%)",
       }}
     />
   );

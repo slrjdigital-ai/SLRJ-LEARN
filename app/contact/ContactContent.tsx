@@ -150,12 +150,13 @@ function ContactForm() {
   }
 
   return (
-    <form id="contactForm" onSubmit={handleEmailSubmit} className="space-y-6">
+    <form id="contactForm" onSubmit={handleEmailSubmit} suppressHydrationWarning className="space-y-6">
       {/* Hidden Honeypot Field for Spam Protection */}
       <input
         type="text"
         id="honeypot"
         name="honeypot"
+        suppressHydrationWarning
         value={form.honeypot}
         onChange={handleChange}
         className="hidden"
@@ -191,6 +192,7 @@ function ContactForm() {
             id="name"
             type="text"
             required
+            suppressHydrationWarning
             value={form.name}
             onChange={handleChange}
             className={inputClass}
@@ -204,6 +206,7 @@ function ContactForm() {
           <input
             id="businessName"
             type="text"
+            suppressHydrationWarning
             value={form.businessName}
             onChange={handleChange}
             className={inputClass}
@@ -221,6 +224,7 @@ function ContactForm() {
             id="email"
             type="email"
             required
+            suppressHydrationWarning
             value={form.email}
             onChange={handleChange}
             className={inputClass}
@@ -234,6 +238,7 @@ function ContactForm() {
           <input
             id="phone"
             type="tel"
+            suppressHydrationWarning
             value={form.phone}
             onChange={handleChange}
             className={inputClass}
@@ -250,6 +255,7 @@ function ContactForm() {
           <select
             id="service"
             required
+            suppressHydrationWarning
             value={form.service}
             onChange={handleChange}
             className={inputClass + " appearance-none cursor-pointer"}
@@ -271,6 +277,7 @@ function ContactForm() {
           <select
             id="budget"
             required
+            suppressHydrationWarning
             value={form.budget}
             onChange={handleChange}
             className={inputClass + " appearance-none cursor-pointer"}
@@ -293,6 +300,7 @@ function ContactForm() {
           id="message"
           rows={5}
           required
+          suppressHydrationWarning
           value={form.message}
           onChange={handleChange}
           className={inputClass + " resize-none"}

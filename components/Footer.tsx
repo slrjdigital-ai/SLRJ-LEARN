@@ -3,14 +3,6 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useState, useEffect } from "react";
-import {
-  FaInstagram,
-  FaWhatsapp,
-  FaEnvelope,
-  FaSnapchatGhost,
-  FaFacebookF,
-  FaLinkedinIn,
-} from "react-icons/fa";
 import { Sparkles, Send, CheckCircle2, ShieldCheck, Heart, Loader2, Users } from "lucide-react";
 import { motion } from "framer-motion";
 
@@ -78,91 +70,49 @@ export default function Footer() {
 
   const navSections = [
     {
-      title: "Solutions",
+      title: "Core Subjects",
       links: [
-        { name: "Web Development", href: "/services#business-websites" },
-        { name: "E-Commerce Stores", href: "/services#e-commerce" },
-        { name: "Full-Stack Web Apps", href: "/services#web-apps" },
-        { name: "UI/UX Design Systems", href: "/services#ui-ux" },
-        { name: "Maintenance & Support", href: "/services#maintenance" },
+        { name: "Web Fundamentals", href: "/notes?category=Web+Fundamentals" },
+        { name: "HTML & Semantics", href: "/notes?category=HTML" },
+        { name: "CSS Flexbox & Grid", href: "/notes?category=CSS" },
+        { name: "Modern JavaScript", href: "/notes?category=JavaScript" },
+        { name: "React & Next.js", href: "/notes?category=React" },
       ],
     },
     {
-      title: "Company",
+      title: "Study Materials",
       links: [
-        { name: "About SLRJ", href: "/about" },
-        { name: "Portfolio & Work", href: "/projects" },
-        { name: "Client Reviews", href: "/#feedback" },
-        { name: "Our Process", href: "/about" },
-        { name: "Contact & Inquiries", href: "/contact" },
+        { name: "All Notes & Tutorials", href: "/notes" },
+        { name: "12-Step Learning Roadmap", href: "/roadmap" },
+        { name: "How Internet Works Guide", href: "/notes/how-the-internet-works" },
+        { name: "HTML & Semantic Guide", href: "/notes/html5-complete-notes" },
       ],
     },
     {
-      title: "Resources",
+      title: "Platform & Info",
       links: [
-        { name: "Project Estimator", href: "/#estimator" },
-        { name: "FAQs", href: "/#faq" },
-        { name: "Client Reviews", href: "/#feedback" },
+        { name: "About SLRJ Education", href: "/about" },
         { name: "Privacy Policy", href: "/privacy-policy" },
-        { name: "Terms & Conditions", href: "/terms-and-conditions" },
+        { name: "Terms of Service", href: "/terms-and-conditions" },
       ],
-    },
-  ];
-
-  const socialLinks = [
-    {
-      name: "WhatsApp",
-      icon: FaWhatsapp,
-      href: "https://wa.me/918466974408",
-      color: "hover:text-[#25D366] hover:border-[#25D366]/40 hover:bg-[#25D366]/10",
-    },
-    {
-      name: "LinkedIn",
-      icon: FaLinkedinIn,
-      href: "https://www.linkedin.com/in/slrj-digital-461868440?utm_source=share_via&utm_content=profile&utm_medium=member_android",
-      color: "hover:text-[#0A66C2] hover:border-[#0A66C2]/40 hover:bg-[#0A66C2]/10",
-    },
-    {
-      name: "Instagram",
-      icon: FaInstagram,
-      href: "https://instagram.com/slrj_digital",
-      color: "hover:text-[#E1306C] hover:border-[#E1306C]/40 hover:bg-[#E1306C]/10",
-    },
-    {
-      name: "Email",
-      icon: FaEnvelope,
-      href: "mailto:slrj.digital@gmail.com",
-      color: "hover:text-cyan-400 hover:border-cyan-400/40 hover:bg-cyan-400/10",
-    },
-    {
-      name: "Facebook",
-      icon: FaFacebookF,
-      href: "https://www.facebook.com/share/1M726Nnd7y/",
-      color: "hover:text-[#1877F2] hover:border-[#1877F2]/40 hover:bg-[#1877F2]/10",
-    },
-    {
-      name: "Snapchat",
-      icon: FaSnapchatGhost,
-      href: "https://www.snapchat.com/add/slrjdigital?share_id=ao0vSqDtPQs&locale=en-IN",
-      color: "hover:text-[#FFFC00] hover:border-[#FFFC00]/40 hover:bg-[#FFFC00]/10",
     },
   ];
 
   return (
-    <footer className="relative bg-[#020108] border-t border-white/10 pt-20 pb-28 sm:pb-36 lg:pb-40 overflow-hidden select-none" suppressHydrationWarning>
+    <footer className="relative bg-[#060A14] border-t border-slate-800 pt-20 pb-28 sm:pb-36 lg:pb-40 overflow-hidden select-none" suppressHydrationWarning>
       {/* ── Top Multi-Stop Laser Accent Line ──────────────────────────── */}
-      <div className="absolute top-0 left-0 right-0 h-[1.5px] bg-gradient-to-r from-transparent via-purple-500/60 via-pink-500/50 via-cyan-400/60 to-transparent shadow-[0_0_20px_rgba(168,85,247,0.4)]" />
+      <div className="absolute top-0 left-0 right-0 h-[1.5px] bg-gradient-to-r from-transparent via-cyan-400/60 via-teal-400/50 via-emerald-400/60 to-transparent shadow-[0_0_20px_rgba(6,182,212,0.3)]" />
 
       {/* ── Ambient Background Lighting ───────────────────────────────── */}
-      <div className="absolute top-0 left-1/4 w-[600px] h-[300px] bg-[radial-gradient(circle,_rgba(168,85,247,0.08)_0%,_transparent_70%)] blur-3xl pointer-events-none" />
-      <div className="absolute bottom-0 right-10 w-[500px] h-[300px] bg-[radial-gradient(circle,_rgba(6,182,212,0.06)_0%,_transparent_70%)] blur-3xl pointer-events-none" />
+      <div className="absolute top-0 left-1/4 w-[600px] h-[300px] bg-[radial-gradient(circle,_rgba(6,182,212,0.08)_0%,_transparent_70%)] blur-3xl pointer-events-none" />
+      <div className="absolute bottom-0 right-10 w-[500px] h-[300px] bg-[radial-gradient(circle,_rgba(16,185,129,0.06)_0%,_transparent_70%)] blur-3xl pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* ══════════════════════════════════════════════════════════════
             PRE-FOOTER CALLOUT / NEWSLETTER BAR
            ══════════════════════════════════════════════════════════════ */}
-        <div className="pb-16 mb-16 border-b border-white/10">
-          <div className="p-8 sm:p-10 rounded-3xl bg-gradient-to-r from-[#0C0824]/90 via-[#070517]/90 to-[#0C0824]/90 border border-white/10 backdrop-blur-xl relative overflow-hidden flex flex-col lg:flex-row items-center justify-between gap-8 shadow-[0_20px_50px_rgba(0,0,0,0.7)]">
+        <div className="pb-16 mb-16 border-b border-slate-800">
+          <div className="p-8 sm:p-10 rounded-3xl bg-[#0D1527] border border-slate-800 backdrop-blur-xl relative overflow-hidden flex flex-col lg:flex-row items-center justify-between gap-8 shadow-2xl">
             {/* Ambient interior flare */}
             <div className="absolute top-0 right-1/4 w-72 h-32 bg-cyan-500/10 blur-3xl pointer-events-none" />
 
@@ -170,11 +120,11 @@ export default function Footer() {
               <div className="flex flex-wrap items-center justify-center lg:justify-start gap-2.5 mb-2.5">
                 <span className="inline-flex items-center gap-1.5 text-xs font-mono font-bold text-cyan-300 tracking-[0.25em] uppercase">
                   <Sparkles size={12} className="text-cyan-400" />
-                  Stay in the Future
+                  Developer Dispatch
                 </span>
 
                 {/* Live Subscriber Count Pill */}
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-500/15 border border-purple-500/35 text-xs font-mono font-bold text-purple-200 shadow-[0_0_15px_rgba(168,85,247,0.25)] backdrop-blur-md" suppressHydrationWarning>
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/15 border border-cyan-500/30 text-xs font-mono font-bold text-cyan-200 shadow-[0_0_15px_rgba(6,182,212,0.2)] backdrop-blur-md" suppressHydrationWarning>
                   <span className="relative flex h-2 w-2">
                     <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
                     <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
@@ -193,16 +143,16 @@ export default function Footer() {
               </div>
 
               <h3 className="text-2xl sm:text-3xl font-black text-white font-brand tracking-tight">
-                Accelerate Your Digital Presence
+                Accelerate Your Engineering Career
               </h3>
               <p className="text-gray-400 text-sm mt-1.5 leading-relaxed">
                 {subscriberCount > 0 ? (
                   <>
-                    Join <span className="text-white font-semibold">{subscriberCount.toLocaleString()}+</span> founders, CTOs, and digital leaders receiving engineering updates, Next.js architecture breakdowns, and product launch strategies.
+                    Join <span className="text-white font-semibold">{subscriberCount.toLocaleString()}+</span> students, aspiring developers, and engineers receiving weekly web dev notes and architecture breakdowns.
                   </>
                 ) : (
                   <>
-                    Join forward-thinking founders, CTOs, and digital leaders receiving engineering updates, Next.js architecture breakdowns, and product launch strategies.
+                    Join students, aspiring developers, and engineers receiving weekly web dev notes and architecture breakdowns.
                   </>
                 )}
               </p>
@@ -228,7 +178,7 @@ export default function Footer() {
                   type="submit"
                   disabled={status === "loading"}
                   suppressHydrationWarning
-                  className="px-6 py-3.5 rounded-xl font-bold text-sm text-white bg-gradient-to-r from-purple-600 via-pink-600 to-cyan-500 hover:from-purple-500 hover:to-cyan-400 shadow-[0_0_20px_rgba(168,85,247,0.4)] transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer active:scale-98 disabled:opacity-60 disabled:cursor-not-allowed flex-shrink-0"
+                  className="px-6 py-3.5 rounded-xl font-bold text-sm text-black bg-gradient-to-r from-emerald-400 via-teal-400 to-cyan-400 hover:from-emerald-300 hover:to-cyan-300 shadow-[0_0_20px_rgba(6,182,212,0.3)] transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer active:scale-98 disabled:opacity-60 disabled:cursor-not-allowed flex-shrink-0"
                 >
                   {status === "loading" ? (
                     <>
@@ -278,9 +228,9 @@ export default function Footer() {
         {/* ══════════════════════════════════════════════════════════════
             MAIN FOOTER GRID: BRAND + 3 LINK COLUMNS + STATUS
            ══════════════════════════════════════════════════════════════ */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 lg:gap-12 mb-16">
-          {/* Brand Column (4 Cols) */}
-          <div className="lg:col-span-4 flex flex-col items-start">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 lg:gap-14 mb-16">
+          {/* Brand Column (5 Cols) */}
+          <div className="lg:col-span-5 flex flex-col items-start">
             <Link
               href="/"
               className="text-2xl sm:text-3xl font-black tracking-tight font-brand flex items-center gap-2.5 mb-4 group"
@@ -291,13 +241,13 @@ export default function Footer() {
                 width={46}
                 height={46}
                 unoptimized
-                className="w-10 h-10 sm:w-11 sm:h-11 object-contain filter drop-shadow-[0_0_15px_rgba(168,85,247,0.7)] group-hover:scale-105 transition-transform duration-300"
+                className="w-10 h-10 sm:w-11 sm:h-11 object-contain filter drop-shadow-[0_0_15px_rgba(6,182,212,0.6)] group-hover:scale-105 transition-transform duration-300"
               />
               <span className="flex">
-                <span className="text-transparent bg-clip-text bg-gradient-to-b from-cyan-300 via-purple-400 to-purple-700">
+                <span className="text-transparent bg-clip-text bg-gradient-to-b from-cyan-300 via-teal-400 to-emerald-500">
                   SL
                 </span>
-                <span className="text-transparent bg-clip-text bg-gradient-to-b from-pink-300 via-pink-500 to-fuchsia-700 ml-[-0.05em]">
+                <span className="text-transparent bg-clip-text bg-gradient-to-b from-white via-slate-200 to-slate-400 ml-[-0.05em]">
                   RJ
                 </span>
               </span>
@@ -306,16 +256,16 @@ export default function Footer() {
               </span>
             </Link>
 
-            <p className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-pink-400 to-cyan-400 font-bold text-xs tracking-[0.25em] uppercase mb-1 font-mono">
-              Think Bold. Create Limitless.
+            <p className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-teal-300 to-cyan-400 font-bold text-xs tracking-[0.25em] uppercase mb-1 font-mono">
+              Think. Build. Grow.
             </p>
 
             <p className="text-gray-400 text-xs font-mono tracking-wider uppercase mb-4">
-              Sankalp &bull; Lakshya &bull; Rachna &bull; Josh
+              Free Web Development & Tech Learning Platform
             </p>
 
             <p className="text-gray-400 text-sm leading-relaxed mb-6 max-w-sm">
-              We design, build, and scale high-performance digital experiences and web platforms engineered to unlock real business growth.
+              We empower aspiring developers and students with practical web development notes, step-by-step programming tutorials, interactive learning roadmaps, and structured study resources.
             </p>
 
             {/* Operational System Status Pill */}
@@ -324,12 +274,12 @@ export default function Footer() {
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
               </span>
-              <span>Active Engineering // Transparent Process</span>
+              <span>100% Free Learning Resources &bull; Open Access</span>
             </div>
           </div>
 
-          {/* Nav Sections (6 Cols) */}
-          <div className="lg:col-span-6 grid grid-cols-2 sm:grid-cols-3 gap-8">
+          {/* Nav Sections (7 Cols) */}
+          <div className="lg:col-span-7 grid grid-cols-2 sm:grid-cols-3 gap-8 sm:gap-10">
             {navSections.map((section, idx) => (
               <div key={idx}>
                 <h4 className="text-white font-bold text-sm tracking-wider uppercase font-mono mb-4 flex items-center gap-2">
@@ -351,48 +301,13 @@ export default function Footer() {
               </div>
             ))}
           </div>
-
-          {/* Social & Contact Card (2 Cols) */}
-          <div className="lg:col-span-2 flex flex-col justify-between">
-            <div>
-              <h4 className="text-white font-bold text-sm tracking-wider uppercase font-mono mb-4 flex items-center gap-2">
-                <span className="text-purple-400 text-xs">{"//"}</span>
-                Connect
-              </h4>
-
-              <div className="grid grid-cols-3 gap-2.5 mb-6">
-                {socialLinks.map((item, sIdx) => (
-                  <a
-                    key={sIdx}
-                    href={item.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label={item.name}
-                    className={`w-10 h-10 rounded-xl bg-white/[0.03] border border-white/10 flex items-center justify-center text-gray-400 transition-all duration-300 group ${item.color}`}
-                  >
-                    <item.icon size={17} className="group-hover:scale-115 transition-transform duration-300" />
-                  </a>
-                ))}
-              </div>
-            </div>
-
-            <div className="p-3.5 rounded-2xl bg-white/[0.02] border border-white/5 text-[11px] font-mono text-gray-400">
-              <span className="text-gray-500 block mb-1">DIRECT INQUIRIES</span>
-              <a href="mailto:slrj.digital@gmail.com" className="text-cyan-300 hover:text-white transition-colors block truncate">
-                slrj.digital@gmail.com
-              </a>
-              <a href="https://wa.me/918466974408" className="text-emerald-400 hover:text-emerald-300 transition-colors block mt-0.5">
-                +91 84669 74408
-              </a>
-            </div>
-          </div>
         </div>
 
         {/* ══════════════════════════════════════════════════════════════
             GIANT BRAND WATERMARK (Official Agency Signature)
            ══════════════════════════════════════════════════════════════ */}
         <div className="relative w-full py-4 overflow-hidden flex items-center justify-center opacity-[0.045] pointer-events-none select-none">
-          <span className="text-[14vw] font-black tracking-tighter leading-none font-brand whitespace-nowrap text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-white to-cyan-400">
+          <span className="text-[14vw] font-black tracking-tighter leading-none font-brand whitespace-nowrap text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-teal-300 to-emerald-400">
             SLRJ DIGITAL
           </span>
         </div>
@@ -400,17 +315,17 @@ export default function Footer() {
         {/* ══════════════════════════════════════════════════════════════
             BOTTOM LEGAL & METRIC BAR
            ══════════════════════════════════════════════════════════════ */}
-        <div className="border-t border-white/10 pt-8 pb-4 flex flex-col md:flex-row justify-between items-center gap-4 text-xs font-mono text-gray-500 px-2 sm:px-4 md:px-8">
+        <div className="border-t border-slate-800 pt-8 pb-4 flex flex-col md:flex-row justify-between items-center gap-4 text-xs font-mono text-gray-500 px-2 sm:px-4 md:px-8">
           <div className="flex flex-col sm:flex-row items-center justify-center md:justify-start gap-1.5 sm:gap-2 text-center md:text-left">
             <span>&copy; {currentYear} SLRJ Digital. All rights reserved.</span>
             <span className="hidden sm:inline text-gray-700">&bull;</span>
             <span className="text-gray-400 flex items-center gap-1">
-              Engineered with <Heart size={11} className="text-pink-500 inline fill-pink-500" /> for High-Growth Businesses
+              Engineered with <Heart size={11} className="text-emerald-400 inline fill-emerald-400" /> for Developers
             </span>
           </div>
 
           <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-6 text-gray-400">
-            <Link href="/privacy-policy" className="hover:text-purple-400 transition-colors">
+            <Link href="/privacy-policy" className="hover:text-cyan-400 transition-colors">
               Privacy Policy
             </Link>
             <span className="text-gray-700">&bull;</span>
@@ -418,10 +333,10 @@ export default function Footer() {
               Terms of Service
             </Link>
             <span className="text-gray-700">&bull;</span>
-            <a href="https://wa.me/918466974408" target="_blank" rel="noopener noreferrer" className="hover:text-emerald-400 transition-colors flex items-center gap-1">
+            <span className="text-emerald-400 flex items-center gap-1 font-mono text-xs">
               <ShieldCheck size={13} className="text-emerald-500" />
-              Verified Agency
-            </a>
+              Verified Learning Platform
+            </span>
           </div>
         </div>
       </div>

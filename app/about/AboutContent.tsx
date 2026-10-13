@@ -19,7 +19,6 @@ import {
 import { FaWhatsapp, FaGithub, FaLinkedinIn } from "react-icons/fa";
 import SpotlightCard from "@/components/SpotlightCard";
 import ScrollReveal from "@/components/ScrollReveal";
-import ContactCTA from "@/components/ContactCTA";
 
 export default function AboutContent() {
   // ── 4 Foundational Pillars (SLRJ) ──────────────────────────────────
@@ -736,11 +735,6 @@ export default function AboutContent() {
           </div>
         </div>
       </section>
-
-      {/* ══════════════════════════════════════════════════════════════
-          CALL TO ACTION
-         ══════════════════════════════════════════════════════════════ */}
-      <ContactCTA />
     </div>
   );
 }

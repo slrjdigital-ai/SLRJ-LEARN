@@ -8,11 +8,9 @@ import SmoothScroll from "@/components/SmoothScroll";
 import MouseLight from "@/components/MouseLight";
 import AnimatedBackground from "@/components/AnimatedBackground";
 import BorderLight from "@/components/BorderLight";
-import FloatingFeedbackButton from "@/components/FloatingFeedbackButton";
-import FloatingWhatsApp from "@/components/FloatingWhatsApp";
-import FeedbackModal from "@/components/FeedbackModal";
 import PageTransition from "@/components/PageTransition";
-import SplashScreen from "@/components/SplashScreen";
+import { AuthProvider } from "@/context/AuthContext";
+import AuthGuard from "@/components/AuthGuard";
 
 import JsonLd from "@/components/JsonLd";
 
@@ -33,20 +31,22 @@ const orbitron = Orbitron({
 
 export const metadata: Metadata = {
   title: {
-    default: "SLRJ — Digital Solutions, AI & Web Development",
+    default: "SLRJ Digital — Web Development & Computer Science Learning Platform",
     template: "%s | SLRJ Digital",
   },
   description:
-    "SLRJ creates modern websites, AI solutions, applications and digital experiences for businesses, startups and ambitious ideas.",
+    "Master web development with structured notes, step-by-step programming tutorials, 12-stage learning roadmap, and comprehensive study materials.",
   keywords: [
-    "Digital Solutions",
-    "AI Solutions",
-    "Web Development Agency",
-    "Next.js Development",
-    "React Web Applications",
-    "UI/UX Design Systems",
-    "E-Commerce Solutions",
-    "Performance Optimization",
+    "Web Development Notes",
+    "Programming Tutorials",
+    "Engineering Study Materials",
+    "Web Development Roadmap",
+    "HTML5 Semantic Guide",
+    "CSS Flexbox and Grid",
+    "Modern JavaScript ES6",
+    "React 19 Tutorials",
+    "Next.js App Router",
+    "REST APIs and Backend",
     "SLRJ Digital",
     "Kouluri Shahid"
   ],
@@ -100,20 +100,20 @@ export default function RootLayout({
         suppressHydrationWarning
         className={`${geistSans.variable} ${geistMono.variable} ${orbitron.variable} antialiased flex flex-col min-h-screen relative`}
       >
-        <SplashScreen />
-        <BorderLight />
-        <AnimatedBackground />
-        <MouseLight />
-        <SmoothScroll />
-        <ScrollProgress />
-        <Navbar />
-        <PageTransition>
-          <main className="flex-grow">{children}</main>
-        </PageTransition>
-        <FloatingFeedbackButton />
-        <FloatingWhatsApp />
-        <FeedbackModal />
-        <Footer />
+        <AuthProvider>
+          <BorderLight />
+          <AnimatedBackground />
+          <MouseLight />
+          <SmoothScroll />
+          <ScrollProgress />
+          <Navbar />
+          <AuthGuard>
+            <PageTransition>
+              <main className="flex-grow">{children}</main>
+            </PageTransition>
+          </AuthGuard>
+          <Footer />
+        </AuthProvider>
       </body>
     </html>
   );
