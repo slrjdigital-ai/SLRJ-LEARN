@@ -47,25 +47,27 @@ export const PDF_RESOURCES: PdfResource[] = [
   {
     id: "pdf-html5",
     slug: "html5-complete-notes",
-    title: "HTML5 & Semantic Web Complete Study Notes",
-    description: "Complete guide to semantic HTML tags, modern document structure, WCAG accessibility standards, accessible forms, audio/video, and SEO metadata.",
+    title: "HTML5 Handwritten Notebook (Basic -> Pro Complete Handbook)",
+    description: "The complete 40-topic HTML Handwritten Notebook: core document structure, semantic layouts, accessible forms, audio/video, SVG/Canvas, clean architecture, 30-day plan, and 7 mini-projects.",
     category: "HTML",
     fileUrl: "/pdfs/html5-complete-notes.pdf",
     filename: "html5-complete-notes.pdf",
-    fileSize: "5.7 KB",
+    fileSize: "29.3 KB",
     format: "PDF Document",
     language: "English",
-    pageCount: 2,
+    pageCount: 10,
     publishedDate: "October 2026",
     status: "published",
     topicsCovered: [
-      "Semantic Elements (<header>, <nav>, <main>, <article>)",
-      "Accessible Forms & Input Validation",
-      "ARIA Attributes & Screen-Reader Optimization",
-      "Tables with <thead> and Scope",
-      "Meta Tags & Social Open Graph Tags"
+      "Level 1: Structure, Tags, Paths & Tables",
+      "Level 2: Forms, Semantics, Media & Metadata",
+      "Level 3: Accessibility (WCAG), SEO & Modern APIs",
+      "Level 4: Architecture, Validation & Security",
+      "Master Cheat Sheet & Anti-Patterns Checklist",
+      "30-Day Practice Plan & 7 Mini-Projects",
+      "15 Final Revision Q&As & Launch Checklist"
     ],
-    recommendedFor: "Beginners entering Frontend Engineering"
+    recommendedFor: "Aspiring Developers, CS Students & Interview Candidates"
   },
   {
     id: "pdf-css",
