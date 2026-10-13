@@ -2,6 +2,8 @@ import { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getAllNotes, getNoteBySlug } from "@/data/notes";
+import { getPdfBySlug } from "@/data/pdfs";
+import NoteDetailClient from "@/components/blog/NoteDetailClient";
 import Breadcrumbs from "@/components/blog/Breadcrumbs";
 import TableOfContents from "@/components/blog/TableOfContents";
 import CodeBlock from "@/components/blog/CodeBlock";
@@ -92,6 +94,27 @@ export default async function NoteDetailPage({ params }: NotePageProps) {
     .filter((n) => note.relatedNoteSlugs.includes(n.slug) && n.slug !== note.slug)
     .slice(0, 3);
 
+  // PDF Resource Resolution
+  const pdfResource = note.pdf?.hasPdf
+    ? getPdfBySlug(note.pdf.filename.replace(".pdf", "")) || {
+        id: note.id,
+        slug: note.slug,
+        title: `${note.title} Handbook`,
+        description: note.shortDescription,
+        category: note.category,
+        fileUrl: note.pdf.fileUrl,
+        filename: note.pdf.filename,
+        fileSize: note.pdf.fileSize,
+        format: "PDF Document",
+        language: note.pdf.language,
+        pageCount: note.pdf.pageCount,
+        publishedDate: note.lastUpdated,
+        status: "published" as const,
+        topicsCovered: note.tags || [],
+        recommendedFor: "Developers & Students",
+      }
+    : undefined;
+
   // Article JSON-LD Structured Data
   const jsonLd = {
     "@context": "https://schema.org",
@@ -169,6 +192,11 @@ export default async function NoteDetailPage({ params }: NotePageProps) {
             <span>Topic: {note.topic}</span>
           </div>
         </header>
+
+        {/* Downloadable / Verified PDF Study Guide Banner */}
+        {note.pdf?.hasPdf && pdfResource && (
+          <NoteDetailClient note={note} pdfResource={pdfResource} />
+        )}
 
         {/* ── Main Two-Column Reading Layout ─────────────────── */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 py-10">

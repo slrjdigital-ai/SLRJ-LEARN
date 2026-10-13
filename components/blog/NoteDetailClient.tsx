@@ -46,7 +46,17 @@ export default function NoteDetailClient({
           </div>
         </div>
 
-        <div className="flex items-center gap-2.5 w-full sm:w-auto flex-shrink-0">
+        <div className="flex flex-wrap items-center gap-2.5 w-full sm:w-auto flex-shrink-0">
+          <a
+            href={pdfResource.fileUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex-1 sm:flex-initial flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-xl bg-gradient-to-r from-violet-600 via-indigo-600 to-cyan-500 hover:from-violet-500 hover:to-cyan-400 text-white font-bold text-xs shadow-lg shadow-indigo-950/40 transition-all cursor-pointer active:scale-95"
+          >
+            <FileText size={14} className="text-white" />
+            <span>Read Complete Notes</span>
+          </a>
+
           <button
             onClick={() => setIsPreviewOpen(true)}
             className="flex-1 sm:flex-initial flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-xl bg-white/5 hover:bg-white/10 text-gray-200 border border-white/15 text-xs font-semibold transition-all cursor-pointer"
@@ -58,9 +68,9 @@ export default function NoteDetailClient({
           <a
             href={pdfResource.fileUrl}
             download={pdfResource.filename}
-            className="flex-1 sm:flex-initial flex items-center justify-center gap-1.5 px-5 py-2.5 rounded-xl bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-300 hover:to-amber-400 text-black font-bold text-xs shadow-lg shadow-amber-400/20 transition-all cursor-pointer active:scale-95"
+            className="flex-1 sm:flex-initial flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-xl bg-white/5 hover:bg-white/10 text-gray-200 border border-white/15 text-xs font-semibold transition-all cursor-pointer"
           >
-            <Download size={14} className="text-black" />
+            <Download size={14} className="text-gray-300" />
             <span>Download PDF</span>
           </a>
         </div>

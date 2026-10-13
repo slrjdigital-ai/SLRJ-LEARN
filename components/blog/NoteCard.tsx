@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { NoteItem } from "@/data/notes";
 import { useAuth } from "@/context/AuthContext";
-import { Clock, Calendar, ArrowRight, Bookmark } from "lucide-react";
+import { Clock, Calendar, ArrowRight, Bookmark, FileText, BookOpen } from "lucide-react";
 
 interface NoteCardProps {
   note: NoteItem;
@@ -200,14 +200,35 @@ export default function NoteCard({ note }: NoteCardProps) {
           </span>
         </div>
 
-        {/* Action Button */}
-        <div>
+        {/* Action Buttons */}
+        <div className="flex items-center gap-2">
+          {note.pdf?.hasPdf && note.pdf.fileUrl ? (
+            <a
+              href={note.pdf.fileUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex-1 flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-gradient-to-r from-violet-600 via-indigo-600 to-cyan-500 hover:from-violet-500 hover:to-cyan-400 text-white text-xs font-bold shadow-lg shadow-indigo-950/40 transition-all duration-300 hover:shadow-indigo-500/25 hover:scale-[1.02] active:scale-98"
+            >
+              <FileText size={14} />
+              <span>Read Complete Notes</span>
+              <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
+            </a>
+          ) : (
+            <Link
+              href={`/notes/${note.slug}`}
+              className="flex-1 flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-gradient-to-r from-violet-600 via-indigo-600 to-cyan-500 hover:from-violet-500 hover:to-cyan-400 text-white text-xs font-bold shadow-lg shadow-indigo-950/40 transition-all duration-300 hover:shadow-indigo-500/25 hover:scale-[1.02] active:scale-98"
+            >
+              <span>Read Complete Notes</span>
+              <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
+            </Link>
+          )}
+
           <Link
             href={`/notes/${note.slug}`}
-            className="w-full flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-gradient-to-r from-violet-600 via-indigo-600 to-cyan-500 hover:from-violet-500 hover:to-cyan-400 text-white text-xs font-bold shadow-lg shadow-indigo-950/40 transition-all duration-300 hover:shadow-indigo-500/25 hover:scale-[1.02] active:scale-98"
+            className="p-2.5 rounded-xl bg-white/5 hover:bg-white/10 text-gray-400 hover:text-cyan-300 border border-white/10 transition-colors flex-shrink-0"
+            title="Read Interactive Web Notes"
           >
-            <span>Read Complete Notes</span>
-            <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
+            <BookOpen size={14} />
           </Link>
         </div>
       </div>
