@@ -317,15 +317,15 @@ strict-transport-security: max-age=31536000; includeSubDomains`,
     id: "note-html5-basics",
     slug: "html-basics-document-structure",
     title: "HTML5 Document Structure & Best Practices",
-    shortDescription: "Master modern HTML5 boilerplate, document type declarations, viewport meta tags, character encodings, and head tags.",
+    shortDescription: "Complete HTML Handwritten Notebook from Basic to Pro: modern document structure, semantic page architecture, accessible forms, multimedia, clean architecture, and 30-day practice plan.",
     category: "Web Development",
     subCategory: "HTML",
     topic: "HTML5 Core Fundamentals",
     difficulty: "Beginner",
-    readingTime: "9 min read",
+    readingTime: "25 min read",
     lastUpdated: "October 2026",
     isFeatured: true,
-    isPopular: false,
+    isPopular: true,
     status: "published",
     pdf: {
       hasPdf: true,
@@ -335,93 +335,538 @@ strict-transport-security: max-age=31536000; includeSubDomains`,
       pageCount: 2,
       language: "English"
     },
-    tags: ["HTML", "HTML5", "Document Structure", "Meta Tags", "SEO"],
-    tableOfContents: [
-      { id: "boilerplate", title: "1. The Essential HTML5 Boilerplate", level: 2 },
-      { id: "head-elements", title: "2. The <head> Segment: Meta, Title & Links", level: 2 },
-      { id: "text-elements", title: "3. Text Hierarchy & Headings", level: 2 },
-      { id: "common-mistakes", title: "4. Common Mistakes & Fixes", level: 2 },
-      { id: "practice", title: "5. Practical Exercise", level: 2 }
+    tags: [
+      "HTML",
+      "HTML5",
+      "Document Structure",
+      "Semantic HTML",
+      "Forms & Tables",
+      "Accessibility",
+      "SEO",
+      "Handwritten Notes"
     ],
-    introduction: "HTML (HyperText Markup Language) is the foundational skeleton of every webpage. Regardless of whether you write plain HTML, React JSX, or Vue templates, everything ultimately compiles down to HTML elements rendered by the browser.",
+    tableOfContents: [
+      { id: "handbook-overview", title: "Handwritten Notebook Overview & Learning Roadmap", level: 2 },
+      { id: "level-1-basics", title: "Level 1 — HTML Basics: Structure, Tags, Paths & Tables", level: 2 },
+      { id: "level-2-intermediate", title: "Level 2 — Intermediate HTML: Forms, Semantics & Media", level: 2 },
+      { id: "level-3-advanced", title: "Level 3 — Advanced HTML: Accessibility, SEO & Modern APIs", level: 2 },
+      { id: "level-4-pro", title: "Level 4 — Pro HTML: Architecture, Validation & Security", level: 2 },
+      { id: "cheat-sheet-mistakes", title: "HTML Master Cheat Sheet & Common Mistakes Checklist", level: 2 },
+      { id: "practice-plan-projects", title: "30-Day Practice Plan & 7 Real-World Mini-Projects", level: 2 },
+      { id: "final-revision-checklist", title: "Final Revision Questions & Production Launch Checklist", level: 2 }
+    ],
+    introduction: "Welcome to the complete HTML Handwritten Notebook — a structured masterclass taking you from Basic to Intermediate, Advanced, and Pro engineering levels.\n\n🎯 GOAL: Build rock-solid HTML fundamentals, author clean semantic documents, construct accessible forms and multimedia experiences, master SEO and screen-reader accessibility, and prepare effortlessly for CSS, JavaScript, and React.\n\n⭐ GOLDEN RULE: HTML is strictly about structure and meaning. CSS controls appearance. JavaScript controls behavior. Keep responsibilities clean and separated.",
     sections: [
       {
-        id: "boilerplate",
-        title: "1. The Essential HTML5 Boilerplate",
-        content: "Every valid HTML5 document begins with the <!DOCTYPE html> declaration to ensure the browser renders in standards mode rather than legacy quirks mode.",
+        id: "handbook-overview",
+        title: "Handwritten Notebook Overview & Learning Roadmap",
+        content: "How to use these notes effectively:\n1. Read the core concept first, then type the code yourself in VS Code instead of blindly copy-pasting.\n2. Underline or highlight the Remember boxes while revising.\n3. After completing each level, build the practice challenges and mini-project.\n4. Keep a dedicated folder called 'html-practice' on your computer and create a separate file for every exercise.\n5. Always use index.html as the primary entry point for multi-page websites.",
+        diagram: {
+          type: "comparison",
+          title: "4-Level Engineering Progression",
+          items: [
+            {
+              title: "Level 1: Basic Foundations",
+              desc: "Document skeleton, tags, elements, attributes, text hierarchy, links, images, relative paths, lists, and tables.",
+              badge: "Foundations"
+            },
+            {
+              title: "Level 2: Intermediate Capabilities",
+              desc: "Form architecture, input types, fieldsets, semantic page layouts, generic containers, audio/video, iframes, and head metadata.",
+              badge: "Interactive"
+            },
+            {
+              title: "Level 3: Advanced Standards",
+              desc: "Accessibility (WCAG/ARIA), button vs link rules, technical SEO, responsive viewport, inline SVG, canvas, and native dialogs.",
+              badge: "A11y & SEO"
+            },
+            {
+              title: "Level 4: Professional Architecture",
+              desc: "Component class naming (BEM), clean folder structure, W3C validation, performance optimization, security, and full-stack thinking.",
+              badge: "Production"
+            }
+          ]
+        },
+        table: {
+          title: "Learning Progression Matrix",
+          headers: ["Level", "Focus Area", "Key Deliverables & Skills"],
+          rows: [
+            ["LEVEL 1 — BASIC", "Syntax & Core Tags", "Structure, tags, text, links, images, lists, tables, file paths."],
+            ["LEVEL 2 — INTERMEDIATE", "Forms & Semantics", "Forms, inputs, validation, semantic layout, multimedia, entities, head tags."],
+            ["LEVEL 3 — ADVANCED", "A11y, SEO & APIs", "WCAG accessibility, SEO architecture, inline SVG, Canvas, details/summary, dialog."],
+            ["LEVEL 4 — PRO", "Production Engineering", "Clean folder architecture, maintainable BEM naming, validation, performance, security."]
+          ]
+        },
+        bestPractices: [
+          "Study • Write • Practice • Build • Revise: Follow this 5-step cycle for every topic.",
+          "Treat HTML tags as structural semantics, never as styling shortcuts (e.g., avoid using <h1> just to make text larger)."
+        ]
+      },
+      {
+        id: "level-1-basics",
+        title: "Level 1 — HTML Basics: Structure, Tags, Paths & Tables",
+        content: "HTML (HyperText Markup Language) is the standard markup language used to structure content on web pages. HyperText represents text that can link to other resources, while Markup refers to specialized tags that tell the browser what a piece of content represents.\n\nRemember: HTML is NOT a programming language; it contains no conditional branching or variables. It is a markup declaration language.",
+        diagram: {
+          type: "architecture",
+          title: "HTML Document Tree Architecture",
+          items: [
+            {
+              title: "<!DOCTYPE html>",
+              desc: "Document type declaration. Informs modern browser engines to render in standards mode instead of quirks mode.",
+              badge: "Declaration"
+            },
+            {
+              title: "<html lang='en'>",
+              desc: "Root element wrapping all page contents. Declares natural language for search engines and screen readers.",
+              badge: "Root Element"
+            },
+            {
+              title: "<head>",
+              desc: "Machine-readable metadata, character sets, viewport scaling, tab title, and external stylesheets/scripts.",
+              badge: "Metadata & Links"
+            },
+            {
+              title: "<body>",
+              desc: "All visible content presented to human users (headings, paragraphs, images, navigation, tables, and forms).",
+              badge: "Visible Content"
+            }
+          ]
+        },
         codeSnippet: {
           language: "html",
-          title: "Production HTML5 Document Shell",
+          title: "Standard HTML5 Document Skeleton",
           code: `<!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>SLRJ Digital | Professional Web Development Notes</title>
-    <meta name="description" content="Master modern frontend and full-stack engineering." />
-    <!-- Favicon & Icons -->
-    <link rel="icon" href="/favicon.ico" />
-    <!-- Stylesheet -->
-    <link rel="stylesheet" href="/styles.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Personal student portfolio and engineering notes.">
+    <title>My First Webpage | SLRJ Digital</title>
   </head>
   <body>
-    <header>
-      <nav aria-label="Main Navigation">
-        <a href="/">Home</a>
-        <a href="/blog">Blog</a>
-      </nav>
-    </header>
-    
-    <main>
-      <h1>Welcome to SLRJ Digital Education</h1>
-      <p>Practical notes, tutorials, and free PDF study resources.</p>
-    </main>
-
-    <footer>
-      <p>&copy; 2026 SLRJ Digital. All rights reserved.</p>
-    </footer>
+    <h1>Welcome to Web Engineering</h1>
+    <p>This is my first standards-compliant HTML5 webpage.</p>
   </body>
 </html>`,
-          explanation: "Notice the language attribute lang='en', viewport meta tag for mobile responsiveness, UTF-8 charset declaration, and semantic structural tags."
-        }
-      },
-      {
-        id: "head-elements",
-        title: "2. The <head> Segment: Meta, Title & Links",
-        content: "Elements in the <head> tag are machine-readable instructions. They do not render visibly on screen, but they directly control SEO rankings, viewport scaling, character decoding, and social sharing previews.",
-        table: {
-          title: "Critical Meta Tags Explained",
-          headers: ["Tag", "Purpose", "Impact if Missing"],
-          rows: [
-            ["<meta charset='UTF-8'>", "Specifies Unicode character set", "Special characters (quotes, emojis, accents) corrupt into broken symbols (mojibake)"],
-            ["<meta name='viewport' content='width=device-width, initial-scale=1.0'>", "Enables responsive viewport scaling on mobile devices", "Mobile devices render desktop layout at 980px zoom, breaking mobile usability"],
-            ["<title>", "Sets tab title & primary search engine result title", "Crucial SEO penalty; browser tab displays raw URL filename"],
-            ["<meta name='description'>", "Snippet shown below title in Google search results", "Google auto-extracts random body text for the snippet"]
-          ]
-        }
-      },
-      {
-        id: "common-mistakes",
-        title: "4. Common Mistakes & Fixes",
-        content: "Avoid these common HTML mistakes:",
-        commonMistakes: [
+          explanation: "Every modern HTML5 page must declare <!DOCTYPE html>, specify charset UTF-8, and define the mobile viewport meta tag."
+        },
+        subsections: [
           {
-            wrong: "Using multiple <h1> elements on the same page.",
-            correct: "Use exactly one <h1> element for the main page title, followed by <h2> for major sections and <h3> for sub-sections.",
-            why: "Search engines and screen-readers rely on a single primary heading to establish the page subject hierarchy."
+            title: "3. Tags, Elements and Attributes",
+            content: "• Tag: A markup token such as <p> or </p>.\n• Element: The complete structure including opening tag, content, and closing tag (e.g., <p>Hello World</p>).\n• Attribute: Extra metadata placed inside an opening tag (e.g., <a href='https://example.com' target='_blank'>Visit</a>).\n• Void Elements: Self-closing tags that do not have closing tags and cannot wrap child content (e.g., <img>, <br>, <hr>, <input>, <meta>, <link>)."
           },
           {
-            wrong: "Leaving the alt attribute completely off <img> tags.",
-            correct: "Always write <img src='diagram.png' alt='DNS resolution architecture diagram' />.",
-            why: "Screen-readers for visually impaired users cannot interpret images without alt text, and search engines cannot index the image context."
+            title: "4. Text Formatting Hierarchy",
+            content: "Use headings <h1> through <h6> strictly in descending logical order:\n• <h1>: Main page topic (use only once per document).\n• <h2>: Primary section headings.\n• <h3> to <h6>: Nested sub-headings.\n• <p>: Normal textual paragraph.\n• <strong>: Indicates serious importance or urgency (rendered bold).\n• <em>: Stress emphasis that changes sentence meaning (rendered italic).\n• <mark>: Text highlighted for contextual relevance.\n• <small>: Fine print, disclaimers, or copyright notices.\n• <sub> & <sup>: Subscripts (H₂O) and superscripts (x²).\n• <hr>: Thematic horizontal break between topics; <br>: Line break (use sparingly, never for vertical layout spacing)."
+          },
+          {
+            title: "5. Comments & Security Note",
+            content: "Write comments using <!-- This is a comment -->.\nComments are ignored by the browser parser but remain completely visible in 'View Page Source'. Never put API keys, passwords, student records, or sensitive logic in HTML comments."
+          },
+          {
+            title: "6. Hyperlinks (Anchor Tags)",
+            content: "The <a> element creates clickable hyperlinks:\n• Internal page: <a href='about.html'>About Us</a>\n• External website: <a href='https://www.google.com' target='_blank' rel='noopener noreferrer'>Google</a>\n• Email composer: <a href='mailto:hello@slrjdigital.in'>Email Support</a>\n• Phone dialer: <a href='tel:+911234567890'>Call Office</a>\nRemember: 'href' defines the destination URL. The text between <a> and </a> is the user-visible clickable link."
+          },
+          {
+            title: "7. Images & Meaningful Alt Text",
+            content: "Embed raster and vector images with <img src='images/photo.jpg' alt='A mountain landscape during sunset' width='600' height='400'>.\n• 'src': Relative path or absolute URL of the asset.\n• 'alt': Meaningful description read aloud by screen-readers and displayed if network connectivity fails.\n• 'width' & 'height': Explicit dimensions prevent Cumulative Layout Shift (CLS) as images load."
+          },
+          {
+            title: "8. File Paths & Directory Traversal",
+            content: "Understanding relative file paths:\n• './' or just 'file.html': Current directory.\n• 'images/photo.jpg': Subfolder inside the current directory.\n• '../': Go up one directory level.\n• '../../': Go up two directory levels.\nExample: From 'pages/about.html' to access root 'images/photo.jpg', write: <img src='../images/photo.jpg' alt='Photo'>"
+          },
+          {
+            title: "9. Lists: Unordered, Ordered & Description",
+            content: "HTML provides three distinct list elements:\n• <ul>: Unordered bulleted list (items where order does not matter).\n• <ol>: Ordered numbered list (step-by-step algorithms, recipes, workflows).\n• <dl>, <dt>, <dd>: Description/glossary list for terms and definitions.",
+            codeSnippet: {
+              language: "html",
+              title: "HTML List Types in Action",
+              code: `<!-- Unordered List -->
+<ul>
+  <li>HTML5 Semantics</li>
+  <li>CSS3 Grid & Flexbox</li>
+  <li>Modern JavaScript</li>
+</ul>
+
+<!-- Ordered List (Study Workflow) -->
+<ol>
+  <li>Open VS Code</li>
+  <li>Create index.html</li>
+  <li>Write standards-compliant HTML</li>
+</ol>
+
+<!-- Description List -->
+<dl>
+  <dt>HTML</dt>
+  <dd>Structures web content and semantic meaning.</dd>
+  <dt>CSS</dt>
+  <dd>Styles layout, colors, typography, and responsive animations.</dd>
+</dl>`,
+              explanation: "Choose the correct list type based on data semantics rather than default browser bullet formatting."
+            }
+          },
+          {
+            title: "10. Accessible Data Tables",
+            content: "Tables must only be used to display tabular, multidimensional data — NEVER for page layout.\nStructure tables properly using <caption> (accessible table title), <thead> (table header), <tbody> (table data), <tfoot> (summary rows), <th> (header cell with scope='col' or scope='row'), and <td> (standard data cell)."
+          }
+        ],
+        commonMistakes: [
+          {
+            wrong: "Putting visible text elements (<h1>, <p>, <div>) inside the <head> tag.",
+            correct: "Place all visible content strictly inside the <body> tag; keep <head> for metadata, title, and resource links.",
+            why: "The browser <head> is machine-readable only; placing visible tags there violates HTML specs and breaks rendering trees."
+          },
+          {
+            wrong: "Using repeated <br><br><br> tags to create vertical space between elements.",
+            correct: "Use CSS margins and paddings (e.g., class='my-6' or margin-bottom) for spacing.",
+            why: "<br> indicates a linguistic line break (like a poem or physical address), not a styling tool."
+          }
+        ]
+      },
+      {
+        id: "level-2-intermediate",
+        title: "Level 2 — Intermediate HTML: Forms, Semantics & Media",
+        content: "Level 2 covers interactive user inputs, semantic document layouts, audio/video integration, and global attributes.",
+        diagram: {
+          type: "flowchart",
+          title: "Typical Form Data Processing Pipeline",
+          items: [
+            {
+              title: "1. User Input",
+              desc: "User types data into interactive form controls (text, email, password, radio buttons, checkboxes, file upload).",
+              badge: "Client Input"
+            },
+            {
+              title: "2. <form> Container",
+              desc: "Collects values matched to input 'name' attributes. Connects <label for='id'> to <input id='id'> for accessibility.",
+              badge: "Markup"
+            },
+            {
+              title: "3. Browser Validation",
+              desc: "HTML5 constraints (required, type='email', minlength, pattern) validate data format before dispatch.",
+              badge: "Client Validation"
+            },
+            {
+              title: "4. Form Submission",
+              desc: "Dispatches HTTP POST (or GET) request payload over HTTPS to configured backend route action.",
+              badge: "Network Dispatch"
+            },
+            {
+              title: "5. Server / API & Database",
+              desc: "Backend API endpoint validates, sanitizes, authenticates, and persists data into the database.",
+              badge: "Backend Processing"
+            }
+          ]
+        },
+        codeSnippet: {
+          language: "html",
+          title: "Production Accessible Registration Form",
+          code: `<form action="/api/register" method="post" class="auth-form">
+  <!-- Name Field -->
+  <div class="form-group">
+    <label for="full-name">Full Name</label>
+    <input id="full-name" name="name" type="text" placeholder="John Doe" required autocomplete="name">
+  </div>
+
+  <!-- Email Field -->
+  <div class="form-group">
+    <label for="user-email">Email Address</label>
+    <input id="user-email" name="email" type="email" placeholder="name@domain.com" required autocomplete="email">
+  </div>
+
+  <!-- Course Select -->
+  <div class="form-group">
+    <label for="course-choice">Select Enrolled Track</label>
+    <select id="course-choice" name="course" required>
+      <option value="" disabled selected>Choose a track...</option>
+      <option value="fullstack">Full-Stack Web Development</option>
+      <option value="dsa">Data Structures & Algorithms</option>
+      <option value="ai">Python & Applied AI</option>
+    </select>
+  </div>
+
+  <!-- Radio Group wrapped in Fieldset -->
+  <fieldset class="contact-pref">
+    <legend>Preferred Notification Mode</legend>
+    <label><input type="radio" name="contact_pref" value="email" checked> Email</label>
+    <label><input type="radio" name="contact_pref" value="sms"> SMS</label>
+  </fieldset>
+
+  <!-- Submit Button -->
+  <button type="submit" class="submit-btn">Register Account</button>
+</form>`,
+          explanation: "Always connect every <label for='...'> explicitly to the input's matching 'id'. Use method='post' for sensitive and state-changing payloads."
+        },
+        subsections: [
+          {
+            title: "12. Common Input Types & Security Warning",
+            content: "HTML5 provides rich input types with native mobile keyboards:\n• text, email, password, number, date, time, file, radio, checkbox, submit, color, range.\n⚠️ SECURITY WARNING: Never rely solely on client-side HTML validation. Any user can bypass HTML constraints using DevTools or curl. Always re-validate and sanitize all data on the backend server."
+          },
+          {
+            title: "14. Semantic HTML Page Layout",
+            content: "Semantic elements convey purpose and meaning to search bots and assistive screen readers:\n• <header>: Banner, site logo, primary headline.\n• <nav>: Primary navigational links.\n• <main>: Central, unique content of the page (only one per document).\n• <section>: Thematic grouping of content with an identifiable heading.\n• <article>: Self-contained, reusable piece of content (blog post, product card).\n• <aside>: Tangential content, sidebar, related resources.\n• <footer>: Author info, copyright, sitemap, legal terms."
+          },
+          {
+            title: "15. Containers: <div> vs <span>",
+            content: "• <div>: Generic block-level container starting on a new line and taking 100% available width. Use only when no semantic tag fits.\n• <span>: Generic inline container that wraps text snippets without breaking the line. Ideal for styling small words or icons."
+          },
+          {
+            title: "16. Multimedia: Native Audio & Video",
+            content: "Embed media natively without third-party plugins:\n<audio controls><source src='music.mp3' type='audio/mpeg'>Your browser does not support audio.</audio>\n<video controls width='640'><source src='intro.mp4' type='video/mp4'>Your browser does not support video.</video>"
+          },
+          {
+            title: "17. Sandboxed Embeds & <iframe>",
+            content: "Embed external widgets or YouTube videos using <iframe>:\n<iframe src='https://www.youtube.com/embed/VIDEO_ID' title='Video player' width='560' height='315' allowfullscreen loading='lazy'></iframe>\nRule: Always include a descriptive 'title' attribute for screen readers, and only embed from trusted origins."
+          },
+          {
+            title: "18. HTML Entities",
+            content: "Reserved characters must be written as HTML character entities:\n• &lt; represents '<' (less than)\n• &gt; represents '>' (greater than)\n• &amp; represents '&' (ampersand)\n• &quot; represents '\"' (quotation mark)\n• &nbsp; represents non-breaking space\n• &copy; represents '©' (copyright)\n• &reg; represents '®' (registered trademark)"
+          },
+          {
+            title: "19. Metadata & Head Elements",
+            content: "The <head> element contains crucial machine instructions:\n• <meta charset='UTF-8'>: Unicode encoding.\n• <meta name='viewport' content='width=device-width, initial-scale=1.0'>: Enables responsive CSS scaling on mobile screens.\n• <meta name='description' content='...'>: Search engine snippet.\n• <link rel='stylesheet' href='style.css'>: Connects CSS styles."
+          },
+          {
+            title: "20. HTML5 Global Attributes",
+            content: "Attributes valid on almost every HTML element:\n• id: Unique identifier on the entire page.\n• class: Reusable classification hook for CSS and JS.\n• title: Advisory tooltip text on hover.\n• lang: Natural language of the element.\n• data-*: Custom attributes to store private application data (e.g., data-user-id='42')."
+          }
+        ]
+      },
+      {
+        id: "level-3-advanced",
+        title: "Level 3 — Advanced HTML: Accessibility, SEO & Modern APIs",
+        content: "Level 3 focuses on creating web experiences that are universally accessible, search-engine optimized, and leverage modern native browser APIs.",
+        subsections: [
+          {
+            title: "21. Accessibility Fundamentals (A11y)",
+            content: "• Use semantic HTML before reaching for ARIA attributes.\n• Every informative image must have descriptive alt text; purely decorative images must use alt=''.\n• Every form control must have a connected <label>.\n• Maintain strict heading hierarchy (h1 -> h2 -> h3).\n• Ensure full keyboard navigation: every interactive control must be reachable via Tab and activatable via Enter/Space.\n• Never convey vital information through color alone."
+          },
+          {
+            title: "22. The Golden Rule: Buttons vs Links",
+            content: "🧠 SIMPLE DECISION RULE:\n• If it takes the user somewhere (navigates to a new URL, page, or page anchor) ➔ Use an anchor tag <a href='...'>.\n• If it makes something happen (opens a modal, submits a form, toggles dark mode, deletes an item) ➔ Use a button tag <button type='button'>.\nNever write <div onclick='...'> or <a href='#'> for actions."
+          },
+          {
+            title: "23. Technical SEO in HTML",
+            content: "Search engine crawlers rely on HTML semantics:\n1. Give each page a unique, descriptive <title> (50-60 characters).\n2. Write a compelling <meta name='description'> (140-160 characters).\n3. Maintain exactly one <h1> heading representing the core subject.\n4. Write meaningful anchor link text (avoid generic 'click here' or 'read more'; write 'view course curriculum').\n5. Include Open Graph tags (og:title, og:image, og:url) for social previews."
+          },
+          {
+            title: "24. Responsive-Friendly HTML Structure",
+            content: "Always specify <meta name='viewport' content='width=device-width, initial-scale=1.0'>. HTML provides the logical content order and flexible container tree; CSS media queries and flex/grid systems apply the visual responsiveness."
+          },
+          {
+            title: "25. Inline SVG Basics",
+            content: "Scalable Vector Graphics (SVG) are XML-based vector graphics that scale infinitely without pixelation. Unlike raster formats (JPEG/PNG), inline SVGs can be styled with CSS fill and animated with JavaScript.\nExample: <svg width='24' height='24' viewBox='0 0 24 24' role='img' aria-label='Checkmark icon'><path fill='currentColor' d='...' /></svg>"
+          },
+          {
+            title: "26. Canvas Basics (<canvas>)",
+            content: "The <canvas> element provides an empty raster bitmap drawing surface. While SVG is DOM-based and vector, Canvas is drawn pixel-by-pixel via JavaScript (2D context or WebGL 3D), ideal for games, data charts, and particle physics."
+          },
+          {
+            title: "27. Native Accordion: <details> & <summary>",
+            content: "Create interactive collapsible accordions with zero JavaScript:\n<details>\n  <summary>What is HTML?</summary>\n  <p>HTML is the standard markup language for web document structure.</p>\n</details>"
+          },
+          {
+            title: "28. Native Modal Dialog: <dialog>",
+            content: "HTML5 offers the native <dialog> element. Call dialog.showModal() in JavaScript to render an accessible modal with built-in backdrop styling, focus trapping, and ESC-key dismiss behavior."
+          }
+        ],
+        codeSnippet: {
+          language: "html",
+          title: "Native Accordion & Modal Implementation",
+          code: `<!-- Native Accordion with zero JS -->
+<details class="faq-item">
+  <summary class="faq-question">Why is semantic HTML critical for SEO?</summary>
+  <div class="faq-answer">
+    <p>Semantic tags allow search engine crawlers to accurately parse page hierarchy, extract rich snippets, and index key topics efficiently.</p>
+  </div>
+</details>
+
+<!-- Native Accessible Dialog -->
+<dialog id="cookie-dialog" class="modal-card">
+  <h3>Cookie Preferences</h3>
+  <p>We use essential cookies to maintain user session security.</p>
+  <form method="dialog">
+    <button type="submit">Accept & Close</button>
+  </form>
+</dialog>`,
+          explanation: "Native HTML elements reduce JavaScript bundle size, improve page load performance, and come with built-in accessibility."
+        }
+      },
+      {
+        id: "level-4-pro",
+        title: "Level 4 — Pro HTML: Architecture, Validation & Security",
+        content: "Professional frontend engineering demands clean folder organization, maintainable component class names, strict standards validation, performance optimization, and cybersecurity awareness.",
+        subsections: [
+          {
+            title: "29. Clean Project Architecture & Separation of Concerns",
+            content: "Recommended standard project structure:\nproject/\n├── index.html\n├── pages/\n│   ├── about.html\n│   ├── services.html\n│   └── contact.html\n├── assets/\n│   ├── images/\n│   └── icons/\n├── css/\n│   └── style.css\n└── js/\n    └── script.js\n\nKeep HTML (structure), CSS (styling), and JavaScript (behavior) strictly decoupled."
+          },
+          {
+            title: "30. Maintainable Class Naming (BEM Philosophy)",
+            content: "Name classes based on what the element represents, not how it looks (e.g., use 'product-card' instead of 'blue-box').\nBlock Element Modifier (BEM):\n• Block: .product-card\n• Element: .product-card__title, .product-card__image\n• Modifier: .product-card--featured"
+          },
+          {
+            title: "31. HTML Validation & Debug Workflow",
+            content: "When a layout breaks, follow this 4-step debug method:\n1. Inspect Element in Browser DevTools.\n2. Verify closing tags and element nesting.\n3. Run your code through the official W3C HTML Validator (validator.w3.org).\n4. Check CSS rules and JavaScript console errors."
+          },
+          {
+            title: "32. Performance-Aware HTML",
+            content: "• Always declare explicit width and height on <img> elements to reserve layout space and prevent Cumulative Layout Shift (CLS).\n• Add loading='lazy' on below-the-fold images to defer network fetching until the user scrolls nearby.\n• Minimize unnecessary nested <div> wrappers to keep the DOM tree shallow and performant."
+          },
+          {
+            title: "33. Cybersecurity Awareness",
+            content: "🚨 GOLDEN SECURITY RULE: Anything delivered to the browser can be inspected, modified, and tampered with by the client.\n• Never put database connection strings, passwords, or private API keys in HTML or frontend code.\n• Sanitize user-submitted HTML on the server before rendering to prevent Cross-Site Scripting (XSS) attacks.\n• Use rel='noopener noreferrer' when opening external links in target='_blank'."
+          },
+          {
+            title: "34. Forms + Backend Thinking",
+            content: "Connecting frontend HTML to full-stack backend services:\nBrowser Form ➔ HTTP POST Request with FormData / JSON ➔ Express / Next.js API Route Handler ➔ Input Validation & Authentication ➔ Database Query (PostgreSQL / MongoDB) ➔ JSON Response back to client."
+          }
+        ],
+        codeSnippet: {
+          language: "html",
+          title: "BEM-Structured Production Component",
+          code: `<article class="product-card product-card--featured">
+  <img 
+    class="product-card__image" 
+    src="/images/course-banner.jpg" 
+    alt="Full-Stack Web Development Course Overview"
+    width="800" 
+    height="450" 
+    loading="lazy"
+  >
+  <div class="product-card__content">
+    <span class="product-card__badge">Bestseller</span>
+    <h2 class="product-card__title">Full-Stack Web Architecture</h2>
+    <p class="product-card__description">Master HTML5, CSS3, React 19, and Next.js App Router.</p>
+    <div class="product-card__footer">
+      <span class="product-card__price">₹4,999</span>
+      <a href="/enroll" class="product-card__btn">Enroll Now</a>
+    </div>
+  </div>
+</article>`,
+          explanation: "Readable BEM class naming clearly communicates component boundaries, reduces CSS specificity collisions, and improves team maintainability."
+        }
+      },
+      {
+        id: "cheat-sheet-mistakes",
+        title: "HTML Master Cheat Sheet & Common Mistakes Checklist",
+        content: "A quick-reference cheat sheet covering every primary element category and a checklist of the top 10 mistakes to avoid in production.",
+        table: {
+          title: "Complete HTML Elements Master Reference",
+          headers: ["Category", "Core Elements", "Primary Function"],
+          rows: [
+            ["Structure", "<!DOCTYPE html>, <html>, <head>, <body>", "Document envelope, standards mode, and root containers."],
+            ["Text", "<h1>…<h6>, <p>, <strong>, <em>, <mark>, <small>, <sub>, <sup>, <hr>, <br>", "Headings, paragraphs, typography emphasis, and breaks."],
+            ["Links", "<a href='...'>", "Hyperlinks (internal, external, mailto, tel)."],
+            ["Images", "<img src='...' alt='...'>", "Raster and vector image embedding."],
+            ["Lists", "<ul>, <ol>, <li>, <dl>, <dt>, <dd>", "Unordered bullets, ordered sequences, and description definitions."],
+            ["Tables", "<table>, <caption>, <thead>, <tbody>, <tfoot>, <tr>, <th>, <td>", "Tabular data presentation with accessible column/row headers."],
+            ["Forms", "<form>, <label>, <input>, <select>, <option>, <textarea>, <fieldset>, <legend>, <button>", "Interactive user input collection, validation, and submission."],
+            ["Semantic", "<header>, <nav>, <main>, <section>, <article>, <aside>, <footer>", "Structural meaning for search bots, screen readers, and maintainability."],
+            ["Multimedia", "<audio>, <video>, <source>, <iframe>", "Native audio/video playback and sandboxed third-party embeds."],
+            ["Modern APIs", "<svg>, <canvas>, <details>, <summary>, <dialog>, data-*", "Vector graphics, scriptable drawing, accordions, and modals."]
+          ]
+        },
+        revisionNotes: [
+          "Checklist Item 1: Always declare <!DOCTYPE html> at the very top of your file.",
+          "Checklist Item 2: Never duplicate 'id' attribute values across the same document.",
+          "Checklist Item 3: Never leave meaningful <img> tags without informative alt text.",
+          "Checklist Item 4: Avoid div-soup; use semantic tags (<nav>, <header>, <main>, <article>, <section>, <footer>) wherever appropriate.",
+          "Checklist Item 5: Never use <table> elements for page layout styling.",
+          "Checklist Item 6: Avoid repeated <br> tags for visual spacing; use CSS margins and padding.",
+          "Checklist Item 7: Never use a link <a> for an action that should be a <button>.",
+          "Checklist Item 8: Never store secrets, passwords, or private API keys in client-side HTML or JS.",
+          "Checklist Item 9: Never rely solely on client-side form validation; always enforce backend validation.",
+          "Checklist Item 10: Run every page through the W3C Markup Validator to catch unclosed or invalid tags."
+        ]
+      },
+      {
+        id: "practice-plan-projects",
+        title: "30-Day Practice Plan & 7 Real-World Mini-Projects",
+        content: "Follow this structured 30-day curriculum and build the 7 real-world projects to cement your HTML mastery.",
+        table: {
+          title: "30-Day HTML Learning Roadmap",
+          headers: ["Days", "Curriculum Focus", "Practical Build Challenge"],
+          rows: [
+            ["Days 1–3", "Structure + Headings + Paragraphs + Comments", "Build a Personal Intro page with valid HTML5 skeleton."],
+            ["Days 4–6", "Hyperlinks + Images + Relative Paths", "Construct a 3-page connected mini website with image gallery."],
+            ["Days 7–9", "Lists + Accessible Tables", "Create a student course timetable and marks gradebook."],
+            ["Days 10–13", "Forms + Fieldsets + Native Validation", "Build a comprehensive student event registration page."],
+            ["Days 14–16", "Semantic HTML Layout Architecture", "Create a multi-column tech blog layout with header, nav, and aside."],
+            ["Days 17–19", "Audio + Video + Sandboxed iframes", "Build a multimedia showcase with native players and fallbacks."],
+            ["Days 20–22", "Accessibility (WCAG) + Technical SEO", "Audit and enhance previous pages for screen readers and search bots."],
+            ["Days 23–25", "Inline SVG + Details/Summary + Dialog", "Create an interactive product FAQ and terms modal."],
+            ["Days 26–28", "Folder Architecture + W3C Validation", "Refactor project files into clean folders and eliminate all W3C warnings."],
+            ["Days 29–30", "Final Comprehensive Capstone Project", "Build and deploy a complete 5-page production website."]
+          ]
+        },
+        subsections: [
+          {
+            title: "Project 1 — Personal Profile (HTML Only)",
+            content: "What to build: A clean single-page profile with <h1> heading, profile picture (<img> with alt), bio paragraphs, skills bullet list (<ul>), and social links (<a>)."
+          },
+          {
+            title: "Project 2 — College Timetable & Gradebook (HTML Only)",
+            content: "What to build: A multi-column timetable using <table>, <caption>, <thead>, <tbody>, <th> with scope='col', and formatted marks."
+          },
+          {
+            title: "Project 3 — Student Registration Portal (HTML + Validation)",
+            content: "What to build: An interactive registration form with name, email, password, course dropdown (<select>), gender radio group, terms checkbox, and submit button."
+          },
+          {
+            title: "Project 4 — Restaurant Menu Card (Semantic HTML + CSS)",
+            content: "What to build: A multi-course restaurant menu using semantic <section>, <article> cards for food items, item descriptions, price tags, and dietary badges."
+          },
+          {
+            title: "Project 5 — Travel Agency Multi-Page Portal (HTML + CSS + JS)",
+            content: "What to build: A 5-page site (Home, Destinations, Packages, Booking, Contact) with unified navigation, responsive layouts, booking form, and FAQ accordion."
+          },
+          {
+            title: "Project 6 — Student Developer Portfolio (HTML + CSS + JS)",
+            content: "What to build: A personal engineering portfolio showcasing featured projects, skill progress bars, contact inquiry form, and WCAG AA accessibility compliance."
+          },
+          {
+            title: "Project 7 — Full-Stack Starter (HTML + Node.js / Express)",
+            content: "What to build: A frontend form that dispatches POST requests to an Express.js API endpoint, validates the payload, saves records to SQLite or Postgres, and renders confirmation."
+          }
+        ]
+      },
+      {
+        id: "final-revision-checklist",
+        title: "Final Revision Questions & Production Launch Checklist",
+        content: "Test your understanding with these comprehensive revision questions and run through the pre-launch checklist before releasing any website.",
+        subsections: [
+          {
+            title: "15 Key Revision Concepts",
+            content: "1. What does HTML stand for? HyperText Markup Language.\n2. Tag vs Element: A tag is the markup token (<p>); an element includes the opening tag, content, and closing tag (<p>Text</p>).\n3. Purpose of <!DOCTYPE html>: Tells the browser to render using modern HTML5 standards rather than legacy quirks mode.\n4. id vs class: 'id' must be unique per page; 'class' is reusable across multiple elements.\n5. Importance of alt text: Screen-readers announce it to visually impaired users; browsers display it if images fail to load; search engines index it for SEO.\n6. Button vs Link: Use <a> for navigating to a new URL; use <button> for triggering client actions.\n7. Semantic HTML: Tags that convey explicit meaning about content structure to browsers and search crawlers.\n8. Purpose of <label>: Connects accessible text to form controls and expands clickable touch targets.\n9. Why tables shouldn't be used for layout: Breaks screen readers, complicates responsiveness, and produces bloated markup.\n10. Viewport meta tag: Directs mobile browsers to scale viewport dimensions to the physical device width at 1:1 ratio.\n11. SVG vs Canvas: SVG is vector/DOM-based; Canvas is a scriptable pixel raster drawing surface.\n12. Server-side validation requirement: Client-side validation is easily bypassed; servers must enforce security.\n13. No secrets in frontend: Frontend code is public; users can view all code and comments via browser DevTools.\n14. How semantics aid maintainability: Teams can immediately recognize layout sections (<header>, <nav>, <article>) without deciphering classes.\n15. Multi-page organization: Use an index.html entry point, a /pages subfolder for secondary views, and /assets for images/css/js."
+          },
+          {
+            title: "Production Launch Checklist (12-Point Gate)",
+            content: "☐ 1. At least 5 pages connected with valid, tested hyperlinks.\n☐ 2. Consistent header, navigation, and footer structure across all views.\n☐ 3. Semantic HTML elements (<header>, <nav>, <main>, <article>, <footer>) used throughout.\n☐ 4. All meaningful images have informative alt text; decorative images have alt=''.\n☐ 5. All form controls are explicitly paired with <label for='...'> tags.\n☐ 6. Zero duplicate 'id' attribute values across the document.\n☐ 7. Clean, consistent code indentation and maintainable BEM naming conventions.\n☐ 8. Mobile viewport meta tag correctly declared in the <head>.\n☐ 9. Unique descriptive <title> and meta description tags on every page.\n☐ 10. Code validated using W3C Markup Validator with zero critical errors.\n☐ 11. Zero secrets, API keys, or passwords in frontend code or comments.\n☐ 12. CSS and JavaScript cleanly separated from HTML files."
           }
         ]
       }
     ],
     faqs: [
       {
-        question: "What is the difference between <div> and <section>?",
-        answer: "A <div> is a generic non-semantic container used purely for styling or layout grouping. A <section> represents a thematic grouping of related content, typically containing its own heading."
+        question: "What is the difference between an HTML tag and an HTML element?",
+        answer: "A tag is a syntax markup token enclosed in angle brackets, such as <p> or </p>. An element refers to the complete unit consisting of the opening tag, attributes, child content, and closing tag (e.g., <p class='lead'>Hello</p>). Void elements like <img> do not require closing tags."
+      },
+      {
+        question: "When should I use a <button> instead of an anchor <a> tag?",
+        answer: "Follow the simple navigation vs action rule: If clicking it changes the URL or navigates the user to another page or section, use an <a> tag. If clicking it performs an action (such as opening a modal dialog, toggling an accordion, submitting a form, or deleting an item), use a <button type='button'> tag."
+      },
+      {
+        question: "Why is the viewport meta tag mandatory on modern websites?",
+        answer: "Without '<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">', mobile browsers assume the page is designed exclusively for desktop monitors and render it zoomed out at a default 980px viewport width, making text illegibly small and breaking responsive CSS media queries."
+      },
+      {
+        question: "Why should tables never be used to structure website layout?",
+        answer: "In the 1990s, developers used tables for layout before CSS was standardized. Doing so today ruins accessibility because screen readers announce row and column coordinates for layout blocks, severely slows down DOM rendering, and makes mobile responsiveness nearly impossible. Tables must be reserved strictly for multidimensional tabular data."
+      },
+      {
+        question: "Why is client-side HTML validation insufficient for security?",
+        answer: "HTML5 constraints (like required, type='email', and minlength) exist solely for user experience and immediate feedback. Anyone can disable browser validation in DevTools or send malicious requests directly to your server via curl or Postman. The backend server must always independently validate, sanitize, and authenticate incoming payloads."
       }
     ],
     practiceQuestions: [
@@ -437,6 +882,58 @@ strict-transport-security: max-age=31536000; includeSubDomains`,
         ],
         correctAnswer: "<meta name='viewport' content='width=device-width, initial-scale=1.0'>",
         explanation: "The viewport meta tag tells mobile browsers to set the viewport width equal to the physical device width and initial zoom to 1.0."
+      },
+      {
+        id: "q-html-2",
+        question: "What is the primary difference between HTML and a programming language like JavaScript or Python?",
+        type: "multiple-choice",
+        options: [
+          "HTML cannot be read by web browsers",
+          "HTML is a markup language for structure and meaning, with no conditional branching or variables",
+          "HTML can only be written on Windows computers",
+          "HTML requires a compiler like C++ before running"
+        ],
+        correctAnswer: "HTML is a markup language for structure and meaning, with no conditional branching or variables",
+        explanation: "HTML is a markup declaration language that gives content structural semantics. It is not a programming language."
+      },
+      {
+        id: "q-html-3",
+        question: "Which of the following is considered a void element that cannot contain closing tags or child content?",
+        type: "multiple-choice",
+        options: [
+          "<article>",
+          "<section>",
+          "<img>",
+          "<form>"
+        ],
+        correctAnswer: "<img>",
+        explanation: "<img>, <input>, <br>, <hr>, <meta>, and <link> are void elements and cannot enclose children."
+      },
+      {
+        id: "q-html-4",
+        question: "When should an engineer choose <button> instead of an anchor <a> link?",
+        type: "multiple-choice",
+        options: [
+          "Whenever you want the text to be colored blue",
+          "When the element performs an in-page action (e.g., opening a modal or submitting) rather than navigating to a URL",
+          "Only when submitting forms",
+          "There is no difference between <a> and <button>"
+        ],
+        correctAnswer: "When the element performs an in-page action (e.g., opening a modal or submitting) rather than navigating to a URL",
+        explanation: "Rule: Navigation ➔ <a> tag. Action ➔ <button> tag."
+      },
+      {
+        id: "q-html-5",
+        question: "Why should sensitive credentials (such as API keys or database passwords) never be written in HTML or frontend code?",
+        type: "multiple-choice",
+        options: [
+          "HTML files cannot store letters and numbers",
+          "Frontend code and comments are delivered directly to the browser and can be inspected by anyone in DevTools",
+          "Search engines automatically delete HTML files with passwords",
+          "The browser will refuse to load any page with credentials"
+        ],
+        correctAnswer: "Frontend code and comments are delivered directly to the browser and can be inspected by anyone in DevTools",
+        explanation: "Everything delivered to the client browser is completely public. Private secrets must always remain on a secure backend server."
       }
     ],
     relatedNoteSlugs: ["semantic-html-complete-guide", "forms-tables-lists-accessibility", "css-selectors-specificity-box-model"]
