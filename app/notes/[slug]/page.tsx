@@ -20,6 +20,9 @@ import {
   ShieldCheck,
   Sparkles,
   Layers,
+  FileText,
+  Eye,
+  Download,
 } from "lucide-react";
 
 interface NotePageProps {
@@ -196,6 +199,58 @@ export default async function NoteDetailPage({ params }: NotePageProps) {
         {/* Downloadable / Verified PDF Study Guide Banner */}
         {note.pdf?.hasPdf && pdfResource && (
           <NoteDetailClient note={note} pdfResource={pdfResource} />
+        )}
+
+        {/* ── Interactive Live Embedded PDF Document ─────────────── */}
+        {note.pdf?.hasPdf && note.pdf.fileUrl && (
+          <section className="my-8 rounded-3xl overflow-hidden border border-cyan-500/30 bg-[#0B0F1D] shadow-2xl">
+            <div className="px-5 sm:px-6 py-4 bg-gradient-to-r from-[#0D1527] via-[#0A101F] to-[#0D1527] border-b border-cyan-500/20 flex flex-wrap items-center justify-between gap-3">
+              <div className="flex items-center gap-3">
+                <div className="p-2.5 rounded-xl bg-cyan-500/10 text-cyan-400 border border-cyan-500/30">
+                  <FileText size={20} />
+                </div>
+                <div>
+                  <h3 className="text-sm sm:text-base font-bold text-white flex items-center gap-2">
+                    <span>Complete Handwritten Notebook PDF</span>
+                    <span className="text-[11px] font-mono font-semibold px-2 py-0.5 rounded-full bg-emerald-500/15 text-emerald-300 border border-emerald-500/30">
+                      Live Viewer
+                    </span>
+                  </h3>
+                  <p className="text-xs text-gray-400">
+                    Exact Handwritten Structure • {note.pdf.pageCount} Pages • {note.pdf.fileSize}
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex items-center gap-2.5">
+                <a
+                  href={note.pdf.fileUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-cyan-500/15 hover:bg-cyan-500/25 text-cyan-300 border border-cyan-500/30 text-xs font-semibold transition-all cursor-pointer"
+                >
+                  <Eye size={13} />
+                  <span>Open in Tab</span>
+                </a>
+                <a
+                  href={note.pdf.fileUrl}
+                  download={note.pdf.filename}
+                  className="flex items-center gap-1.5 px-4 py-2 rounded-xl bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-300 hover:to-amber-400 text-black text-xs font-bold shadow-md shadow-amber-400/20 transition-all cursor-pointer active:scale-95"
+                >
+                  <Download size={13} className="text-black" />
+                  <span>Download PDF</span>
+                </a>
+              </div>
+            </div>
+
+            <div className="w-full h-[700px] sm:h-[850px] bg-[#070A14]">
+              <iframe
+                src={`${note.pdf.fileUrl}#toolbar=1&navpanes=0`}
+                className="w-full h-full border-0"
+                title={`${note.title} Complete PDF`}
+              />
+            </div>
+          </section>
         )}
 
         {/* ── Main Two-Column Reading Layout ─────────────────── */}

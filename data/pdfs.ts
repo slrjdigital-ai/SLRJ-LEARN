@@ -52,7 +52,7 @@ export const PDF_RESOURCES: PdfResource[] = [
     category: "HTML",
     fileUrl: "/pdfs/html5-complete-notes.pdf",
     filename: "html5-complete-notes.pdf",
-    fileSize: "29.3 KB",
+    fileSize: "23.7 KB",
     format: "PDF Document",
     language: "English",
     pageCount: 10,
