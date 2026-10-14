@@ -36,7 +36,7 @@ const NAV_ITEMS = [
   { name: "Projects", href: "/projects", exact: false, icon: FolderGit2 },
   { name: "AI Tutor", href: "/ai-tutor", exact: false, icon: Bot, badge: "AI" },
   { name: "Community", href: "/community", exact: false, icon: Users },
-  { name: "Pricing", href: "/pricing", exact: false, icon: CreditCard },
+  { name: "Free Access", href: "/pricing", exact: false, icon: Sparkles, badge: "Free" },
 ];
 
 export default function Navbar() {
@@ -90,7 +90,7 @@ export default function Navbar() {
         {/* Subtle laser top accent */}
         <div className="absolute inset-x-0 top-0 h-[1px] bg-gradient-to-r from-transparent via-cyan-400/50 to-transparent" />
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-[1780px] w-full mx-auto px-4 sm:px-8 lg:px-12">
           <div className="flex items-center justify-between h-[70px]">
             {/* ─── Logo ─── */}
             <div className="flex-shrink-0 flex items-center gap-3">

@@ -22,7 +22,7 @@ export const metadata: Metadata = {
 export default function RoadmapPage() {
   return (
     <div className="min-h-screen bg-[#080C16] text-white pt-20">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div className="max-w-[1780px] w-full mx-auto px-4 sm:px-8 lg:px-12 py-8">
         <Breadcrumbs
           items={[
             { label: "Learning Roadmaps" },

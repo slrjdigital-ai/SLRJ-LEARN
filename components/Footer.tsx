@@ -110,7 +110,7 @@ export default function Footer() {
       <div className="absolute top-0 left-1/4 w-[600px] h-[300px] bg-[radial-gradient(circle,_rgba(6,182,212,0.08)_0%,_transparent_70%)] blur-3xl pointer-events-none" />
       <div className="absolute bottom-0 right-10 w-[500px] h-[300px] bg-[radial-gradient(circle,_rgba(16,185,129,0.06)_0%,_transparent_70%)] blur-3xl pointer-events-none" />
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div className="max-w-[1780px] w-full mx-auto px-4 sm:px-8 lg:px-12 relative z-10">
         {/* ══════════════════════════════════════════════════════════════
             PRE-FOOTER CALLOUT / NEWSLETTER BAR
            ══════════════════════════════════════════════════════════════ */}

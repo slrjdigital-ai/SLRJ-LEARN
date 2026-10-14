@@ -85,7 +85,7 @@ export default function PdfsClient({ initialPdfs }: PdfsClientProps) {
   };
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div className="max-w-[1780px] w-full mx-auto px-4 sm:px-8 lg:px-12 py-8">
       {/* Breadcrumbs */}
       <Breadcrumbs items={[{ label: "PDF Study Library" }]} />
 
@@ -194,7 +194,7 @@ export default function PdfsClient({ initialPdfs }: PdfsClientProps) {
 
       {/* ── PDF Cards Grid ───────────────────────────────────── */}
       {filteredPdfs.length > 0 ? (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-4 gap-6 mb-16">
           {filteredPdfs.map((pdf) => (
             <PdfCard key={pdf.id} pdf={pdf} onPreview={handlePreview} />
           ))}

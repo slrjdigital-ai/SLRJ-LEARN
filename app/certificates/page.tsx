@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 export default function CertificatesPage() {
   return (
     <div className="min-h-screen bg-[#030712] text-white pt-24 pb-20">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-[1780px] w-full mx-auto px-4 sm:px-8 lg:px-12">
         {/* Header */}
         <div className="max-w-3xl mb-12">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/15 border border-cyan-500/30 text-cyan-300 text-xs font-mono font-bold uppercase tracking-wider mb-3">

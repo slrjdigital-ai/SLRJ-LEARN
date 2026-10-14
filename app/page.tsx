@@ -29,9 +29,9 @@ export const metadata: Metadata = {
 
 export default function HomePage() {
   const courses = getAllCourses();
-  const featuredCourses = courses.slice(0, 3);
-  const featuredProjects = PRACTICAL_PROJECTS.slice(0, 3);
-  const featuredDiscussions = COMMUNITY_THREADS.slice(0, 2);
+  const featuredCourses = courses.slice(0, 4);
+  const featuredProjects = PRACTICAL_PROJECTS.slice(0, 4);
+  const featuredDiscussions = COMMUNITY_THREADS.slice(0, 3);
 
   const learningSteps = [
     {
@@ -70,7 +70,7 @@ export default function HomePage() {
         <div className="absolute top-1/4 left-1/4 w-[500px] h-[300px] bg-[radial-gradient(circle,_rgba(6,182,212,0.12)_0%,_transparent_70%)] blur-3xl pointer-events-none" />
         <div className="absolute top-1/3 right-1/4 w-[500px] h-[300px] bg-[radial-gradient(circle,_rgba(16,185,129,0.08)_0%,_transparent_70%)] blur-3xl pointer-events-none" />
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div className="max-w-[1780px] w-full mx-auto px-4 sm:px-8 lg:px-12 relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
             {/* Left Content (7 Cols) */}
             <div className="lg:col-span-6 text-left">
@@ -144,7 +144,7 @@ export default function HomePage() {
           2. 12 LEARNING CATEGORIES
          ══════════════════════════════════════════════════════════════ */}
       <section className="py-20 bg-[#050814] border-b border-white/[0.08]">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-[1780px] w-full mx-auto px-4 sm:px-8 lg:px-12">
           <div className="text-center max-w-3xl mx-auto mb-14">
             <div className="inline-flex items-center gap-2 text-xs font-mono font-bold text-cyan-400 uppercase tracking-widest mb-2">
               <Code2 size={13} />
@@ -158,7 +158,7 @@ export default function HomePage() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
             {LEARNING_CATEGORIES.map((category, idx) => (
               <div
                 key={idx}
@@ -203,7 +203,7 @@ export default function HomePage() {
           3. HOW LEARNING WORKS (4-STEP JOURNEY)
          ══════════════════════════════════════════════════════════════ */}
       <section className="py-20 border-b border-white/[0.08]">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-[1780px] w-full mx-auto px-4 sm:px-8 lg:px-12">
           <div className="text-center max-w-3xl mx-auto mb-14">
             <div className="inline-flex items-center gap-2 text-xs font-mono font-bold text-emerald-400 uppercase tracking-widest mb-2">
               <Zap size={13} />
@@ -247,7 +247,7 @@ export default function HomePage() {
           4. FEATURED COURSES
          ══════════════════════════════════════════════════════════════ */}
       <section className="py-20 bg-[#050814] border-b border-white/[0.08]">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-[1780px] w-full mx-auto px-4 sm:px-8 lg:px-12">
           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-12">
             <div>
               <div className="inline-flex items-center gap-2 text-xs font-mono font-bold text-cyan-400 uppercase tracking-widest mb-2">
@@ -267,7 +267,7 @@ export default function HomePage() {
             </Link>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {featuredCourses.map((course) => (
               <div
                 key={course.id}
@@ -313,7 +313,7 @@ export default function HomePage() {
           5. PROJECTS SHOWCASE
          ══════════════════════════════════════════════════════════════ */}
       <section className="py-20 border-b border-white/[0.08]">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-[1780px] w-full mx-auto px-4 sm:px-8 lg:px-12">
           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-12">
             <div>
               <div className="inline-flex items-center gap-2 text-xs font-mono font-bold text-emerald-400 uppercase tracking-widest mb-2">
@@ -333,7 +333,7 @@ export default function HomePage() {
             </Link>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {featuredProjects.map((p) => (
               <div
                 key={p.id}
@@ -376,7 +376,7 @@ export default function HomePage() {
           6. LEARNING COMMUNITY PREVIEW
          ══════════════════════════════════════════════════════════════ */}
       <section className="py-20 bg-[#050814] border-b border-white/[0.08]">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-[1780px] w-full mx-auto px-4 sm:px-8 lg:px-12">
           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-12">
             <div>
               <div className="inline-flex items-center gap-2 text-xs font-mono font-bold text-cyan-400 uppercase tracking-widest mb-2">
@@ -396,7 +396,7 @@ export default function HomePage() {
             </Link>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {featuredDiscussions.map((thread) => (
               <div
                 key={thread.id}
@@ -431,7 +431,7 @@ export default function HomePage() {
       {/* ══════════════════════════════════════════════════════════════
           7. FINAL CTA SECTION
          ══════════════════════════════════════════════════════════════ */}
-      <section className="py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative">
+      <section className="py-24 max-w-[1780px] w-full mx-auto px-4 sm:px-8 lg:px-12 text-center relative">
         <div className="p-10 sm:p-16 rounded-3xl bg-gradient-to-r from-cyan-950/40 via-[#091124] to-emerald-950/40 border border-cyan-500/25 relative overflow-hidden shadow-2xl">
           <div className="max-w-2xl mx-auto">
             <h2 className="text-3xl sm:text-5xl font-black font-brand tracking-tight text-white mb-4">

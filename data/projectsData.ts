@@ -377,6 +377,175 @@ function calculateTotals() {
     ],
     demoOutputPreview: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=800&auto=format&fit=crop&q=80",
     sampleGithubUrl: "https://github.com/slrjdigital-ai/SLRJ-LEARN"
+  },
+  {
+    id: "proj-ecommerce",
+    slug: "full-stack-ecommerce-store",
+    title: "Full-Stack E-Commerce Storefront",
+    tagline: "Build a modern digital storefront with category filtering, cart state management, and responsive product catalog.",
+    category: "Full-Stack",
+    difficulty: "Intermediate",
+    estimatedTime: "6 Hours",
+    xpReward: 550,
+    skillsRequired: ["React State & Context", "Tailwind CSS", "Cart State Management", "LocalStorage", "Checkout Simulation"],
+    description: "Engineer a high-converting e-commerce web application featuring dynamic price calculations, persistent shopping cart, item quantity controls, and simulated order placement.",
+    features: [
+      "Dynamic product catalog with category pills and price range filters",
+      "Interactive cart slider with quantity adjustments and coupon code input",
+      "LocalStorage cart state persistence across page refreshes",
+      "Complete checkout flow with order summary and animated confirmation modal"
+    ],
+    starterFiles: [
+      {
+        filename: "cart.js",
+        language: "javascript",
+        content: `export class CartManager {
+  constructor() {
+    this.items = JSON.parse(localStorage.getItem('cart') || '[]');
+  }
+  addItem(product) {
+    const existing = this.items.find(i => i.id === product.id);
+    if (existing) existing.qty += 1;
+    else this.items.push({ ...product, qty: 1 });
+    this.save();
+  }
+  getTotal() {
+    return this.items.reduce((sum, item) => sum + item.price * item.qty, 0);
+  }
+  save() {
+    localStorage.setItem('cart', JSON.stringify(this.items));
+  }
+}`
+      }
+    ],
+    steps: [
+      {
+        stepNumber: 1,
+        title: "Model Product & Cart Data Structures",
+        description: "Design clean TypeScript or JS schemas for products, stock status, ratings, and cart items."
+      },
+      {
+        stepNumber: 2,
+        title: "Implement Responsive Product Grid & Filters",
+        description: "Create fluid card components that display badges, pricing, star ratings, and instantaneous 'Add to Cart' animations."
+      },
+      {
+        stepNumber: 3,
+        title: "Build the Cart Drawer & Checkout Validation",
+        description: "Code the checkout summary with subtotal, tax calculation, shipping estimates, and success modal."
+      }
+    ],
+    demoOutputPreview: "https://images.unsplash.com/photo-1557821552-17105176677c?w=800&auto=format&fit=crop&q=80",
+    sampleGithubUrl: "https://github.com/slrjdigital-ai/SLRJ-LEARN"
+  },
+  {
+    id: "proj-algo-visualizer",
+    slug: "algorithm-dsa-visualizer",
+    title: "Interactive Algorithm & DSA Visualizer",
+    tagline: "Visualize Bubble Sort, Merge Sort, and Binary Search step-by-step with interactive animation controls.",
+    category: "Frontend",
+    difficulty: "Intermediate",
+    estimatedTime: "5 Hours",
+    xpReward: 450,
+    skillsRequired: ["Algorithms & DSA", "DOM Animations", "Asynchronous Execution", "Audio Synthesizer", "State Controller"],
+    description: "Build an interactive education tool that brings computer science algorithms to life. Learners can adjust array sizes, modify animation speeds, step backward and forward, and inspect time complexity.",
+    features: [
+      "Visual bar graphs representing array elements with color-coded comparison states",
+      "Multiple sorting algorithms: Bubble Sort, Selection Sort, Insertion Sort, and Merge Sort",
+      "Playback controls: Play, Pause, Step Next, Reset, and Speed Slider (1x to 10x)",
+      "Real-time operation counters tracking comparisons, swaps, and Big-O theoretical metrics"
+    ],
+    starterFiles: [
+      {
+        filename: "sortVisualizer.js",
+        language: "javascript",
+        content: `async function bubbleSort(arr, updateBars, delay) {
+  const n = arr.length;
+  for (let i = 0; i < n; i++) {
+    for (let j = 0; j < n - i - 1; j++) {
+      updateBars(j, j + 1, 'comparing');
+      await new Promise(r => setTimeout(r, delay));
+      if (arr[j] > arr[j + 1]) {
+        [arr[j], arr[j + 1]] = [arr[j + 1], arr[j]];
+        updateBars(j, j + 1, 'swapping');
+        await new Promise(r => setTimeout(r, delay));
+      }
+    }
+  }
+}`
+      }
+    ],
+    steps: [
+      {
+        stepNumber: 1,
+        title: "Generate Dynamic Randomized Array",
+        description: "Create an array generator that maps values to percentage heights within a flexbox or canvas container."
+      },
+      {
+        stepNumber: 2,
+        title: "Implement Asynchronous Sorting Animations",
+        description: "Use async/await with adjustable delays to highlight elements currently being evaluated and swapped."
+      },
+      {
+        stepNumber: 3,
+        title: "Add Metric Dashboards & Big-O Breakdown",
+        description: "Render live counters for array accesses, comparisons, and display real-world time complexity summaries."
+      }
+    ],
+    demoOutputPreview: "https://images.unsplash.com/photo-1509228468518-180dd4864904?w=800&auto=format&fit=crop&q=80",
+    sampleGithubUrl: "https://github.com/slrjdigital-ai/SLRJ-LEARN"
+  },
+  {
+    id: "proj-snippet-vault",
+    slug: "developer-snippet-notes-vault",
+    title: "Developer Snippet & Notes Vault",
+    tagline: "A lightning-fast personal code vault with syntax highlighting, tag filters, search, and one-click copy.",
+    category: "Productivity",
+    difficulty: "Beginner",
+    estimatedTime: "3.5 Hours",
+    xpReward: 400,
+    skillsRequired: ["JavaScript ES6+", "Clipboard API", "Tag Filtering", "Fuzzy Search", "JSON Backup / Restore"],
+    description: "Every developer needs a personal library of reusable code recipes, config files, and algorithms. Build an offline-first productivity tool that organizes snippets with instant search and syntax tags.",
+    features: [
+      "Instant full-text search across snippet titles, descriptions, and code blocks",
+      "Language tag filtering (JS, TypeScript, Python, HTML, CSS, SQL, Shell)",
+      "One-click copy with toast feedback and favorite pin toggles",
+      "Export and import vault as a portable JSON backup file"
+    ],
+    starterFiles: [
+      {
+        filename: "snippetVault.js",
+        language: "javascript",
+        content: `export function filterSnippets(snippets, query, language) {
+  return snippets.filter(s => {
+    const matchesLang = language === 'All' || s.language === language;
+    const matchesQuery = !query || 
+      s.title.toLowerCase().includes(query.toLowerCase()) ||
+      s.code.toLowerCase().includes(query.toLowerCase());
+    return matchesLang && matchesQuery;
+  });
+}`
+      }
+    ],
+    steps: [
+      {
+        stepNumber: 1,
+        title: "Create the Snippet Form & Local Storage DB",
+        description: "Build an intuitive modal to input snippet title, programming language, tags, and code."
+      },
+      {
+        stepNumber: 2,
+        title: "Render Syntax-Highlighted Cards",
+        description: "Format the code blocks with monospaced typography, dark theme styling, and copy buttons."
+      },
+      {
+        stepNumber: 3,
+        title: "Add Real-Time Filtering & Export",
+        description: "Wire instant reactive search and enable JSON import/export so developers never lose their recipes."
+      }
+    ],
+    demoOutputPreview: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=800&auto=format&fit=crop&q=80",
+    sampleGithubUrl: "https://github.com/slrjdigital-ai/SLRJ-LEARN"
   }
 ];
 

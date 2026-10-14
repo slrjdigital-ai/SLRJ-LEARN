@@ -42,11 +42,11 @@ export default function CoursesPage() {
   return (
     <div className="min-h-screen bg-[#030712] text-white pt-24 pb-20">
       {/* ── Hero Header ── */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-12">
-        <div className="max-w-3xl">
+      <section className="max-w-[1780px] w-full mx-auto px-4 sm:px-8 lg:px-12 mb-12">
+        <div className="max-w-4xl">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/15 border border-cyan-500/30 text-cyan-300 text-xs font-mono font-bold uppercase tracking-wider mb-3">
             <BookOpen size={14} className="text-cyan-400" />
-            <span>Interactive Course Catalog</span>
+            <span>Interactive Course Catalog • 100% Free</span>
           </div>
           <h1 className="text-3xl sm:text-5xl font-black font-brand tracking-tight text-white mb-4">
             Master Tech Skills from{" "}
@@ -55,13 +55,13 @@ export default function CoursesPage() {
             </span>
           </h1>
           <p className="text-slate-300 text-base leading-relaxed font-normal">
-            Every course combines W3Schools-level comprehensive syntax explanations, SoloLearn bite-sized gamified quizzes, and NxtWave real-world project milestones.
+            Every course combines W3Schools-level comprehensive syntax explanations, SoloLearn bite-sized gamified quizzes, and NxtWave real-world project milestones. All completely free forever.
           </p>
         </div>
       </section>
 
       {/* ── Search & Filter Bar ── */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-10">
+      <section className="max-w-[1780px] w-full mx-auto px-4 sm:px-8 lg:px-12 mb-10">
         <div className="p-4 sm:p-6 rounded-3xl bg-[#080D1A] border border-white/10 shadow-xl space-y-4">
           <div className="flex flex-col md:flex-row items-center gap-4">
             {/* Search Input */}
@@ -120,10 +120,10 @@ export default function CoursesPage() {
       </section>
 
       {/* ── Courses Grid ── */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="max-w-[1780px] w-full mx-auto px-4 sm:px-8 lg:px-12">
         <div className="flex items-center justify-between text-xs font-mono text-slate-400 mb-6">
           <span>
-            Showing <strong className="text-white">{filteredCourses.length}</strong> available courses
+            Showing <strong className="text-white">{filteredCourses.length}</strong> available courses • <span className="text-emerald-400 font-bold">100% Free Curriculum</span>
           </span>
           {(searchQuery || selectedCategory !== "All" || selectedDifficulty !== "All") && (
             <button
@@ -139,7 +139,7 @@ export default function CoursesPage() {
           )}
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-4 gap-6">
           {filteredCourses.map((course) => (
             <div
               key={course.id}
@@ -156,9 +156,14 @@ export default function CoursesPage() {
                       <span className="text-[11px] font-mono font-bold text-cyan-400 uppercase tracking-wider block">
                         {course.category}
                       </span>
-                      <span className="text-xs text-slate-400 font-mono">
-                        {course.difficulty}
-                      </span>
+                      <div className="flex items-center gap-1.5 mt-0.5">
+                        <span className="text-xs text-slate-400 font-mono">
+                          {course.difficulty}
+                        </span>
+                        <span className="text-[9px] font-mono px-1.5 py-0.2 rounded bg-emerald-500/15 text-emerald-300 font-bold border border-emerald-500/20">
+                          FREE
+                        </span>
+                      </div>
                     </div>
                   </div>
                   <span className="text-xs font-mono px-2 py-0.5 rounded-full bg-amber-500/15 border border-amber-500/30 text-amber-300 font-bold">

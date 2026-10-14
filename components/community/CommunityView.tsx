@@ -377,7 +377,7 @@ export default function CommunityView() {
           TAB 2: STUDENT SHOWCASES
          ══════════════════════════════════════════════════════════════ */}
       {activeTab === "showcases" && (
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
           {STUDENT_SHOWCASES.map((sc) => (
             <div
               key={sc.id}
@@ -458,7 +458,7 @@ export default function CommunityView() {
           TAB 3: DAILY CHALLENGES
          ══════════════════════════════════════════════════════════════ */}
       {activeTab === "challenges" && (
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
           {DAILY_CHALLENGES.map((ch) => (
             <div
               key={ch.id}
