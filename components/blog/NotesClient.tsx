@@ -153,10 +153,10 @@ export default function NotesClient({
           </div>
         </div>
 
-        {/* Category Pills (Horizontal Scrollable) */}
-        <div className="pt-3 border-t border-slate-800 flex items-center gap-2 overflow-x-auto no-scrollbar pb-1">
-          <span className="text-xs font-mono text-gray-500 flex items-center gap-1.5 mr-1 flex-shrink-0">
-            <Filter size={12} />
+        {/* Category Pills (Orderly Wrapped, No Scrollbar) */}
+        <div className="pt-3.5 border-t border-slate-800/80 flex flex-wrap items-center gap-2">
+          <span className="text-xs font-mono text-gray-400 flex items-center gap-1.5 mr-1 py-1 font-semibold">
+            <Filter size={13} className="text-cyan-400" />
             <span>Category:</span>
           </span>
           {CATEGORIES.map((cat) => {
@@ -164,11 +164,12 @@ export default function NotesClient({
             return (
               <button
                 key={cat}
+                type="button"
                 onClick={() => setSelectedCategory(cat)}
-                className={`px-3 py-1.5 rounded-xl text-xs font-medium whitespace-nowrap transition-all cursor-pointer ${
+                className={`px-3 py-1.5 rounded-xl text-xs font-medium transition-all cursor-pointer ${
                   isSelected
                     ? "bg-gradient-to-r from-emerald-400 to-cyan-400 text-black font-bold shadow-md shadow-emerald-500/20"
-                    : "bg-white/[0.04] hover:bg-white/10 text-gray-400 hover:text-white border border-white/5"
+                    : "bg-white/[0.04] hover:bg-white/10 text-gray-300 hover:text-white border border-white/5"
                 }`}
               >
                 {cat}

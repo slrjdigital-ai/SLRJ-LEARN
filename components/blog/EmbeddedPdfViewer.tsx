@@ -95,7 +95,7 @@ export default function EmbeddedPdfViewer({ note }: EmbeddedPdfViewerProps) {
         </div>
 
         {/* Level Quick-Jump Navigation Tabs */}
-        <div className="px-5 sm:px-6 py-3 bg-[#090D1A] border-b border-slate-800/80 flex items-center gap-2.5 overflow-x-auto scrollbar-thin">
+        <div className="px-5 sm:px-6 py-3 bg-[#090D1A] border-b border-slate-800/80 flex flex-wrap items-center gap-2.5">
           <button
             onClick={() => {
               setActivePdfUrl(note.pdf!.fileUrl);
