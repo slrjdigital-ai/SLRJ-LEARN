@@ -166,11 +166,19 @@ export default function NoteLevelsModal({
                     <h3 className="text-lg sm:text-xl font-black text-white tracking-wide group-hover:text-cyan-300 transition-colors">
                       {lvl.levelName}
                     </h3>
-                    <span
-                      className={`inline-block mt-2 text-xs sm:text-sm font-mono font-bold px-3 py-1 rounded-md border ${theme.badge}`}
-                    >
-                      {pageText}
-                    </span>
+                    <div className="flex items-center gap-2 mt-1.5 flex-wrap">
+                      <span
+                        className={`text-xs font-mono font-bold px-2.5 py-0.5 rounded-md border ${theme.badge}`}
+                      >
+                        {lvl.levelNumber === 1 && "Topics 1–10"}
+                        {lvl.levelNumber === 2 && "Topics 11–20"}
+                        {lvl.levelNumber === 3 && "Topics 21–28"}
+                        {lvl.levelNumber === 4 && "Topics 29–40"}
+                      </span>
+                      <span className="text-xs font-mono text-slate-400 font-semibold">
+                        {pageText}
+                      </span>
+                    </div>
                   </div>
                 </div>
 
@@ -187,14 +195,14 @@ export default function NoteLevelsModal({
         {/* Minimal Footer */}
         {note.pdf?.fileUrl && (
           <div className="px-6 sm:px-8 py-4 bg-[#080C14] border-t border-slate-800/80 flex items-center justify-between text-xs sm:text-sm text-slate-400">
-            <span>Read complete handbook from the beginning?</span>
+            <span>Want the full 27-page notebook?</span>
             <a
-              href={`${note.pdf.fileUrl}#page=1`}
+              href={note.pdf.fileUrl}
               target="_blank"
               rel="noopener noreferrer"
               className="text-cyan-400 hover:text-cyan-300 font-bold flex items-center gap-1.5 transition-colors"
             >
-              <span>Full PDF (Page 1)</span>
+              <span>Full Complete PDF (Topics 1–40)</span>
               <ExternalLink size={14} />
             </a>
           </div>
