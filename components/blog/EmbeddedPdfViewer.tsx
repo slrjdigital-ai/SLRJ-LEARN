@@ -84,18 +84,12 @@ export default function EmbeddedPdfViewer({ note }: EmbeddedPdfViewerProps) {
         </div>
 
         {/* Level Quick-Jump Navigation Tabs */}
-        <div className="px-5 sm:px-6 py-2.5 bg-[#090D1A] border-b border-slate-800/80 flex items-center gap-2 overflow-x-auto scrollbar-thin">
-          <span className="text-[11px] font-mono font-bold text-gray-400 uppercase tracking-wider flex items-center gap-1 mr-1 flex-shrink-0">
-            <Sparkles size={12} className="text-cyan-400" />
-            <span>Jump to Level:</span>
-          </span>
-
-          {/* Page 1 Tab */}
+        <div className="px-5 sm:px-6 py-3 bg-[#090D1A] border-b border-slate-800/80 flex items-center gap-2.5 overflow-x-auto scrollbar-thin">
           <button
             onClick={() => setSelectedPage(1)}
-            className={`px-3 py-1.5 rounded-lg text-xs font-mono font-semibold transition-all cursor-pointer flex-shrink-0 ${
+            className={`px-3.5 py-2 rounded-xl text-xs sm:text-sm font-mono font-bold transition-all cursor-pointer flex-shrink-0 ${
               selectedPage === 1
-                ? "bg-white/15 text-white border border-white/30 shadow-sm"
+                ? "bg-white/20 text-white border border-white/40 shadow-sm"
                 : "bg-white/5 text-gray-400 hover:text-white hover:bg-white/10 border border-white/5"
             }`}
           >
@@ -109,15 +103,14 @@ export default function EmbeddedPdfViewer({ note }: EmbeddedPdfViewerProps) {
               <button
                 key={lvl.levelNumber}
                 onClick={() => setSelectedPage(lvl.pageStart)}
-                className={`px-3 py-1.5 rounded-lg text-xs font-mono font-semibold transition-all cursor-pointer flex-shrink-0 flex items-center gap-1.5 ${
+                className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-mono font-black transition-all cursor-pointer flex-shrink-0 flex items-center gap-2 ${
                   isSelected
-                    ? "bg-cyan-500 text-black font-bold shadow-md shadow-cyan-500/25"
-                    : "bg-white/5 text-gray-300 hover:text-cyan-300 hover:bg-white/10 border border-white/10"
+                    ? "bg-gradient-to-r from-cyan-500 to-blue-500 text-black shadow-lg shadow-cyan-500/30 scale-[1.02]"
+                    : "bg-white/5 text-gray-200 hover:text-cyan-300 hover:bg-white/10 border border-white/10"
                 }`}
-                title={`${lvl.levelName}: ${lvl.tagline}`}
               >
                 <span>{lvl.levelName}</span>
-                <span className="text-[10px] opacity-80">(p. {lvl.pageStart})</span>
+                <span className="text-[11px] opacity-75 font-normal">(p. {lvl.pageStart})</span>
               </button>
             );
           })}
