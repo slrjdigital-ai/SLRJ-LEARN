@@ -149,7 +149,7 @@ export default function SplashScreen() {
                 <div className="relative group flex items-center justify-center">
                   <div className="relative overflow-hidden rounded-xl">
                     <Image
-                      src="/logo.png?v=5"
+                      src="/logo.png"
                       alt="SLRJ Learn Logo"
                       width={140}
                       height={140}

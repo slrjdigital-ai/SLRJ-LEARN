@@ -64,7 +64,7 @@ export default function FloatingWhatsApp() {
                 <div className="relative">
                   <div className="w-10 h-10 rounded-full bg-black/40 border border-white/30 flex items-center justify-center overflow-hidden">
                     <Image
-                      src="/logo.png?v=5"
+                      src="/logo.png"
                       alt="SLRJ Learn"
                       width={28}
                       height={28}

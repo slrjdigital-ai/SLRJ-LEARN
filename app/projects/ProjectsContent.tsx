@@ -1,272 +1,304 @@
 "use client";
 
 import { useState } from "react";
-import { projects } from "@/data/projects";
-import { Project } from "@/types";
 import Image from "next/image";
-import Link from "next/link";
-import { ExternalLink, TrendingUp, X, CheckCircle2, Code2, ArrowRight } from "lucide-react";
-import ContactCTA from "@/components/ContactCTA";
-import * as motion from "framer-motion/client";
-import { AnimatePresence } from "framer-motion";
+import {
+  PRACTICAL_PROJECTS,
+  PracticalProject,
+  getAllPracticalProjects,
+} from "@/data/projectsData";
+import {
+  FolderGit2,
+  ExternalLink,
+  Clock,
+  Award,
+  CheckCircle2,
+  Sparkles,
+  X,
+  Copy,
+  Check,
+  Send,
+  Layers,
+  Code2,
+} from "lucide-react";
+import GithubIcon from "@/components/icons/GithubIcon";
 
 export default function ProjectsContent() {
+  const allProjects = getAllPracticalProjects();
   const [filter, setFilter] = useState("All");
-  const [activeCaseStudy, setActiveCaseStudy] = useState<Project | null>(null);
-  
-  const categories = ["All", "Business Website", "E-Commerce", "Web Apps", "UI/UX"];
-  
-  const filteredProjects = filter === "All" 
-    ? projects 
-    : projects.filter(p => p.category === filter);
+  const [activeProject, setActiveProject] = useState<PracticalProject | null>(null);
+  const [githubUrlInput, setGithubUrlInput] = useState("");
+  const [submittedStatus, setSubmittedStatus] = useState<Record<string, string>>({});
+  const [activeStarterTab, setActiveStarterTab] = useState<number>(0);
+  const [copiedFile, setCopiedFile] = useState(false);
+
+  const categories = ["All", "Frontend", "Full-Stack", "AI & APIs", "Productivity"];
+
+  const filteredProjects =
+    filter === "All"
+      ? allProjects
+      : allProjects.filter((p) => p.category === filter);
+
+  const handleSubmitProject = (projectId: string) => {
+    if (!githubUrlInput.trim()) return;
+
+    setSubmittedStatus((prev) => ({
+      ...prev,
+      [projectId]: githubUrlInput.trim(),
+    }));
+
+    try {
+      const existing = JSON.parse(localStorage.getItem("slrj_submitted_projects") || "{}");
+      existing[projectId] = githubUrlInput.trim();
+      localStorage.setItem("slrj_submitted_projects", JSON.stringify(existing));
+    } catch (e) {
+      console.error(e);
+    }
+
+    setGithubUrlInput("");
+  };
+
+  const handleCopyStarter = (content: string) => {
+    navigator.clipboard.writeText(content);
+    setCopiedFile(true);
+    setTimeout(() => setCopiedFile(false), 2000);
+  };
 
   return (
     <>
-      <section className="pt-28 sm:pt-36 pb-12 sm:pb-16 bg-transparent grid-bg">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <span className="inline-block px-4 py-1.5 rounded-full border border-purple-500/30 bg-purple-500/10 text-purple-300 text-xs font-mono font-bold tracking-[0.25em] uppercase mb-4 backdrop-blur-md">
-            Architectural Portfolio
+      {/* ── Hero Section ── */}
+      <section className="pt-28 pb-12 text-center max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-cyan-500/15 border border-cyan-500/30 text-cyan-300 text-xs font-mono font-bold uppercase tracking-wider mb-4">
+          <FolderGit2 size={14} className="text-cyan-400" />
+          <span>Real-World Engineering Projects</span>
+        </div>
+        <h1 className="text-3xl sm:text-5xl font-black font-brand tracking-tight text-white mb-4">
+          Build Projects That Get You{" "}
+          <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-emerald-400">
+            Hired.
           </span>
-          <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-black mb-4 sm:mb-6 font-brand">
-            Engineered With <span className="gold-gradient-text">Precision.</span>
-          </h1>
-          <p className="text-base sm:text-xl text-gray-300 max-w-2xl mx-auto mb-8 sm:mb-12">
-            Explore our architectural blueprints, production prototypes, and high-performance digital systems.
-          </p>
-          
-          <div className="flex flex-wrap justify-center gap-2 sm:gap-3">
-            {categories.map(cat => (
-              <button
-                key={cat}
-                onClick={() => setFilter(cat)}
-                className={`px-4 sm:px-5 py-2 rounded-full text-xs sm:text-sm font-semibold transition-all cursor-pointer ${
-                  filter === cat 
-                    ? "bg-gradient-to-r from-purple-600 to-pink-600 text-white shadow-[0_0_15px_rgba(168,85,247,0.4)] scale-105" 
-                    : "bg-white/5 text-gray-300 hover:bg-white/10 hover:text-white border border-white/5"
-                }`}
-              >
-                {cat}
-              </button>
-            ))}
-          </div>
+        </h1>
+        <p className="text-slate-300 text-sm sm:text-base max-w-2xl mx-auto mb-8 leading-relaxed font-normal">
+          Theory without code is quickly forgotten. Build complete, portfolio-ready applications with starter code, milestone instructions, and GitHub submissions.
+        </p>
+
+        {/* Filter Chips */}
+        <div className="flex flex-wrap justify-center gap-2">
+          {categories.map((cat) => (
+            <button
+              key={cat}
+              onClick={() => setFilter(cat)}
+              className={`px-4 py-1.5 rounded-xl text-xs font-semibold transition-all cursor-pointer ${
+                filter === cat
+                  ? "bg-gradient-to-r from-cyan-400 to-emerald-400 text-black font-bold shadow-md shadow-cyan-500/20"
+                  : "bg-white/5 text-slate-300 hover:text-white hover:bg-white/10 border border-white/5"
+              }`}
+            >
+              {cat}
+            </button>
+          ))}
         </div>
       </section>
 
-      <section className="py-12 sm:py-20 bg-transparent min-h-screen">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
-            {filteredProjects.map((project, idx) => (
-              <motion.div 
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: idx * 0.08, duration: 0.4 }}
-                key={project.id} 
-                className="glass-card group overflow-hidden flex flex-col justify-between border border-white/10 hover:border-purple-500/40 transition-all duration-300"
+      {/* ── Projects Grid ── */}
+      <section className="py-8 pb-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {filteredProjects.map((project) => {
+            const isSubmitted = Boolean(submittedStatus[project.id]);
+
+            return (
+              <div
+                key={project.id}
+                className="rounded-3xl bg-[#080D1A] border border-white/10 hover:border-cyan-500/40 p-6 flex flex-col justify-between transition-all duration-300 shadow-xl hover:shadow-[0_12px_32px_rgba(0,0,0,0.5),0_0_24px_rgba(6,182,212,0.12)] hover:-translate-y-1"
               >
                 <div>
-                  <div className="aspect-[4/3] bg-[#0A0D14] relative overflow-hidden flex items-center justify-center border-b border-white/5">
-                    <Image 
-                      src={project.image} 
-                      alt={project.title} 
-                      fill
-                      className="object-cover opacity-70 group-hover:opacity-100 group-hover:scale-108 transition-all duration-700" 
-                    />
-                    <a href={project.url} target="_blank" rel="noopener noreferrer" className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity bg-black/40 backdrop-blur-sm z-10 duration-300">
-                      <div className="w-14 h-14 rounded-full bg-gradient-to-r from-purple-600 to-pink-600 text-white flex items-center justify-center shadow-[0_0_25px_rgba(168,85,247,0.6)] scale-75 group-hover:scale-100 transition-transform duration-300">
-                        <ExternalLink size={20} />
-                      </div>
-                    </a>
-                    
-                    <span className="absolute top-4 left-4 bg-black/80 backdrop-blur-md text-[10px] font-mono font-bold px-3 py-1 rounded-full border border-cyan-400/30 text-cyan-300 z-20 uppercase tracking-wider flex items-center gap-1.5">
-                      <span className="w-1.5 h-1.5 rounded-full bg-cyan-400" />
-                      {project.status || "Concept Project"}
-                    </span>
-
-                    <span className="absolute top-4 right-4 bg-purple-900/70 backdrop-blur-md text-[10px] font-semibold px-2.5 py-1 rounded-full border border-purple-400/30 text-purple-200 z-20 uppercase tracking-wider">
+                  <div className="flex items-center justify-between mb-3">
+                    <span className="text-[10px] font-mono px-2.5 py-0.5 rounded-full bg-cyan-500/15 border border-cyan-500/30 text-cyan-300 font-bold uppercase">
                       {project.category}
                     </span>
+                    <span className="text-xs font-mono font-bold text-amber-300 flex items-center gap-1">
+                      <Award size={13} className="text-amber-400" />
+                      <span>+{project.xpReward} XP</span>
+                    </span>
                   </div>
 
-                  <div className="p-6">
-                    <h3 className="text-xl font-bold text-white mb-2 group-hover:text-purple-300 transition-colors font-brand">{project.title}</h3>
-                    <p className="text-gray-300 text-sm mb-4 leading-relaxed">{project.description}</p>
-                    
-                    {project.metric && (
-                      <div className="mb-4 p-2.5 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-xs font-semibold text-emerald-300 flex items-center gap-2">
-                        <TrendingUp size={14} className="text-emerald-400 shrink-0" />
-                        <span>{project.metric}</span>
-                      </div>
-                    )}
+                  <h3 className="text-lg font-bold text-white font-brand mb-1.5">
+                    {project.title}
+                  </h3>
+                  <p className="text-xs text-slate-400 leading-relaxed mb-4">
+                    {project.tagline}
+                  </p>
 
-                    <div className="flex flex-wrap gap-1.5 mb-4">
-                      {project.tags.map(tag => (
-                        <span key={tag} className="text-[10px] font-mono px-2.5 py-0.5 rounded-md bg-white/5 text-gray-300 border border-white/10">
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-
-                <div className="p-6 pt-0 border-t border-white/5 flex items-center justify-between mt-auto">
-                  <a
-                    href={project.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center text-xs font-bold text-cyan-300 hover:text-white transition-colors"
-                  >
-                    <span>Live Prototype</span>
-                    <ArrowRight size={13} className="ml-1" />
-                  </a>
-
-                  <button
-                    type="button"
-                    onClick={() => setActiveCaseStudy(project)}
-                    className="text-[10px] font-mono font-bold text-purple-300 hover:text-white bg-purple-500/15 hover:bg-purple-500/30 px-3 py-1.5 rounded-lg border border-purple-500/30 transition-all cursor-pointer"
-                  >
-                    Inspect Architecture →
-                  </button>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-          
-          {filteredProjects.length === 0 && (
-            <div className="text-center py-20 text-gray-400">
-              <p>No projects found in this category.</p>
-            </div>
-          )}
-        </div>
-      </section>
-
-      {/* Case Study Modal */}
-      <AnimatePresence>
-        {activeCaseStudy && (
-          <div
-            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-md"
-            onClick={() => setActiveCaseStudy(null)}
-          >
-            <motion.div
-              initial={{ opacity: 0, scale: 0.95, y: 20 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.95, y: 20 }}
-              onClick={(e) => e.stopPropagation()}
-              className="relative w-full max-w-2xl bg-[#0b081e] border border-purple-500/40 rounded-3xl p-6 sm:p-8 shadow-2xl overflow-hidden max-h-[90vh] overflow-y-auto"
-            >
-              <button
-                type="button"
-                onClick={() => setActiveCaseStudy(null)}
-                className="absolute top-5 right-5 text-gray-400 hover:text-white p-2 rounded-full hover:bg-white/10 transition-colors cursor-pointer"
-                aria-label="Close Case Study"
-              >
-                <X size={20} />
-              </button>
-
-              <div className="flex flex-wrap items-center gap-2 mb-4">
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-400/30 text-cyan-300 text-xs font-mono font-bold">
-                  <Code2 size={13} />
-                  <span>{activeCaseStudy.status || "Concept Project"}</span>
-                </div>
-                <span className="px-3 py-1 rounded-full bg-purple-500/10 border border-purple-400/30 text-purple-300 text-xs font-mono font-bold">
-                  {activeCaseStudy.category}
-                </span>
-              </div>
-
-              <h3 className="text-2xl sm:text-3xl font-black text-white font-brand mb-2">
-                {activeCaseStudy.title}
-              </h3>
-              <p className="text-sm text-gray-300 mb-6 leading-relaxed">
-                {activeCaseStudy.description}
-              </p>
-
-              {/* Problem & Solution Grid */}
-              <div className="grid md:grid-cols-2 gap-4 mb-6">
-                {activeCaseStudy.problem && (
-                  <div className="p-4 rounded-xl bg-white/[0.02] border border-white/10">
-                    <h4 className="text-xs font-mono font-bold text-rose-400 uppercase tracking-wider mb-2">
-                      Challenge / Problem
-                    </h4>
-                    <p className="text-xs text-gray-300 leading-relaxed">
-                      {activeCaseStudy.problem}
-                    </p>
-                  </div>
-                )}
-
-                {activeCaseStudy.solution && (
-                  <div className="p-4 rounded-xl bg-white/[0.02] border border-white/10">
-                    <h4 className="text-xs font-mono font-bold text-cyan-400 uppercase tracking-wider mb-2">
-                      Engineered Solution
-                    </h4>
-                    <p className="text-xs text-gray-300 leading-relaxed">
-                      {activeCaseStudy.solution}
-                    </p>
-                  </div>
-                )}
-              </div>
-
-              {/* Key Features */}
-              {activeCaseStudy.keyFeatures && (
-                <div className="mb-6">
-                  <h4 className="text-xs font-mono font-bold text-purple-400 uppercase tracking-wider mb-3">
-                    Key Features &amp; Implementation
-                  </h4>
-                  <div className="space-y-2">
-                    {activeCaseStudy.keyFeatures.map((feat, fIdx) => (
-                      <div key={fIdx} className="flex items-start gap-2.5 text-xs sm:text-sm text-gray-300">
-                        <CheckCircle2 size={15} className="text-cyan-400 shrink-0 mt-0.5" />
-                        <span>{feat}</span>
-                      </div>
+                  {/* Skills badges */}
+                  <div className="flex flex-wrap gap-1 mb-5">
+                    {project.skillsRequired.map((skill, idx) => (
+                      <span
+                        key={idx}
+                        className="text-[10px] font-mono px-2 py-0.5 rounded-md bg-white/5 text-slate-300 border border-white/5"
+                      >
+                        {skill}
+                      </span>
                     ))}
                   </div>
                 </div>
-              )}
 
-              {/* Goal */}
-              {activeCaseStudy.goal && (
-                <div className="mb-6 p-4 rounded-xl bg-purple-500/10 border border-purple-500/25 text-xs text-purple-200">
-                  <span className="font-bold text-white block mb-1">Architecture Goal:</span>
-                  {activeCaseStudy.goal}
+                <div className="pt-4 border-t border-white/5 flex items-center justify-between">
+                  <div className="flex items-center gap-2 text-xs font-mono text-slate-400">
+                    <Clock size={13} className="text-cyan-400" />
+                    <span>{project.estimatedTime}</span>
+                    <span>•</span>
+                    <span className="text-slate-300">{project.difficulty}</span>
+                  </div>
+
+                  <button
+                    onClick={() => {
+                      setActiveProject(project);
+                      setActiveStarterTab(0);
+                    }}
+                    className="px-3.5 py-1.5 rounded-xl text-xs font-bold text-black bg-gradient-to-r from-cyan-400 to-emerald-400 hover:from-cyan-300 hover:to-emerald-300 transition-all cursor-pointer shadow-md shadow-cyan-500/20"
+                  >
+                    View Project
+                  </button>
                 </div>
-              )}
+              </div>
+            );
+          })}
+        </div>
+      </section>
 
-              {/* Tech Stack */}
+      {/* ── Project Details & Submission Modal ── */}
+      {activeProject && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md overflow-y-auto">
+          <div className="relative w-full max-w-3xl rounded-3xl bg-[#080D1A] border border-white/10 shadow-2xl p-6 sm:p-8 max-h-[90vh] overflow-y-auto">
+            {/* Modal Header */}
+            <div className="flex items-start justify-between pb-4 border-b border-white/10 mb-6">
+              <div>
+                <div className="flex items-center gap-2 mb-1">
+                  <span className="text-xs font-mono px-2 py-0.5 rounded-full bg-cyan-500/15 text-cyan-300">
+                    {activeProject.category}
+                  </span>
+                  <span className="text-xs font-mono text-slate-400">
+                    • {activeProject.difficulty}
+                  </span>
+                </div>
+                <h2 className="text-xl sm:text-2xl font-black font-brand text-white">
+                  {activeProject.title}
+                </h2>
+              </div>
+              <button
+                onClick={() => setActiveProject(null)}
+                className="p-1 rounded-lg text-slate-400 hover:text-white"
+              >
+                <X size={20} />
+              </button>
+            </div>
+
+            {/* Description */}
+            <p className="text-xs sm:text-sm text-slate-300 leading-relaxed mb-6">
+              {activeProject.description}
+            </p>
+
+            {/* Step-by-Step Instructions */}
+            <div className="mb-6">
+              <span className="text-xs font-mono uppercase tracking-wider text-cyan-400 font-bold block mb-3 flex items-center gap-1.5">
+                <Layers size={14} />
+                <span>Step-by-Step Implementation Guide</span>
+              </span>
+              <div className="space-y-3">
+                {activeProject.steps.map((st) => (
+                  <div key={st.stepNumber} className="p-3.5 rounded-2xl bg-white/[0.02] border border-white/5">
+                    <div className="flex items-center gap-2 font-bold text-xs text-white mb-1">
+                      <span className="w-5 h-5 rounded-full bg-cyan-500/20 text-cyan-300 flex items-center justify-center text-[10px] font-mono">
+                        {st.stepNumber}
+                      </span>
+                      <span>{st.title}</span>
+                    </div>
+                    <p className="text-xs text-slate-400 leading-relaxed pl-7">{st.description}</p>
+                    {st.tip && (
+                      <p className="text-[11px] text-cyan-300/80 italic mt-1 pl-7">💡 Pro-tip: {st.tip}</p>
+                    )}
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Starter Files Drawer */}
+            {activeProject.starterFiles && activeProject.starterFiles.length > 0 && (
               <div className="mb-6">
-                <h4 className="text-xs font-mono font-bold text-gray-400 uppercase tracking-wider mb-2">
-                  Technologies
-                </h4>
-                <div className="flex flex-wrap gap-1.5">
-                  {activeCaseStudy.tags.map((t) => (
-                    <span key={t} className="px-2.5 py-0.5 rounded-md bg-white/[0.05] border border-white/10 text-[11px] font-mono text-gray-300">
-                      {t}
-                    </span>
-                  ))}
+                <div className="flex items-center justify-between mb-2">
+                  <span className="text-xs font-mono uppercase tracking-wider text-slate-400 font-bold flex items-center gap-1.5">
+                    <Code2 size={14} className="text-emerald-400" />
+                    <span>Starter Code Files</span>
+                  </span>
+                  <button
+                    onClick={() =>
+                      handleCopyStarter(activeProject.starterFiles[activeStarterTab]?.content || "")
+                    }
+                    className="flex items-center gap-1 text-[11px] font-mono text-cyan-400 hover:text-cyan-300"
+                  >
+                    {copiedFile ? <Check size={12} className="text-emerald-400" /> : <Copy size={12} />}
+                    <span>{copiedFile ? "Copied File" : "Copy Starter Code"}</span>
+                  </button>
+                </div>
+
+                <div className="rounded-2xl bg-[#030712] border border-white/10 overflow-hidden">
+                  <div className="flex items-center gap-1 bg-black/40 px-3 py-1.5 border-b border-white/5">
+                    {activeProject.starterFiles.map((f, i) => (
+                      <button
+                        key={i}
+                        onClick={() => setActiveStarterTab(i)}
+                        className={`px-3 py-1 rounded-lg text-xs font-mono transition-colors ${
+                          activeStarterTab === i
+                            ? "bg-white/10 text-cyan-300 font-bold"
+                            : "text-slate-400 hover:text-white"
+                        }`}
+                      >
+                        {f.filename}
+                      </button>
+                    ))}
+                  </div>
+                  <pre className="p-4 text-xs font-mono text-slate-200 overflow-x-auto leading-relaxed max-h-56">
+                    <code>{activeProject.starterFiles[activeStarterTab]?.content}</code>
+                  </pre>
                 </div>
               </div>
+            )}
 
-              <div className="pt-6 border-t border-white/10 flex flex-wrap items-center justify-between gap-4">
-                <a
-                  href={activeCaseStudy.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="px-6 py-3 rounded-full bg-gradient-to-r from-purple-600 to-cyan-500 text-white font-bold text-xs uppercase tracking-wider flex items-center gap-2 shadow-[0_0_20px_rgba(168,85,247,0.4)] hover:scale-102 transition-transform"
-                >
-                  <span>Launch Live Demo</span>
-                  <ExternalLink size={14} />
-                </a>
-
-                <Link
-                  href="/contact"
-                  className="text-xs text-gray-300 hover:text-white font-semibold underline underline-offset-4"
-                >
-                  Discuss Your Project Idea →
-                </Link>
+            {/* GitHub Link Submission Field */}
+            <div className="p-5 rounded-2xl bg-cyan-500/10 border border-cyan-500/25">
+              <div className="flex items-center gap-2 mb-2 font-bold text-xs text-white">
+                <GithubIcon size={15} className="text-cyan-400" />
+                <span>Submit Your Completed GitHub Repository</span>
               </div>
-            </motion.div>
-          </div>
-        )}
-      </AnimatePresence>
+              <p className="text-[11px] text-slate-400 mb-3">
+                Paste your GitHub repository link once you have completed the project to showcase it on your public student profile and earn +{activeProject.xpReward} XP!
+              </p>
+              <div className="flex items-center gap-2">
+                <input
+                  type="url"
+                  value={githubUrlInput}
+                  onChange={(e) => setGithubUrlInput(e.target.value)}
+                  placeholder="https://github.com/your-username/my-project"
+                  className="flex-1 bg-[#030712] border border-white/10 rounded-xl px-3 py-2 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-cyan-400"
+                />
+                <button
+                  onClick={() => handleSubmitProject(activeProject.id)}
+                  className="px-4 py-2 rounded-xl text-xs font-bold text-black bg-gradient-to-r from-cyan-400 to-emerald-400 hover:from-cyan-300 hover:to-emerald-300 shadow-md shadow-cyan-500/20"
+                >
+                  Submit & Earn XP
+                </button>
+              </div>
 
-      <ContactCTA />
+              {submittedStatus[activeProject.id] && (
+                <div className="mt-2 text-emerald-400 font-mono text-xs flex items-center gap-1.5">
+                  <CheckCircle2 size={13} />
+                  <span>Submitted: {submittedStatus[activeProject.id]}</span>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
     </>
   );
 }

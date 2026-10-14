@@ -70,30 +70,33 @@ export default function Footer() {
 
   const navSections = [
     {
-      title: "Core Subjects",
+      title: "Learning Platform",
       links: [
-        { name: "Web Fundamentals", href: "/notes?category=Web+Fundamentals" },
-        { name: "HTML & Semantics", href: "/notes?category=HTML" },
-        { name: "CSS Flexbox & Grid", href: "/notes?category=CSS" },
-        { name: "Modern JavaScript", href: "/notes?category=JavaScript" },
-        { name: "React & Next.js", href: "/notes?category=React" },
+        { name: "Interactive Courses", href: "/courses" },
+        { name: "5 Career Roadmaps", href: "/roadmap" },
+        { name: "Code Playground & Practice", href: "/practice" },
+        { name: "Real-World Projects", href: "/projects" },
+        { name: "AI Coding Tutor", href: "/ai-tutor" },
       ],
     },
     {
-      title: "Study Materials",
+      title: "Core Curriculum",
       links: [
-        { name: "All Notes & Tutorials", href: "/notes" },
-        { name: "12-Step Learning Roadmap", href: "/roadmap" },
-        { name: "How Internet Works Guide", href: "/notes/how-the-internet-works" },
-        { name: "HTML & Semantic Guide", href: "/notes/html5-complete-notes" },
+        { name: "Web Development", href: "/courses/web-development-foundations" },
+        { name: "Python Programming", href: "/courses/python-programming-mastery" },
+        { name: "JavaScript & TypeScript", href: "/courses/modern-javascript-typescript" },
+        { name: "Data Structures & Algorithms", href: "/courses/data-structures-and-algorithms" },
+        { name: "SQL & Databases", href: "/courses/sql-and-relational-databases" },
       ],
     },
     {
-      title: "Platform & Info",
+      title: "Community & Career",
       links: [
-        { name: "About SLRJ Education", href: "/about" },
+        { name: "Student Community Forum", href: "/community" },
+        { name: "Certificates & Mock Interviews", href: "/certificates" },
+        { name: "Pricing & Plans", href: "/pricing" },
+        { name: "About SLRJ Learn", href: "/about" },
         { name: "Privacy Policy", href: "/privacy-policy" },
-        { name: "Terms of Service", href: "/terms-and-conditions" },
       ],
     },
   ];
@@ -236,7 +239,7 @@ export default function Footer() {
               className="text-2xl sm:text-3xl font-black tracking-tight font-brand flex items-center gap-2.5 mb-4 group"
             >
               <Image
-                src="/logo.png?v=5"
+                src="/logo.png"
                 alt="SLRJ Learn Logo"
                 width={46}
                 height={46}
