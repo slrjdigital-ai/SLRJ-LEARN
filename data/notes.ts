@@ -139,7 +139,7 @@ export const NOTES_DATA: NoteItem[] = [
       { id: "faq", title: "6. Frequently Asked Questions", level: 2 },
       { id: "practice", title: "7. Knowledge Check & Practice Exercise", level: 2 }
     ],
-    introduction: "Every time a user types a URL such as 'https://slrjdigital.in' into their browser and presses Enter, an intricate symphony of distributed computing protocols executes within mere milliseconds. Understanding this foundational pipeline is what separates junior copy-paste coders from true full-stack software engineers.",
+    introduction: "Every time a user types a URL such as 'https://slrjlearn.in' into their browser and presses Enter, an intricate symphony of distributed computing protocols executes within mere milliseconds. Understanding this foundational pipeline is what separates junior copy-paste coders from true full-stack software engineers.",
     sections: [
       {
         id: "overview",
@@ -168,18 +168,18 @@ export const NOTES_DATA: NoteItem[] = [
           rows: [
             ["DNS Recurser", "Queries other DNS servers on behalf of client", "Maintained by ISP or 1.1.1.1 / 8.8.8.8"],
             ["Root Nameserver", "Directs queries to appropriate TLD server", "Points '.in' or '.com' queries to TLD"],
-            ["TLD Nameserver", "Manages the top-level domain directory", "Directs to authoritative server for 'slrjdigital.in'"],
+            ["TLD Nameserver", "Manages the top-level domain directory", "Directs to authoritative server for 'slrjlearn.in'"],
             ["Authoritative Nameserver", "Holds final official DNS records", "Returns IP address: 172.67.182.25 (A Record)"]
           ]
         },
         codeSnippet: {
           language: "bash",
           title: "Tracing DNS Lookup using dig in the terminal",
-          code: `# Inspect the DNS resolution path for slrjdigital.in
-dig slrjdigital.in +trace
+          code: `# Inspect the DNS resolution path for slrjlearn.in
+dig slrjlearn.in +trace
 
 # Query specific A records directly from Cloudflare DNS
-dig @1.1.1.1 slrjdigital.in A +short`,
+dig @1.1.1.1 slrjlearn.in A +short`,
           explanation: "The +trace flag instructs dig to begin querying the root nameserver and step through the entire hierarchical delegation chain down to the authoritative answer."
         }
       },
@@ -202,7 +202,7 @@ dig @1.1.1.1 slrjdigital.in A +short`,
           title: "Sample HTTP/2 Request & Response",
           code: `:method: GET
 :scheme: https
-:authority: slrjdigital.in
+:authority: slrjlearn.in
 :path: /blog
 user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64)
 accept: text/html,application/xhtml+xml
@@ -441,7 +441,7 @@ strict-transport-security: max-age=31536000; includeSubDomains`,
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Personal student portfolio and engineering notes.">
-    <title>My First Webpage | SLRJ Digital</title>
+    <title>My First Webpage | SLRJ Learn</title>
   </head>
   <body>
     <h1>Welcome to Web Engineering</h1>
@@ -465,7 +465,7 @@ strict-transport-security: max-age=31536000; includeSubDomains`,
           },
           {
             title: "6. Hyperlinks (Anchor Tags)",
-            content: "The <a> element creates clickable hyperlinks:\n• Internal page: <a href='about.html'>About Us</a>\n• External website: <a href='https://www.google.com' target='_blank' rel='noopener noreferrer'>Google</a>\n• Email composer: <a href='mailto:hello@slrjdigital.in'>Email Support</a>\n• Phone dialer: <a href='tel:+911234567890'>Call Office</a>\nRemember: 'href' defines the destination URL. The text between <a> and </a> is the user-visible clickable link."
+            content: "The <a> element creates clickable hyperlinks:\n• Internal page: <a href='about.html'>About Us</a>\n• External website: <a href='https://www.google.com' target='_blank' rel='noopener noreferrer'>Google</a>\n• Email composer: <a href='mailto:hello@slrjlearn.in'>Email Support</a>\n• Phone dialer: <a href='tel:+911234567890'>Call Office</a>\nRemember: 'href' defines the destination URL. The text between <a> and </a> is the user-visible clickable link."
           },
           {
             title: "7. Images & Meaningful Alt Text",
@@ -1352,9 +1352,9 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   if (!note) return { title: "Note Not Found" };
 
   return {
-    title: \`\${note.title} | SLRJ Digital\`,
+    title: \`\${note.title} | SLRJ Learn\`,
     description: note.shortDescription,
-    alternates: { canonical: \`https://slrjdigital.in/notes/\${slug}\` },
+    alternates: { canonical: \`https://slrjlearn.in/notes/\${slug}\` },
   };
 }
 
@@ -1607,7 +1607,7 @@ git push origin feature/blog-enhancements`,
       {
         id: "dns-records",
         title: "2. Configuring Custom DNS (A & CNAME)",
-        content: "To point your registered domain (e.g. slrjdigital.in) to your hosting provider:",
+        content: "To point your registered domain (e.g. slrjlearn.in) to your hosting provider:",
         table: {
           title: "Standard DNS Record Configurations",
           headers: ["Record Type", "Name / Host", "Target Value", "Purpose"],
@@ -1628,7 +1628,7 @@ git push origin feature/blog-enhancements`,
     practiceQuestions: [
       {
         id: "q-dep-1",
-        question: "Which DNS record type is used to map a subdomain (like www.slrjdigital.in) to another hostname?",
+        question: "Which DNS record type is used to map a subdomain (like www.slrjlearn.in) to another hostname?",
         type: "multiple-choice",
         options: ["A Record", "CNAME Record", "MX Record", "PTR Record"],
         correctAnswer: "CNAME Record",

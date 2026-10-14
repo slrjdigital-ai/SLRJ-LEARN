@@ -3,7 +3,7 @@ import { Suspense } from "react";
 import LoginClient from "./LoginClient";
 
 export const metadata: Metadata = {
-  title: "Student & Developer Login | SLRJ Digital Education",
+  title: "Student & Developer Login | SLRJ Learn",
   description:
     "Sign in to your learning dashboard to view bookmarked notes, track your 12-stage web development roadmap progress, and access free PDF study guides.",
 };

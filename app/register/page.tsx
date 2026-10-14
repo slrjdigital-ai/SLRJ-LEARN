@@ -3,7 +3,7 @@ import { Suspense } from "react";
 import RegisterClient from "./RegisterClient";
 
 export const metadata: Metadata = {
-  title: "Create Student & Developer Account | SLRJ Digital Education",
+  title: "Create Student & Developer Account | SLRJ Learn",
   description:
     "Register for free access to structured web development notes, 12-stage learning roadmaps, and student progress tracking.",
 };

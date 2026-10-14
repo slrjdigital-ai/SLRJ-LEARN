@@ -31,8 +31,8 @@ const orbitron = Orbitron({
 
 export const metadata: Metadata = {
   title: {
-    default: "SLRJ Digital — Web Development & Computer Science Learning Platform",
-    template: "%s | SLRJ Digital",
+    default: "SLRJ Learn — Web Development & Computer Science Learning Platform",
+    template: "%s | SLRJ Learn",
   },
   description:
     "Master web development with structured notes, step-by-step programming tutorials, 12-stage learning roadmap, and comprehensive study materials.",
@@ -47,43 +47,43 @@ export const metadata: Metadata = {
     "React 19 Tutorials",
     "Next.js App Router",
     "REST APIs and Backend",
-    "SLRJ Digital",
+    "SLRJ Learn",
     "Kouluri Shahid"
   ],
-  authors: [{ name: "Kouluri Shahid", url: "https://slrjdigital.in/about" }],
-  creator: "SLRJ Digital",
+  authors: [{ name: "Kouluri Shahid", url: "https://slrjlearn.in/about" }],
+  creator: "SLRJ Learn",
   alternates: {
-    canonical: "https://slrjdigital.in",
+    canonical: "https://slrjlearn.in",
   },
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://slrjdigital.in",
-    siteName: "SLRJ Digital",
-    title: "SLRJ — Digital Solutions, AI & Web Development",
+    url: "https://slrjlearn.in",
+    siteName: "SLRJ Learn",
+    title: "SLRJ Learn — Engineering Education & Web Development",
     description:
-      "SLRJ creates modern websites, AI solutions, applications and digital experiences for businesses, startups and ambitious ideas.",
+      "Master computer science, full-stack web development, DSA, and modern software engineering with structured roadmaps and handwritten notes.",
     images: [
       {
-        url: "https://slrjdigital.in/og-image.jpg",
+        url: "https://slrjlearn.in/og-image.jpg",
         width: 1200,
         height: 630,
-        alt: "SLRJ Digital Agency",
+        alt: "SLRJ Learn",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "SLRJ — Digital Solutions, AI & Web Development",
-    description: "SLRJ creates modern websites, AI solutions, applications and digital experiences for businesses, startups and ambitious ideas.",
-    images: ["https://slrjdigital.in/og-image.jpg"],
+    title: "SLRJ Learn — Engineering Education & Web Development",
+    description: "Master computer science, full-stack web development, DSA, and modern software engineering with structured roadmaps and handwritten notes.",
+    images: ["https://slrjlearn.in/og-image.jpg"],
   },
   icons: {
     icon: "/icon.jpg",
     shortcut: "/icon.jpg",
     apple: "/icon.jpg",
   },
-  metadataBase: new URL("https://slrjdigital.in"),
+  metadataBase: new URL("https://slrjlearn.in"),
 };
 
 export default function RootLayout({

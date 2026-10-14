@@ -2,18 +2,18 @@ import { Metadata } from "next";
 import ContactContent from "./ContactContent";
 
 export const metadata: Metadata = {
-  title: "Contact & Project Consultation | SLRJ Digital",
+  title: "Contact & Community | SLRJ Learn",
   description:
-    "Request an architectural consultation, fixed-price project proposal, or direct WhatsApp inquiry for your web development or design project with SLRJ Digital.",
+    "Request support, community inquiries, or direct WhatsApp assistance with SLRJ Learn.",
   alternates: {
-    canonical: "https://slrjdigital.in/contact",
+    canonical: "https://slrjlearn.in/contact",
   },
   openGraph: {
-    title: "Contact & Project Consultation | SLRJ Digital",
+    title: "Contact & Community | SLRJ Learn",
     description:
-      "Request an architectural consultation, fixed-price project proposal, or direct WhatsApp inquiry with SLRJ Digital.",
-    url: "https://slrjdigital.in/contact",
-    siteName: "SLRJ Digital",
+      "Request support, community inquiries, or direct WhatsApp assistance with SLRJ Learn.",
+    url: "https://slrjlearn.in/contact",
+    siteName: "SLRJ Learn",
     type: "website",
   },
 };

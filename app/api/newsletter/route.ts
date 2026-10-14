@@ -77,7 +77,7 @@ export async function POST(request: Request) {
           success: true,
           count,
           alreadySubscribed: true,
-          message: "You're already subscribed to the SLRJ Digital Dispatch!",
+          message: "You're already subscribed to the SLRJ Learn Dispatch!",
         },
         { status: 200 }
       );
@@ -108,7 +108,7 @@ export async function POST(request: Request) {
 
         // 5a. Admin Notification Email
         const adminMailOptions = {
-          from: `"SLRJ Digital Dispatch" <${gmailUser}>`,
+          from: `"SLRJ Learn Dispatch" <${gmailUser}>`,
           to: 'slrj.digital@gmail.com',
           replyTo: subscriber.email,
           subject: `⚡ New Newsletter Subscriber: ${subscriber.email} (#${count})`,
@@ -158,7 +158,7 @@ IP: ${ip}
       </div>
     </div>
     <div class="footer">
-      SLRJ Digital Automated Dispatch System &bull; slrjdigital.in
+      SLRJ Learn Automated Dispatch System &bull; slrjlearn.in
     </div>
   </div>
 </body>
@@ -168,29 +168,29 @@ IP: ${ip}
 
         // 5b. Subscriber Welcome Email
         const welcomeMailOptions = {
-          from: `"SLRJ Digital" <${gmailUser}>`,
+          from: `"SLRJ Learn" <${gmailUser}>`,
           to: subscriber.email,
-          subject: `Welcome to SLRJ Digital Tech & Growth Dispatch 🚀`,
+          subject: `Welcome to SLRJ Learn Tech & Growth Dispatch 🚀`,
           text: `
-Welcome to SLRJ Digital!
+Welcome to SLRJ Learn!
 
-Thank you for subscribing to our Tech & Growth Dispatch. You are now part of our community of ${count}+ forward-thinking founders, designers, and engineers.
+Thank you for subscribing to our Tech & Growth Dispatch. You are now part of our community of ${count}+ forward-thinking learners, developers, and engineers.
 
 What you can expect:
 - Production-grade Next.js & React architecture insights
-- High-converting UI/UX design teardowns
-- Modern web performance optimization strategies (Core Web Vitals)
-- Early access to new tools, case studies, and engineering drops
+- Modern computer science notes and algorithms breakdowns
+- Web performance optimization strategies
+- Early access to new study materials, roadmaps, and cheat sheets
 
-Need a high-performance web platform or app for your business?
-- Explore our work: https://slrjdigital.in/projects
+Need high-performance learning resources or roadmaps?
+- Explore our notes: https://slrjlearn.in/notes
 - Direct WhatsApp Inquiry: https://wa.me/918466974408
 - Email our engineers: slrj.digital@gmail.com
 
 Stay ahead of the curve,
 Kouluri Shahid
-Founder & Lead Engineer, SLRJ Digital
-https://slrjdigital.in
+Founder & Lead Architect, SLRJ Learn
+https://slrjlearn.in
           `.trim(),
           html: `
 <!DOCTYPE html>
@@ -218,35 +218,35 @@ https://slrjdigital.in
   <div class="container">
     <div class="header">
       <div class="badge">DISPATCH CONFIRMED // #${count}</div>
-      <h1 class="logo-title">SLRJ <span class="logo-gradient">DIGITAL</span></h1>
+      <h1 class="logo-title">SLRJ <span class="logo-gradient">LEARN</span></h1>
       <p style="margin: 8px 0 0; color: #a855f7; font-size: 12px; font-weight: 700; letter-spacing: 0.15em;">SANKALP &bull; LAKSHYA &bull; RACHNA &bull; JOSH</p>
     </div>
     <div class="body">
       <h2>You're in the Inner Circle! ⚡</h2>
-      <p>Thank you for subscribing to the <strong>SLRJ Digital Dispatch</strong>. You’ve joined an elite group of ${count}+ founders, executives, and developers receiving high-impact technology insights.</p>
+      <p>Thank you for subscribing to the <strong>SLRJ Learn Dispatch</strong>. You’ve joined a vibrant community of ${count}+ developers and students receiving high-impact technology and engineering insights.</p>
       
       <div class="benefit-box">
         <p style="margin-top: 0; color: #06B6D4; font-weight: 700; font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase;">What you can look forward to:</p>
-        <div class="benefit-item">🚀 <strong>Next-Gen Web Architecture:</strong> Next.js 16, React 19, and full-stack performance blueprints.</div>
-        <div class="benefit-item">⚡ <strong>Conversion-Engineered UI/UX:</strong> Real client breakdowns and interface optimization strategies.</div>
-        <div class="benefit-item">💎 <strong>Core Web Vitals & Speed:</strong> How we achieve sub-second load times and high performance scores.</div>
+        <div class="benefit-item">🚀 <strong>Next-Gen Web Architecture:</strong> Next.js 16, React 19, and full-stack blueprints.</div>
+        <div class="benefit-item">⚡ <strong>DSA & CS Fundamentals:</strong> Clear breakdowns with diagrams and real problems.</div>
+        <div class="benefit-item">💎 <strong>Roadmaps & Study Guides:</strong> Structured pathways from beginner to software engineer.</div>
       </div>
 
-      <p>Planning your next flagship web application, e-commerce store, or digital rebrand?</p>
+      <p>Ready to level up your engineering skills?</p>
 
       <div style="margin: 24px 0; text-align: center;">
-        <a href="https://slrjdigital.in/projects" class="cta-button">Explore Our Work</a>
-        <a href="https://wa.me/918466974408?text=Hi%20SLRJ%20Digital,%20I%20just%20subscribed%20to%20your%20newsletter!" class="whatsapp-btn">Chat on WhatsApp</a>
+        <a href="https://slrjlearn.in/notes" class="cta-button">Explore Study Notes</a>
+        <a href="https://wa.me/918466974408?text=Hi%20SLRJ%20Learn,%20I%20just%20subscribed%20to%20your%20newsletter!" class="whatsapp-btn">Chat on WhatsApp</a>
       </div>
 
       <p style="margin-top: 24px; font-size: 12px; color: #64748b;">
         Warm regards,<br />
         <strong style="color: #cbd5e1;">Kouluri Shahid</strong><br />
-        Founder & Lead Engineer &bull; SLRJ Digital
+        Founder & Lead Architect &bull; SLRJ Learn
       </p>
     </div>
     <div class="footer">
-      &copy; 2026 SLRJ Digital. All rights reserved.<br />
+      &copy; 2026 SLRJ Learn. All rights reserved.<br />
       If you did not request this subscription, you can disregard this email.
     </div>
   </div>

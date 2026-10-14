@@ -1,7 +1,7 @@
 # SLRJ-LEARN 🚀
 ### Modern Computer Science & Software Engineering Learning Portal
 
-Welcome to **SLRJ-LEARN**, a comprehensive full-stack education and tech learning hub built by [SLRJ Digital](https://slrjdigital.in). Designed for aspiring developers, computer science students, and interview prep candidates.
+Welcome to **SLRJ-LEARN**, a comprehensive full-stack education and tech learning hub built by [SLRJ Learn](https://slrjlearn.in). Designed for aspiring developers, computer science students, and interview prep candidates.
 
 ---
 
@@ -51,7 +51,7 @@ Welcome to **SLRJ-LEARN**, a comprehensive full-stack education and tech learnin
 ```text
 ├── app/
 │   ├── api/               # API routes (Auth OTP, Newsletter, Contact, Feedback)
-│   ├── about/             # About SLRJ Digital & Team
+│   ├── about/             # About SLRJ Learn & Team
 │   ├── contact/           # Contact form & inquiry
 │   ├── dashboard/         # User learning dashboard & progress
 │   ├── login/ & register/ # OTP authentication pages
@@ -122,4 +122,4 @@ npm run start
 
 ## 📜 License & Credits
 
-Built with ❤️ by [SLRJ Digital](https://slrjdigital.in). All rights reserved.
+Built with ❤️ by [SLRJ Learn](https://slrjlearn.in). All rights reserved.

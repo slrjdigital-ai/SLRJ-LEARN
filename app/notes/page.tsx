@@ -3,17 +3,17 @@ import { getAllNotes } from "@/data/notes";
 import NotesClient from "@/components/blog/NotesClient";
 
 export const metadata: Metadata = {
-  title: "Computer Science, Programming & Tech Notes | SLRJ Digital Learning Portal",
+  title: "Computer Science, Programming & Tech Notes | SLRJ Learn",
   description:
     "Explore our complete library of engineering study notes across Web Development, Data Structures & Algorithms, Python & AI, CS Core, and Cloud DevOps.",
   alternates: {
-    canonical: "https://slrjdigital.in/notes",
+    canonical: "https://slrjlearn.in/notes",
   },
   openGraph: {
-    title: "Engineering Study Notes & Tutorials | SLRJ Digital Learning Portal",
+    title: "Engineering Study Notes & Tutorials | SLRJ Learn",
     description: "Browse curated notes on Web Development, DSA, Python & AI, Operating Systems, DBMS & SQL, and Cloud DevOps.",
-    url: "https://slrjdigital.in/notes",
-    siteName: "SLRJ Digital Education",
+    url: "https://slrjlearn.in/notes",
+    siteName: "SLRJ Learn",
   },
 };
 

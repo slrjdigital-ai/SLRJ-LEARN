@@ -5,17 +5,17 @@ import RoadmapTracker from "@/components/blog/RoadmapTracker";
 import { Compass, Sparkles, ArrowRight, BookOpen, CheckCircle2 } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "Tech & Computer Science Learning Roadmaps (2026) | SLRJ Digital",
+  title: "Tech & Computer Science Learning Roadmaps (2026) | SLRJ Learn",
   description:
     "Structured career roadmaps for Full-Stack Web Development, Data Structures & Algorithms (DSA), Python & AI, Computer Science Core, and Cloud DevOps.",
   alternates: {
-    canonical: "https://slrjdigital.in/roadmap",
+    canonical: "https://slrjlearn.in/roadmap",
   },
   openGraph: {
-    title: "Learning Roadmaps & Career Paths | SLRJ Digital Learning Portal",
+    title: "Learning Roadmaps & Career Paths | SLRJ Learn",
     description: "Structured engineering curricula with linked study notes and practical milestone projects.",
-    url: "https://slrjdigital.in/roadmap",
-    siteName: "SLRJ Digital",
+    url: "https://slrjlearn.in/roadmap",
+    siteName: "SLRJ Learn",
   },
 };
 

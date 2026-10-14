@@ -202,7 +202,7 @@ export default function FeedbackModal() {
             {/* Modal Title */}
             <div className="mb-6">
               <span className="text-xs font-bold text-amber-400 uppercase tracking-widest flex items-center gap-1 mb-2">
-                <Sparkles size={14} /> SLRJ Digital Client Review
+                <Sparkles size={14} /> SLRJ Learn Review
               </span>
               <h3 className="text-2xl font-black text-white">Rate & Submit Feedback</h3>
               <p className="text-gray-400 text-xs mt-1">
@@ -371,7 +371,7 @@ export default function FeedbackModal() {
                   rows={4}
                   required
                   maxLength={500}
-                  placeholder="Tell us about your experience working with SLRJ Digital..."
+                  placeholder="Tell us about your experience with SLRJ Learn..."
                   value={comment}
                   onChange={(e) => setComment(e.target.value)}
                   className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-purple-500 transition-colors resize-none"
@@ -389,7 +389,7 @@ export default function FeedbackModal() {
                   className="w-4 h-4 rounded border-gray-700 text-purple-600 focus:ring-purple-500 accent-purple-600 cursor-pointer"
                 />
                 <label htmlFor="modal-recommend" className="text-xs text-gray-300 cursor-pointer select-none">
-                  I would recommend SLRJ Digital to other businesses & clients.
+                  I would recommend SLRJ Learn to others.
                 </label>
               </div>
 

@@ -237,7 +237,7 @@ export default function Footer() {
             >
               <Image
                 src="/logo.png?v=5"
-                alt="SLRJ Digital Logo"
+                alt="SLRJ Learn Logo"
                 width={46}
                 height={46}
                 unoptimized
@@ -252,7 +252,7 @@ export default function Footer() {
                 </span>
               </span>
               <span className="text-white text-sm sm:text-base font-bold tracking-[0.3em] font-brand mt-0.5">
-                DIGITAL
+                LEARN
               </span>
             </Link>
 
@@ -308,7 +308,7 @@ export default function Footer() {
            ══════════════════════════════════════════════════════════════ */}
         <div className="relative w-full py-4 overflow-hidden flex items-center justify-center opacity-[0.045] pointer-events-none select-none">
           <span className="text-[14vw] font-black tracking-tighter leading-none font-brand whitespace-nowrap text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-teal-300 to-emerald-400">
-            SLRJ DIGITAL
+            SLRJ LEARN
           </span>
         </div>
 
@@ -317,7 +317,7 @@ export default function Footer() {
            ══════════════════════════════════════════════════════════════ */}
         <div className="border-t border-slate-800 pt-8 pb-4 flex flex-col md:flex-row justify-between items-center gap-4 text-xs font-mono text-gray-500 px-2 sm:px-4 md:px-8">
           <div className="flex flex-col sm:flex-row items-center justify-center md:justify-start gap-1.5 sm:gap-2 text-center md:text-left">
-            <span>&copy; {currentYear} SLRJ Digital. All rights reserved.</span>
+            <span>&copy; {currentYear} SLRJ Learn. All rights reserved.</span>
             <span className="hidden sm:inline text-gray-700">&bull;</span>
             <span className="text-gray-400 flex items-center gap-1">
               Engineered with <Heart size={11} className="text-emerald-400 inline fill-emerald-400" /> for Developers

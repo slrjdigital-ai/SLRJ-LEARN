@@ -2,13 +2,13 @@ export default function JsonLd() {
   const organizationSchema = {
     "@context": "https://schema.org",
     "@type": "ProfessionalService",
-    "@id": "https://slrjdigital.in/#organization",
-    name: "SLRJ Digital",
-    alternateName: "SLRJ Digital Web Agency",
-    url: "https://slrjdigital.in",
-    logo: "https://slrjdigital.in/logo.png",
-    image: "https://slrjdigital.in/og-image.jpg",
-    description: "SLRJ creates modern websites, AI solutions, applications and digital experiences for businesses, startups and ambitious ideas.",
+    "@id": "https://slrjlearn.in/#organization",
+    name: "SLRJ Learn",
+    alternateName: "SLRJ Learn Platform",
+    url: "https://slrjlearn.in",
+    logo: "https://slrjlearn.in/logo.png",
+    image: "https://slrjlearn.in/og-image.jpg",
+    description: "SLRJ Learn is an engineering education and tech learning hub with structured roadmaps, computer science notes, and modern web development tutorials.",
     telephone: "+91-84669-74408",
     email: "slrj.digital@gmail.com",
     address: {
@@ -57,12 +57,12 @@ export default function JsonLd() {
   const websiteSchema = {
     "@context": "https://schema.org",
     "@type": "WebSite",
-    "@id": "https://slrjdigital.in/#website",
-    url: "https://slrjdigital.in",
-    name: "SLRJ Digital",
-    description: "SLRJ creates modern websites, AI solutions, applications and digital experiences for businesses, startups and ambitious ideas.",
+    "@id": "https://slrjlearn.in/#website",
+    url: "https://slrjlearn.in",
+    name: "SLRJ Learn",
+    description: "SLRJ Learn creates modern programming courses, CS roadmaps, and tech learning experiences.",
     publisher: {
-      "@id": "https://slrjdigital.in/#organization"
+      "@id": "https://slrjlearn.in/#organization"
     }
   };
 

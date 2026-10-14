@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import DashboardClient from "./DashboardClient";
 
 export const metadata: Metadata = {
-  title: "Student Learning Dashboard | SLRJ Digital Education",
+  title: "Student Learning Dashboard | SLRJ Learn",
   description:
     "Personal student and developer dashboard. Track completed roadmap milestones, review saved study notes, and manage your learning progress.",
 };

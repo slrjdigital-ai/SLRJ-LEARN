@@ -17,19 +17,19 @@ import {
 } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "SLRJ Digital — Tech & Computer Science Learning Portal",
+  title: "SLRJ Learn — Tech & Computer Science Learning Portal",
   description:
     "Master Computer Science, Full-Stack Web Development, Data Structures & Algorithms, Python & AI, and Cloud DevOps with structured roadmaps and interactive study guides.",
   alternates: {
-    canonical: "https://slrjdigital.in",
+    canonical: "https://slrjlearn.in",
   },
   openGraph: {
-    title: "SLRJ Digital — Tech & Computer Science Learning Portal",
+    title: "SLRJ Learn — Tech & Computer Science Learning Portal",
     description:
       "Your all-in-one learning portal for Web Development, Data Structures & Algorithms, Python & AI, Cloud & DevOps, and CS Core with structured roadmaps and interactive study guides.",
-    url: "https://slrjdigital.in",
-    siteName: "SLRJ Digital Education",
-    images: [{ url: "https://slrjdigital.in/og-image.jpg", width: 1200, height: 630 }],
+    url: "https://slrjlearn.in",
+    siteName: "SLRJ Learn",
+    images: [{ url: "https://slrjlearn.in/og-image.jpg", width: 1200, height: 630 }],
   },
 };
 
@@ -127,7 +127,7 @@ export default function StandaloneHomePage() {
           {/* Badge */}
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-gradient-to-r from-violet-500/15 via-indigo-500/15 to-cyan-500/15 border border-indigo-500/30 text-indigo-300 text-xs sm:text-sm font-mono font-bold tracking-wider uppercase mb-6 shadow-[0_0_20px_rgba(99,102,241,0.2)]">
             <Sparkles size={14} className="text-indigo-400" />
-            <span>SLRJ DIGITAL LEARNING PORTAL • THINK. BUILD. GROW.</span>
+            <span>SLRJ LEARN PORTAL • THINK. BUILD. GROW.</span>
           </div>
 
           {/* Heading */}

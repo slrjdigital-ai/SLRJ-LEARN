@@ -174,7 +174,7 @@ export default function FeedbackSection() {
                 </h3>
 
                 <p className="text-gray-400 text-sm sm:text-base max-w-xl mx-auto leading-relaxed mb-8">
-                  We prioritize transparent relationships and genuine feedback over inflated metrics. If you have partnered with SLRJ Digital on a project, we welcome your direct feedback.
+                  We prioritize transparent relationships and genuine feedback over inflated metrics. If you have partnered with SLRJ Learn, we welcome your direct feedback.
                 </p>
 
                 <div className="flex flex-wrap items-center justify-center gap-4">
@@ -221,7 +221,7 @@ export default function FeedbackSection() {
                 </h2>
 
                 <p className="text-gray-400 max-w-2xl mx-auto text-lg leading-relaxed">
-                  Authentic reviews from clients who have partnered with SLRJ Digital.
+                  Authentic reviews from clients and learners who have partnered with SLRJ Learn.
                 </p>
               </div>
             </ScrollReveal>
@@ -295,7 +295,7 @@ export default function FeedbackSection() {
                   {/* CTA Action */}
                   <div className="md:col-span-3 flex flex-col items-center justify-center text-center pl-0 md:pl-4" suppressHydrationWarning>
                     <p className="text-gray-300 text-sm mb-5 font-medium">
-                      Have you worked with SLRJ Digital? Add your rating &amp; review!
+                      Have you worked with SLRJ Learn? Add your rating &amp; review!
                     </p>
 
                     <motion.button
@@ -430,7 +430,7 @@ export default function FeedbackSection() {
               <>
                 <h3 className="text-2xl font-black text-white mb-2">No Client Reviews Yet</h3>
                 <p className="text-gray-400 text-sm max-w-md mx-auto mb-8 leading-relaxed">
-                  Be the very first client to share your feedback and rating for SLRJ Digital!
+                  Be the very first client to share your feedback and rating for SLRJ Learn!
                 </p>
                 <motion.button
                   suppressHydrationWarning

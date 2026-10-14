@@ -129,12 +129,12 @@ export async function POST(request: Request) {
 
     // 6. Admin Notification Email
     const adminMailOptions = {
-      from: `"SLRJ Digital Contact" <${gmailUser}>`,
+      from: `"SLRJ Learn Contact" <${gmailUser}>`,
       to: 'slrj.digital@gmail.com',
       replyTo: email,
       subject: `New Project Inquiry from ${name} (${service})`,
       text: `
-New Inquiry Received from SLRJ Digital Website
+New Inquiry Received from SLRJ Learn Website
 
 Name: ${name}
 Business Name: ${businessName || 'N/A'}
@@ -149,8 +149,8 @@ ${message}
       html: `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; background-color: #0b0f19; color: #f3f4f6; padding: 30px; border-radius: 12px; border: 1px solid #1f2937;">
           <div style="border-bottom: 2px solid #8b5cf6; padding-bottom: 15px; margin-bottom: 20px;">
-            <h2 style="color: #a78bfa; margin: 0;">New Project Inquiry</h2>
-            <p style="color: #9ca3af; font-size: 14px; margin-top: 5px;">Submitted via slrjdigital.in contact form</p>
+            <h2 style="color: #a78bfa; margin: 0;">New Inquiry</h2>
+            <p style="color: #9ca3af; font-size: 14px; margin-top: 5px;">Submitted via slrjlearn.in contact form</p>
           </div>
           
           <table style="width: 100%; border-collapse: collapse; color: #e5e7eb; font-size: 15px;">
@@ -172,21 +172,21 @@ ${message}
 
     // 7. Automatic Visitor Confirmation Email
     const visitorMailOptions = {
-      from: `"SLRJ Digital" <${gmailUser}>`,
+      from: `"SLRJ Learn" <${gmailUser}>`,
       to: email,
-      subject: 'Thank You for Contacting SLRJ Digital',
+      subject: 'Thank You for Contacting SLRJ Learn',
       text: `Hi ${name},
 
-Thank you for reaching out to SLRJ Digital. We have received your message and will get back to you as soon as possible.
+Thank you for reaching out to SLRJ Learn. We have received your message and will get back to you as soon as possible.
 
 Best regards,
-SLRJ Digital Team
-https://slrjdigital.in
+SLRJ Learn Team
+https://slrjlearn.in
       `,
       html: `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; background-color: #0b0f19; color: #f3f4f6; padding: 32px; border-radius: 12px; border: 1px solid #1f2937;">
           <div style="text-align: center; margin-bottom: 24px;">
-            <h1 style="color: #ffffff; font-size: 24px; font-weight: bold; margin: 0;">SLRJ <span style="color: #a78bfa;">DIGITAL</span></h1>
+            <h1 style="color: #ffffff; font-size: 24px; font-weight: bold; margin: 0;">SLRJ <span style="color: #a78bfa;">LEARN</span></h1>
             <p style="color: #9ca3af; font-size: 12px; letter-spacing: 2px; text-transform: uppercase; margin-top: 4px;">Sankalp • Lakshya • Rachna • Josh</p>
           </div>
 
@@ -194,7 +194,7 @@ https://slrjdigital.in
             <h3 style="color: #38bdf8; margin-top: 0;">Thank You for Reaching Out!</h3>
             <p style="color: #e5e7eb; line-height: 1.6; margin-bottom: 16px;">Hi ${name},</p>
             <p style="color: #d1d5db; line-height: 1.6; margin-bottom: 0;">
-              Thank you for reaching out to SLRJ Digital. We have received your message and will get back to you as soon as possible.
+              Thank you for reaching out to SLRJ Learn. We have received your message and will get back to you as soon as possible.
             </p>
           </div>
 
@@ -218,7 +218,7 @@ https://slrjdigital.in
     return NextResponse.json(
       {
         success: true,
-        message: 'Thank you for reaching out to SLRJ Digital. We have received your message and will get back to you as soon as possible.',
+        message: 'Thank you for reaching out to SLRJ Learn. We have received your message and will get back to you as soon as possible.',
       },
       { status: 200 }
     );

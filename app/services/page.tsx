@@ -5,11 +5,11 @@ import { ArrowRight, CheckCircle2 } from "lucide-react";
 import ContactCTA from "@/components/ContactCTA";
 
 export const metadata = {
-  title: "Services | SLRJ Digital - High-Performance Web & Digital Solutions",
+  title: "Services | SLRJ Learn - High-Performance Web & Digital Solutions",
   description:
     "Explore our full-stack digital services: high-converting business websites, custom e-commerce stores, modern Next.js web applications, UI/UX systems, and SLA maintenance.",
   alternates: {
-    canonical: "https://slrjdigital.in/services",
+    canonical: "https://slrjlearn.in/services",
   },
 };
 

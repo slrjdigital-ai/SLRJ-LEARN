@@ -185,25 +185,25 @@ export default function AboutContent() {
 
             {/* Authoritative Subtitle */}
             <p className="text-base sm:text-xl text-gray-300 leading-relaxed font-sans mb-10 max-w-3xl mx-auto">
-              SLRJ Digital is a premier digital engineering studio built on four timeless foundational pillars:{" "}
+              SLRJ Learn is an engineering education and tech learning hub built on four timeless foundational pillars:{" "}
               <strong className="text-purple-300 font-semibold">Sankalp</strong>,{" "}
               <strong className="text-cyan-300 font-semibold">Lakshya</strong>,{" "}
               <strong className="text-pink-300 font-semibold">Rachna</strong>, and{" "}
-              <strong className="text-emerald-300 font-semibold">Josh</strong>. We fuse cutting-edge Next.js architecture with bespoke cyberpunk aesthetics to deliver digital platforms that command authority and generate real business revenue.
+              <strong className="text-emerald-300 font-semibold">Josh</strong>. We fuse cutting-edge Next.js architecture with structured computer science curricula to empower developers with real production skills.
             </p>
 
             {/* Quick Action Buttons */}
             <div className="flex flex-wrap items-center justify-center gap-4">
               <Link
-                href="/projects"
+                href="/notes"
                 className="px-7 py-3.5 rounded-full font-bold text-sm text-white bg-gradient-to-r from-purple-600 via-pink-600 to-cyan-500 hover:from-purple-500 hover:to-cyan-400 shadow-[0_0_25px_rgba(168,85,247,0.4)] hover:shadow-[0_0_35px_rgba(236,72,153,0.6)] transition-all duration-300 flex items-center gap-2 active:scale-98"
               >
-                <span>Explore Client Portfolio</span>
+                <span>Explore All Notes</span>
                 <ArrowRight size={16} />
               </Link>
 
               <a
-                href="https://wa.me/918466974408?text=Hi%20SLRJ%20Digital,%20I%20would%20like%20to%20learn%20more%20about%20your%20agency%20services."
+                href="https://wa.me/918466974408?text=Hi%20SLRJ%20Learn,%20I%20would%20like%20to%20learn%20more%20about%20your%20learning%20platform."
                 target="_blank"
                 rel="noopener noreferrer"
                 className="px-7 py-3.5 rounded-full font-bold text-sm text-gray-200 bg-white/5 hover:bg-white/10 border border-white/10 hover:border-emerald-500/40 hover:text-emerald-300 transition-all duration-300 flex items-center gap-2 backdrop-blur-md"
@@ -338,7 +338,7 @@ export default function AboutContent() {
                 {"// THE PERFORMANCE GAP //"}
               </span>
               <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight font-brand mb-4">
-                Why Visionaries Choose SLRJ Digital
+                Why Learners & Developers Choose SLRJ Learn
               </h2>
               <p className="text-gray-400 text-sm sm:text-base leading-relaxed">
                 The web has evolved past bloated WordPress templates and sluggish drag-and-drop builders. See how our bespoke engineering approach sets new industry benchmarks.
@@ -390,7 +390,7 @@ export default function AboutContent() {
               <div>
                 <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-mono font-bold uppercase mb-6">
                   <Sparkles size={12} className="text-emerald-400" />
-                  <span>The SLRJ Digital Standard</span>
+                  <span>The SLRJ Learn Standard</span>
                 </div>
                 <h3 className="text-xl sm:text-2xl font-black text-white font-brand mb-6 tracking-tight">
                   Next.js 16 Native &bull; Sub-Second Performance

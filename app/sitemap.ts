@@ -2,7 +2,7 @@ import { MetadataRoute } from 'next';
 import { getAllNotes } from '@/data/notes';
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = 'https://slrjdigital.in';
+  const baseUrl = 'https://slrjlearn.in';
   const currentDate = new Date();
 
   const staticRoutes: MetadataRoute.Sitemap = [

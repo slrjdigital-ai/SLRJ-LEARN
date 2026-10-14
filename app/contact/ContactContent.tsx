@@ -111,7 +111,7 @@ function ContactForm() {
     setSubmitType("whatsapp");
 
     const text =
-      "*New Project Request - SLRJ Digital*\n\n" +
+      "*New Inquiry - SLRJ Learn*\n\n" +
       "*Name:* " + form.name + "\n" +
       "*Business:* " + (form.businessName || "N/A") + "\n" +
       "*Email:* " + form.email + "\n" +

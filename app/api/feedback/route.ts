@@ -159,12 +159,12 @@ export async function POST(request: Request) {
 
         const starsStr = '★'.repeat(ratingNum) + '☆'.repeat(5 - ratingNum);
         const adminMailOptions = {
-          from: `"SLRJ Digital Feedback" <${gmailUser}>`,
+          from: `"SLRJ Learn Feedback" <${gmailUser}>`,
           to: 'slrj.digital@gmail.com',
           replyTo: email || undefined,
           subject: `⭐ New ${ratingNum}-Star Feedback from ${name}`,
           text: `
-New Feedback Received on SLRJ Digital:
+New Feedback Received on SLRJ Learn:
 
 Rating: ${ratingNum}/5 (${starsStr})
 Name: ${name}

@@ -12,10 +12,10 @@ import {
 } from "lucide-react";
 
 export const metadata = {
-  title: "Privacy Policy | SLRJ Digital",
-  description: "Official Privacy Policy for SLRJ Digital web agency and digital services.",
+  title: "Privacy Policy | SLRJ Learn",
+  description: "Official Privacy Policy for SLRJ Learn platform and educational services.",
   alternates: {
-    canonical: "https://slrjdigital.in/privacy-policy",
+    canonical: "https://slrjlearn.in/privacy-policy",
   },
 };
 
@@ -52,7 +52,7 @@ export default function PrivacyPolicyPage() {
           </h1>
 
           <p className="text-gray-400 text-base sm:text-lg leading-relaxed mb-6">
-            Transparent information on how SLRJ Digital collects, protects, processes, and respects your personal and business data.
+            Transparent information on how SLRJ Learn collects, protects, processes, and respects your personal and business data.
           </p>
 
           <div className="flex flex-wrap items-center gap-6 text-xs text-gray-400 font-medium">
@@ -62,7 +62,7 @@ export default function PrivacyPolicyPage() {
             </span>
             <span className="flex items-center gap-1.5">
               <Building2 size={14} className="text-cyan-400" />
-              Entity: <strong className="text-white">SLRJ Digital</strong>
+              Entity: <strong className="text-white">SLRJ Learn</strong>
             </span>
             <span className="flex items-center gap-1.5">
               <Lock size={14} className="text-emerald-400" />
@@ -86,7 +86,7 @@ export default function PrivacyPolicyPage() {
                 </span>
               </h3>
               <p className="text-gray-200 text-sm leading-relaxed">
-                <strong>SLRJ Digital will NEVER sell, rent, trade, or monetize your personal or project data</strong> to third-party advertisers or data brokers. All client communications, scope documentation, and proprietary code assets remain 100% confidential.
+                <strong>SLRJ Learn will NEVER sell, rent, trade, or monetize your personal or project data</strong> to third-party advertisers or data brokers. All client communications, scope documentation, and proprietary code assets remain 100% confidential.
               </p>
             </div>
           </div>
@@ -101,7 +101,7 @@ export default function PrivacyPolicyPage() {
               <span>Introduction & Scope</span>
             </h2>
             <p className="mb-4">
-              Welcome to <strong>SLRJ Digital</strong> (&quot;we,&quot; &quot;us,&quot; or &quot;our&quot;). We operate the website <Link href="/" className="text-purple-400 hover:underline">slrjdigital.in</Link> and provide custom web development, UI/UX design, software engineering, and e-commerce solutions.
+              Welcome to <strong>SLRJ Learn</strong> (&quot;we,&quot; &quot;us,&quot; or &quot;our&quot;). We operate the website <Link href="/" className="text-purple-400 hover:underline">slrjlearn.in</Link> and provide custom web development, UI/UX design, software engineering, and e-commerce solutions.
             </p>
             <p>
               This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our website, submit project inquiry forms, leave feedback, or contract our digital services.
@@ -217,7 +217,7 @@ export default function PrivacyPolicyPage() {
               <span>Official Privacy Officer Contact</span>
             </h3>
             <p className="text-gray-400 text-sm mb-6">
-              If you have any questions, data deletion requests, or privacy concerns regarding SLRJ Digital, please contact us directly:
+              If you have any questions, data deletion requests, or privacy concerns regarding SLRJ Learn, please contact us directly:
             </p>
 
             <div className="grid sm:grid-cols-2 gap-4">

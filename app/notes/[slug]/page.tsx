@@ -42,29 +42,29 @@ export async function generateMetadata({ params }: NotePageProps): Promise<Metad
 
   if (!note) {
     return {
-      title: "Note Not Found | SLRJ Digital",
+      title: "Note Not Found | SLRJ Learn",
     };
   }
 
-  const url = `https://slrjdigital.in/notes/${slug}`;
+  const url = `https://slrjlearn.in/notes/${slug}`;
 
   return {
-    title: `${note.title} | SLRJ Digital Notes`,
+    title: `${note.title} | SLRJ Learn Notes`,
     description: note.shortDescription,
     alternates: {
       canonical: url,
     },
     openGraph: {
-      title: `${note.title} | SLRJ Digital`,
+      title: `${note.title} | SLRJ Learn`,
       description: note.shortDescription,
       url,
       type: "article",
-      siteName: "SLRJ Digital Education",
-      authors: ["Kouluri Shahid", "SLRJ Digital Engineering"],
+      siteName: "SLRJ Learn",
+      authors: ["Kouluri Shahid", "SLRJ Learn Engineering"],
       tags: note.tags,
       images: [
         {
-          url: "https://slrjdigital.in/og-image.jpg",
+          url: "https://slrjlearn.in/og-image.jpg",
           width: 1200,
           height: 630,
           alt: note.title,
@@ -73,7 +73,7 @@ export async function generateMetadata({ params }: NotePageProps): Promise<Metad
     },
     twitter: {
       card: "summary_large_image",
-      title: `${note.title} | SLRJ Digital`,
+      title: `${note.title} | SLRJ Learn`,
       description: note.shortDescription,
     },
   };
@@ -126,15 +126,15 @@ export default async function NoteDetailPage({ params }: NotePageProps) {
     description: note.shortDescription,
     author: {
       "@type": "Organization",
-      name: "SLRJ Digital",
-      url: "https://slrjdigital.in",
+      name: "SLRJ Learn",
+      url: "https://slrjlearn.in",
     },
     publisher: {
       "@type": "Organization",
-      name: "SLRJ Digital",
+      name: "SLRJ Learn",
       logo: {
         "@type": "ImageObject",
-        url: "https://slrjdigital.in/logo.png",
+        url: "https://slrjlearn.in/logo.png",
       },
     },
     dateModified: "2026-10-10",
@@ -189,7 +189,7 @@ export default async function NoteDetailPage({ params }: NotePageProps) {
           <div className="flex items-center gap-3 text-xs font-mono text-gray-400">
             <span className="flex items-center gap-1 text-emerald-400 font-semibold">
               <ShieldCheck size={14} />
-              <span>SLRJ Digital Engineering Verified</span>
+              <span>SLRJ Learn Engineering Verified</span>
             </span>
             <span>•</span>
             <span>Topic: {note.topic}</span>

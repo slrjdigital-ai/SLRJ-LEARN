@@ -7,6 +7,6 @@ export default function robots(): MetadataRoute.Robots {
       allow: '/',
       disallow: ['/api/', '/admin/'],
     },
-    sitemap: 'https://slrjdigital.in/sitemap.xml',
+    sitemap: 'https://slrjlearn.in/sitemap.xml',
   };
 }

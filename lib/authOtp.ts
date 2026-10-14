@@ -120,15 +120,15 @@ export async function sendOtpEmail(email: string, code: string): Promise<boolean
   });
 
   const mailOptions = {
-    from: `"SLRJ Digital Security" <${gmailUser}>`,
+    from: `"SLRJ Learn Security" <${gmailUser}>`,
     to: email,
-    subject: `Your SLRJ Digital Verification Code: ${code}`,
-    text: `Your SLRJ Digital secure login verification code is: ${code}
+    subject: `Your SLRJ Learn Verification Code: ${code}`,
+    text: `Your SLRJ Learn secure login verification code is: ${code}
 
 This code will expire in 10 minutes. If you did not request this login code, please ignore this email.
 
-SLRJ Digital - Engineering & CS Learning Portal
-https://slrjdigital.in`,
+SLRJ Learn - Engineering & CS Learning Portal
+https://slrjlearn.in`,
     html: `
       <!DOCTYPE html>
       <html>
@@ -155,7 +155,7 @@ https://slrjdigital.in`,
                 <tr>
                   <td align="center" style="padding-bottom: 12px;">
                     <h1 style="margin: 0; font-size: 24px; font-weight: 800; color: #ffffff; letter-spacing: -0.5px;">
-                      SLRJ <span style="color: #818cf8;">Digital</span> Portal
+                      SLRJ <span style="color: #818cf8;">Learn</span> Portal
                     </h1>
                   </td>
                 </tr>

@@ -144,7 +144,7 @@ export default function PdfPreviewModal({
         {/* Modal Footer */}
         <div className="px-5 py-2.5 bg-[#0D1527] border-t border-slate-800 flex items-center justify-between text-xs text-slate-400 select-none">
           <span className="font-mono text-[11px]">
-            SLRJ Digital Educational Series • Free for non-commercial study
+            SLRJ Learn Educational Series • Free for non-commercial study
           </span>
           <span className="font-mono text-[11px] text-cyan-400 hidden sm:inline">
             Think. Build. Grow.

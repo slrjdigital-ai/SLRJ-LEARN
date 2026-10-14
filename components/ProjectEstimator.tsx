@@ -98,7 +98,7 @@ export default function ProjectEstimator() {
     .join(", ");
 
   const waMessage = encodeURIComponent(
-    `Hello SLRJ Digital! I just calculated a project estimate on your website:\n\n• Project: ${currentType.name}\n• Add-ons: ${featureNames || "None"}\n• Est. Timeline: ~${totalDays} Days\n• Est. Investment: ₹${Math.round(rawTotal).toLocaleString()}\n\nI would love to discuss starting this project with you!`
+    `Hello SLRJ Learn! I just calculated a project estimate on your website:\n\n• Project: ${currentType.name}\n• Add-ons: ${featureNames || "None"}\n• Est. Timeline: ~${totalDays} Days\n• Est. Investment: ₹${Math.round(rawTotal).toLocaleString()}\n\nI would love to discuss starting this project with you!`
   );
 
   const waUrl = `https://wa.me/918466974408?text=${waMessage}`;

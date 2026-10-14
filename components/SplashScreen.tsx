@@ -150,7 +150,7 @@ export default function SplashScreen() {
                   <div className="relative overflow-hidden rounded-xl">
                     <Image
                       src="/logo.png?v=5"
-                      alt="SLRJ Digital Logo"
+                      alt="SLRJ Learn Logo"
                       width={140}
                       height={140}
                       priority
@@ -182,11 +182,11 @@ export default function SplashScreen() {
                 </h1>
               </div>
 
-              {/* DIGITAL Text */}
+              {/* LEARN Text */}
               <div className="flex items-center gap-3 sm:gap-6 md:gap-8 mt-3 sm:mt-4 md:mt-5 max-w-full">
                 <div className="w-8 sm:w-16 md:w-28 h-[1px] bg-gradient-to-r from-transparent via-purple-500/50 to-purple-400" />
                 <span className="text-white text-xs sm:text-base md:text-2xl font-bold tracking-[0.5em] sm:tracking-[1em] md:tracking-[1.2em] font-brand drop-shadow-md pl-[0.25em] sm:pl-[0.5em]">
-                  DIGITAL
+                  LEARN
                 </span>
                 <div className="w-8 sm:w-16 md:w-28 h-[1px] bg-gradient-to-l from-transparent via-cyan-500/50 to-cyan-400" />
               </div>
@@ -310,7 +310,7 @@ export default function SplashScreen() {
                   >
                     <div className="absolute inset-0 w-full h-full bg-gradient-to-r from-purple-600/30 via-pink-500/30 to-cyan-500/30 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out" />
                     <span className="relative text-white font-extrabold tracking-wider uppercase text-sm">
-                      Enter SLRJ Digital
+                      Enter SLRJ Learn
                     </span>
                     <div className="relative w-8 h-8 rounded-full bg-gradient-to-r from-cyan-500 via-purple-500 to-pink-500 flex items-center justify-center transition-all duration-300 shadow-[0_0_15px_rgba(168,85,247,0.5)] overflow-hidden">
                       <ArrowUpRight size={16} className="text-white group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />

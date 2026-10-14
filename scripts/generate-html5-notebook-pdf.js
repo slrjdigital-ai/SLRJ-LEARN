@@ -36,7 +36,7 @@ async function buildHtml5NotebookPdf() {
     });
 
     // Branding
-    page.drawText('SLRJ DIGITAL', {
+    page.drawText('SLRJ LEARN', {
       x: 36,
       y: height - 32,
       size: 15,
@@ -85,7 +85,7 @@ async function buildHtml5NotebookPdf() {
       color: rgb(0.4, 0.45, 0.55),
     });
 
-    page.drawText('SLRJ Digital Learning Hub | Open Education Series | https://slrjdigital.in', {
+    page.drawText('SLRJ Learn Hub | Open Education Series | https://slrjlearn.in', {
       x: 115,
       y: 22,
       size: 7.5,
@@ -432,7 +432,7 @@ async function buildHtml5NotebookPdf() {
     y = drawSectionHeader(page, '6. Links & Anchor Elements', y);
     y = drawTextLines(page, [
       '* Internal: <a href="about.html">About</a> | External: <a href="https://google.com" target="_blank">Google</a>',
-      '* Email: <a href="mailto:hello@slrjdigital.in">Email Us</a> | Phone: <a href="tel:+911234567890">Call Us</a>',
+      '* Email: <a href="mailto:hello@slrjlearn.in">Email Us</a> | Phone: <a href="tel:+911234567890">Call Us</a>',
       '* Remember: "href" is destination. Clickable text goes between <a> and </a>.'
     ], y);
     y -= 8;

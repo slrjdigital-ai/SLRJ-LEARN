@@ -2,17 +2,17 @@ import type { Metadata } from "next";
 import AboutContent from "./AboutContent";
 
 export const metadata: Metadata = {
-  title: "About Us | SLRJ Digital - Values, Architecture & Leadership",
+  title: "About Us | SLRJ Learn - Values, Architecture & Leadership",
   description:
-    "Discover the engineering philosophy behind SLRJ Digital. Rooted in Sankalp, Lakshya, Rachna, and Josh, we engineer high-performance web platforms and bespoke digital experiences.",
+    "Discover the engineering philosophy behind SLRJ Learn. Rooted in Sankalp, Lakshya, Rachna, and Josh, we engineer high-performance web platforms and educational experiences.",
   alternates: {
-    canonical: "https://slrjdigital.in/about",
+    canonical: "https://slrjlearn.in/about",
   },
   openGraph: {
-    title: "About SLRJ Digital | High-Performance Web Agency",
+    title: "About SLRJ Learn | Learning Platform & Engineering Hub",
     description:
       "Rooted in four timeless pillars: Sankalp, Lakshya, Rachna, and Josh. Discover our architecture, precision engineering lifecycle, and leadership.",
-    url: "https://slrjdigital.in/about",
+    url: "https://slrjlearn.in/about",
   },
 };
 

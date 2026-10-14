@@ -59,7 +59,7 @@ async function generateExactNotebookPdf() {
       color: rgb(0.3, 0.3, 0.3),
     });
 
-    page.drawText('SLRJ Digital Learning Hub  *  Study - Write - Practice - Build - Revise', {
+    page.drawText('SLRJ Learn Hub  *  Study - Write - Practice - Build - Revise', {
       x: W / 2 - 140,
       y: 35,
       size: 7.5,

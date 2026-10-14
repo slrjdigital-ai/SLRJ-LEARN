@@ -85,7 +85,7 @@ export default function Navbar() {
               <div className="relative">
                 <Image
                   src="/logo.png?v=5"
-                  alt="SLRJ Digital Logo"
+                  alt="SLRJ Learn Logo"
                   width={42}
                   height={42}
                   priority
@@ -100,7 +100,7 @@ export default function Navbar() {
                   <span className="text-transparent bg-clip-text bg-gradient-to-b from-white to-slate-400">RJ</span>
                 </span>
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-slate-200 to-indigo-200 text-[10px] sm:text-xs font-bold tracking-[0.25em] uppercase ml-1 hidden sm:inline">
-                  Digital
+                  Learn
                 </span>
               </div>
             </Link>

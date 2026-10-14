@@ -15,10 +15,10 @@ import {
 } from "lucide-react";
 
 export const metadata = {
-  title: "Terms & Conditions | SLRJ Digital",
-  description: "Official Terms and Conditions of Service for SLRJ Digital web engineering and agency services.",
+  title: "Terms & Conditions | SLRJ Learn",
+  description: "Official Terms and Conditions of Service for SLRJ Learn platform and educational services.",
   alternates: {
-    canonical: "https://slrjdigital.in/terms-and-conditions",
+    canonical: "https://slrjlearn.in/terms-and-conditions",
   },
 };
 
@@ -55,7 +55,7 @@ export default function TermsAndConditionsPage() {
           </h1>
 
           <p className="text-gray-400 text-base sm:text-lg leading-relaxed mb-6">
-            The binding legal agreement governing client contracts, software project deliverables, intellectual property ownership, and website access for SLRJ Digital.
+            The binding legal agreement governing client contracts, software project deliverables, intellectual property ownership, and website access for SLRJ Learn.
           </p>
 
           <div className="flex flex-wrap items-center gap-6 text-xs text-gray-400 font-medium">
@@ -65,7 +65,7 @@ export default function TermsAndConditionsPage() {
             </span>
             <span className="flex items-center gap-1.5">
               <Building2 size={14} className="text-cyan-400" />
-              Service Provider: <strong className="text-white">SLRJ Digital</strong>
+              Service Provider: <strong className="text-white">SLRJ Learn</strong>
             </span>
             <span className="flex items-center gap-1.5">
               <Code2 size={14} className="text-pink-400" />
@@ -89,7 +89,7 @@ export default function TermsAndConditionsPage() {
                 </span>
               </h3>
               <p className="text-gray-200 text-sm leading-relaxed">
-                By browsing <strong className="text-amber-300">slrjdigital.in</strong>, submitting project inquiry forms, or entering into a software development engagement with SLRJ Digital, you agree to be bound by these Terms & Conditions. If you do not agree, please refrain from accessing our site or contracting our services.
+                By browsing <strong className="text-amber-300">slrjlearn.in</strong>, submitting project inquiry forms, or entering into a software development engagement with SLRJ Learn, you agree to be bound by these Terms & Conditions. If you do not agree, please refrain from accessing our site or contracting our services.
               </p>
             </div>
           </div>
@@ -110,7 +110,7 @@ export default function TermsAndConditionsPage() {
                 </span>
               </h3>
               <p className="text-gray-200 text-sm leading-relaxed">
-                Upon final client approval and full settlement of agreed project fees, <strong>100% full legal ownership of final custom source code, designs, and digital assets is transferred directly to the client</strong>. SLRJ Digital retains no secret backdoors or ungranted code claims on your custom project.
+                Upon final client approval and full settlement of agreed project fees, <strong>100% full legal ownership of final custom source code, designs, and digital assets is transferred directly to the client</strong>. SLRJ Learn retains no secret backdoors or ungranted code claims on your custom project.
               </p>
             </div>
           </div>
@@ -125,7 +125,7 @@ export default function TermsAndConditionsPage() {
               <span>Services Provided</span>
             </h2>
             <p className="mb-4">
-              <strong>SLRJ Digital</strong> specializes in high-performance digital solutions, including:
+              <strong>SLRJ Learn</strong> specializes in high-performance digital solutions, including:
             </p>
             <ul className="grid sm:grid-cols-2 gap-3 mb-6">
               <li className="flex items-center gap-2.5 bg-white/[0.02] p-3 rounded-xl border border-white/5 text-gray-200 font-medium">
@@ -181,7 +181,7 @@ export default function TermsAndConditionsPage() {
                   Highlighted Notice: 30-Day Post-Launch Bug Warranty
                 </h4>
                 <p className="text-gray-300 text-xs sm:text-sm leading-relaxed">
-                  Every custom website or web application delivered by SLRJ Digital comes with a <strong>30-Day Post-Launch Bug Warranty</strong>. Any technical defects or functional bugs within the agreed scope identified within 30 days of launch will be resolved at zero additional cost.
+                  Every custom website or web application delivered by SLRJ Learn comes with a <strong>30-Day Post-Launch Bug Warranty</strong>. Any technical defects or functional bugs within the agreed scope identified within 30 days of launch will be resolved at zero additional cost.
                 </p>
               </div>
             </div>
@@ -210,7 +210,7 @@ export default function TermsAndConditionsPage() {
               <span>Limitation of Liability</span>
             </h2>
             <p className="mb-4">
-              SLRJ Digital strives for 100% technical uptime and optimal performance. However, SLRJ Digital shall not be held liable for indirect damages, third-party hosting server outages (e.g. Vercel, AWS, Cloudflare), domain Registrar failures, or client modifications made to source code after project handover.
+              SLRJ Learn strives for 100% technical uptime and optimal performance. However, SLRJ Learn shall not be held liable for indirect damages, third-party hosting server outages (e.g. Vercel, AWS, Cloudflare), domain Registrar failures, or client modifications made to source code after project handover.
             </p>
           </div>
 
@@ -232,7 +232,7 @@ export default function TermsAndConditionsPage() {
               <span>Official Legal Contact</span>
             </h3>
             <p className="text-gray-400 text-sm mb-6">
-              For legal inquiries, scope clarifications, or contract inquiries regarding SLRJ Digital, please contact us directly:
+              For legal inquiries, scope clarifications, or contract inquiries regarding SLRJ Learn, please contact us directly:
             </p>
 
             <div className="grid sm:grid-cols-2 gap-4">

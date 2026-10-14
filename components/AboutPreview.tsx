@@ -42,7 +42,7 @@ export default function AboutPreview() {
               </h2>
               
               <p className="text-sm sm:text-lg md:text-xl mb-6 sm:mb-10 leading-relaxed max-w-lg text-gray-400">
-                SLRJ Digital is a web development and digital solutions agency built on strong foundational values. We believe in creating premium, modern digital experiences that help businesses establish their online presence, reach more customers, and achieve their goals.
+                SLRJ Learn is a web development and computer science learning platform built on strong foundational values. We believe in creating premium, modern learning experiences that help developers master engineering skills, build production apps, and achieve their career goals.
               </p>
               
               <Link 

@@ -38,7 +38,7 @@ export default function FloatingWhatsApp() {
   }, [isOpen]);
 
   const handleStartChat = (customText?: string) => {
-    const textToSend = customText || "Hi SLRJ Digital, I would like to inquire about a project for my business.";
+    const textToSend = customText || "Hi SLRJ Learn, I would like to inquire about your learning resources.";
     const url = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(textToSend)}`;
     window.open(url, "_blank", "noopener,noreferrer");
     setIsOpen(false);
@@ -65,7 +65,7 @@ export default function FloatingWhatsApp() {
                   <div className="w-10 h-10 rounded-full bg-black/40 border border-white/30 flex items-center justify-center overflow-hidden">
                     <Image
                       src="/logo.png?v=5"
-                      alt="SLRJ Digital"
+                      alt="SLRJ Learn"
                       width={28}
                       height={28}
                       className="object-contain"
@@ -76,7 +76,7 @@ export default function FloatingWhatsApp() {
                 </div>
                 <div>
                   <h4 className="font-bold text-sm tracking-wide leading-tight flex items-center gap-1.5">
-                    SLRJ Digital
+                    SLRJ Learn
                     <Sparkles size={13} className="text-amber-200 fill-amber-200" />
                   </h4>
                   <p className="text-[11px] text-emerald-100 flex items-center gap-1">
@@ -104,7 +104,7 @@ export default function FloatingWhatsApp() {
                 </div>
                 <div className="bg-white/5 border border-white/10 rounded-2xl rounded-tl-sm p-3 text-xs leading-relaxed text-gray-200 shadow-sm">
                   <p className="font-semibold text-emerald-400 mb-1">Hi there! 👋</p>
-                  <p>Welcome to SLRJ Digital. How can we help transform your vision into reality today?</p>
+                  <p>Welcome to SLRJ Learn. How can we help transform your learning journey today?</p>
                   <span className="block text-[10px] text-gray-500 text-right mt-1.5 flex items-center justify-end gap-1">
                     Just now <CheckCheck size={12} className="text-cyan-400 inline" />
                   </span>

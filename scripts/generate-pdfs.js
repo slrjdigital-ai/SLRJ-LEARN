@@ -14,7 +14,7 @@ const PDF_DEFINITIONS = [
         section: '1. How the Internet Operates',
         content: [
           'The Internet is a global interconnected network of physical and wireless computers communicating via TCP/IP protocols.',
-          'When you enter "https://slrjdigital.in" in your browser:',
+          'When you enter "https://slrjlearn.in" in your browser:',
           '  1. DNS Resolution: Browser queries DNS resolvers to translate hostname to IP address (e.g., 172.67.182.25).',
           '  2. TCP 3-Way Handshake: SYN -> SYN-ACK -> ACK ensures reliable connection establishment.',
           '  3. TLS/SSL Negotiation: Cryptographic handshake exchanges cipher suites and verifies SSL certificates.',
@@ -24,7 +24,7 @@ const PDF_DEFINITIONS = [
         codeTitle: 'Typical HTTP Request & Response Headers',
         codeLines: [
           'GET /blog HTTP/2',
-          'Host: slrjdigital.in',
+          'Host: slrjlearn.in',
           'User-Agent: Mozilla/5.0 Chrome/130.0',
           'Accept: text/html,application/xhtml+xml',
           '',
@@ -92,13 +92,13 @@ const PDF_DEFINITIONS = [
           '<head>',
           '  <meta charset="UTF-8">',
           '  <meta name="viewport" content="width=device-width, initial-scale=1.0">',
-          '  <title>SLRJ Digital | Web Engineering Notes</title>',
+          '  <title>SLRJ Learn | Web Engineering Notes</title>',
           '  <meta name="description" content="Master modern web development.">',
           '</head>',
           '<body>',
           '  <header><nav aria-label="Main Navigation">...</nav></header>',
           '  <main id="content"><article><h1>HTML5 Mastery</h1>...</article></main>',
-          '  <footer><p>&copy; 2026 SLRJ Digital</p></footer>',
+          '  <footer><p>&copy; 2026 SLRJ Learn</p></footer>',
           '</body>',
           '</html>'
         ],
@@ -401,9 +401,9 @@ const PDF_DEFINITIONS = [
           '  const note = getNoteBySlug(slug);',
           '  if (!note) return { title: "Note Not Found" };',
           '  return {',
-          '    title: `${note.title} | SLRJ Digital`,',
+          '    title: `${note.title} | SLRJ Learn`,',
           '    description: note.description,',
-          '    alternates: { canonical: `https://slrjdigital.in/blog/${slug}` }',
+          '    alternates: { canonical: `https://slrjlearn.in/blog/${slug}` }',
           '  };',
           '}'
         ],
@@ -976,7 +976,7 @@ async function generateAllPdfs() {
       });
 
       // Brand Header in Banner
-      page.drawText('SLRJ DIGITAL', {
+      page.drawText('SLRJ LEARN', {
         x: 40,
         y: height - 36,
         size: 16,
@@ -992,7 +992,7 @@ async function generateAllPdfs() {
         color: rgb(0.96, 0.62, 0.05),
       });
 
-      page.drawText('THINK. BUILD. GROW.  •  https://slrjdigital.in', {
+      page.drawText('THINK. BUILD. GROW.  •  https://slrjlearn.in', {
         x: 40,
         y: height - 54,
         size: 8,
@@ -1168,7 +1168,7 @@ async function generateAllPdfs() {
         color: rgb(0.5, 0.5, 0.6),
       });
 
-      page.drawText('SLRJ Digital Educational Series • Free for Students & Aspiring Developers • https://slrjdigital.in', {
+      page.drawText('SLRJ Learn Educational Series • Free for Students & Aspiring Developers • https://slrjlearn.in', {
         x: 120,
         y: 28,
         size: 7.5,
