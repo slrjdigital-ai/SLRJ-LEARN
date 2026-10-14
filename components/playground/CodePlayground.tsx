@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
+import { useState, useEffect } from "react";
 import {
   Play,
   RotateCcw,
@@ -126,47 +126,39 @@ export default function CodePlayground() {
   const [saved, setSaved] = useState(false);
   const [isRunning, setIsRunning] = useState(false);
 
-  const iframeRef = useRef<HTMLIFrameElement>(null);
+  const buildWebDocument = (h: string, c: string, j: string) => `<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <style>${c}</style>
+  </head>
+  <body>
+    ${h}
+    <script>
+      const _log = console.log;
+      console.log = function(...args) {
+        window.parent.postMessage({ type: 'PLAYGROUND_LOG', message: args.join(' ') }, '*');
+        _log.apply(console, args);
+      };
+      try {
+        ${j}
+      } catch (err) {
+        window.parent.postMessage({ type: 'PLAYGROUND_LOG', message: 'ERROR: ' + err.message }, '*');
+      }
+    <\/script>
+  </body>
+</html>`;
+
+  const [webSrcDoc, setWebSrcDoc] = useState("");
 
   // Run Web Code
-  const runWebCode = () => {
+  const runWebCode = (overrideCode?: { html?: string; css?: string; js?: string }) => {
     setIsRunning(true);
     setConsoleLogs((prev) => [...prev, `[${new Date().toLocaleTimeString()}] Executing Web Playground...`]);
-
-    if (!iframeRef.current) return;
-
-    const combinedDoc = `
-      <!DOCTYPE html>
-      <html>
-        <head>
-          <style>${cssCode}</style>
-        </head>
-        <body>
-          ${htmlCode}
-          <script>
-            // Intercept console.log to communicate with parent
-            const _log = console.log;
-            console.log = function(...args) {
-              window.parent.postMessage({ type: 'PLAYGROUND_LOG', message: args.join(' ') }, '*');
-              _log.apply(console, args);
-            };
-            try {
-              ${jsCode}
-            } catch (err) {
-              window.parent.postMessage({ type: 'PLAYGROUND_LOG', message: 'ERROR: ' + err.message }, '*');
-            }
-          <\/script>
-        </body>
-      </html>
-    `;
-
-    const doc = iframeRef.current.contentDocument || iframeRef.current.contentWindow?.document;
-    if (doc) {
-      doc.open();
-      doc.write(combinedDoc);
-      doc.close();
-    }
-
+    const h = overrideCode?.html ?? htmlCode;
+    const c = overrideCode?.css ?? cssCode;
+    const j = overrideCode?.js ?? jsCode;
+    setWebSrcDoc(buildWebDocument(h, c, j));
     setTimeout(() => setIsRunning(false), 300);
   };
 
@@ -273,7 +265,7 @@ export default function CodePlayground() {
       setHtmlCode(preset.html || "");
       setCssCode(preset.css || "");
       setJsCode(preset.js || "");
-      setTimeout(() => runWebCode(), 50);
+      runWebCode({ html: preset.html || "", css: preset.css || "", js: preset.js || "" });
     } else {
       setLanguageMode("python");
       setPythonCode(preset.python || "");
@@ -363,7 +355,7 @@ export default function CodePlayground() {
           </button>
 
           <button
-            onClick={languageMode === "web" ? runWebCode : runPythonCode}
+            onClick={() => (languageMode === "web" ? runWebCode() : runPythonCode())}
             className="flex items-center gap-1.5 px-4 py-1.5 rounded-xl bg-gradient-to-r from-emerald-400 to-cyan-400 text-black font-bold text-xs shadow-md shadow-emerald-500/20 hover:scale-105 active:scale-95 transition-all cursor-pointer"
           >
             <Play size={13} fill="currentColor" />
@@ -436,7 +428,7 @@ export default function CodePlayground() {
             <div className="flex-1 flex flex-col">
               <div className="flex-1 relative min-h-[250px]">
                 <iframe
-                  ref={iframeRef}
+                  srcDoc={webSrcDoc}
                   title="Sandboxed Output"
                   sandbox="allow-scripts"
                   className="w-full h-full border-none bg-[#030712]"

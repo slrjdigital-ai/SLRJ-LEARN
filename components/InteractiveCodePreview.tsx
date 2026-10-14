@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { Play, RotateCcw, Copy, Check, Sparkles, Terminal, Code2 } from "lucide-react";
 
 const INITIAL_HTML = `<div class="card">
@@ -85,32 +85,28 @@ export default function InteractiveCodePreview() {
   const [jsCode, setJsCode] = useState(INITIAL_JS);
   const [copied, setCopied] = useState(false);
   const [isRunning, setIsRunning] = useState(false);
-  const iframeRef = useRef<HTMLIFrameElement>(null);
 
-  const updatePreview = () => {
+  const buildDocument = (h: string, c: string, j: string) => `<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <style>${c}</style>
+  </head>
+  <body>
+    ${h}
+    <script>${j}<\/script>
+  </body>
+</html>`;
+
+  const [srcDoc, setSrcDoc] = useState(buildDocument(INITIAL_HTML, INITIAL_CSS, INITIAL_JS));
+
+  const updatePreview = (overrideCode?: { html?: string; css?: string; js?: string }) => {
     setIsRunning(true);
-    if (!iframeRef.current) return;
-
-    const combinedDoc = `
-      <!DOCTYPE html>
-      <html>
-        <head>
-          <style>${cssCode}</style>
-        </head>
-        <body>
-          ${htmlCode}
-          <script>${jsCode}<\/script>
-        </body>
-      </html>
-    `;
-
-    const doc = iframeRef.current.contentDocument || iframeRef.current.contentWindow?.document;
-    if (doc) {
-      doc.open();
-      doc.write(combinedDoc);
-      doc.close();
-    }
-    setTimeout(() => setIsRunning(false), 300);
+    const h = overrideCode?.html ?? htmlCode;
+    const c = overrideCode?.css ?? cssCode;
+    const j = overrideCode?.js ?? jsCode;
+    setSrcDoc(buildDocument(h, c, j));
+    setTimeout(() => setIsRunning(false), 250);
   };
 
   useEffect(() => {
@@ -121,9 +117,7 @@ export default function InteractiveCodePreview() {
     setHtmlCode(INITIAL_HTML);
     setCssCode(INITIAL_CSS);
     setJsCode(INITIAL_JS);
-    setTimeout(() => {
-      updatePreview();
-    }, 50);
+    updatePreview({ html: INITIAL_HTML, css: INITIAL_CSS, js: INITIAL_JS });
   };
 
   const handleCopy = () => {
@@ -195,7 +189,7 @@ export default function InteractiveCodePreview() {
             <RotateCcw size={14} />
           </button>
           <button
-            onClick={updatePreview}
+            onClick={() => updatePreview()}
             className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-gradient-to-r from-emerald-400 to-cyan-400 text-black font-bold text-xs shadow-md shadow-emerald-500/20 hover:scale-105 active:scale-95 transition-all cursor-pointer"
           >
             <Play size={12} fill="currentColor" />
@@ -234,7 +228,7 @@ export default function InteractiveCodePreview() {
             <span className="text-emerald-400 font-bold text-[10px]">Active</span>
           </div>
           <iframe
-            ref={iframeRef}
+            srcDoc={srcDoc}
             title="Live Code Preview"
             sandbox="allow-scripts"
             className="w-full h-full min-h-[220px] lg:min-h-[270px] border-none bg-[#030712]"
