@@ -1,9 +1,11 @@
 "use client";
 
+import { useState } from "react";
 import Link from "next/link";
 import { NoteItem } from "@/data/notes";
 import { useAuth } from "@/context/AuthContext";
-import { Clock, Calendar, ArrowRight, Bookmark, FileText, BookOpen } from "lucide-react";
+import { Clock, Calendar, ArrowRight, Bookmark, FileText, BookOpen, Layers } from "lucide-react";
+import NoteLevelsModal from "@/components/blog/NoteLevelsModal";
 
 interface NoteCardProps {
   note: NoteItem;
@@ -96,6 +98,7 @@ const CATEGORY_COLORS: Record<string, {
 };
 
 export default function NoteCard({ note }: NoteCardProps) {
+  const [isLevelsOpen, setIsLevelsOpen] = useState(false);
   const { user, toggleBookmark } = useAuth();
   const isBookmarked = user?.bookmarkedNotes.includes(note.slug);
 
@@ -202,26 +205,15 @@ export default function NoteCard({ note }: NoteCardProps) {
 
         {/* Action Buttons */}
         <div className="flex items-center gap-2">
-          {note.pdf?.hasPdf && note.pdf.fileUrl ? (
-            <a
-              href={note.pdf.fileUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex-1 flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-gradient-to-r from-violet-600 via-indigo-600 to-cyan-500 hover:from-violet-500 hover:to-cyan-400 text-white text-xs font-bold shadow-lg shadow-indigo-950/40 transition-all duration-300 hover:shadow-indigo-500/25 hover:scale-[1.02] active:scale-98"
-            >
-              <FileText size={14} />
-              <span>Read Complete Notes</span>
-              <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
-            </a>
-          ) : (
-            <Link
-              href={`/notes/${note.slug}`}
-              className="flex-1 flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-gradient-to-r from-violet-600 via-indigo-600 to-cyan-500 hover:from-violet-500 hover:to-cyan-400 text-white text-xs font-bold shadow-lg shadow-indigo-950/40 transition-all duration-300 hover:shadow-indigo-500/25 hover:scale-[1.02] active:scale-98"
-            >
-              <span>Read Complete Notes</span>
-              <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
-            </Link>
-          )}
+          <button
+            type="button"
+            onClick={() => setIsLevelsOpen(true)}
+            className="flex-1 flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-gradient-to-r from-violet-600 via-indigo-600 to-cyan-500 hover:from-violet-500 hover:to-cyan-400 text-white text-xs font-bold shadow-lg shadow-indigo-950/40 transition-all duration-300 hover:shadow-indigo-500/25 hover:scale-[1.02] active:scale-98 cursor-pointer"
+          >
+            <FileText size={14} />
+            <span>Read Complete Notes</span>
+            <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
+          </button>
 
           <Link
             href={`/notes/${note.slug}`}
@@ -232,6 +224,13 @@ export default function NoteCard({ note }: NoteCardProps) {
           </Link>
         </div>
       </div>
+
+      {/* 4 Levels Modal */}
+      <NoteLevelsModal
+        isOpen={isLevelsOpen}
+        onClose={() => setIsLevelsOpen(false)}
+        note={note}
+      />
     </div>
   );
 }

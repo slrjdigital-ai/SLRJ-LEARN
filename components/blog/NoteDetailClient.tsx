@@ -4,7 +4,8 @@ import { useState } from "react";
 import { NoteItem } from "@/data/notes";
 import { PdfResource } from "@/data/pdfs";
 import PdfPreviewModal from "@/components/blog/PdfPreviewModal";
-import { Download, Eye, FileText, CheckCircle2 } from "lucide-react";
+import NoteLevelsModal from "@/components/blog/NoteLevelsModal";
+import { Download, Eye, FileText, CheckCircle2, Layers } from "lucide-react";
 
 interface NoteDetailClientProps {
   note: NoteItem;
@@ -16,6 +17,7 @@ export default function NoteDetailClient({
   pdfResource,
 }: NoteDetailClientProps) {
   const [isPreviewOpen, setIsPreviewOpen] = useState(false);
+  const [isLevelsOpen, setIsLevelsOpen] = useState(false);
 
   if (!note.pdf?.hasPdf || !pdfResource) return null;
 
@@ -47,15 +49,13 @@ export default function NoteDetailClient({
         </div>
 
         <div className="flex flex-wrap items-center gap-2.5 w-full sm:w-auto flex-shrink-0">
-          <a
-            href={pdfResource.fileUrl}
-            target="_blank"
-            rel="noopener noreferrer"
+          <button
+            onClick={() => setIsLevelsOpen(true)}
             className="flex-1 sm:flex-initial flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-xl bg-gradient-to-r from-violet-600 via-indigo-600 to-cyan-500 hover:from-violet-500 hover:to-cyan-400 text-white font-bold text-xs shadow-lg shadow-indigo-950/40 transition-all cursor-pointer active:scale-95"
           >
-            <FileText size={14} className="text-white" />
+            <Layers size={14} className="text-white" />
             <span>Read Complete Notes</span>
-          </a>
+          </button>
 
           <button
             onClick={() => setIsPreviewOpen(true)}
@@ -81,6 +81,13 @@ export default function NoteDetailClient({
         pdf={pdfResource}
         isOpen={isPreviewOpen}
         onClose={() => setIsPreviewOpen(false)}
+      />
+
+      {/* 4 Levels Modal */}
+      <NoteLevelsModal
+        isOpen={isLevelsOpen}
+        onClose={() => setIsLevelsOpen(false)}
+        note={note}
       />
     </>
   );

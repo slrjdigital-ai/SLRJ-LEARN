@@ -56,6 +56,19 @@ export interface NoteSection {
   revisionNotes?: string[];
 }
 
+export interface NoteLevel {
+  levelNumber: number;
+  levelName: string;
+  tagline: string;
+  description: string;
+  pageStart: number;
+  pageEnd: number;
+  topics: string[];
+  pdfUrl: string;
+  sectionAnchor: string;
+  colorTheme: "emerald" | "cyan" | "violet" | "amber";
+}
+
 export interface NoteItem {
   id: string;
   slug: string;
@@ -101,6 +114,71 @@ export interface NoteItem {
   practiceQuestions: PracticeQuestion[];
   relatedNoteSlugs: string[];
   tags?: string[];
+  levels?: NoteLevel[];
+}
+
+export function getNoteLevels(note: NoteItem): NoteLevel[] {
+  if (note.levels && note.levels.length > 0) {
+    return note.levels;
+  }
+
+  const totalPages = note.pdf?.pageCount || 10;
+  const p1 = 1;
+  const p2 = Math.max(2, Math.floor(totalPages * 0.25));
+  const p3 = Math.max(p2 + 1, Math.floor(totalPages * 0.5));
+  const p4 = Math.max(p3 + 1, Math.floor(totalPages * 0.75));
+  const fileUrl = note.pdf?.fileUrl || `/notes/${note.slug}`;
+
+  return [
+    {
+      levelNumber: 1,
+      levelName: "LEVEL 1 — BASIC",
+      tagline: "Core Foundations & Fundamental Syntax",
+      description: `Essential beginner principles, terminology, syntax rules, and core building blocks of ${note.topic}.`,
+      pageStart: p1,
+      pageEnd: p2,
+      topics: ["Core Fundamentals", "Syntax & Rules", "Initial Setup", "Basic Implementations"],
+      pdfUrl: `${fileUrl}#page=${p1}`,
+      sectionAnchor: note.tableOfContents[0]?.id || "overview",
+      colorTheme: "emerald",
+    },
+    {
+      levelNumber: 2,
+      levelName: "LEVEL 2 — INTERMEDIATE",
+      tagline: "Core Architecture & Applied Concepts",
+      description: `Practical implementation, standard patterns, interactive components, and common real-world workflows.`,
+      pageStart: p2,
+      pageEnd: p3,
+      topics: ["Standard Patterns", "Component Architecture", "Handling State/Data", "Practical Workflows"],
+      pdfUrl: `${fileUrl}#page=${p2}`,
+      sectionAnchor: note.tableOfContents[1]?.id || "overview",
+      colorTheme: "cyan",
+    },
+    {
+      levelNumber: 3,
+      levelName: "LEVEL 3 — ADVANCED",
+      tagline: "Performance, Standards & Deep Dives",
+      description: `Advanced optimization, accessibility standards, edge cases, system design considerations, and scalability.`,
+      pageStart: p3,
+      pageEnd: p4,
+      topics: ["Performance Tuning", "Deep Mechanics", "Best Practices", "System Optimization"],
+      pdfUrl: `${fileUrl}#page=${p3}`,
+      sectionAnchor: note.tableOfContents[2]?.id || "overview",
+      colorTheme: "violet",
+    },
+    {
+      levelNumber: 4,
+      levelName: "LEVEL 4 — PRO",
+      tagline: "Production Engineering & Master Checklist",
+      description: `Enterprise-grade architectures, security hardening, production validation, and interview-ready mastery checklists.`,
+      pageStart: p4,
+      pageEnd: totalPages,
+      topics: ["Production Hardening", "Security & Reliability", "Validation & Linting", "Mastery Checklist"],
+      pdfUrl: `${fileUrl}#page=${p4}`,
+      sectionAnchor: note.tableOfContents[3]?.id || "overview",
+      colorTheme: "amber",
+    },
+  ];
 }
 
 export const NOTES_DATA: NoteItem[] = [
@@ -344,6 +422,88 @@ strict-transport-security: max-age=31536000; includeSubDomains`,
       "Accessibility",
       "SEO",
       "Handwritten Notes"
+    ],
+    levels: [
+      {
+        levelNumber: 1,
+        levelName: "LEVEL 1 — BASIC",
+        tagline: "Core Syntax, Document Structure & Essential Elements",
+        description: "Master document skeletons, DOCTYPE declarations, head metadata, headings, paragraphs, lists, anchor hyperlinks, images, and standard data tables.",
+        pageStart: 3,
+        pageEnd: 8,
+        pdfUrl: "/pdfs/html5-complete-notes.pdf#page=3",
+        sectionAnchor: "level-1-basics",
+        colorTheme: "emerald",
+        topics: [
+          "HTML Document Tree & DOCTYPE",
+          "Essential Head Metadata & Viewport",
+          "Text Hierarchy & Content Formatting",
+          "Ordered, Unordered & Definition Lists",
+          "Hyperlinks & Relative/Absolute Paths",
+          "Images & Responsive Attributes",
+          "Data Tables with thead, tbody, colspan & rowspan"
+        ]
+      },
+      {
+        levelNumber: 2,
+        levelName: "LEVEL 2 — INTERMEDIATE",
+        tagline: "Modern Semantic Architecture, Interactive Forms & Rich Media",
+        description: "Architect semantic page layouts with header, nav, main, article, section, and aside. Build robust interactive forms, native validation, and embed multimedia.",
+        pageStart: 9,
+        pageEnd: 15,
+        pdfUrl: "/pdfs/html5-complete-notes.pdf#page=9",
+        sectionAnchor: "level-2-intermediate",
+        colorTheme: "cyan",
+        topics: [
+          "Semantic HTML5 Page Structure",
+          "Form Architecture, Fieldsets & Legends",
+          "Modern Input Types & Attributes",
+          "Native HTML Client-Side Validation",
+          "Dropdowns, Datalists & Accessible Controls",
+          "Native Audio & Video with Subtitles",
+          "Iframes, Embeds & Sandboxing Security"
+        ]
+      },
+      {
+        levelNumber: 3,
+        levelName: "LEVEL 3 — ADVANCED",
+        tagline: "Accessibility (WCAG 2.1), SEO Metadata & Modern Web APIs",
+        description: "Deep dive into web standards, ARIA roles, screen-reader compliance, Open Graph and Twitter card SEO metadata, responsive picture tags, and web APIs.",
+        pageStart: 16,
+        pageEnd: 19,
+        pdfUrl: "/pdfs/html5-complete-notes.pdf#page=16",
+        sectionAnchor: "level-3-advanced",
+        colorTheme: "violet",
+        topics: [
+          "WCAG 2.1 Standards & Accessible Roles",
+          "Screen Reader Live Regions & Focus",
+          "Search Engine Optimization & Open Graph",
+          "Schema.org JSON-LD Structured Data",
+          "Responsive Images with <picture> & srcset",
+          "Script Loading Optimization: defer vs async",
+          "Web Storage, Templates & Custom Elements"
+        ]
+      },
+      {
+        levelNumber: 4,
+        levelName: "LEVEL 4 — PRO",
+        tagline: "Clean Architecture, W3C Standards, Security & 30-Day Plan",
+        description: "Production-grade development: BEM class naming conventions, W3C validation compliance, XSS defense, CSP headers, performance tuning, and 30-day practice roadmap.",
+        pageStart: 20,
+        pageEnd: 27,
+        pdfUrl: "/pdfs/html5-complete-notes.pdf#page=20",
+        sectionAnchor: "level-4-pro",
+        colorTheme: "amber",
+        topics: [
+          "Clean Architecture & BEM Class Naming",
+          "W3C Markup Validation Standards",
+          "HTML Security (XSS Prevention & CSP)",
+          "Link Hardening (noopener, noreferrer)",
+          "DOM Size Reduction & Paint Performance",
+          "30-Day HTML Mastery Practice Roadmap",
+          "Real-World Production Capstone Checklist"
+        ]
+      }
     ],
     tableOfContents: [
       { id: "handbook-overview", title: "Handwritten Notebook Overview & Learning Roadmap", level: 2 },
