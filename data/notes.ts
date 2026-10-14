@@ -331,8 +331,8 @@ strict-transport-security: max-age=31536000; includeSubDomains`,
       hasPdf: true,
       fileUrl: "/pdfs/html5-complete-notes.pdf",
       filename: "html5-complete-notes.pdf",
-      fileSize: "23.7 KB",
-      pageCount: 10,
+      fileSize: "4.7 MB",
+      pageCount: 27,
       language: "English"
     },
     tags: [
