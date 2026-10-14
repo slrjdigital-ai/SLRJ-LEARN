@@ -103,14 +103,14 @@ export default function EmbeddedPdfViewer({ note }: EmbeddedPdfViewerProps) {
               <button
                 key={lvl.levelNumber}
                 onClick={() => setSelectedPage(lvl.pageStart)}
-                className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-mono font-black transition-all cursor-pointer flex-shrink-0 flex items-center gap-2 ${
+                className={`px-4 py-2.5 rounded-xl text-xs sm:text-sm font-mono font-bold transition-colors cursor-pointer flex-shrink-0 flex items-center gap-2 ${
                   isSelected
-                    ? "bg-gradient-to-r from-cyan-500 to-blue-500 text-black shadow-lg shadow-cyan-500/30 scale-[1.02]"
-                    : "bg-white/5 text-gray-200 hover:text-cyan-300 hover:bg-white/10 border border-white/10"
+                    ? "bg-cyan-500 text-black font-extrabold shadow-md shadow-cyan-500/30"
+                    : "bg-slate-800 text-slate-200 hover:text-white hover:bg-slate-700 border border-slate-700"
                 }`}
               >
                 <span>{lvl.levelName}</span>
-                <span className="text-[11px] opacity-75 font-normal">(p. {lvl.pageStart})</span>
+                <span className="text-[11px] opacity-80 font-normal">(p. {lvl.pageStart})</span>
               </button>
             );
           })}
@@ -119,7 +119,6 @@ export default function EmbeddedPdfViewer({ note }: EmbeddedPdfViewerProps) {
         {/* Embedded Iframe */}
         <div className="w-full h-[700px] sm:h-[850px] bg-[#070A14] relative">
           <iframe
-            key={iframeSrc}
             src={iframeSrc}
             className="w-full h-full border-0"
             title={`${note.title} Complete PDF`}
