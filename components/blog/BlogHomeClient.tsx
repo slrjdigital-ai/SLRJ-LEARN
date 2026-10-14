@@ -31,7 +31,16 @@ export default function BlogHomeClient({
         );
 
       const matchesCategory =
-        selectedCategory === "All" || note.category === selectedCategory;
+        selectedCategory === "All" ||
+        note.category === selectedCategory ||
+        (selectedCategory === "Web Development" &&
+          (note.category === "Web Development" ||
+            note.category === "HTML" ||
+            note.category === "CSS" ||
+            note.subCategory === "Web Fundamentals" ||
+            note.subCategory === "HTML" ||
+            note.subCategory === "CSS")) ||
+        note.subCategory === selectedCategory;
 
       return matchesSearch && matchesCategory;
     });

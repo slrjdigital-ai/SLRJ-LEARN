@@ -359,6 +359,14 @@ export default function StandaloneHomePage() {
                   glowHover: "hover:shadow-[0_10px_30px_rgba(244,63,94,0.2)]",
                   textHover: "group-hover:text-rose-300",
                 },
+                "Web Development": {
+                  icon: "🌐",
+                  iconBg: "bg-cyan-500/15 group-hover:bg-cyan-500/25",
+                  iconColor: "text-cyan-400 group-hover:text-cyan-300",
+                  borderHover: "hover:border-cyan-400/60",
+                  glowHover: "hover:shadow-[0_10px_30px_rgba(6,182,212,0.2)]",
+                  textHover: "group-hover:text-cyan-300",
+                },
                 "Web Fundamentals": {
                   icon: "🌐",
                   iconBg: "bg-cyan-500/15 group-hover:bg-cyan-500/25",

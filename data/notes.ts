@@ -76,17 +76,19 @@ export interface NoteItem {
   title: string;
   shortDescription: string;
   category:
+    | "Web Development"
+    | "HTML"
+    | "CSS"
+    | "JavaScript"
+    | "React"
+    | "Next.js"
+    | "Git & GitHub"
+    | "Backend & Databases"
+    | "Deployment"
     | "Data Structures & Algorithms"
     | "Python & AI"
     | "Computer Science Core"
-    | "Cloud & DevOps"
-    | "Web Development"
-    | "JavaScript"
-    | "Git & GitHub"
-    | "React"
-    | "Next.js"
-    | "Backend & Databases"
-    | "Deployment";
+    | "Cloud & DevOps";
   topic: string;
   difficulty: "Beginner" | "Intermediate" | "Advanced";
   readingTime: string;
@@ -396,7 +398,7 @@ strict-transport-security: max-age=31536000; includeSubDomains`,
     slug: "html-basics-document-structure",
     title: "HTML5 Document Structure & Best Practices",
     shortDescription: "Complete HTML Handwritten Notebook from Basic to Pro: modern document structure, semantic page architecture, accessible forms, multimedia, clean architecture, and 30-day practice plan.",
-    category: "Web Development",
+    category: "HTML",
     subCategory: "HTML",
     topic: "HTML5 Core Fundamentals",
     difficulty: "Beginner",
@@ -1119,7 +1121,7 @@ strict-transport-security: max-age=31536000; includeSubDomains`,
     slug: "css-selectors-specificity-box-model",
     title: "CSS Selectors, Specificity & The Box Model",
     shortDescription: "A comprehensive guide to the CSS Cascade, specificity calculation, border-box vs content-box, margins, paddings, and borders.",
-    category: "Web Development",
+    category: "CSS",
     subCategory: "CSS",
     topic: "Core CSS & Layout Mechanics",
     difficulty: "Beginner",
@@ -2353,24 +2355,38 @@ export function getRecentNotes(count = 4): NoteItem[] {
 
 export function getNotesByCategory(category: string): NoteItem[] {
   if (category === "All") return NOTES_DATA;
+  if (category.toLowerCase() === "web development") {
+    return NOTES_DATA.filter(
+      (n) =>
+        n.category.toLowerCase() === "web development" ||
+        n.category.toLowerCase() === "html" ||
+        n.category.toLowerCase() === "css" ||
+        (n.subCategory &&
+          ["web fundamentals", "html", "css"].includes(n.subCategory.toLowerCase()))
+    );
+  }
   return NOTES_DATA.filter(
-    (n) => n.category.toLowerCase() === category.toLowerCase()
+    (n) =>
+      n.category.toLowerCase() === category.toLowerCase() ||
+      (n.subCategory && n.subCategory.toLowerCase() === category.toLowerCase())
   );
 }
 
 export const CATEGORIES = [
   "All",
+  "Web Development",
+  "HTML",
+  "CSS",
+  "JavaScript",
+  "React",
+  "Next.js",
+  "Git & GitHub",
+  "Backend & Databases",
+  "Deployment",
   "Data Structures & Algorithms",
   "Python & AI",
   "Computer Science Core",
   "Cloud & DevOps",
-  "Web Development",
-  "JavaScript",
-  "Git & GitHub",
-  "React",
-  "Next.js",
-  "Backend & Databases",
-  "Deployment"
 ] as const;
 
 export type NoteCategory = (typeof CATEGORIES)[number];

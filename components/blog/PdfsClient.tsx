@@ -19,10 +19,35 @@ export default function PdfsClient({ initialPdfs }: PdfsClientProps) {
   const [previewPdf, setPreviewPdf] = useState<PdfItem | null>(null);
   const [isPreviewOpen, setIsPreviewOpen] = useState(false);
 
-  // Derive unique categories
+  const PREFERRED_ORDER = [
+    "Web Development",
+    "HTML",
+    "CSS",
+    "JavaScript",
+    "React",
+    "Next.js",
+    "Git & GitHub",
+    "Backend & Databases",
+    "Deployment",
+    "Data Structures & Algorithms",
+    "Python & AI",
+    "Computer Science Core",
+    "Cloud & DevOps",
+  ];
+
+  // Derive unique categories ordered by preferred sequence
   const categories = useMemo(() => {
     const set = new Set(initialPdfs.map((p) => p.category));
-    return ["All", ...Array.from(set)];
+    const all = Array.from(set);
+    all.sort((a, b) => {
+      const idxA = PREFERRED_ORDER.indexOf(a);
+      const idxB = PREFERRED_ORDER.indexOf(b);
+      if (idxA !== -1 && idxB !== -1) return idxA - idxB;
+      if (idxA !== -1) return -1;
+      if (idxB !== -1) return 1;
+      return a.localeCompare(b);
+    });
+    return ["All", ...all];
   }, [initialPdfs]);
 
   // Filtered PDFs
@@ -37,7 +62,13 @@ export default function PdfsClient({ initialPdfs }: PdfsClientProps) {
         );
 
       const matchesCategory =
-        selectedCategory === "All" || pdf.category === selectedCategory;
+        selectedCategory === "All" ||
+        pdf.category === selectedCategory ||
+        (selectedCategory === "Web Development" &&
+          (pdf.category === "Web Development" ||
+            pdf.category === "Web Fundamentals" ||
+            pdf.category === "HTML" ||
+            pdf.category === "CSS"));
 
       return matchesSearch && matchesCategory;
     });

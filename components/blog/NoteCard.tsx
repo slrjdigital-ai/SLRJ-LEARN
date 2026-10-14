@@ -53,6 +53,20 @@ const CATEGORY_COLORS: Record<string, {
     topLine: "via-cyan-400/80",
     topicPrefix: "text-cyan-400",
   },
+  "HTML": {
+    badge: "bg-orange-500/15 text-orange-300 border-orange-500/30",
+    glow: "hover:shadow-[0_14px_40px_rgba(249,115,22,0.22)]",
+    hoverBorder: "hover:border-orange-400/60",
+    topLine: "via-orange-400/80",
+    topicPrefix: "text-orange-400",
+  },
+  "CSS": {
+    badge: "bg-blue-500/15 text-blue-300 border-blue-500/30",
+    glow: "hover:shadow-[0_14px_40px_rgba(59,130,246,0.22)]",
+    hoverBorder: "hover:border-blue-400/60",
+    topLine: "via-blue-400/80",
+    topicPrefix: "text-blue-400",
+  },
   "JavaScript": {
     badge: "bg-yellow-500/15 text-yellow-300 border-yellow-500/30",
     glow: "hover:shadow-[0_14px_40px_rgba(234,179,8,0.22)]",
@@ -135,7 +149,7 @@ export default function NoteCard({ note }: NoteCardProps) {
             >
               {note.category}
             </span>
-            {note.subCategory && (
+            {note.subCategory && note.subCategory !== note.category && (
               <span className={`text-[11px] font-mono font-bold uppercase tracking-wider px-2.5 py-1 rounded-full border ${
                 note.subCategory === "HTML"
                   ? "bg-orange-500/15 text-orange-300 border-orange-500/30"

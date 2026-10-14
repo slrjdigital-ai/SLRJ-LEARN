@@ -39,7 +39,16 @@ export default function NotesClient({
           );
 
         const matchesCategory =
-          selectedCategory === "All" || note.category === selectedCategory;
+          selectedCategory === "All" ||
+          note.category === selectedCategory ||
+          (selectedCategory === "Web Development" &&
+            (note.category === "Web Development" ||
+              note.category === "HTML" ||
+              note.category === "CSS" ||
+              note.subCategory === "Web Fundamentals" ||
+              note.subCategory === "HTML" ||
+              note.subCategory === "CSS")) ||
+          note.subCategory === selectedCategory;
 
         const matchesDifficulty =
           selectedDifficulty === "All" || note.difficulty === selectedDifficulty;

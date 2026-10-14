@@ -25,7 +25,7 @@ export const PDF_RESOURCES: PdfResource[] = [
     slug: "web-fundamentals-complete-handbook",
     title: "Web Fundamentals & Internet Architecture Handbook",
     description: "Master DNS resolution, TCP/IP handshakes, HTTP/HTTPS protocols, browser rendering engines, client-server models, and web performance optimization.",
-    category: "Web Fundamentals",
+    category: "Web Development",
     fileUrl: "/pdfs/web-fundamentals-complete-handbook.pdf",
     filename: "web-fundamentals-complete-handbook.pdf",
     fileSize: "5.6 KB",
@@ -452,6 +452,15 @@ export function getPdfBySlug(slug: string): PdfResource | undefined {
 
 export function getPdfsByCategory(category: string): PdfResource[] {
   if (category === "All") return PDF_RESOURCES;
+  if (category.toLowerCase() === "web development") {
+    return PDF_RESOURCES.filter(
+      (p) =>
+        p.category.toLowerCase() === "web development" ||
+        p.category.toLowerCase() === "web fundamentals" ||
+        p.category.toLowerCase() === "html" ||
+        p.category.toLowerCase() === "css"
+    );
+  }
   return PDF_RESOURCES.filter(
     (p) => p.category.toLowerCase() === category.toLowerCase()
   );
@@ -491,6 +500,13 @@ export const PDF_CATEGORY_COLORS: Record<string, {
     hoverBorder: "hover:border-rose-400/60",
     topLine: "via-rose-400/80",
     buttonGrad: "from-rose-400 to-pink-400 hover:from-rose-300 hover:to-pink-300 shadow-rose-500/20",
+  },
+  "Web Development": {
+    badge: "bg-cyan-500/15 text-cyan-300 border-cyan-500/30",
+    glow: "hover:shadow-[0_14px_40px_rgba(6,182,212,0.22)]",
+    hoverBorder: "hover:border-cyan-400/60",
+    topLine: "via-cyan-400/80",
+    buttonGrad: "from-cyan-400 to-blue-400 hover:from-cyan-300 hover:to-blue-300 shadow-cyan-500/20",
   },
   "Web Fundamentals": {
     badge: "bg-cyan-500/15 text-cyan-300 border-cyan-500/30",
