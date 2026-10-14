@@ -237,6 +237,7 @@ export default function CommunityView() {
                         alt={thread.authorName}
                         width={28}
                         height={28}
+                        unoptimized
                         className="w-7 h-7 rounded-full object-cover ring-1 ring-cyan-500/30"
                       />
                       <div className="flex items-center gap-2">
@@ -326,6 +327,7 @@ export default function CommunityView() {
                                 alt={comment.authorName}
                                 width={22}
                                 height={22}
+                                unoptimized
                                 className="w-5 h-5 rounded-full object-cover"
                               />
                               <span className="text-xs font-bold text-white">{comment.authorName}</span>
@@ -397,6 +399,7 @@ export default function CommunityView() {
                       alt={sc.studentName}
                       width={24}
                       height={24}
+                      unoptimized
                       className="w-6 h-6 rounded-full object-cover"
                     />
                     <div className="text-xs">

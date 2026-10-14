@@ -209,6 +209,7 @@ export default function Navbar() {
                       alt={user.name}
                       width={30}
                       height={30}
+                      unoptimized
                       className="w-7 h-7 rounded-full object-cover ring-1 ring-cyan-500/40"
                     />
                     <ChevronDown size={14} className="text-slate-400 mr-1 hidden sm:inline" />
