@@ -9,9 +9,7 @@ import {
   Home,
   Percent,
   BookOpen,
-  Radio,
   Calendar,
-  Code2,
   Terminal,
   MessageSquare,
   Bot,
@@ -40,14 +38,11 @@ export default function AppSidebar({ collapsed, onToggle }: AppSidebarProps) {
     { name: "Home", href: "/", icon: Home, exact: true },
     { name: "My Journey", href: "/roadmap", icon: Percent, exact: false },
     { name: "Course Library", href: "/topics", icon: BookOpen, exact: false },
-    { name: "Live Classes", href: "/community", icon: Radio, exact: false },
     { name: "Events", href: "/gamification", icon: Calendar, exact: false },
-    { name: "CP Ladder", href: "/gamification", icon: Code2, exact: false },
   ];
 
   const secondaryNav = [
     { name: "Playground", href: "/practice", icon: Terminal, exact: false },
-    { name: "Calendar", href: "/gamification", icon: Calendar, exact: false },
     {
       name: "1:1 Doubts",
       href: "/ai-tutor",
