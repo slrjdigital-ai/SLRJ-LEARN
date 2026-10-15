@@ -14,7 +14,7 @@ import {
 } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "Dashboard & Learning Journey | NextWave Academy",
+  title: "Dashboard & Learning Journey | SLRJ Learn Academy",
   description:
     "Follow structured growth cycles, build responsive websites, and track your progress from beginner to advanced.",
 };
@@ -27,7 +27,7 @@ export default function HomePage() {
         <div>
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#e8f1fd] text-[#0b69ff] text-xs font-bold uppercase tracking-wider mb-2">
             <Sparkles size={13} />
-            <span>CCBP 4.0 Transformation Program</span>
+            <span>SLRJ 4.0 Transformation Program</span>
           </div>
           <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 font-brand">
             Welcome back, Shahid!
@@ -55,7 +55,7 @@ export default function HomePage() {
         </div>
       </div>
 
-      {/* ─── NxtWave Growth Cycles (Exact as in photo) ─── */}
+      {/* ─── SLRJ Learn Growth Cycles ─── */}
       <LearningPathDashboard />
     </div>
   );

@@ -4,7 +4,7 @@ import LearningPathDashboard from "@/components/learning-paths/LearningPathDashb
 import { Compass, Sparkles, ArrowRight, BookOpen, CheckCircle2, Bot, Code, Trophy } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "My Journey & Growth Cycles | SLRJ NextWave Academy",
+  title: "My Journey & Growth Cycles | SLRJ Learn Academy",
   description:
     "Follow structured growth cycles, master responsive web development, and track your progress from beginner to advanced.",
 };
@@ -32,7 +32,7 @@ export default function RoadmapPage() {
         </div>
       </div>
 
-      {/* ─── NxtWave Growth Cycle & Course Cards ─── */}
+      {/* ─── SLRJ Learn Growth Cycle & Course Cards ─── */}
       <LearningPathDashboard />
     </div>
   );

@@ -70,7 +70,7 @@ export default function LearningPathDashboard() {
     {
       id: "course-3",
       stepNumber: 3,
-      badge: "CCBP 4.0",
+      badge: "SLRJ 4.0",
       title: "3. Welcome to Academy",
       category: "COURSE",
       description: "Welcome to Academy. Master core engineering mindsets, development tools, and code environments.",
@@ -111,7 +111,7 @@ export default function LearningPathDashboard() {
     {
       id: "course-6",
       stepNumber: 6,
-      badge: "CCBP 4.0",
+      badge: "SLRJ 4.0",
       title: "6. Modern JavaScript & React UI",
       category: "COURSE",
       description: "Build reactive, component-driven user interfaces with state, hooks, and dynamic data APIs.",

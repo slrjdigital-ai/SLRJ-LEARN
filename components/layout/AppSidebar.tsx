@@ -84,12 +84,12 @@ export default function AppSidebar({ collapsed, onToggle }: AppSidebarProps) {
         <div className="h-16 px-4 flex items-center justify-between border-b border-slate-100">
           {!collapsed ? (
             <Link href="/" className="flex items-center gap-2.5">
-              <div className="w-8 h-8 rounded-xl bg-[#0b69ff] flex items-center justify-center text-white font-bold text-sm shadow-md shadow-blue-500/20">
+              <div className="w-8 h-8 rounded-xl bg-[#0b69ff] flex items-center justify-center text-white font-black text-sm shadow-md shadow-blue-500/20">
                 SL
               </div>
               <div className="flex flex-col">
                 <span className="font-extrabold text-sm text-slate-900 leading-none tracking-tight">
-                  NEXTWAVE
+                  SLRJ LEARN
                 </span>
                 <span className="text-[10px] font-bold text-[#0b69ff] tracking-widest uppercase">
                   ACADEMY
@@ -99,7 +99,7 @@ export default function AppSidebar({ collapsed, onToggle }: AppSidebarProps) {
           ) : (
             <Link href="/" className="mx-auto">
               <div className="w-8 h-8 rounded-xl bg-[#0b69ff] flex items-center justify-center text-white font-bold text-sm shadow-md">
-                NW
+                SL
               </div>
             </Link>
           )}

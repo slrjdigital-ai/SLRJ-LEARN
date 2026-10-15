@@ -55,7 +55,7 @@ export default function CoursesPage() {
             </span>
           </h1>
           <p className="text-slate-300 text-base leading-relaxed font-normal">
-            Every course combines W3Schools-level comprehensive syntax explanations, SoloLearn bite-sized gamified quizzes, and NxtWave real-world project milestones. All completely free forever.
+            Every course combines W3Schools-level comprehensive syntax explanations, SoloLearn bite-sized gamified quizzes, and SLRJ Learn real-world project milestones. All completely free forever.
           </p>
         </div>
       </section>

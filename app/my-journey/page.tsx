@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import LearningPathDashboard from "@/components/learning-paths/LearningPathDashboard";
 
 export const metadata: Metadata = {
-  title: "My Journey — Growth Cycles | NextWave Academy",
+  title: "My Journey — Growth Cycles | SLRJ Learn Academy",
   description: "Track your personal growth cycles, courses, and responsive web development milestones.",
 };
 
