@@ -72,11 +72,11 @@ export default function Footer() {
     {
       title: "Learning Platform",
       links: [
-        { name: "Interactive Courses", href: "/courses" },
-        { name: "5 Career Roadmaps", href: "/roadmap" },
+        { name: "Career Learning Paths", href: "/roadmap" },
+        { name: "Free Developer Notes", href: "/notes" },
         { name: "Code Playground & Practice", href: "/practice" },
         { name: "Real-World Projects", href: "/projects" },
-        { name: "AI Coding Tutor", href: "/ai-tutor" },
+        { name: "Lumio AI Chatbot", href: "/ai-tutor" },
       ],
     },
     {

@@ -13,6 +13,7 @@ import { AuthProvider } from "@/context/AuthContext";
 import AuthGuard from "@/components/AuthGuard";
 
 import JsonLd from "@/components/JsonLd";
+import LumioChatbot from "@/components/ai/LumioChatbot";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -113,6 +114,7 @@ export default function RootLayout({
             </PageTransition>
           </AuthGuard>
           <Footer />
+          <LumioChatbot />
         </AuthProvider>
       </body>
     </html>

@@ -31,11 +31,9 @@ import GlobalSearchModal from "./GlobalSearchModal";
 
 const NAV_ITEMS = [
   { name: "Home", href: "/", exact: true, icon: Home },
-  { name: "Courses", href: "/courses", exact: false, icon: BookOpen },
   { name: "Learning Paths", href: "/roadmap", exact: false, icon: Compass },
   { name: "Practice", href: "/practice", exact: false, icon: Code },
   { name: "Projects", href: "/projects", exact: false, icon: FolderGit2 },
-  { name: "AI Tutor", href: "/ai-tutor", exact: false, icon: Bot, badge: "AI" },
   { name: "Community", href: "/community", exact: false, icon: Users },
   { name: "Free Access", href: "/pricing", exact: false, icon: Sparkles, badge: "Free" },
 ];
@@ -169,8 +167,30 @@ export default function Navbar() {
               })}
             </div>
 
-            {/* ─── Right Controls: Bigger Search, Notifications & Auth ─── */}
-            <div className="flex items-center gap-3 sm:gap-4">
+            {/* ─── Right Controls: Lumio AI, Search, Notifications & Auth ─── */}
+            <div className="flex items-center gap-2.5 sm:gap-3.5">
+              {/* Lumio AI Chatbot Launcher */}
+              <button
+                onClick={() => {
+                  if (typeof window !== "undefined") {
+                    window.dispatchEvent(new CustomEvent("open-lumio"));
+                  }
+                }}
+                className="flex items-center gap-2 px-3.5 py-2.5 rounded-2xl bg-gradient-to-r from-purple-500/15 via-cyan-500/15 to-emerald-500/15 hover:from-purple-500/25 hover:via-cyan-500/25 hover:to-emerald-500/25 border border-cyan-400/40 hover:border-cyan-300 transition-all shadow-[0_0_15px_rgba(6,182,212,0.15)] hover:shadow-[0_0_25px_rgba(6,182,212,0.35)] cursor-pointer group"
+                title="Chat with Lumio — AI Coding Companion"
+              >
+                <div className="relative">
+                  <Bot size={17} className="text-cyan-300 group-hover:scale-110 transition-transform" />
+                  <span className="absolute -top-1 -right-1 w-2 h-2 rounded-full bg-emerald-400 animate-pulse shadow-[0_0_6px_#34d399]" />
+                </div>
+                <span className="text-xs font-black font-brand tracking-wide text-white group-hover:text-cyan-200">
+                  Lumio
+                </span>
+                <span className="text-[9px] font-mono font-black px-1.5 py-0.5 rounded-full bg-cyan-400/20 text-cyan-300 border border-cyan-400/30">
+                  AI
+                </span>
+              </button>
+
               {/* Global Search Trigger */}
               <button
                 onClick={() => setSearchOpen(true)}
@@ -346,6 +366,25 @@ export default function Navbar() {
                   </Link>
                 );
               })}
+
+              {/* Chat with Lumio AI Mobile Button */}
+              <button
+                onClick={() => {
+                  setIsOpen(false);
+                  if (typeof window !== "undefined") {
+                    window.dispatchEvent(new CustomEvent("open-lumio"));
+                  }
+                }}
+                className="w-full flex items-center justify-between px-4 py-3 rounded-2xl text-sm font-bold bg-gradient-to-r from-purple-500/20 via-cyan-500/20 to-emerald-500/20 border border-cyan-400/40 text-cyan-200 shadow-md cursor-pointer hover:border-cyan-300 transition-all"
+              >
+                <div className="flex items-center gap-3">
+                  <Bot size={18} className="text-cyan-400 animate-pulse" />
+                  <span>Chat with Lumio AI</span>
+                </div>
+                <span className="text-[10px] font-mono font-bold px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
+                  Online
+                </span>
+              </button>
 
               {!user && (
                 <div className="pt-4 border-t border-white/10 grid grid-cols-2 gap-3">

@@ -124,11 +124,11 @@ export default function GlobalSearchModal({ isOpen, onClose }: GlobalSearchModal
             </span>
             <div className="grid grid-cols-2 gap-2">
               <button
-                onClick={() => { router.push("/courses"); onClose(); }}
+                onClick={() => { router.push("/roadmap"); onClose(); }}
                 className="flex items-center gap-2.5 p-2.5 rounded-xl hover:bg-white/5 text-left text-slate-200 transition-colors"
               >
-                <BookOpen size={16} className="text-cyan-400" />
-                <span>All Interactive Courses</span>
+                <Compass size={16} className="text-cyan-400" />
+                <span>Learning Paths & Roadmaps</span>
               </button>
               <button
                 onClick={() => { router.push("/practice"); onClose(); }}
@@ -138,11 +138,16 @@ export default function GlobalSearchModal({ isOpen, onClose }: GlobalSearchModal
                 <span>Code Playground & Practice</span>
               </button>
               <button
-                onClick={() => { router.push("/ai-tutor"); onClose(); }}
-                className="flex items-center gap-2.5 p-2.5 rounded-xl hover:bg-white/5 text-left text-slate-200 transition-colors"
+                onClick={() => {
+                  onClose();
+                  if (typeof window !== "undefined") {
+                    window.dispatchEvent(new CustomEvent("open-lumio"));
+                  }
+                }}
+                className="flex items-center gap-2.5 p-2.5 rounded-xl hover:bg-white/5 text-left text-slate-200 transition-colors cursor-pointer"
               >
-                <Bot size={16} className="text-purple-400" />
-                <span>AI Coding Tutor</span>
+                <Bot size={16} className="text-cyan-400" />
+                <span>Lumio AI Chatbot</span>
               </button>
               <button
                 onClick={() => { router.push("/community"); onClose(); }}

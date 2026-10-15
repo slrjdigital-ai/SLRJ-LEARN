@@ -10,6 +10,7 @@ import {
   Sparkles,
   Compass,
   ArrowRight,
+  FolderGit2,
   Code2,
   Terminal,
   Layers,
@@ -93,19 +94,19 @@ export default function HomePage() {
               {/* CTAs */}
               <div className="flex flex-col sm:flex-row items-center gap-4 mb-10">
                 <Link
-                  href="/courses"
+                  href="/roadmap"
                   className="w-full sm:w-auto px-8 py-3.5 rounded-xl font-bold text-sm bg-gradient-to-r from-cyan-400 to-emerald-400 hover:from-cyan-300 hover:to-emerald-300 text-black shadow-lg shadow-cyan-500/20 transition-all hover:scale-105 active:scale-95 flex items-center justify-center gap-2"
                 >
-                  <BookOpen size={17} />
+                  <Compass size={17} />
                   <span>Start Learning Free</span>
                 </Link>
 
                 <Link
-                  href="/courses"
+                  href="/projects"
                   className="w-full sm:w-auto px-7 py-3.5 rounded-xl font-bold text-sm bg-white/5 hover:bg-white/10 text-white border border-white/10 transition-all hover:scale-105 active:scale-95 flex items-center justify-center gap-2 backdrop-blur-md"
                 >
-                  <Compass size={17} className="text-cyan-400" />
-                  <span>Explore Courses</span>
+                  <FolderGit2 size={17} className="text-cyan-400" />
+                  <span>Explore Projects</span>
                 </Link>
               </div>
 

@@ -3,9 +3,9 @@ import AiTutorChat from "@/components/ai/AiTutorChat";
 import { Bot, Sparkles, BookOpen, CheckCircle2, ShieldCheck } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "AI Coding Tutor | SLRJ Learn",
+  title: "Lumio — AI Coding Companion | SLRJ Learn",
   description:
-    "Interactive AI programming mentor. Get step-by-step code explanations, error diagnosis, progressive hints, and practice quizzes.",
+    "Interactive AI programming mentor Lumio. Get step-by-step code explanations, error diagnosis, progressive hints, and practice quizzes.",
 };
 
 export default function AiTutorPage() {
@@ -16,13 +16,13 @@ export default function AiTutorPage() {
         <div className="text-center max-w-2xl mx-auto mb-10">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/15 border border-cyan-500/30 text-cyan-300 text-xs font-mono font-bold uppercase tracking-wider mb-3">
             <Bot size={14} className="text-cyan-400" />
-            <span>24/7 Intelligent Socratic Mentor</span>
+            <span>Meet Lumio • 24/7 Socratic Coding Companion</span>
           </div>
           <h1 className="text-3xl sm:text-5xl font-black font-brand tracking-tight text-white mb-3">
-            Your Personal AI Coding Tutor
+            Lumio AI Coding Companion
           </h1>
           <p className="text-slate-300 text-sm sm:text-base leading-relaxed">
-            Never get stuck on an error again. Paste broken code, ask for conceptual explanations, or generate custom quizzes tailored to your syllabus.
+            Never get stuck on a bug again. Chat with Lumio right here or open the floating widget anywhere on SLRJ Learn for instant step-by-step guidance, code breakdowns, and quizzes.
           </p>
         </div>
 
