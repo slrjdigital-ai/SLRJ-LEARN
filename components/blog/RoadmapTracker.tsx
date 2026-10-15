@@ -5,8 +5,6 @@ import Link from "next/link";
 import { ROADMAP_TRACKS, getRoadmapStepsByTrack, RoadmapStep } from "@/data/roadmap";
 import { useAuth } from "@/context/AuthContext";
 import {
-  CheckCircle2,
-  Circle,
   Clock,
   ArrowRight,
   Sparkles,
@@ -578,27 +576,6 @@ Explain the core concepts simply, what common mistakes to avoid, and how to buil
                         {step.difficulty}
                       </span>
 
-                      {/* Interactive Complete Toggle */}
-                      <button
-                        onClick={() => toggleStep(step.id)}
-                        className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-mono font-bold transition-all cursor-pointer ${
-                          isCompleted
-                            ? "bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 shadow-sm shadow-emerald-500/20"
-                            : "bg-white/5 hover:bg-white/10 text-slate-300 hover:text-white border border-white/10"
-                        }`}
-                      >
-                        {isCompleted ? (
-                          <>
-                            <CheckCircle2 size={14} className="text-emerald-400" />
-                            <span>Done (+50 XP)</span>
-                          </>
-                        ) : (
-                          <>
-                            <Circle size={14} className="text-slate-400" />
-                            <span>Mark Complete</span>
-                          </>
-                        )}
-                      </button>
                     </div>
                   </div>
 
@@ -706,15 +683,17 @@ Explain the core concepts simply, what common mistakes to avoid, and how to buil
                     <span className="text-xs font-mono font-black text-cyan-300 px-2 py-0.5 rounded-lg bg-white/5 border border-white/10">
                       STAGE {stepNum}
                     </span>
-                    <button
-                      onClick={() => toggleStep(step.id)}
-                      className={`p-1.5 rounded-lg transition-all cursor-pointer ${
-                        isCompleted ? "text-emerald-400 bg-emerald-500/20" : "text-slate-500 hover:text-white"
+                    <span
+                      className={`text-[10px] font-mono font-bold px-2 py-0.5 rounded-full uppercase tracking-wider ${
+                        step.difficulty === "Beginner"
+                          ? "bg-emerald-500/10 text-emerald-300 border border-emerald-500/20"
+                          : step.difficulty === "Intermediate"
+                          ? "bg-amber-500/10 text-amber-300 border border-amber-500/20"
+                          : "bg-purple-500/10 text-purple-300 border border-purple-500/20"
                       }`}
-                      title={isCompleted ? "Mark incomplete" : "Mark complete"}
                     >
-                      {isCompleted ? <CheckCircle2 size={18} /> : <Circle size={18} />}
-                    </button>
+                      {step.difficulty}
+                    </span>
                   </div>
 
                   <h3 className="text-base font-bold text-white mb-1.5 line-clamp-1">

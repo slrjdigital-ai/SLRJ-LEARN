@@ -94,7 +94,6 @@ export default function Footer() {
       links: [
         { name: "Student Community Forum", href: "/community" },
         { name: "Certificates & Mock Interviews", href: "/certificates" },
-        { name: "Pricing & Plans", href: "/pricing" },
         { name: "About SLRJ Learn", href: "/about" },
         { name: "Privacy Policy", href: "/privacy-policy" },
       ],

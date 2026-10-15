@@ -28,6 +28,7 @@ import {
   ExternalLink,
   HelpCircle,
   RotateCcw,
+  ChevronRight,
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -171,18 +172,17 @@ Can you explain the main concepts simply, clarify common beginner mistakes, and 
             </div>
           </div>
 
-          {/* Progress & Quick Actions */}
+          {/* Current Stage Position & Quick Actions */}
           <div className="flex items-center gap-4">
             <div className="text-right">
               <div className="flex items-center justify-end gap-2 text-xs font-mono">
-                <span className="text-slate-400">Track Progress:</span>
-                <span className="text-cyan-300 font-bold">{progressPercent}%</span>
-                <span className="text-slate-500">({completedCount}/{steps.length})</span>
+                <span className="text-slate-400">Current Stage:</span>
+                <span className="text-cyan-300 font-bold">{currentIndex + 1} of {steps.length}</span>
               </div>
               <div className="w-48 h-2 bg-white/5 rounded-full overflow-hidden mt-1.5 border border-white/10">
                 <div
                   className={`h-full bg-gradient-to-r ${track.gradient} transition-all duration-300`}
-                  style={{ width: `${isClient ? progressPercent : 0}%` }}
+                  style={{ width: `${Math.round(((currentIndex + 1) / steps.length) * 100)}%` }}
                 />
               </div>
             </div>
@@ -238,8 +238,6 @@ Can you explain the main concepts simply, clarify common beginner mistakes, and 
                       className={`w-full text-left p-3 rounded-2xl border transition-all flex items-center justify-between gap-3 cursor-pointer ${
                         isActive
                           ? "bg-gradient-to-r from-cyan-500/20 via-teal-500/10 to-transparent border-cyan-400/50 text-white shadow-md shadow-cyan-500/10"
-                          : isDone
-                          ? "bg-emerald-950/20 border-emerald-500/20 text-slate-300 hover:text-white hover:bg-white/[0.04]"
                           : "bg-white/[0.02] border-white/5 text-slate-400 hover:text-white hover:bg-white/[0.05]"
                       }`}
                     >
@@ -248,8 +246,6 @@ Can you explain the main concepts simply, clarify common beginner mistakes, and 
                           className={`text-[10px] font-mono font-black px-1.5 py-0.5 rounded-lg border ${
                             isActive
                               ? "bg-cyan-400 text-black border-cyan-300"
-                              : isDone
-                              ? "bg-emerald-500/20 text-emerald-300 border-emerald-500/30"
                               : "bg-white/5 text-slate-400 border-white/10"
                           }`}
                         >
@@ -265,13 +261,12 @@ Can you explain the main concepts simply, clarify common beginner mistakes, and 
                         </div>
                       </div>
 
-                      {/* Done status indicator */}
+                      {/* Selection chevron */}
                       <div className="flex-shrink-0">
-                        {isDone ? (
-                          <CheckCircle2 size={16} className="text-emerald-400" />
-                        ) : (
-                          <Circle size={15} className="text-slate-600" />
-                        )}
+                        <ChevronRight
+                          size={15}
+                          className={isActive ? "text-cyan-400 translate-x-0.5 transition-transform" : "text-slate-600"}
+                        />
                       </div>
                     </button>
                   );
@@ -308,27 +303,15 @@ Can you explain the main concepts simply, clarify common beginner mistakes, and 
                   </span>
                 </div>
 
-                {/* Mark Stage Complete Toggle Button */}
-                <button
-                  onClick={() => toggleStep(currentStep.id)}
-                  className={`flex items-center gap-2 px-4 py-2 rounded-2xl text-xs sm:text-sm font-mono font-bold transition-all shadow-md cursor-pointer ${
-                    isCurrentStepDone
-                      ? "bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 shadow-emerald-500/20"
-                      : "bg-white/10 hover:bg-white/20 text-white border border-white/20"
-                  }`}
-                >
-                  {isCurrentStepDone ? (
-                    <>
-                      <CheckCircle2 size={16} className="text-emerald-400" />
-                      <span>Stage Completed (+50 XP)</span>
-                    </>
-                  ) : (
-                    <>
-                      <Circle size={16} className="text-slate-400" />
-                      <span>Mark Stage Complete</span>
-                    </>
-                  )}
-                </button>
+                <div className="flex items-center gap-2">
+                  <button
+                    onClick={handleAskLumio}
+                    className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white/5 hover:bg-white/10 text-cyan-300 hover:text-white border border-white/10 text-xs font-mono transition-all cursor-pointer"
+                  >
+                    <Bot size={13} className="text-cyan-400" />
+                    <span>Ask Lumio</span>
+                  </button>
+                </div>
               </div>
 
               <h2 className="text-2xl sm:text-4xl font-black text-white font-brand tracking-tight mb-4">
@@ -585,8 +568,6 @@ Can you explain the main concepts simply, clarify common beginner mistakes, and 
               {nextStep ? (
                 <button
                   onClick={() => {
-                    // Mark current complete if not done
-                    if (!isCurrentStepDone) toggleStep(currentStep.id);
                     setActiveStepId(nextStep.id);
                     window.scrollTo({ top: 0, behavior: "smooth" });
                   }}

@@ -29,13 +29,21 @@ import {
 import { motion, useScroll, useMotionValueEvent, AnimatePresence } from "framer-motion";
 import GlobalSearchModal from "./GlobalSearchModal";
 
-const NAV_ITEMS = [
+interface NavItem {
+  name: string;
+  href: string;
+  exact: boolean;
+  icon: React.ComponentType<{ size?: number; className?: string }>;
+  badge?: string;
+  badgeColor?: string;
+}
+
+const NAV_ITEMS: NavItem[] = [
   { name: "Home", href: "/", exact: true, icon: Home },
   { name: "Learning Paths", href: "/roadmap", exact: false, icon: Compass },
   { name: "Practice", href: "/practice", exact: false, icon: Code },
   { name: "Projects", href: "/projects", exact: false, icon: FolderGit2 },
   { name: "Community", href: "/community", exact: false, icon: Users },
-  { name: "Free Access", href: "/pricing", exact: false, icon: Sparkles, badge: "Free" },
 ];
 
 export default function Navbar() {
