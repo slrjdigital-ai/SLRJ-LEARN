@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useSyncExternalStore } from "react";
+import { useState, useMemo, useSyncExternalStore } from "react";
 import Link from "next/link";
 import { ROADMAP_TRACKS, getRoadmapStepsByTrack, RoadmapStep } from "@/data/roadmap";
 import { useAuth } from "@/context/AuthContext";
@@ -15,7 +15,20 @@ import {
   Code2,
   Cpu,
   Cloud,
+  Search,
+  Filter,
+  Check,
+  Bot,
+  BookOpen,
+  Rocket,
+  Zap,
+  RotateCcw,
+  LayoutList,
+  LayoutGrid,
+  ChevronRight,
+  GraduationCap,
 } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 
 const STORAGE_KEY = "slrj_webdev_roadmap_progress";
 
@@ -30,95 +43,71 @@ const TRACK_ICONS: Record<string, React.ElementType> = {
 const TRACK_THEMES: Record<
   string,
   {
-    selectedBorder: string;
-    selectedBg: string;
-    selectedGlow: string;
-    iconBg: string;
-    badge: string;
+    border: string;
+    activeBorder: string;
+    bgGradient: string;
+    accent: string;
+    accentBg: string;
+    glow: string;
     progressGrad: string;
-    accentText: string;
-    timelineLine: string;
-    completedNode: string;
-    nodeHover: string;
-    cardCompleted: string;
-    milestoneBox: string;
-    milestoneTitle: string;
+    badgeBg: string;
+    badgeText: string;
   }
 > = {
   "web-dev": {
-    selectedBorder: "border-cyan-400",
-    selectedBg: "from-[#0F1E38] to-[#0D1527]",
-    selectedGlow: "shadow-[0_0_25px_rgba(6,182,212,0.25)]",
-    iconBg: "bg-cyan-500/20 text-cyan-300 border border-cyan-500/30",
-    badge: "bg-cyan-500/15 text-cyan-300 border border-cyan-500/30",
+    border: "border-cyan-500/20",
+    activeBorder: "border-cyan-400",
+    bgGradient: "from-cyan-950/40 via-[#070e1c] to-[#040814]",
+    accent: "text-cyan-400",
+    accentBg: "bg-cyan-500/15 border-cyan-500/30 text-cyan-300",
+    glow: "shadow-[0_0_30px_rgba(6,182,212,0.25)]",
     progressGrad: "from-cyan-400 via-teal-400 to-emerald-400",
-    accentText: "text-cyan-400",
-    timelineLine: "before:from-cyan-400 before:via-teal-400 before:to-emerald-400",
-    completedNode: "bg-cyan-400 border-cyan-300 text-slate-950 shadow-[0_0_20px_rgba(6,182,212,0.5)]",
-    nodeHover: "hover:border-cyan-400 hover:text-cyan-400",
-    cardCompleted: "bg-gradient-to-br from-[#0F1E38] to-[#0B1528] border-cyan-500/40 shadow-[0_10px_30px_rgba(6,182,212,0.12)]",
-    milestoneBox: "bg-cyan-500/10 border-cyan-500/20 text-cyan-200",
-    milestoneTitle: "text-cyan-300",
+    badgeBg: "bg-cyan-500/20",
+    badgeText: "text-cyan-300",
   },
   "dsa": {
-    selectedBorder: "border-amber-400",
-    selectedBg: "from-[#2A1E0E] to-[#0D1527]",
-    selectedGlow: "shadow-[0_0_25px_rgba(245,158,11,0.25)]",
-    iconBg: "bg-amber-500/20 text-amber-300 border border-amber-500/30",
-    badge: "bg-amber-500/15 text-amber-300 border border-amber-500/30",
+    border: "border-amber-500/20",
+    activeBorder: "border-amber-400",
+    bgGradient: "from-amber-950/40 via-[#140e07] to-[#040814]",
+    accent: "text-amber-400",
+    accentBg: "bg-amber-500/15 border-amber-500/30 text-amber-300",
+    glow: "shadow-[0_0_30px_rgba(245,158,11,0.25)]",
     progressGrad: "from-amber-400 via-orange-400 to-yellow-400",
-    accentText: "text-amber-400",
-    timelineLine: "before:from-amber-400 before:via-orange-400 before:to-yellow-400",
-    completedNode: "bg-amber-400 border-amber-300 text-slate-950 shadow-[0_0_20px_rgba(245,158,11,0.5)]",
-    nodeHover: "hover:border-amber-400 hover:text-amber-400",
-    cardCompleted: "bg-gradient-to-br from-[#261B0F] to-[#0B1528] border-amber-500/40 shadow-[0_10px_30px_rgba(245,158,11,0.12)]",
-    milestoneBox: "bg-amber-500/10 border-amber-500/20 text-amber-200",
-    milestoneTitle: "text-amber-300",
+    badgeBg: "bg-amber-500/20",
+    badgeText: "text-amber-300",
   },
   "python-ai": {
-    selectedBorder: "border-emerald-400",
-    selectedBg: "from-[#0D281E] to-[#0D1527]",
-    selectedGlow: "shadow-[0_0_25px_rgba(16,185,129,0.25)]",
-    iconBg: "bg-emerald-500/20 text-emerald-300 border border-emerald-500/30",
-    badge: "bg-emerald-500/15 text-emerald-300 border border-emerald-500/30",
+    border: "border-emerald-500/20",
+    activeBorder: "border-emerald-400",
+    bgGradient: "from-emerald-950/40 via-[#06140e] to-[#040814]",
+    accent: "text-emerald-400",
+    accentBg: "bg-emerald-500/15 border-emerald-500/30 text-emerald-300",
+    glow: "shadow-[0_0_30px_rgba(16,185,129,0.25)]",
     progressGrad: "from-emerald-400 via-teal-400 to-lime-400",
-    accentText: "text-emerald-400",
-    timelineLine: "before:from-emerald-400 before:via-teal-400 before:to-lime-400",
-    completedNode: "bg-emerald-400 border-emerald-300 text-slate-950 shadow-[0_0_20px_rgba(16,185,129,0.5)]",
-    nodeHover: "hover:border-emerald-400 hover:text-emerald-400",
-    cardCompleted: "bg-gradient-to-br from-[#0C241B] to-[#0B1528] border-emerald-500/40 shadow-[0_10px_30px_rgba(16,185,129,0.12)]",
-    milestoneBox: "bg-emerald-500/10 border-emerald-500/20 text-emerald-200",
-    milestoneTitle: "text-emerald-300",
+    badgeBg: "bg-emerald-500/20",
+    badgeText: "text-emerald-300",
   },
   "cs-core": {
-    selectedBorder: "border-indigo-400",
-    selectedBg: "from-[#171A3B] to-[#0D1527]",
-    selectedGlow: "shadow-[0_0_25px_rgba(99,102,241,0.25)]",
-    iconBg: "bg-indigo-500/20 text-indigo-300 border border-indigo-500/30",
-    badge: "bg-indigo-500/15 text-indigo-300 border border-indigo-500/30",
+    border: "border-indigo-500/20",
+    activeBorder: "border-indigo-400",
+    bgGradient: "from-indigo-950/40 via-[#0a0c1a] to-[#040814]",
+    accent: "text-indigo-400",
+    accentBg: "bg-indigo-500/15 border-indigo-500/30 text-indigo-300",
+    glow: "shadow-[0_0_30px_rgba(99,102,241,0.25)]",
     progressGrad: "from-indigo-400 via-violet-400 to-purple-400",
-    accentText: "text-indigo-400",
-    timelineLine: "before:from-indigo-400 before:via-violet-400 before:to-purple-400",
-    completedNode: "bg-indigo-400 border-indigo-300 text-slate-950 shadow-[0_0_20px_rgba(99,102,241,0.5)]",
-    nodeHover: "hover:border-indigo-400 hover:text-indigo-400",
-    cardCompleted: "bg-gradient-to-br from-[#161838] to-[#0B1528] border-indigo-500/40 shadow-[0_10px_30px_rgba(99,102,241,0.12)]",
-    milestoneBox: "bg-indigo-500/10 border-indigo-500/20 text-indigo-200",
-    milestoneTitle: "text-indigo-300",
+    badgeBg: "bg-indigo-500/20",
+    badgeText: "text-indigo-300",
   },
   "cloud-devops": {
-    selectedBorder: "border-rose-400",
-    selectedBg: "from-[#2C1322] to-[#0D1527]",
-    selectedGlow: "shadow-[0_0_25px_rgba(244,63,94,0.25)]",
-    iconBg: "bg-rose-500/20 text-rose-300 border border-rose-500/30",
-    badge: "bg-rose-500/15 text-rose-300 border border-rose-500/30",
+    border: "border-rose-500/20",
+    activeBorder: "border-rose-400",
+    bgGradient: "from-rose-950/40 via-[#170810] to-[#040814]",
+    accent: "text-rose-400",
+    accentBg: "bg-rose-500/15 border-rose-500/30 text-rose-300",
+    glow: "shadow-[0_0_30px_rgba(244,63,94,0.25)]",
     progressGrad: "from-rose-400 via-pink-400 to-orange-400",
-    accentText: "text-rose-400",
-    timelineLine: "before:from-rose-400 before:via-pink-400 before:to-orange-400",
-    completedNode: "bg-rose-400 border-rose-300 text-slate-950 shadow-[0_0_20px_rgba(244,63,94,0.5)]",
-    nodeHover: "hover:border-rose-400 hover:text-rose-400",
-    cardCompleted: "bg-gradient-to-br from-[#281320] to-[#0B1528] border-rose-500/40 shadow-[0_10px_30px_rgba(244,63,94,0.12)]",
-    milestoneBox: "bg-rose-500/10 border-rose-500/20 text-rose-200",
-    milestoneTitle: "text-rose-300",
+    badgeBg: "bg-rose-500/20",
+    badgeText: "text-rose-300",
   },
 };
 
@@ -141,27 +130,61 @@ function getServerSnapshot(): string {
 export default function RoadmapTracker() {
   const { user, toggleRoadmapStep } = useAuth();
   const [selectedTrack, setSelectedTrack] = useState<string>("web-dev");
+  const [searchQuery, setSearchQuery] = useState("");
+  const [difficultyFilter, setDifficultyFilter] = useState<string>("all");
+  const [statusFilter, setStatusFilter] = useState<string>("all");
+  const [viewMode, setViewMode] = useState<"timeline" | "grid">("timeline");
+
   const rawCompleted = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
-  
-  const localCompletedSteps: number[] = (() => {
+
+  const localCompletedSteps: number[] = useMemo(() => {
     try {
       return JSON.parse(rawCompleted);
     } catch {
       return [];
     }
-  })();
+  }, [rawCompleted]);
 
-  // Use either authenticated user's completed steps or local completed steps
   const completedSteps = user ? user.completedRoadmapSteps : localCompletedSteps;
   const isClient = typeof window !== "undefined";
 
-  const currentStages: RoadmapStep[] = getRoadmapStepsByTrack(selectedTrack);
+  const allStagesInTrack = useMemo(() => getRoadmapStepsByTrack(selectedTrack), [selectedTrack]);
   const activeTrackMeta = ROADMAP_TRACKS.find((t) => t.id === selectedTrack) || ROADMAP_TRACKS[0];
   const activeTheme = TRACK_THEMES[selectedTrack] || TRACK_THEMES["web-dev"];
 
-  const totalStepsInTrack = currentStages.length;
-  const completedCountInTrack = currentStages.filter((s) => completedSteps.includes(s.id)).length;
+  const totalStepsInTrack = allStagesInTrack.length;
+  const completedCountInTrack = allStagesInTrack.filter((s) => completedSteps.includes(s.id)).length;
   const progressPercent = totalStepsInTrack > 0 ? Math.round((completedCountInTrack / totalStepsInTrack) * 100) : 0;
+  const totalXPEarned = completedCountInTrack * 50;
+
+  // Filtered steps
+  const filteredStages = useMemo(() => {
+    return allStagesInTrack.filter((step) => {
+      // Search match
+      if (searchQuery.trim()) {
+        const query = searchQuery.toLowerCase();
+        const matchesTitle = step.title.toLowerCase().includes(query);
+        const matchesCategory = step.category.toLowerCase().includes(query);
+        const matchesTopics = step.keyTopics.some((t) => t.toLowerCase().includes(query));
+        const matchesMilestone = step.practicalMilestone.toLowerCase().includes(query);
+        if (!matchesTitle && !matchesCategory && !matchesTopics && !matchesMilestone) {
+          return false;
+        }
+      }
+
+      // Difficulty match
+      if (difficultyFilter !== "all" && step.difficulty.toLowerCase() !== difficultyFilter.toLowerCase()) {
+        return false;
+      }
+
+      // Status match
+      const isDone = completedSteps.includes(step.id);
+      if (statusFilter === "completed" && !isDone) return false;
+      if (statusFilter === "todo" && isDone) return false;
+
+      return true;
+    });
+  }, [allStagesInTrack, searchQuery, difficultyFilter, statusFilter, completedSteps]);
 
   const toggleStep = (stepId: number) => {
     if (user) {
@@ -174,9 +197,24 @@ export default function RoadmapTracker() {
     window.dispatchEvent(new Event("storage"));
   };
 
+  const handleAskLumio = (step: RoadmapStep) => {
+    if (typeof window !== "undefined") {
+      const prompt = `Can you guide me through Roadmap Stage: "${step.title}" (${activeTrackMeta.name})? 
+Explain the core concepts simply, what common mistakes to avoid, and how to build the milestone project: "${step.practicalMilestone}".`;
+      window.dispatchEvent(
+        new CustomEvent("open-lumio", {
+          detail: {
+            prompt,
+            mode: "explain",
+          },
+        })
+      );
+    }
+  };
+
   const resetProgress = () => {
-    if (confirm(`Reset your progress for ${activeTrackMeta.name} back to 0%?`)) {
-      const stepIdsToRemove = new Set(currentStages.map((s) => s.id));
+    if (confirm(`Reset progress for ${activeTrackMeta.name}? All checks for this track will be cleared.`)) {
+      const stepIdsToRemove = new Set(allStagesInTrack.map((s) => s.id));
       const next = completedSteps.filter((id) => !stepIdsToRemove.has(id));
       localStorage.setItem(STORAGE_KEY, JSON.stringify(next));
       window.dispatchEvent(new Event("storage"));
@@ -184,38 +222,53 @@ export default function RoadmapTracker() {
   };
 
   return (
-    <div className="w-full">
-      {/* ── Multi-Track Career Switcher Tabs ──────────────────────── */}
-      <div className="mb-10">
-        <div className={`flex items-center gap-2 text-xs font-mono font-bold uppercase tracking-widest mb-3 ${activeTheme.accentText}`}>
-          <Sparkles size={14} />
-          <span>Select Your Learning Path</span>
+    <div className="w-full space-y-8">
+      {/* ─── 1. TRACK SELECTOR TABS ─────────────────────────────────── */}
+      <div className="space-y-3">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-2 text-xs font-mono font-bold uppercase tracking-wider text-slate-400">
+            <Sparkles size={14} className={activeTheme.accent} />
+            <span>Select Learning Track ({ROADMAP_TRACKS.length} Paths)</span>
+          </div>
+          <span className="text-xs font-mono text-slate-500">
+            {isClient ? `${completedSteps.length} stages completed globally` : "0 completed"}
+          </span>
         </div>
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3">
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3">
           {ROADMAP_TRACKS.map((track) => {
             const isSelected = selectedTrack === track.id;
             const Icon = TRACK_ICONS[track.id] || Globe;
             const trackTheme = TRACK_THEMES[track.id] || TRACK_THEMES["web-dev"];
             const trackStages = getRoadmapStepsByTrack(track.id);
             const doneCount = trackStages.filter((s) => completedSteps.includes(s.id)).length;
+            const trackPercent = trackStages.length > 0 ? Math.round((doneCount / trackStages.length) * 100) : 0;
 
             return (
               <button
                 key={track.id}
-                onClick={() => setSelectedTrack(track.id)}
-                className={`p-4 rounded-2xl text-left border transition-all cursor-pointer flex flex-col justify-between ${
+                onClick={() => {
+                  setSelectedTrack(track.id);
+                  setSearchQuery("");
+                }}
+                className={`relative p-4 rounded-2xl text-left border transition-all cursor-pointer group flex flex-col justify-between overflow-hidden ${
                   isSelected
-                    ? `bg-gradient-to-br ${trackTheme.selectedBg} ${trackTheme.selectedBorder} text-white ${trackTheme.selectedGlow}`
-                    : "bg-[#0D1527] border-slate-800 text-slate-400 hover:text-white hover:border-slate-700"
+                    ? `bg-gradient-to-b ${trackTheme.bgGradient} ${trackTheme.activeBorder} ${trackTheme.glow} ring-1 ring-white/10`
+                    : "bg-[#070b15]/90 border-white/[0.08] hover:border-white/20 hover:bg-[#0b1222]/80"
                 }`}
               >
+                {/* Top laser accent for active tab */}
+                {isSelected && (
+                  <div className={`absolute top-0 inset-x-0 h-[2px] bg-gradient-to-r ${trackTheme.progressGrad}`} />
+                )}
+
                 <div>
-                  <div className="flex items-center justify-between mb-2">
+                  <div className="flex items-center justify-between gap-2 mb-3">
                     <div
-                      className={`p-2 rounded-xl ${
+                      className={`p-2 rounded-xl transition-all ${
                         isSelected
-                          ? trackTheme.iconBg
-                          : "bg-white/5 text-slate-400"
+                          ? trackTheme.accentBg
+                          : "bg-white/[0.05] text-slate-400 group-hover:text-white"
                       }`}
                     >
                       <Icon size={18} />
@@ -223,26 +276,36 @@ export default function RoadmapTracker() {
                     <span
                       className={`text-[10px] font-mono px-2 py-0.5 rounded-full font-bold uppercase tracking-wider ${
                         isSelected
-                          ? trackTheme.badge
-                          : "bg-white/5 border border-white/10 text-slate-400"
+                          ? trackTheme.accentBg
+                          : "bg-white/[0.04] text-slate-400 border border-white/5"
                       }`}
                     >
                       {track.badge}
                     </span>
                   </div>
-                  <h4 className="text-xs sm:text-sm font-bold text-white line-clamp-1">
+
+                  <h4 className="text-sm font-bold text-white tracking-tight line-clamp-1 group-hover:text-cyan-200 transition-colors">
                     {track.name}
                   </h4>
-                  <p className="text-[11px] text-slate-500 mt-1 font-mono">
+                  <p className="text-[11px] font-mono text-slate-400 mt-1">
                     {track.totalStages} Stages • {track.duration}
                   </p>
                 </div>
 
-                <div className="mt-3 pt-2.5 border-t border-slate-800 flex items-center justify-between text-[11px] font-mono">
-                  <span className="text-slate-400">Progress:</span>
-                  <span className={doneCount > 0 ? `${trackTheme.accentText} font-bold` : "text-slate-500"}>
-                    {isClient ? `${doneCount}/${track.totalStages}` : `0/${track.totalStages}`}
-                  </span>
+                {/* Progress bar inside card */}
+                <div className="mt-4 pt-3 border-t border-white/[0.06]">
+                  <div className="flex items-center justify-between text-[11px] font-mono mb-1.5">
+                    <span className="text-slate-400">Progress</span>
+                    <span className={doneCount > 0 ? `${trackTheme.accent} font-bold` : "text-slate-500"}>
+                      {isClient ? `${doneCount}/${track.totalStages} (${trackPercent}%)` : `0/${track.totalStages}`}
+                    </span>
+                  </div>
+                  <div className="w-full h-1.5 bg-white/5 rounded-full overflow-hidden">
+                    <div
+                      className={`h-full bg-gradient-to-r ${trackTheme.progressGrad} transition-all duration-300`}
+                      style={{ width: `${isClient ? trackPercent : 0}%` }}
+                    />
+                  </div>
                 </div>
               </button>
             );
@@ -250,198 +313,412 @@ export default function RoadmapTracker() {
         </div>
       </div>
 
-      {/* Interactive Progress Meter Banner */}
-      <div className="p-6 sm:p-8 rounded-3xl bg-gradient-to-r from-[#0C0E23] via-[#12163B] to-[#0C0E23] border border-indigo-500/25 shadow-2xl mb-12 relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-96 h-48 bg-indigo-500/10 blur-3xl pointer-events-none" />
+      {/* ─── 2. TRACK HERO & PROGRESS DASHBOARD ──────────────────────── */}
+      <div className={`relative p-6 sm:p-8 rounded-3xl bg-gradient-to-r ${activeTheme.bgGradient} border ${activeTheme.border} shadow-2xl overflow-hidden`}>
+        <div className="absolute top-0 right-0 w-96 h-96 bg-cyan-500/5 blur-3xl pointer-events-none" />
 
-        <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6 relative z-10">
-          <div>
-            <div className={`flex items-center gap-2 text-xs font-mono font-bold uppercase tracking-widest mb-1 ${activeTheme.accentText}`}>
-              <Trophy size={14} className={activeTheme.accentText} />
-              <span>{activeTrackMeta.name} Tracker</span>
+        <div className="relative z-10 flex flex-col lg:flex-row lg:items-center justify-between gap-6">
+          <div className="max-w-3xl">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/[0.06] border border-white/10 text-xs font-mono font-bold mb-3">
+              <span className={`w-2 h-2 rounded-full animate-pulse ${activeTheme.accent === "text-cyan-400" ? "bg-cyan-400" : "bg-emerald-400"}`} />
+              <span className="text-slate-300 uppercase tracking-wider">{activeTrackMeta.badge}</span>
+              <span className="text-slate-500">•</span>
+              <span className={activeTheme.accent}>{activeTrackMeta.duration}</span>
             </div>
-            <h2 className="text-2xl sm:text-3xl font-black text-white font-brand">
-              {activeTrackMeta.name} Roadmap
+
+            <h2 className="text-2xl sm:text-4xl font-black text-white font-brand tracking-tight mb-2">
+              {activeTrackMeta.name}
             </h2>
-            <p className="text-sm text-slate-300 mt-1 max-w-xl">
-              {activeTrackMeta.description} Click each milestone as you master the concepts and build the practical assignments.
+
+            <p className="text-slate-300 text-sm sm:text-base leading-relaxed">
+              {activeTrackMeta.description} Follow each stage step-by-step, check off skills, and build production-grade projects.
             </p>
           </div>
 
-          <div className="flex-shrink-0 w-full md:w-auto flex flex-col items-start md:items-end">
-            <div className="flex items-baseline gap-2 mb-2">
-              <span className="text-3xl sm:text-4xl font-black text-white font-brand">
-                {isClient ? progressPercent : 0}%
-              </span>
-              <span className="text-xs font-mono text-gray-400">
-                ({isClient ? completedCountInTrack : 0} of {totalStepsInTrack} Completed)
-              </span>
+          {/* Gamified Progress Circle / Pill */}
+          <div className="flex-shrink-0 flex items-center gap-6 p-4 rounded-2xl bg-[#030611]/80 border border-white/10 backdrop-blur-md">
+            <div className="text-center">
+              <div className="text-3xl sm:text-4xl font-black text-white font-brand">
+                {isClient ? `${progressPercent}%` : "0%"}
+              </div>
+              <div className="text-[11px] font-mono text-slate-400 uppercase tracking-wider mt-0.5">
+                Track Completion
+              </div>
             </div>
 
-            {isClient && completedCountInTrack > 0 && (
+            <div className="h-10 w-px bg-white/10" />
+
+            <div className="text-center">
+              <div className={`text-2xl sm:text-3xl font-black font-brand ${activeTheme.accent} flex items-center justify-center gap-1`}>
+                <Zap size={20} className="fill-current" />
+                <span>+{totalXPEarned}</span>
+              </div>
+              <div className="text-[11px] font-mono text-slate-400 uppercase tracking-wider mt-0.5">
+                XP Earned
+              </div>
+            </div>
+
+            {completedCountInTrack > 0 && (
               <button
                 onClick={resetProgress}
-                className="text-xs text-gray-500 hover:text-red-400 transition-colors font-mono cursor-pointer"
+                title="Reset track progress"
+                className="p-2 rounded-xl text-slate-500 hover:text-rose-400 hover:bg-rose-500/10 transition-colors cursor-pointer"
               >
-                Reset Track Progress
+                <RotateCcw size={16} />
               </button>
             )}
           </div>
         </div>
 
-        {/* Progress Bar Track */}
-        <div className="w-full h-3 bg-slate-800 rounded-full overflow-hidden mt-6 border border-slate-700">
-          <div
-            className={`h-full bg-gradient-to-r ${activeTheme.progressGrad} transition-all duration-500`}
-            style={{ width: `${isClient ? progressPercent : 0}%` }}
-          />
+        {/* Global Progress Bar */}
+        <div className="mt-6 pt-5 border-t border-white/10">
+          <div className="flex items-center justify-between text-xs font-mono text-slate-300 mb-2">
+            <span>
+              Stage {completedCountInTrack} of {totalStepsInTrack} Mastered
+            </span>
+            <span className={activeTheme.accent}>
+              {totalStepsInTrack - completedCountInTrack === 0
+                ? "🎉 All stages completed! You are industry-ready."
+                : `${totalStepsInTrack - completedCountInTrack} stages remaining`}
+            </span>
+          </div>
+          <div className="w-full h-2.5 bg-black/60 rounded-full overflow-hidden border border-white/10">
+            <div
+              className={`h-full bg-gradient-to-r ${activeTheme.progressGrad} transition-all duration-500`}
+              style={{ width: `${isClient ? progressPercent : 0}%` }}
+            />
+          </div>
         </div>
       </div>
 
-      {/* Visual Roadmap Timeline */}
-      <div
-        className={`relative space-y-8 before:absolute before:inset-0 before:left-6 md:before:left-1/2 before:w-0.5 before:bg-gradient-to-b ${activeTheme.timelineLine} before:-translate-x-1/2 before:hidden md:before:block`}
-      >
-        {currentStages.map((step, idx) => {
-          const isCompleted = isClient && completedSteps.includes(step.id);
-          const isEven = idx % 2 === 0;
+      {/* ─── 3. FILTER, SEARCH & VIEW TOOLBAR ──────────────────────── */}
+      <div className="p-3 sm:p-4 rounded-2xl bg-[#060a14] border border-white/[0.08] flex flex-col md:flex-row items-stretch md:items-center justify-between gap-3 shadow-lg">
+        {/* Search Input */}
+        <div className="relative flex-1">
+          <Search size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400" />
+          <input
+            type="text"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            placeholder={`Search ${activeTrackMeta.name} stages, skills, or projects...`}
+            className="w-full pl-10 pr-4 py-2 rounded-xl bg-white/[0.04] border border-white/10 text-white placeholder-slate-500 text-xs sm:text-sm focus:outline-none focus:border-cyan-400/50 transition-all font-sans"
+          />
+          {searchQuery && (
+            <button
+              onClick={() => setSearchQuery("")}
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-slate-400 hover:text-white"
+            >
+              Clear
+            </button>
+          )}
+        </div>
 
-          return (
-            <div
-              key={step.id}
-              className={`relative flex flex-col md:flex-row items-center gap-6 ${
-                isEven ? "md:flex-row-reverse" : ""
+        {/* Filter Pills */}
+        <div className="flex items-center gap-2 overflow-x-auto no-scrollbar py-0.5">
+          {/* Difficulty Dropdown */}
+          <select
+            value={difficultyFilter}
+            onChange={(e) => setDifficultyFilter(e.target.value)}
+            className="px-3 py-2 rounded-xl bg-white/[0.04] border border-white/10 text-slate-300 text-xs font-mono font-medium focus:outline-none focus:border-cyan-400/50 cursor-pointer"
+          >
+            <option value="all" className="bg-[#0b1222] text-white">All Difficulties</option>
+            <option value="beginner" className="bg-[#0b1222] text-emerald-400">Beginner</option>
+            <option value="intermediate" className="bg-[#0b1222] text-amber-400">Intermediate</option>
+            <option value="advanced" className="bg-[#0b1222] text-purple-400">Advanced</option>
+          </select>
+
+          {/* Status Dropdown */}
+          <select
+            value={statusFilter}
+            onChange={(e) => setStatusFilter(e.target.value)}
+            className="px-3 py-2 rounded-xl bg-white/[0.04] border border-white/10 text-slate-300 text-xs font-mono font-medium focus:outline-none focus:border-cyan-400/50 cursor-pointer"
+          >
+            <option value="all" className="bg-[#0b1222] text-white">All Statuses</option>
+            <option value="todo" className="bg-[#0b1222] text-slate-300">To Do</option>
+            <option value="completed" className="bg-[#0b1222] text-cyan-300">Completed</option>
+          </select>
+
+          {/* View Toggle */}
+          <div className="hidden sm:flex items-center p-1 rounded-xl bg-white/[0.04] border border-white/10">
+            <button
+              onClick={() => setViewMode("timeline")}
+              title="Sequential Path View"
+              className={`p-1.5 rounded-lg transition-all cursor-pointer ${
+                viewMode === "timeline"
+                  ? "bg-cyan-500/20 text-cyan-300 border border-cyan-400/30"
+                  : "text-slate-400 hover:text-white"
               }`}
             >
-              {/* Desktop Timeline Center Node */}
-              <div className="hidden md:flex absolute left-1/2 -translate-x-1/2 z-20 items-center justify-center">
-                <button
-                  onClick={() => toggleStep(step.id)}
-                  aria-label={`Toggle completion of ${step.title}`}
-                  className={`w-10 h-10 rounded-full border-2 flex items-center justify-center transition-all duration-300 cursor-pointer ${
-                    isCompleted
-                      ? activeTheme.completedNode
-                      : `bg-[#0D1527] border-slate-700 text-gray-400 ${activeTheme.nodeHover}`
-                  }`}
-                >
-                  {isCompleted ? (
-                    <CheckCircle2 size={20} className="stroke-[2.5]" />
-                  ) : (
-                    <span className="font-mono text-xs font-bold">{step.id}</span>
-                  )}
-                </button>
-              </div>
+              <LayoutList size={16} />
+            </button>
+            <button
+              onClick={() => setViewMode("grid")}
+              title="Card Grid View"
+              className={`p-1.5 rounded-lg transition-all cursor-pointer ${
+                viewMode === "grid"
+                  ? "bg-cyan-500/20 text-cyan-300 border border-cyan-400/30"
+                  : "text-slate-400 hover:text-white"
+              }`}
+            >
+              <LayoutGrid size={16} />
+            </button>
+          </div>
+        </div>
+      </div>
 
-              {/* Step Card */}
-              <div className="w-full md:w-[calc(50%-2.5rem)]">
+      {/* ─── 4. STAGES DISPLAY (EASY TO UNDERSTAND & CLEAN UI) ──────── */}
+      {filteredStages.length === 0 ? (
+        <div className="text-center py-16 px-4 rounded-3xl bg-[#060a14] border border-white/5">
+          <Search size={36} className="text-slate-500 mx-auto mb-3" />
+          <h3 className="text-lg font-bold text-white mb-1">No matching stages found</h3>
+          <p className="text-xs text-slate-400 mb-4">
+            Try adjusting your search query or reset the difficulty and status filters.
+          </p>
+          <button
+            onClick={() => {
+              setSearchQuery("");
+              setDifficultyFilter("all");
+              setStatusFilter("all");
+            }}
+            className="px-4 py-2 rounded-xl text-xs font-bold text-black bg-cyan-400 hover:bg-cyan-300 transition-all cursor-pointer"
+          >
+            Reset Filters
+          </button>
+        </div>
+      ) : viewMode === "timeline" ? (
+        /* ─── Clean Linear Sequential Pathway ─── */
+        <div className="space-y-4">
+          {filteredStages.map((step, idx) => {
+            const isCompleted = isClient && completedSteps.includes(step.id);
+            const stepNum = String(idx + 1).padStart(2, "0");
+
+            return (
+              <motion.div
+                key={step.id}
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.2, delay: idx * 0.03 }}
+                className={`relative rounded-3xl border transition-all duration-200 overflow-hidden ${
+                  isCompleted
+                    ? "bg-gradient-to-r from-emerald-950/20 via-[#07131b] to-[#040814] border-emerald-500/30 shadow-[0_4px_25px_rgba(16,185,129,0.1)]"
+                    : "bg-[#060a14] border-white/[0.08] hover:border-cyan-400/40 hover:bg-[#080e1c] shadow-md"
+                }`}
+              >
+                {/* Accent line on left */}
                 <div
-                  className={`p-6 sm:p-7 rounded-2xl border transition-all duration-300 ${
+                  className={`absolute left-0 inset-y-0 w-1.5 transition-all ${
                     isCompleted
-                      ? activeTheme.cardCompleted
-                      : "bg-[#0D1527] border-slate-800 hover:border-slate-700 shadow-xl"
+                      ? "bg-gradient-to-b from-emerald-400 to-teal-400"
+                      : "bg-slate-800 group-hover:bg-cyan-400"
                   }`}
-                >
-                  {/* Card Header & Toggle for Mobile */}
-                  <div className="flex items-start justify-between gap-3 mb-3">
-                    <div className="flex items-center gap-2">
-                      <span className="text-[11px] font-mono font-bold px-2.5 py-0.5 rounded-full bg-white/5 border border-white/10 text-cyan-300">
+                />
+
+                <div className="p-5 sm:p-7 pl-6 sm:pl-8">
+                  {/* Top Header Row */}
+                  <div className="flex flex-wrap items-center justify-between gap-3 mb-3">
+                    <div className="flex items-center gap-2.5">
+                      <span
+                        className={`text-xs font-mono font-black px-2.5 py-1 rounded-xl border ${
+                          isCompleted
+                            ? "bg-emerald-500/20 text-emerald-300 border-emerald-500/40"
+                            : "bg-white/5 text-slate-300 border-white/10"
+                        }`}
+                      >
+                        STAGE {stepNum}
+                      </span>
+                      <span className="text-xs font-mono font-bold text-slate-400 px-2.5 py-1 rounded-xl bg-white/[0.03] border border-white/5">
                         {step.category}
                       </span>
-                      <span className="text-[11px] font-mono text-gray-400 flex items-center gap-1">
-                        <Clock size={11} />
+                      <span className="text-xs font-mono text-slate-400 flex items-center gap-1.5">
+                        <Clock size={12} className="text-slate-500" />
                         {step.duration}
                       </span>
                     </div>
 
-                    {/* Mobile completion button */}
-                    <button
-                      onClick={() => toggleStep(step.id)}
-                      className={`flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs font-mono font-semibold transition-all cursor-pointer ${
-                        isCompleted
-                          ? "bg-emerald-500/20 text-emerald-300 border border-emerald-500/40"
-                          : "bg-white/5 text-gray-400 hover:text-white border border-white/10"
-                      }`}
-                    >
-                      {isCompleted ? (
-                        <>
-                          <CheckCircle2 size={13} className="text-emerald-400" />
-                          <span>Done</span>
-                        </>
-                      ) : (
-                        <>
-                          <Circle size={13} />
-                          <span>Mark Done</span>
-                        </>
-                      )}
-                    </button>
+                    <div className="flex items-center gap-2.5">
+                      {/* Difficulty Badge */}
+                      <span
+                        className={`text-[10px] font-mono font-bold px-2.5 py-1 rounded-full uppercase tracking-wider ${
+                          step.difficulty === "Beginner"
+                            ? "bg-emerald-500/15 text-emerald-400 border border-emerald-500/30"
+                            : step.difficulty === "Intermediate"
+                            ? "bg-amber-500/15 text-amber-400 border border-amber-500/30"
+                            : "bg-purple-500/15 text-purple-400 border border-purple-500/30"
+                        }`}
+                      >
+                        {step.difficulty}
+                      </span>
+
+                      {/* Interactive Complete Toggle */}
+                      <button
+                        onClick={() => toggleStep(step.id)}
+                        className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-mono font-bold transition-all cursor-pointer ${
+                          isCompleted
+                            ? "bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 shadow-sm shadow-emerald-500/20"
+                            : "bg-white/5 hover:bg-white/10 text-slate-300 hover:text-white border border-white/10"
+                        }`}
+                      >
+                        {isCompleted ? (
+                          <>
+                            <CheckCircle2 size={14} className="text-emerald-400" />
+                            <span>Done (+50 XP)</span>
+                          </>
+                        ) : (
+                          <>
+                            <Circle size={14} className="text-slate-400" />
+                            <span>Mark Complete</span>
+                          </>
+                        )}
+                      </button>
+                    </div>
                   </div>
 
-                  {/* Title & Summary */}
-                  <h3 className="text-lg sm:text-xl font-bold text-white font-brand mb-2">
-                    {step.title}
+                  {/* Step Title & Simple Summary */}
+                  <h3 className="text-lg sm:text-xl font-black text-white font-brand mb-2">
+                    {step.title.replace(/^\d+\.\s*/, "")}
                   </h3>
-                  <p className="text-gray-400 text-xs sm:text-sm leading-relaxed mb-4">
+                  <p className="text-slate-300 text-xs sm:text-sm leading-relaxed mb-4">
                     {step.summary}
                   </p>
 
-                  {/* Prerequisites */}
-                  <div className="mb-4 text-xs font-mono text-gray-400">
-                    <span className={`${activeTheme.accentText} font-semibold mr-1.5`}>Prerequisites:</span>
-                    <span>{step.prerequisites.join(", ")}</span>
-                  </div>
-
-                  {/* Key Topics List */}
+                  {/* Skills / Key Concepts Tags (Clean & Compact) */}
                   <div className="mb-4">
-                    <span className="text-[11px] font-mono text-gray-500 uppercase tracking-wider block mb-1.5">
-                      Core Concepts:
-                    </span>
-                    <ul className="grid grid-cols-1 gap-1 text-xs text-gray-300">
+                    <div className="text-[11px] font-mono font-bold text-slate-400 uppercase tracking-wider mb-2">
+                      Core Skills You Will Master:
+                    </div>
+                    <div className="flex flex-wrap gap-1.5">
                       {step.keyTopics.map((topic, tIdx) => (
-                        <li key={tIdx} className="flex items-start gap-2">
-                          <span className={`${activeTheme.accentText} mt-0.5`}>•</span>
-                          <span>{topic}</span>
-                        </li>
+                        <span
+                          key={tIdx}
+                          className="text-xs px-2.5 py-1 rounded-xl bg-white/[0.04] border border-white/5 text-slate-300 font-sans"
+                        >
+                          {topic}
+                        </span>
                       ))}
-                    </ul>
+                    </div>
                   </div>
 
-                  {/* Practical Milestone Challenge */}
-                  <div className={`p-3.5 rounded-xl border mb-4 text-xs ${activeTheme.milestoneBox}`}>
-                    <div className={`flex items-center gap-1.5 font-bold mb-1 ${activeTheme.milestoneTitle}`}>
-                      <Sparkles size={13} />
-                      <span>Practical Project Milestone:</span>
+                  {/* Milestone Project Card (Clear Deliverable) */}
+                  <div className="p-3.5 sm:p-4 rounded-2xl bg-cyan-950/20 border border-cyan-500/25 text-slate-200 mb-4">
+                    <div className="flex items-center gap-2 text-cyan-300 font-bold text-xs uppercase font-mono tracking-wider mb-1">
+                      <Rocket size={14} className="text-cyan-400" />
+                      <span>Hands-On Milestone Project:</span>
                     </div>
-                    <p className="leading-relaxed text-gray-300">
+                    <p className="text-xs sm:text-sm leading-relaxed text-slate-200 font-medium">
                       {step.practicalMilestone}
                     </p>
                   </div>
 
-                  {/* Linked Study Materials (Notes & PDF) */}
-                  <div className="pt-4 border-t border-slate-800/80 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
-                    <div className="space-y-1 w-full sm:w-auto">
-                      <span className="text-[11px] font-mono text-gray-500 uppercase block">
-                        Study Notes:
-                      </span>
-                      <div className="flex flex-wrap gap-2">
-                        {step.recommendedNotes.map((note, nIdx) => (
+                  {/* Action Bar: Ask Lumio AI & Linked Notes */}
+                  <div className="pt-3 border-t border-white/10 flex flex-wrap items-center justify-between gap-3">
+                    <div className="flex items-center gap-2">
+                      {/* Ask Lumio Button */}
+                      <button
+                        onClick={() => handleAskLumio(step)}
+                        className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-gradient-to-r from-purple-500/20 to-cyan-500/20 hover:from-purple-500/30 hover:to-cyan-500/30 border border-cyan-400/40 text-cyan-200 text-xs font-bold transition-all cursor-pointer shadow-sm"
+                        title="Get Lumio AI guidance on this topic"
+                      >
+                        <Bot size={14} className="text-cyan-300 animate-pulse" />
+                        <span>Ask Lumio to Explain</span>
+                      </button>
+
+                      {/* Practice link */}
+                      <Link
+                        href="/practice"
+                        className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-slate-300 hover:text-white text-xs font-semibold transition-all"
+                      >
+                        <Code2 size={13} className="text-emerald-400" />
+                        <span>Code in Playground</span>
+                      </Link>
+                    </div>
+
+                    {/* Related Notes */}
+                    {step.recommendedNotes && step.recommendedNotes.length > 0 && (
+                      <div className="flex items-center gap-2 text-xs">
+                        <span className="text-slate-500 font-mono hidden sm:inline">Notes:</span>
+                        {step.recommendedNotes.slice(0, 2).map((note, nIdx) => (
                           <Link
                             key={nIdx}
                             href={`/notes/${note.slug}`}
-                            className="inline-flex items-center gap-1 text-xs text-cyan-300 hover:text-white transition-colors underline underline-offset-4"
+                            className="inline-flex items-center gap-1 text-cyan-300 hover:text-white hover:underline text-xs font-medium transition-colors"
                           >
-                            <span>{note.title}</span>
-                            <ArrowRight size={11} />
+                            <BookOpen size={12} />
+                            <span className="truncate max-w-[140px] sm:max-w-[200px]">{note.title}</span>
                           </Link>
                         ))}
                       </div>
-                    </div>
+                    )}
                   </div>
                 </div>
-              </div>
-            </div>
-          );
-        })}
-      </div>
+              </motion.div>
+            );
+          })}
+        </div>
+      ) : (
+        /* ─── Compact Card Grid View ─── */
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          {filteredStages.map((step, idx) => {
+            const isCompleted = isClient && completedSteps.includes(step.id);
+            const stepNum = String(idx + 1).padStart(2, "0");
+
+            return (
+              <motion.div
+                key={step.id}
+                initial={{ opacity: 0, scale: 0.98 }}
+                animate={{ opacity: 1, scale: 1 }}
+                className={`p-5 rounded-3xl border flex flex-col justify-between transition-all ${
+                  isCompleted
+                    ? "bg-gradient-to-b from-emerald-950/20 to-[#050a14] border-emerald-500/30 shadow-md"
+                    : "bg-[#060a14] border-white/10 hover:border-cyan-400/40"
+                }`}
+              >
+                <div>
+                  <div className="flex items-center justify-between gap-2 mb-3">
+                    <span className="text-xs font-mono font-black text-cyan-300 px-2 py-0.5 rounded-lg bg-white/5 border border-white/10">
+                      STAGE {stepNum}
+                    </span>
+                    <button
+                      onClick={() => toggleStep(step.id)}
+                      className={`p-1.5 rounded-lg transition-all cursor-pointer ${
+                        isCompleted ? "text-emerald-400 bg-emerald-500/20" : "text-slate-500 hover:text-white"
+                      }`}
+                      title={isCompleted ? "Mark incomplete" : "Mark complete"}
+                    >
+                      {isCompleted ? <CheckCircle2 size={18} /> : <Circle size={18} />}
+                    </button>
+                  </div>
+
+                  <h3 className="text-base font-bold text-white mb-1.5 line-clamp-1">
+                    {step.title.replace(/^\d+\.\s*/, "")}
+                  </h3>
+                  <p className="text-xs text-slate-400 leading-relaxed line-clamp-2 mb-3">
+                    {step.summary}
+                  </p>
+
+                  <div className="p-2.5 rounded-xl bg-cyan-950/30 border border-cyan-500/20 text-[11px] text-slate-300 mb-3">
+                    <div className="font-bold text-cyan-300 flex items-center gap-1 mb-0.5">
+                      <Rocket size={12} />
+                      Milestone:
+                    </div>
+                    <p className="line-clamp-2">{step.practicalMilestone}</p>
+                  </div>
+                </div>
+
+                <div className="pt-3 border-t border-white/10 flex items-center justify-between gap-2">
+                  <button
+                    onClick={() => handleAskLumio(step)}
+                    className="inline-flex items-center gap-1 text-xs text-cyan-300 hover:text-cyan-200 font-bold cursor-pointer"
+                  >
+                    <Bot size={13} />
+                    <span>Ask Lumio</span>
+                  </button>
+                  <span className="text-[11px] font-mono text-slate-500">{step.duration}</span>
+                </div>
+              </motion.div>
+            );
+          })}
+        </div>
+      )}
     </div>
   );
 }
