@@ -80,7 +80,6 @@ export default function LearningPathDashboard() {
   const [levelFilter, setLevelFilter] = useState<string>("all");
   const [statusFilter, setStatusFilter] = useState<string>("all");
   const [previewTrack, setPreviewTrack] = useState<RoadmapTrack | null>(null);
-  const [activeInteractiveTrack, setActiveInteractiveTrack] = useState<string | null>(null);
 
   const rawProgress = useSyncExternalStore(subscribe, getProgressSnapshot, getServerSnapshot);
   const rawEnrolled = useSyncExternalStore(subscribe, getEnrollSnapshot, getServerEnrollSnapshot);
@@ -111,7 +110,6 @@ export default function LearningPathDashboard() {
       localStorage.setItem(ENROLL_KEY, JSON.stringify(next));
       window.dispatchEvent(new Event("storage"));
     }
-    setActiveInteractiveTrack(trackId);
   };
 
   // Toggle Step Completion
@@ -178,8 +176,6 @@ Explain the core concepts clearly in simple language, what common beginner mista
       return true;
     });
   }, [searchQuery, levelFilter, statusFilter, enrolledTracks, completedSteps]);
-
-  const activeTrackObj = ROADMAP_TRACKS.find((t) => t.id === activeInteractiveTrack);
 
   return (
     <div className="w-full space-y-12">
@@ -353,7 +349,8 @@ Explain the core concepts clearly in simple language, what common beginner mista
 
               {/* Action Buttons: Enroll/Continue & Preview */}
               <div className="p-5 pt-0 grid grid-cols-2 gap-2.5">
-                <button
+                <Link
+                  href={`/roadmap/${track.id}`}
                   onClick={() => handleEnroll(track.id)}
                   className={`w-full py-3 px-3 rounded-2xl font-bold text-xs sm:text-sm flex items-center justify-center gap-1.5 transition-all shadow-md cursor-pointer ${
                     isEnrolled
@@ -363,7 +360,7 @@ Explain the core concepts clearly in simple language, what common beginner mista
                 >
                   {isEnrolled ? (
                     <>
-                      <span>Continue</span>
+                      <span>Continue Learning</span>
                       <ArrowRight size={15} />
                     </>
                   ) : (
@@ -372,7 +369,7 @@ Explain the core concepts clearly in simple language, what common beginner mista
                       <Sparkles size={14} className="text-amber-300" />
                     </>
                   )}
-                </button>
+                </Link>
 
                 <button
                   onClick={() => setPreviewTrack(track)}
@@ -386,139 +383,6 @@ Explain the core concepts clearly in simple language, what common beginner mista
           );
         })}
       </div>
-
-      {/* ─── ACTIVE INTERACTIVE ROADMAP (If a track is launched) ─── */}
-      {activeTrackObj && (
-        <div id="interactive-roadmap-view" className="mt-14 scroll-mt-24 space-y-6">
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-6 rounded-3xl bg-gradient-to-r from-[#081226] via-[#050b18] to-[#081226] border border-cyan-500/30 shadow-2xl">
-            <div>
-              <div className="flex items-center gap-2 text-xs font-mono font-bold text-cyan-300 uppercase tracking-wider mb-1">
-                <BookMarked size={14} className="text-cyan-400" />
-                <span>Currently Active Learning Track</span>
-              </div>
-              <h2 className="text-2xl sm:text-3xl font-black text-white font-brand">
-                {activeTrackObj.name} Curriculum
-              </h2>
-              <p className="text-slate-300 text-xs sm:text-sm mt-1">
-                Check off each stage as you master it. Click <strong>Ask Lumio to Explain</strong> for instant AI tutoring.
-              </p>
-            </div>
-
-            <button
-              onClick={() => setActiveInteractiveTrack(null)}
-              className="self-start sm:self-center px-4 py-2 rounded-xl text-xs font-mono font-bold text-slate-400 hover:text-white bg-white/5 border border-white/10 transition-colors"
-            >
-              Close Track View
-            </button>
-          </div>
-
-          {/* Sequential Stage Cards */}
-          <div className="space-y-4">
-            {ROADMAP_STEPS.filter((s) => s.trackId === activeTrackObj.id).map((step) => {
-              const isCompleted = isClient && completedSteps.includes(step.id);
-              const stepNum = String(step.stepNumber).padStart(2, "0");
-
-              return (
-                <div
-                  key={step.id}
-                  className={`p-6 rounded-3xl border transition-all ${
-                    isCompleted
-                      ? "bg-gradient-to-r from-emerald-950/20 via-[#07131b] to-[#040814] border-emerald-500/30 shadow-[0_4px_25px_rgba(16,185,129,0.1)]"
-                      : "bg-[#060a14] border-white/10 hover:border-cyan-400/40"
-                  }`}
-                >
-                  <div className="flex flex-wrap items-center justify-between gap-3 mb-3">
-                    <div className="flex items-center gap-2">
-                      <span className={`text-xs font-mono font-bold px-2.5 py-1 rounded-xl border ${
-                        isCompleted ? "bg-emerald-500/20 text-emerald-300 border-emerald-500/40" : "bg-white/5 text-slate-300 border-white/10"
-                      }`}>
-                        STAGE {stepNum}
-                      </span>
-                      <span className="text-xs font-mono text-slate-400 px-2 py-0.5 rounded-lg bg-white/[0.03]">
-                        {step.category}
-                      </span>
-                      <span className="text-xs font-mono text-slate-400 flex items-center gap-1">
-                        <Clock size={12} />
-                        {step.duration}
-                      </span>
-                    </div>
-
-                    <button
-                      onClick={() => toggleStep(step.id)}
-                      className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-mono font-bold transition-all cursor-pointer ${
-                        isCompleted
-                          ? "bg-emerald-500/20 text-emerald-300 border border-emerald-500/40"
-                          : "bg-white/5 hover:bg-white/10 text-slate-300 hover:text-white border border-white/10"
-                      }`}
-                    >
-                      {isCompleted ? (
-                        <>
-                          <CheckCircle2 size={14} className="text-emerald-400" />
-                          <span>Done (+50 XP)</span>
-                        </>
-                      ) : (
-                        <>
-                          <Circle size={14} className="text-slate-400" />
-                          <span>Mark Complete</span>
-                        </>
-                      )}
-                    </button>
-                  </div>
-
-                  <h4 className="text-lg font-black text-white font-brand mb-1.5">
-                    {step.title.replace(/^\d+\.\s*/, "")}
-                  </h4>
-                  <p className="text-slate-300 text-xs sm:text-sm leading-relaxed mb-4">
-                    {step.summary}
-                  </p>
-
-                  <div className="mb-4">
-                    <span className="text-[11px] font-mono text-slate-400 uppercase tracking-wider block mb-1.5">
-                      Core Skills:
-                    </span>
-                    <div className="flex flex-wrap gap-1.5">
-                      {step.keyTopics.map((topic, tIdx) => (
-                        <span
-                          key={tIdx}
-                          className="text-xs px-2.5 py-1 rounded-xl bg-white/[0.04] border border-white/5 text-slate-300"
-                        >
-                          {topic}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-
-                  <div className="p-3.5 rounded-2xl bg-cyan-950/20 border border-cyan-500/25 text-slate-200 mb-4">
-                    <div className="flex items-center gap-2 text-cyan-300 font-bold text-xs font-mono mb-1">
-                      <Rocket size={13} className="text-cyan-400" />
-                      <span>Hands-On Milestone:</span>
-                    </div>
-                    <p className="text-xs sm:text-sm text-slate-200">{step.practicalMilestone}</p>
-                  </div>
-
-                  <div className="pt-3 border-t border-white/10 flex items-center justify-between">
-                    <button
-                      onClick={() => handleAskLumio(step, activeTrackObj.name)}
-                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-gradient-to-r from-purple-500/20 to-cyan-500/20 hover:from-purple-500/30 hover:to-cyan-500/30 border border-cyan-400/40 text-cyan-200 text-xs font-bold transition-all cursor-pointer shadow-sm"
-                    >
-                      <Bot size={14} className="text-cyan-300 animate-pulse" />
-                      <span>Ask Lumio to Explain</span>
-                    </button>
-
-                    <Link
-                      href="/practice"
-                      className="inline-flex items-center gap-1.5 text-xs text-slate-400 hover:text-white font-mono"
-                    >
-                      <Code2 size={13} className="text-emerald-400" />
-                      <span>Practice in Playground</span>
-                    </Link>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-      )}
 
       {/* ─── ROADMAP PREVIEW MODAL ─── */}
       <AnimatePresence>
@@ -581,15 +445,17 @@ Explain the core concepts clearly in simple language, what common beginner mista
                 <span className="text-xs font-mono text-slate-400">
                   Ready to start this career track?
                 </span>
-                <button
+                <Link
+                  href={`/roadmap/${previewTrack.id}`}
                   onClick={() => {
                     handleEnroll(previewTrack.id);
                     setPreviewTrack(null);
                   }}
-                  className="px-6 py-2.5 rounded-xl font-bold text-xs sm:text-sm bg-gradient-to-r from-cyan-400 to-emerald-400 hover:from-cyan-300 hover:to-emerald-300 text-black shadow-lg shadow-cyan-500/25 transition-all cursor-pointer"
+                  className="px-6 py-2.5 rounded-xl font-bold text-xs sm:text-sm bg-gradient-to-r from-cyan-400 to-emerald-400 hover:from-cyan-300 hover:to-emerald-300 text-black shadow-lg shadow-cyan-500/25 transition-all flex items-center gap-2 cursor-pointer"
                 >
-                  Enroll and Start Learning Now
-                </button>
+                  <span>Start Curriculum Now</span>
+                  <ArrowRight size={15} />
+                </Link>
               </div>
             </motion.div>
           </div>
