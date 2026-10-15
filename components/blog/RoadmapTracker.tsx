@@ -15,6 +15,10 @@ import {
   Code2,
   Cpu,
   Cloud,
+  Layers,
+  Coffee,
+  BarChart3,
+  Smartphone,
   Search,
   Filter,
   Check,
@@ -33,11 +37,14 @@ import { motion, AnimatePresence } from "framer-motion";
 const STORAGE_KEY = "slrj_webdev_roadmap_progress";
 
 const TRACK_ICONS: Record<string, React.ElementType> = {
+  frontend: Globe,
+  fullstack: Layers,
+  python: Code2,
+  java: Coffee,
+  "ai-ml": Sparkles,
+  "data-analyst": BarChart3,
+  mobile: Smartphone,
   "web-dev": Globe,
-  "dsa": Code2,
-  "python-ai": Sparkles,
-  "cs-core": Cpu,
-  "cloud-devops": Cloud,
 };
 
 const TRACK_THEMES: Record<
@@ -54,7 +61,7 @@ const TRACK_THEMES: Record<
     badgeText: string;
   }
 > = {
-  "web-dev": {
+  frontend: {
     border: "border-cyan-500/20",
     activeBorder: "border-cyan-400",
     bgGradient: "from-cyan-950/40 via-[#070e1c] to-[#040814]",
@@ -65,29 +72,7 @@ const TRACK_THEMES: Record<
     badgeBg: "bg-cyan-500/20",
     badgeText: "text-cyan-300",
   },
-  "dsa": {
-    border: "border-amber-500/20",
-    activeBorder: "border-amber-400",
-    bgGradient: "from-amber-950/40 via-[#140e07] to-[#040814]",
-    accent: "text-amber-400",
-    accentBg: "bg-amber-500/15 border-amber-500/30 text-amber-300",
-    glow: "shadow-[0_0_30px_rgba(245,158,11,0.25)]",
-    progressGrad: "from-amber-400 via-orange-400 to-yellow-400",
-    badgeBg: "bg-amber-500/20",
-    badgeText: "text-amber-300",
-  },
-  "python-ai": {
-    border: "border-emerald-500/20",
-    activeBorder: "border-emerald-400",
-    bgGradient: "from-emerald-950/40 via-[#06140e] to-[#040814]",
-    accent: "text-emerald-400",
-    accentBg: "bg-emerald-500/15 border-emerald-500/30 text-emerald-300",
-    glow: "shadow-[0_0_30px_rgba(16,185,129,0.25)]",
-    progressGrad: "from-emerald-400 via-teal-400 to-lime-400",
-    badgeBg: "bg-emerald-500/20",
-    badgeText: "text-emerald-300",
-  },
-  "cs-core": {
+  fullstack: {
     border: "border-indigo-500/20",
     activeBorder: "border-indigo-400",
     bgGradient: "from-indigo-950/40 via-[#0a0c1a] to-[#040814]",
@@ -98,7 +83,51 @@ const TRACK_THEMES: Record<
     badgeBg: "bg-indigo-500/20",
     badgeText: "text-indigo-300",
   },
-  "cloud-devops": {
+  python: {
+    border: "border-emerald-500/20",
+    activeBorder: "border-emerald-400",
+    bgGradient: "from-emerald-950/40 via-[#06140e] to-[#040814]",
+    accent: "text-emerald-400",
+    accentBg: "bg-emerald-500/15 border-emerald-500/30 text-emerald-300",
+    glow: "shadow-[0_0_30px_rgba(16,185,129,0.25)]",
+    progressGrad: "from-emerald-400 via-teal-400 to-lime-400",
+    badgeBg: "bg-emerald-500/20",
+    badgeText: "text-emerald-300",
+  },
+  java: {
+    border: "border-amber-500/20",
+    activeBorder: "border-amber-400",
+    bgGradient: "from-amber-950/40 via-[#140e07] to-[#040814]",
+    accent: "text-amber-400",
+    accentBg: "bg-amber-500/15 border-amber-500/30 text-amber-300",
+    glow: "shadow-[0_0_30px_rgba(245,158,11,0.25)]",
+    progressGrad: "from-amber-400 via-orange-400 to-yellow-400",
+    badgeBg: "bg-amber-500/20",
+    badgeText: "text-amber-300",
+  },
+  "ai-ml": {
+    border: "border-purple-500/20",
+    activeBorder: "border-purple-400",
+    bgGradient: "from-purple-950/40 via-[#120a1c] to-[#040814]",
+    accent: "text-purple-400",
+    accentBg: "bg-purple-500/15 border-purple-500/30 text-purple-300",
+    glow: "shadow-[0_0_30px_rgba(168,85,247,0.25)]",
+    progressGrad: "from-purple-400 via-violet-400 to-pink-400",
+    badgeBg: "bg-purple-500/20",
+    badgeText: "text-purple-300",
+  },
+  "data-analyst": {
+    border: "border-teal-500/20",
+    activeBorder: "border-teal-400",
+    bgGradient: "from-teal-950/40 via-[#07151a] to-[#040814]",
+    accent: "text-teal-400",
+    accentBg: "bg-teal-500/15 border-teal-500/30 text-teal-300",
+    glow: "shadow-[0_0_30px_rgba(20,184,166,0.25)]",
+    progressGrad: "from-teal-400 via-cyan-400 to-blue-400",
+    badgeBg: "bg-teal-500/20",
+    badgeText: "text-teal-300",
+  },
+  mobile: {
     border: "border-rose-500/20",
     activeBorder: "border-rose-400",
     bgGradient: "from-rose-950/40 via-[#170810] to-[#040814]",
@@ -129,7 +158,7 @@ function getServerSnapshot(): string {
 
 export default function RoadmapTracker() {
   const { user, toggleRoadmapStep } = useAuth();
-  const [selectedTrack, setSelectedTrack] = useState<string>("web-dev");
+  const [selectedTrack, setSelectedTrack] = useState<string>("frontend");
   const [searchQuery, setSearchQuery] = useState("");
   const [difficultyFilter, setDifficultyFilter] = useState<string>("all");
   const [statusFilter, setStatusFilter] = useState<string>("all");
