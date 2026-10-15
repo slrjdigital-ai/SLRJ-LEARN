@@ -45,25 +45,25 @@ export default function AppTopBar({ onMobileMenuToggle }: AppTopBarProps) {
 
         <Link
           href="/roadmap"
-          className="group inline-flex items-center gap-2 sm:gap-2.5 px-3 sm:px-4 py-2 rounded-xl bg-gradient-to-r from-blue-50 via-indigo-50 to-blue-50 hover:from-blue-100 hover:to-indigo-100 border border-blue-200/80 text-[#0b69ff] text-xs font-bold transition-all shadow-xs hover:shadow-sm"
+          className="group inline-flex items-center gap-2 sm:gap-2.5 px-3 sm:px-4 py-2 rounded-xl bg-gradient-to-r from-blue-50 via-cyan-50/50 to-blue-50 hover:from-blue-100 hover:to-cyan-100 border border-blue-200/80 text-[#12316B] text-xs font-bold transition-all shadow-xs hover:shadow-sm"
         >
-          <Compass size={16} className="text-[#0b69ff] group-hover:rotate-45 transition-transform duration-300" />
+          <Compass size={16} className="text-[#12316B] group-hover:rotate-45 transition-transform duration-300" />
           <span className="hidden sm:inline">@ Role Roadmaps</span>
           <span className="sm:hidden">Roadmaps</span>
-          <span className="text-[10px] font-black px-1.5 py-0.5 rounded-md bg-[#0b69ff] text-white uppercase tracking-wider shadow-xs animate-pulse">
-            New
+          <span className="text-[10px] font-black px-1.5 py-0.5 rounded-md bg-[#18B6D2] text-[#12316B] uppercase tracking-wider shadow-xs">
+            8 Tracks
           </span>
         </Link>
 
         {/* Quick Search Shortcut Pill */}
         <Link
-          href="/topics"
+          href="/courses"
           className="hidden md:flex items-center gap-2.5 px-3.5 py-2 rounded-xl bg-slate-50 hover:bg-slate-100/90 border border-slate-200/80 text-xs text-slate-500 transition-all shadow-xs"
         >
           <Search size={14} className="text-slate-400" />
-          <span className="text-slate-500 font-medium">Quick Search...</span>
+          <span className="text-slate-500 font-medium">Explore Courses...</span>
           <kbd className="px-1.5 py-0.5 text-[10px] font-mono font-semibold bg-white border border-slate-200 rounded text-slate-400 shadow-xs">
-            ⌘K
+            /courses
           </kbd>
         </Link>
       </div>
@@ -83,12 +83,12 @@ export default function AppTopBar({ onMobileMenuToggle }: AppTopBarProps) {
         {/* Total XP & Level Badge */}
         <Link
           href="/gamification"
-          className="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-xl bg-gradient-to-r from-blue-50 via-indigo-50 to-purple-50 border border-blue-200/80 text-[#0b69ff] text-xs font-bold hover:shadow-xs transition-all"
+          className="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-xl bg-gradient-to-r from-blue-50 via-cyan-50/50 to-blue-50 border border-blue-200/80 text-[#12316B] text-xs font-bold hover:shadow-xs transition-all"
           title="Total Earned XP"
         >
-          <Sparkles size={14} className="text-[#0b69ff]" />
+          <Sparkles size={14} className="text-[#18B6D2]" />
           <span>{state.xp.totalXP.toLocaleString()} XP</span>
-          <span className="px-1.5 py-0.5 rounded-md bg-blue-100 text-[#0b69ff] text-[10px] font-black uppercase tracking-wider">
+          <span className="px-1.5 py-0.5 rounded-md bg-[#12316B] text-white text-[10px] font-black uppercase tracking-wider">
             Lv {currentLevel.levelNumber}
           </span>
         </Link>

@@ -740,3 +740,7 @@ export function getAllCourses(): Course[] {
 export function getCourseBySlug(slug: string): Course | undefined {
   return COURSES_DATA.find((c) => c.slug === slug);
 }
+
+export function getCourseById(id: string): Course | undefined {
+  return COURSES_DATA.find((c) => c.id === id || c.slug === id);
+}

@@ -3,6 +3,7 @@
 import { useState } from "react";
 import AppSidebar from "./AppSidebar";
 import AppTopBar from "./AppTopBar";
+import Footer from "@/components/Footer";
 import { MessageSquare, Bot } from "lucide-react";
 
 export default function AppShell({ children }: { children: React.ReactNode }) {
@@ -16,7 +17,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
   };
 
   return (
-    <div className="min-h-screen bg-[#f4f7fb] text-slate-800 flex">
+    <div className="min-h-screen bg-[#F7F9FC] text-[#182230] flex">
       {/* ── Left Sidebar ── */}
       <AppSidebar
         collapsed={collapsed}
@@ -38,6 +39,9 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
         <main className="flex-1 p-4 sm:p-6 lg:p-10 max-w-[1780px] w-full mx-auto">
           {children}
         </main>
+
+        {/* Site Footer */}
+        <Footer />
       </div>
 
       {/* ── Floating SAM / AI Assistant Button (exact as in photo bottom right) ── */}

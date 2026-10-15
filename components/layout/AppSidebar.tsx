@@ -23,6 +23,9 @@ import {
   FolderGit2,
   Users,
   X,
+  FileText,
+  Award,
+  ShieldCheck,
 } from "lucide-react";
 
 interface AppSidebarProps {
@@ -66,28 +69,52 @@ export default function AppSidebar({
   const mainNav: MainNavItem[] = [
     { name: "Home", href: "/", icon: Home, exact: true },
     {
+      name: "Explore Courses",
+      href: "/courses",
+      icon: BookOpen,
+      exact: false,
+      badge: "Free",
+      badgeColor: "bg-[#18B6D2]/10 text-[#12316B] border border-[#18B6D2]/30",
+    },
+    {
       name: "Role Roadmaps",
       href: "/roadmap",
       icon: Compass,
       exact: false,
       badge: "8 Paths",
-      badgeColor: "bg-blue-50 text-[#0b69ff] border border-blue-200",
+      badgeColor: "bg-blue-50 text-[#12316B] border border-blue-200",
     },
-    { name: "Course Library", href: "/topics", icon: BookOpen, exact: false },
+    {
+      name: "PDF Handbooks",
+      href: "/pdfs",
+      icon: FileText,
+      exact: false,
+      badge: "17 Guides",
+      badgeColor: "bg-emerald-50 text-emerald-700 border border-emerald-200",
+    },
     {
       name: "Projects & Portfolio",
       href: "/projects",
       icon: FolderGit2,
       exact: false,
       badge: "Build",
-      badgeColor: "bg-emerald-50 text-emerald-700 border border-emerald-200",
+      badgeColor: "bg-indigo-50 text-indigo-700 border border-indigo-200",
     },
     { name: "Events & Challenges", href: "/gamification", icon: Trophy, exact: false },
+    { name: "My Certificates", href: "/certificates", icon: Award, exact: false },
     { name: "Learner Community", href: "/community", icon: Users, exact: false },
   ];
 
   const secondaryNav: SecondaryNavItem[] = [
     { name: "Playground", href: "/practice", icon: Terminal, exact: false },
+    {
+      name: "Admin Console",
+      href: "/admin",
+      icon: ShieldCheck,
+      exact: false,
+      badge: "Admin",
+      badgeColor: "bg-amber-50 text-amber-800 border border-amber-200",
+    },
     {
       name: "SAM Assistant",
       action: () => {
@@ -102,7 +129,7 @@ export default function AppSidebar({
   ];
 
   const userName = user?.name || "Shahid";
-  const userRole = user?.level || "Smart";
+  const userRole = user?.level || "Learner";
   const userAvatar = user?.avatar || "/icon.jpg";
 
   return (
@@ -122,27 +149,41 @@ export default function AppSidebar({
           mobileOpen ? "translate-x-0 shadow-2xl" : "-translate-x-full md:translate-x-0"
         }`}
       >
-        {/* ── Top Header & Logo (h-20 aligned with top bar) ── */}
+        {/* ── Top Header & Official SLRJ Logo (h-20 aligned with top bar) ── */}
         <div>
           <div className="h-20 px-4 flex items-center justify-between border-b border-slate-100">
             {!collapsed ? (
-              <Link href="/" className="flex items-center gap-2.5 group">
-                <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-[#0b69ff] to-blue-600 flex items-center justify-center text-white font-black text-sm shadow-md shadow-blue-500/20 group-hover:scale-105 transition-transform">
-                  SL
+              <Link href="/" className="flex items-center gap-3 group">
+                <div className="w-10 h-10 rounded-xl overflow-hidden bg-white border border-slate-200/80 shadow-xs flex items-center justify-center p-0.5 group-hover:scale-105 transition-transform">
+                  <Image
+                    src="/logo.png"
+                    alt="SLRJ Learn Logo"
+                    width={40}
+                    height={40}
+                    className="w-full h-full object-contain"
+                    priority
+                  />
                 </div>
                 <div className="flex flex-col">
-                  <span className="font-extrabold text-sm text-slate-900 leading-none tracking-tight group-hover:text-[#0b69ff] transition-colors">
+                  <span className="font-extrabold text-sm text-[#12316B] leading-none tracking-tight group-hover:text-[#2456A6] transition-colors">
                     SLRJ LEARN
                   </span>
-                  <span className="text-[10px] font-bold text-[#0b69ff] tracking-widest uppercase mt-0.5">
+                  <span className="text-[10px] font-bold text-[#18B6D2] tracking-widest uppercase mt-0.5">
                     ACADEMY
                   </span>
                 </div>
               </Link>
             ) : (
-              <Link href="/" className="mx-auto group">
-                <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-[#0b69ff] to-blue-600 flex items-center justify-center text-white font-bold text-sm shadow-md group-hover:scale-105 transition-transform">
-                  SL
+              <Link href="/" className="mx-auto group" title="SLRJ Learn">
+                <div className="w-10 h-10 rounded-xl overflow-hidden bg-white border border-slate-200/80 shadow-xs flex items-center justify-center p-0.5 group-hover:scale-105 transition-transform">
+                  <Image
+                    src="/logo.png"
+                    alt="SLRJ Learn Logo"
+                    width={40}
+                    height={40}
+                    className="w-full h-full object-contain"
+                    priority
+                  />
                 </div>
               </Link>
             )}
@@ -181,7 +222,7 @@ export default function AppSidebar({
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="Search topics, paths..."
-                className="w-full pl-9 pr-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:border-[#0b69ff] focus:bg-white transition-all shadow-2xs"
+                className="w-full pl-9 pr-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:border-[#12316B] focus:bg-white transition-all shadow-2xs"
               />
             </div>
           </div>
@@ -201,13 +242,13 @@ export default function AppSidebar({
                 href={item.href}
                 className={`flex items-center justify-between px-3 py-2.5 rounded-xl text-xs font-semibold transition-all ${
                   isActive
-                    ? "bg-[#e8f1fd] text-[#0b69ff] font-bold shadow-xs border border-blue-200/50"
+                    ? "bg-[#12316B]/10 text-[#12316B] font-bold shadow-xs border border-[#12316B]/20"
                     : "text-slate-600 hover:text-slate-900 hover:bg-slate-50"
                 } ${collapsed ? "justify-center" : ""}`}
                 title={collapsed ? item.name : undefined}
               >
                 <div className="flex items-center gap-3">
-                  <Icon size={18} className={isActive ? "text-[#0b69ff]" : "text-slate-500"} />
+                  <Icon size={18} className={isActive ? "text-[#12316B]" : "text-slate-500"} />
                   {!collapsed && <span>{item.name}</span>}
                 </div>
                 {!collapsed && item.badge && (

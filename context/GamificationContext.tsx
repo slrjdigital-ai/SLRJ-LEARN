@@ -30,6 +30,7 @@ interface GamificationContextType {
   ) => { success: boolean; xpEarned: number };
   toggleIncognito: () => void;
   isActivityCompleted: (activityId: string) => boolean;
+  awardXP: (amount: number, title?: string) => void;
 }
 
 const GamificationContext = createContext<GamificationContextType | undefined>(undefined);
@@ -221,6 +222,16 @@ export function GamificationProvider({ children }: { children: React.ReactNode }
     setState(nextState);
   }, []);
 
+  const awardXP = useCallback(
+    (amount: number, title?: string) => {
+      recordActivity("lesson", `xp-${Date.now()}-${Math.random().toString(36).substring(2, 6)}`, {
+        xp: amount,
+        title: title || "Learning Activity",
+      });
+    },
+    [recordActivity]
+  );
+
   return (
     <GamificationContext.Provider
       value={{
@@ -233,6 +244,7 @@ export function GamificationProvider({ children }: { children: React.ReactNode }
         submitChallengeSolution,
         toggleIncognito,
         isActivityCompleted,
+        awardXP,
       }}
     >
       {children}

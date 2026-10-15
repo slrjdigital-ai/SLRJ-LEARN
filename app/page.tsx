@@ -1,41 +1,59 @@
 import { Metadata } from "next";
-import HomeWelcomeBanner from "@/components/home/HomeWelcomeBanner";
+import PublicHeroSection from "@/components/home/PublicHeroSection";
+import LearningBenefitsSection from "@/components/home/LearningBenefitsSection";
+import FeaturedCoursesSection from "@/components/home/FeaturedCoursesSection";
+import HowItWorksSection from "@/components/home/HowItWorksSection";
+import CertificatePreviewSection from "@/components/home/CertificatePreviewSection";
 import PersonalizedLearningOverview from "@/components/home/PersonalizedLearningOverview";
 import ContinueLearningCard from "@/components/home/ContinueLearningCard";
 import DailyLearningHub from "@/components/home/DailyLearningHub";
 import BuildSomethingReal from "@/components/home/BuildSomethingReal";
-import HomeCommunityPreview from "@/components/home/HomeCommunityPreview";
 import LearningPathDashboard from "@/components/learning-paths/LearningPathDashboard";
+import HomeCommunityPreview from "@/components/home/HomeCommunityPreview";
+import FaqSection from "@/components/home/FaqSection";
 
 export const metadata: Metadata = {
-  title: "Dashboard & Learning Journey | SLRJ Learn Academy",
+  title: "SLRJ Learn — Learn Skills. Build Projects. Grow Your Future.",
   description:
-    "Follow structured growth cycles, build responsive websites, earn verified XP, and track your progress from beginner to advanced.",
+    "Online learning platform with PDF-based courses, digital handwritten notes, interactive coding challenges, structured career roadmaps, and verifiable certificates.",
 };
 
 export default function HomePage() {
   return (
-    <div className="space-y-12 pb-16">
-      {/* ─── 1. Upgraded Welcome Banner ─── */}
-      <HomeWelcomeBanner />
+    <div className="space-y-12 sm:space-y-16 pb-16">
+      {/* ─── 1. Hero Section (Learn Skills. Build Projects. Grow Your Future.) ─── */}
+      <PublicHeroSection />
 
-      {/* ─── 2. Personalized Learning Overview (4-Card Dashboard) ─── */}
+      {/* ─── 2. Personalized Student Dashboard Summary (When active session exists) ─── */}
       <PersonalizedLearningOverview />
-
-      {/* ─── 3. Dedicated Continue Learning Section ─── */}
       <ContinueLearningCard />
 
-      {/* ─── 4. Daily Learning Hub (Interactive Challenges, Quizzes, Puzzles) ─── */}
-      <DailyLearningHub />
+      {/* ─── 3. Learning Benefits (5 Pillars of SLRJ Learn) ─── */}
+      <LearningBenefitsSection />
 
-      {/* ─── 5. Growth Cycles, Courses & Role Roadmaps ─── */}
+      {/* ─── 4. Featured Courses (Catalog Showcase) ─── */}
+      <FeaturedCoursesSection />
+
+      {/* ─── 5. Learning Paths & Role Roadmaps (8 Career Tracks) ─── */}
       <LearningPathDashboard />
 
-      {/* ─── 6. Build Something Real (8 Practical Projects & Portfolio Submission) ─── */}
+      {/* ─── 6. How It Works (Discover -> Enrol -> Study -> Pass Assessment -> Certificate) ─── */}
+      <HowItWorksSection />
+
+      {/* ─── 7. Real Certificate Preview & Authentic QR Verification ─── */}
+      <CertificatePreviewSection />
+
+      {/* ─── 8. Daily Learning Hub (Interactive SoloLearn-Style Challenges) ─── */}
+      <DailyLearningHub />
+
+      {/* ─── 9. Build Something Real (8 Practical Projects) ─── */}
       <BuildSomethingReal />
 
-      {/* ─── 7. Learner Community & Discussions ─── */}
+      {/* ─── 10. Peer Discussion Community ─── */}
       <HomeCommunityPreview />
+
+      {/* ─── 11. Frequently Asked Questions Accordion ─── */}
+      <FaqSection />
     </div>
   );
 }

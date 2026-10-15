@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getAllCourses, getCourseBySlug } from "@/data/courses";
-import CourseLearningView from "@/components/course/CourseLearningView";
+import CourseDetailsView from "@/components/course/CourseDetailsView";
 
 interface CoursePageProps {
   params: Promise<{ slug: string }>;
@@ -42,5 +42,5 @@ export default async function CourseDetailPage({ params }: CoursePageProps) {
     notFound();
   }
 
-  return <CourseLearningView course={course} />;
+  return <CourseDetailsView course={course} />;
 }

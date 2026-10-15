@@ -76,125 +76,83 @@ export default function ProjectsContent() {
   };
 
   return (
-    <div className="min-h-screen bg-[#030712] text-white">
-      {/* ── Wide Landscape Hero Section ── */}
-      <section className="pt-28 pb-8 text-center max-w-[1780px] w-full mx-auto px-4 sm:px-8 lg:px-12">
-        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-cyan-500/15 border border-cyan-500/30 text-cyan-300 text-xs font-mono font-bold uppercase tracking-wider mb-4 shadow-sm shadow-cyan-500/10">
-          <FolderGit2 size={14} className="text-cyan-400" />
-          <span>Real-World Engineering Projects • 100% Free</span>
-        </div>
-        
-        <h1 className="text-3xl sm:text-5xl lg:text-6xl font-black font-brand tracking-tight text-white mb-4">
-          Build Projects That Get You{" "}
-          <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-teal-300 to-emerald-400">
-            Hired.
-          </span>
-        </h1>
-        
-        <p className="text-slate-300 text-sm sm:text-base max-w-3xl mx-auto mb-10 leading-relaxed font-normal">
-          Theory without code is quickly forgotten. Engineer complete, production-grade applications with step-by-step milestone instructions, free starter code, and verified GitHub portfolio submissions.
-        </p>
+    <div className="space-y-8 pb-16">
+      {/* ── Page Hero Header ── */}
+      <section className="rounded-3xl bg-gradient-to-br from-[#12316B] via-[#1A3D80] to-[#2456A6] text-white p-6 sm:p-10 shadow-lg relative overflow-hidden">
+        <div className="absolute top-0 right-0 w-80 h-80 bg-[#18B6D2]/10 rounded-full blur-2xl pointer-events-none" />
 
-        {/* ── Landscape Metric Highlights Strip ── */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-5xl mx-auto mb-10 text-left">
-          <div className="p-4 rounded-2xl bg-[#080D1A] border border-white/10 flex items-center gap-3">
-            <div className="p-2.5 rounded-xl bg-cyan-500/15 text-cyan-300">
-              <FolderGit2 size={20} />
-            </div>
-            <div>
-              <div className="text-xl font-black text-white font-mono">{allProjects.length} Projects</div>
-              <div className="text-xs text-slate-400">100% Free Curriculum</div>
-            </div>
+        <div className="relative z-10 max-w-3xl space-y-3">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-[#18B6D2] text-xs font-bold uppercase tracking-wider">
+            <FolderGit2 size={14} className="text-[#18B6D2]" />
+            <span>Practical Engineering Projects • 100% Free</span>
           </div>
-
-          <div className="p-4 rounded-2xl bg-[#080D1A] border border-white/10 flex items-center gap-3">
-            <div className="p-2.5 rounded-xl bg-emerald-500/15 text-emerald-300">
-              <Code2 size={20} />
-            </div>
-            <div>
-              <div className="text-xl font-black text-white font-mono">Free Starter Code</div>
-              <div className="text-xs text-slate-400">Instant Templates</div>
-            </div>
-          </div>
-
-          <div className="p-4 rounded-2xl bg-[#080D1A] border border-white/10 flex items-center gap-3">
-            <div className="p-2.5 rounded-xl bg-amber-500/15 text-amber-300">
-              <Award size={20} />
-            </div>
-            <div>
-              <div className="text-xl font-black text-white font-mono">+3,800 XP</div>
-              <div className="text-xs text-slate-400">Gamified Skills</div>
-            </div>
-          </div>
-
-          <div className="p-4 rounded-2xl bg-[#080D1A] border border-white/10 flex items-center gap-3">
-            <div className="p-2.5 rounded-xl bg-violet-500/15 text-violet-300">
-              <CheckCheck size={20} />
-            </div>
-            <div>
-              <div className="text-xl font-black text-white font-mono">GitHub Submissions</div>
-              <div className="text-xs text-slate-400">Portfolio Proof</div>
-            </div>
-          </div>
-        </div>
-
-        {/* ── Filter & Search Controls Bar ── */}
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 max-w-[1780px] mx-auto p-2 sm:p-3 rounded-2xl bg-[#080D1A]/80 border border-white/10 backdrop-blur-xl">
-          {/* Category Chips */}
-          <div className="flex flex-wrap items-center gap-2">
-            {categories.map((cat) => (
-              <button
-                key={cat}
-                onClick={() => setFilter(cat)}
-                className={`px-4 py-2 rounded-xl text-xs font-semibold transition-all cursor-pointer ${
-                  filter === cat
-                    ? "bg-gradient-to-r from-cyan-400 to-emerald-400 text-black font-bold shadow-md shadow-cyan-500/20"
-                    : "bg-white/5 text-slate-300 hover:text-white hover:bg-white/10 border border-white/5"
-                }`}
-              >
-                {cat}
-              </button>
-            ))}
-          </div>
-
-          {/* Quick Search Input */}
-          <div className="relative w-full sm:w-80">
-            <Search size={15} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400" />
-            <input
-              type="text"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Search projects by skill, title..."
-              className="w-full pl-9 pr-4 py-2 rounded-xl bg-[#030712] border border-white/10 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-cyan-400"
-            />
-          </div>
+          
+          <h1 className="text-3xl sm:text-5xl font-black font-brand tracking-tight text-white">
+            Build Projects That Get You Hired
+          </h1>
+          
+          <p className="text-blue-100 text-sm sm:text-base leading-relaxed">
+            Theory without execution is quickly forgotten. Engineer complete, production-grade applications with step-by-step milestone instructions, free starter code, and verified GitHub portfolio submissions.
+          </p>
         </div>
       </section>
 
-      {/* ── Wide Landscape Projects Grid (4-Column Layout) ── */}
-      <section className="py-8 pb-24 max-w-[1780px] w-full mx-auto px-4 sm:px-8 lg:px-12">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-4 gap-6 lg:gap-7">
+      {/* ── Filter & Search Controls Bar ── */}
+      <section className="p-4 rounded-2xl bg-white border border-[#E2E8F0] shadow-xs flex flex-col sm:flex-row items-center justify-between gap-4">
+        {/* Category Chips */}
+        <div className="flex flex-wrap items-center gap-2">
+          {categories.map((cat) => (
+            <button
+              key={cat}
+              onClick={() => setFilter(cat)}
+              className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+                filter === cat
+                  ? "bg-[#12316B] text-white shadow-xs"
+                  : "bg-[#F7F9FC] text-[#64748B] hover:text-[#182230] hover:bg-slate-100 border border-[#E2E8F0]"
+              }`}
+            >
+              {cat}
+            </button>
+          ))}
+        </div>
+
+        {/* Quick Search Input */}
+        <div className="relative w-full sm:w-80">
+          <Search size={15} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-[#64748B]" />
+          <input
+            type="text"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            placeholder="Search projects by skill, title..."
+            className="w-full pl-9 pr-4 py-2 rounded-xl bg-[#F7F9FC] border border-[#E2E8F0] text-xs text-[#182230] placeholder-[#64748B] focus:outline-none focus:border-[#12316B] focus:bg-white"
+          />
+        </div>
+      </section>
+
+      {/* ── Projects Grid ── */}
+      <section>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
           {filteredProjects.map((project) => {
             const isSubmitted = Boolean(submittedStatus[project.id]);
 
             return (
               <div
                 key={project.id}
-                className="group rounded-3xl bg-[#080D1A] border border-white/10 hover:border-cyan-500/50 p-6 flex flex-col justify-between transition-all duration-300 shadow-xl hover:shadow-[0_12px_36px_rgba(0,0,0,0.6),0_0_24px_rgba(6,182,212,0.18)] hover:-translate-y-1"
+                className="clean-card p-6 flex flex-col justify-between transition-all duration-300 hover:border-[#12316B]/30 hover:-translate-y-1"
               >
                 <div>
                   {/* Top Badges */}
                   <div className="flex items-center justify-between mb-3.5">
-                    <span className="text-[10px] font-mono px-2.5 py-0.5 rounded-full bg-cyan-500/15 border border-cyan-500/30 text-cyan-300 font-bold uppercase tracking-wider">
+                    <span className="text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-blue-50 border border-blue-200 text-[#12316B] uppercase tracking-wider">
                       {project.category}
                     </span>
-                    <span className="text-xs font-mono font-bold text-amber-300 flex items-center gap-1">
-                      <Award size={13} className="text-amber-400" />
+                    <span className="text-xs font-bold text-amber-700 flex items-center gap-1">
+                      <Award size={13} className="text-amber-500" />
                       <span>+{project.xpReward} XP</span>
                     </span>
                   </div>
 
-                  <h3 className="text-lg font-bold text-white font-brand mb-2 group-hover:text-cyan-300 transition-colors leading-snug">
+                  <h3 className="text-base font-extrabold text-[#182230] font-brand mb-2 hover:text-[#12316B] transition-colors leading-snug">
                     {project.title}
                   </h3>
                   
@@ -239,7 +197,7 @@ export default function ProjectsContent() {
                         setActiveProject(project);
                         setActiveStarterTab(0);
                       }}
-                      className="px-4 py-2 rounded-xl text-xs font-bold text-black bg-gradient-to-r from-cyan-400 to-emerald-400 hover:from-cyan-300 hover:to-emerald-300 transition-all cursor-pointer shadow-md shadow-cyan-500/20 hover:scale-105 active:scale-95"
+                      className="px-4 py-2 rounded-xl text-xs font-bold text-white bg-[#12316B] hover:bg-[#2456A6] transition-all cursor-pointer shadow-xs hover:scale-102 active:scale-98"
                     >
                       View Project
                     </button>
