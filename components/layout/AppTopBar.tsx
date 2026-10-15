@@ -16,9 +16,14 @@ import {
   Layers,
   CheckCircle2,
   Trophy,
+  Menu,
 } from "lucide-react";
 
-export default function AppTopBar() {
+interface AppTopBarProps {
+  onMobileMenuToggle?: () => void;
+}
+
+export default function AppTopBar({ onMobileMenuToggle }: AppTopBarProps) {
   const { user } = useAuth();
   const { state, currentLevel } = useGamification();
   const [woolfOpen, setWoolfOpen] = useState(false);
@@ -26,15 +31,25 @@ export default function AppTopBar() {
   const [notificationsOpen, setNotificationsOpen] = useState(false);
 
   return (
-    <header className="h-20 bg-white/95 backdrop-blur-md border-b border-slate-200/90 px-6 lg:px-10 flex items-center justify-between select-none sticky top-0 z-30 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.04)]">
-      {/* ── Left Item: Role Roadmaps Pill & Quick Search ── */}
-      <div className="flex items-center gap-4">
+    <header className="h-20 bg-white/95 backdrop-blur-md border-b border-slate-200/90 px-4 sm:px-6 lg:px-10 flex items-center justify-between select-none sticky top-0 z-30 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.04)]">
+      {/* ── Left Item: Mobile Hamburger, Role Roadmaps Pill & Quick Search ── */}
+      <div className="flex items-center gap-3 sm:gap-4">
+        {/* Mobile Hamburger Toggle */}
+        <button
+          onClick={onMobileMenuToggle}
+          className="md:hidden p-2 rounded-xl text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition-all cursor-pointer"
+          title="Open Menu"
+        >
+          <Menu size={20} />
+        </button>
+
         <Link
           href="/roadmap"
-          className="group inline-flex items-center gap-2.5 px-4 py-2 rounded-xl bg-gradient-to-r from-blue-50 via-indigo-50 to-blue-50 hover:from-blue-100 hover:to-indigo-100 border border-blue-200/80 text-[#0b69ff] text-xs font-bold transition-all shadow-xs hover:shadow-sm"
+          className="group inline-flex items-center gap-2 sm:gap-2.5 px-3 sm:px-4 py-2 rounded-xl bg-gradient-to-r from-blue-50 via-indigo-50 to-blue-50 hover:from-blue-100 hover:to-indigo-100 border border-blue-200/80 text-[#0b69ff] text-xs font-bold transition-all shadow-xs hover:shadow-sm"
         >
           <Compass size={16} className="text-[#0b69ff] group-hover:rotate-45 transition-transform duration-300" />
-          <span>@ Role Roadmaps</span>
+          <span className="hidden sm:inline">@ Role Roadmaps</span>
+          <span className="sm:hidden">Roadmaps</span>
           <span className="text-[10px] font-black px-1.5 py-0.5 rounded-md bg-[#0b69ff] text-white uppercase tracking-wider shadow-xs animate-pulse">
             New
           </span>

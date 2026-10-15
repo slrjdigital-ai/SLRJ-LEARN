@@ -546,6 +546,210 @@ function calculateTotals() {
     ],
     demoOutputPreview: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=800&auto=format&fit=crop&q=80",
     sampleGithubUrl: "https://github.com/slrjdigital-ai/SLRJ-LEARN"
+  },
+  {
+    id: "proj-calculator",
+    slug: "interactive-calculator-app",
+    title: "Interactive Web Calculator Application",
+    tagline: "Build a responsive glassmorphic calculator with keyboard support, history log, and order-of-operations.",
+    category: "Frontend",
+    difficulty: "Beginner",
+    estimatedTime: "2 Hours",
+    xpReward: 200,
+    skillsRequired: ["HTML5", "CSS Grid", "JavaScript Event Listeners", "State Management", "Regex Validation"],
+    description: "Design and implement a fully responsive arithmetic calculator supporting floating-point precision, parenthesis evaluation, keyboard shortcuts, and calculation history.",
+    features: [
+      "Responsive keypad layout powered by CSS Grid",
+      "Robust state machine evaluating expressions with decimal safety",
+      "Keyboard shortcut support for instantaneous desktop calculation",
+      "Calculation history log stored in localStorage with clear action"
+    ],
+    starterFiles: [
+      {
+        filename: "calculator.js",
+        language: "javascript",
+        content: `class Calculator {
+  constructor(previousOperandTextElement, currentOperandTextElement) {
+    this.previousOperandTextElement = previousOperandTextElement;
+    this.currentOperandTextElement = currentOperandTextElement;
+    this.clear();
+  }
+
+  clear() {
+    this.currentOperand = '';
+    this.previousOperand = '';
+    this.operation = undefined;
+  }
+
+  appendNumber(number) {
+    if (number === '.' && this.currentOperand.includes('.')) return;
+    this.currentOperand = this.currentOperand.toString() + number.toString();
+  }
+
+  chooseOperation(operation) {
+    if (this.currentOperand === '') return;
+    if (this.previousOperand !== '') this.compute();
+    this.operation = operation;
+    this.previousOperand = this.currentOperand;
+    this.currentOperand = '';
+  }
+
+  compute() {
+    let computation;
+    const prev = parseFloat(this.previousOperand);
+    const current = parseFloat(this.currentOperand);
+    if (isNaN(prev) || isNaN(current)) return;
+    switch (this.operation) {
+      case '+': computation = prev + current; break;
+      case '-': computation = prev - current; break;
+      case '*': computation = prev * current; break;
+      case '÷': computation = current !== 0 ? prev / current : 'Error'; break;
+      default: return;
+    }
+    this.currentOperand = computation;
+    this.operation = undefined;
+    this.previousOperand = '';
+  }
+}`
+      }
+    ],
+    steps: [
+      {
+        stepNumber: 1,
+        title: "Design the Keypad with CSS Grid",
+        description: "Arrange numerical and operator keys with CSS Grid, hover feedback, and responsive viewport sizing."
+      },
+      {
+        stepNumber: 2,
+        title: "Wire State Machine & Calculation Logic",
+        description: "Implement the Calculator class to manage operand buffer, operator precedence, and decimal prevention."
+      },
+      {
+        stepNumber: 3,
+        title: "Add Keyboard Shortcuts & History Persistence",
+        description: "Listen to window keydown events for Enter, Escape, and digits, and persist recent calculations."
+      }
+    ],
+    demoOutputPreview: "https://images.unsplash.com/photo-1587145820266-a5951ee6f620?w=800&auto=format&fit=crop&q=80",
+    sampleGithubUrl: "https://github.com/slrjdigital-ai/SLRJ-LEARN"
+  },
+  {
+    id: "proj-python-automation",
+    slug: "python-automation-script-tool",
+    title: "Python Automation & Data Pipeline Tool",
+    tagline: "Automate repetitive tasks, scrape web datasets, format CSV/Excel reports, and dispatch notifications.",
+    category: "Productivity",
+    difficulty: "Beginner",
+    estimatedTime: "3 Hours",
+    xpReward: 300,
+    skillsRequired: ["Python 3", "Requests / BeautifulSoup", "Pandas", "File I/O", "Schedule / Cron"],
+    description: "Build an automated background worker in Python that extracts data from APIs and websites, cleans unstructured content, generates daily Excel summaries, and sends alert webhooks.",
+    features: [
+      "Automated web scraping with resilient HTTP headers and retry logic",
+      "Data transformation and tabular formatting with Pandas DataFrames",
+      "Automatic Excel spreadsheet report generation with styled headers",
+      "Automated Discord/Slack webhook notification trigger upon pipeline completion"
+    ],
+    starterFiles: [
+      {
+        filename: "pipeline.py",
+        language: "python",
+        content: `import requests
+import pandas as pd
+from datetime import datetime
+
+def fetch_market_data():
+    url = "https://api.coingecko.com/api/v3/coins/markets"
+    params = {"vs_currency": "usd", "order": "market_cap_desc", "per_page": 10, "page": 1}
+    response = requests.get(url, params=params, timeout=10)
+    response.raise_for_status()
+    return response.json()
+
+def process_and_export(raw_data):
+    df = pd.DataFrame(raw_data)[['name', 'symbol', 'current_price', 'price_change_percentage_24h']]
+    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+    filename = f"crypto_summary_{timestamp}.csv"
+    df.to_csv(filename, index=False)
+    print(f"Pipeline executed successfully. Saved: {filename}")
+    return filename
+
+if __name__ == "__main__":
+    data = fetch_market_data()
+    process_and_export(data)`
+      }
+    ],
+    steps: [
+      {
+        stepNumber: 1,
+        title: "Setup Python Environment & Dependencies",
+        description: "Initialize virtualenv, install requests and pandas, and test connection to REST endpoints."
+      },
+      {
+        stepNumber: 2,
+        title: "Extract, Transform, and Filter Data",
+        description: "Parse JSON responses, normalize data schemas with Pandas, and compute percentage variations."
+      },
+      {
+        stepNumber: 3,
+        title: "Automate Scheduling & Webhook Alerts",
+        description: "Wrap execution in an automated timer and post Discord/Slack notifications with summary metrics."
+      }
+    ],
+    demoOutputPreview: "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=800&auto=format&fit=crop&q=80",
+    sampleGithubUrl: "https://github.com/slrjdigital-ai/SLRJ-LEARN"
+  },
+  {
+    id: "proj-data-analytics",
+    slug: "business-data-analytics-dashboard",
+    title: "Executive Business Analytics Dashboard",
+    tagline: "Model multi-dimensional corporate datasets, compute KPI revenue cohorts, and build interactive charts.",
+    category: "Full-Stack",
+    difficulty: "Intermediate",
+    estimatedTime: "5 Hours",
+    xpReward: 450,
+    skillsRequired: ["SQL Queries", "Python Pandas", "Chart.js / Recharts", "KPI Modeling", "Data Cleaning"],
+    description: "Transform raw e-commerce transaction logs into an executive dashboard measuring Customer Acquisition Cost (CAC), Lifetime Value (LTV), monthly revenue cohorts, and churn rates.",
+    features: [
+      "SQL data aggregation query calculating monthly recurring revenue (MRR)",
+      "Interactive time-series line charts and revenue cohort heatmaps",
+      "Category breakdown donut charts with real-time percentage tooltips",
+      "CSV dataset import with automatic validation and anomalous outlier detection"
+    ],
+    starterFiles: [
+      {
+        filename: "analytics.sql",
+        language: "sql",
+        content: `-- Monthly Recurring Revenue (MRR) & Active Users Cohort
+SELECT 
+    DATE_TRUNC('month', order_date) AS sales_month,
+    COUNT(DISTINCT customer_id) AS active_customers,
+    SUM(total_amount) AS monthly_revenue,
+    AVG(total_amount) AS avg_order_value
+FROM orders
+WHERE status = 'completed'
+GROUP BY sales_month
+ORDER BY sales_month ASC;`
+      }
+    ],
+    steps: [
+      {
+        stepNumber: 1,
+        title: "Clean and Normalize Transaction Records",
+        description: "Identify missing entries, impute missing values, and cast timestamps for consistent temporal aggregation."
+      },
+      {
+        stepNumber: 2,
+        title: "Write Complex SQL Cohort Queries",
+        description: "Construct CTEs and window functions to compute customer retention by monthly cohorts."
+      },
+      {
+        stepNumber: 3,
+        title: "Render Interactive Frontend Charts",
+        description: "Connect aggregated metrics to responsive Chart.js components with metric tooltips and time-range filters."
+      }
+    ],
+    demoOutputPreview: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&auto=format&fit=crop&q=80",
+    sampleGithubUrl: "https://github.com/slrjdigital-ai/SLRJ-LEARN"
   }
 ];
 

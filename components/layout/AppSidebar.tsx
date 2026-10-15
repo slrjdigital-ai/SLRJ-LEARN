@@ -20,11 +20,16 @@ import {
   Sparkles,
   LogOut,
   User,
+  FolderGit2,
+  Users,
+  X,
 } from "lucide-react";
 
 interface AppSidebarProps {
   collapsed: boolean;
   onToggle: () => void;
+  mobileOpen?: boolean;
+  onMobileClose?: () => void;
 }
 
 interface MainNavItem {
@@ -47,7 +52,12 @@ interface SecondaryNavItem {
   external?: boolean;
 }
 
-export default function AppSidebar({ collapsed, onToggle }: AppSidebarProps) {
+export default function AppSidebar({
+  collapsed,
+  onToggle,
+  mobileOpen = false,
+  onMobileClose,
+}: AppSidebarProps) {
   const pathname = usePathname();
   const { user, logout } = useAuth();
   const [profileOpen, setProfileOpen] = useState(false);
@@ -60,11 +70,20 @@ export default function AppSidebar({ collapsed, onToggle }: AppSidebarProps) {
       href: "/roadmap",
       icon: Compass,
       exact: false,
-      badge: "New",
+      badge: "8 Paths",
       badgeColor: "bg-blue-50 text-[#0b69ff] border border-blue-200",
     },
     { name: "Course Library", href: "/topics", icon: BookOpen, exact: false },
+    {
+      name: "Projects & Portfolio",
+      href: "/projects",
+      icon: FolderGit2,
+      exact: false,
+      badge: "Build",
+      badgeColor: "bg-emerald-50 text-emerald-700 border border-emerald-200",
+    },
     { name: "Events & Challenges", href: "/gamification", icon: Trophy, exact: false },
+    { name: "Learner Community", href: "/community", icon: Users, exact: false },
   ];
 
   const secondaryNav: SecondaryNavItem[] = [
@@ -87,44 +106,67 @@ export default function AppSidebar({ collapsed, onToggle }: AppSidebarProps) {
   const userAvatar = user?.avatar || "/icon.jpg";
 
   return (
-    <aside
-      className={`fixed top-0 left-0 z-40 h-screen bg-white border-r border-slate-200/90 transition-all duration-300 flex flex-col justify-between select-none ${
-        collapsed ? "w-20" : "w-64"
-      }`}
-    >
-      {/* ── Top Header & Logo (h-20 aligned with top bar) ── */}
-      <div>
-        <div className="h-20 px-4 flex items-center justify-between border-b border-slate-100">
-          {!collapsed ? (
-            <Link href="/" className="flex items-center gap-2.5 group">
-              <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-[#0b69ff] to-blue-600 flex items-center justify-center text-white font-black text-sm shadow-md shadow-blue-500/20 group-hover:scale-105 transition-transform">
-                SL
-              </div>
-              <div className="flex flex-col">
-                <span className="font-extrabold text-sm text-slate-900 leading-none tracking-tight group-hover:text-[#0b69ff] transition-colors">
-                  SLRJ LEARN
-                </span>
-                <span className="text-[10px] font-bold text-[#0b69ff] tracking-widest uppercase mt-0.5">
-                  ACADEMY
-                </span>
-              </div>
-            </Link>
-          ) : (
-            <Link href="/" className="mx-auto group">
-              <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-[#0b69ff] to-blue-600 flex items-center justify-center text-white font-bold text-sm shadow-md group-hover:scale-105 transition-transform">
-                SL
-              </div>
-            </Link>
-          )}
+    <>
+      {/* Mobile Drawer Backdrop */}
+      {mobileOpen && (
+        <div
+          onClick={onMobileClose}
+          className="fixed inset-0 z-40 bg-slate-900/40 backdrop-blur-xs md:hidden"
+        />
+      )}
 
-          <button
-            onClick={onToggle}
-            className="p-1.5 rounded-lg text-slate-400 hover:text-slate-700 hover:bg-slate-100 transition-all cursor-pointer"
-            title={collapsed ? "Expand sidebar" : "Collapse sidebar"}
-          >
-            {collapsed ? <PanelLeft size={18} /> : <PanelLeftClose size={18} />}
-          </button>
-        </div>
+      <aside
+        className={`fixed top-0 left-0 z-50 h-screen bg-white border-r border-slate-200/90 transition-all duration-300 flex flex-col justify-between select-none ${
+          collapsed ? "w-20" : "w-64"
+        } ${
+          mobileOpen ? "translate-x-0 shadow-2xl" : "-translate-x-full md:translate-x-0"
+        }`}
+      >
+        {/* ── Top Header & Logo (h-20 aligned with top bar) ── */}
+        <div>
+          <div className="h-20 px-4 flex items-center justify-between border-b border-slate-100">
+            {!collapsed ? (
+              <Link href="/" className="flex items-center gap-2.5 group">
+                <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-[#0b69ff] to-blue-600 flex items-center justify-center text-white font-black text-sm shadow-md shadow-blue-500/20 group-hover:scale-105 transition-transform">
+                  SL
+                </div>
+                <div className="flex flex-col">
+                  <span className="font-extrabold text-sm text-slate-900 leading-none tracking-tight group-hover:text-[#0b69ff] transition-colors">
+                    SLRJ LEARN
+                  </span>
+                  <span className="text-[10px] font-bold text-[#0b69ff] tracking-widest uppercase mt-0.5">
+                    ACADEMY
+                  </span>
+                </div>
+              </Link>
+            ) : (
+              <Link href="/" className="mx-auto group">
+                <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-[#0b69ff] to-blue-600 flex items-center justify-center text-white font-bold text-sm shadow-md group-hover:scale-105 transition-transform">
+                  SL
+                </div>
+              </Link>
+            )}
+
+            <div className="flex items-center gap-1">
+              {/* Desktop Collapse Toggle */}
+              <button
+                onClick={onToggle}
+                className="hidden md:flex p-1.5 rounded-lg text-slate-400 hover:text-slate-700 hover:bg-slate-100 transition-all cursor-pointer"
+                title={collapsed ? "Expand sidebar" : "Collapse sidebar"}
+              >
+                {collapsed ? <PanelLeft size={18} /> : <PanelLeftClose size={18} />}
+              </button>
+
+              {/* Mobile Close Button */}
+              <button
+                onClick={onMobileClose}
+                className="md:hidden p-1.5 rounded-lg text-slate-400 hover:text-slate-700 hover:bg-slate-100 transition-all cursor-pointer"
+                title="Close drawer"
+              >
+                <X size={18} />
+              </button>
+            </div>
+          </div>
 
         {/* ── Search Input ── */}
         {!collapsed && (
@@ -296,5 +338,6 @@ export default function AppSidebar({ collapsed, onToggle }: AppSidebarProps) {
         )}
       </div>
     </aside>
+  </>
   );
 }

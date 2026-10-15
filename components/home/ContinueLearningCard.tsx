@@ -1,0 +1,135 @@
+"use client";
+
+import Link from "next/link";
+import { useAuth } from "@/context/AuthContext";
+import {
+  Play,
+  Clock,
+  BookOpen,
+  ArrowRight,
+  Sparkles,
+  CheckCircle2,
+  Bookmark,
+  Layers,
+  ChevronRight,
+} from "lucide-react";
+
+export default function ContinueLearningCard() {
+  const { user } = useAuth();
+
+  // Active course data based on user track / progress
+  const activeCourse = {
+    title: "Build Your Own Responsive Website",
+    category: "Frontend Development",
+    track: "Full-Stack Software Development",
+    currentModule: "Module 2: CSS Flexbox & Responsive Layouts",
+    nextLesson: "Stage 02 • Flexbox Directions, Alignments & Responsive Breakpoints",
+    progressPercent: 55,
+    totalStages: 14,
+    completedStages: 7,
+    lastActivity: "Today, 45 minutes ago",
+    estimatedRemaining: "1 hour 15 mins",
+    targetHref: "/roadmap/frontend",
+  };
+
+  return (
+    <div className="p-6 sm:p-7 rounded-3xl bg-white border border-slate-200/90 shadow-sm relative overflow-hidden">
+      {/* Background soft highlight */}
+      <div className="absolute top-0 right-0 w-80 h-full bg-gradient-to-l from-blue-50/60 to-transparent pointer-events-none" />
+
+      <div className="flex items-center justify-between gap-4 mb-4 pb-3 border-b border-slate-100">
+        <div className="flex items-center gap-2">
+          <span className="w-2.5 h-2.5 rounded-full bg-[#0b69ff] animate-ping" />
+          <h2 className="text-sm font-bold text-slate-900 uppercase tracking-wider font-brand">
+            Continue Learning
+          </h2>
+        </div>
+        <div className="flex items-center gap-2 text-xs text-slate-500">
+          <Clock size={13} className="text-slate-400" />
+          <span>Last active: <strong className="text-slate-700 font-semibold">{activeCourse.lastActivity}</strong></span>
+        </div>
+      </div>
+
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
+        {/* Left 8 Cols: Course title, module, next lesson & progress */}
+        <div className="lg:col-span-8 space-y-3">
+          <div className="flex flex-wrap items-center gap-2">
+            <span className="text-[10px] font-bold px-2 py-0.5 rounded-md bg-blue-50 text-[#0b69ff] border border-blue-200 uppercase tracking-wider">
+              {activeCourse.category}
+            </span>
+            <span className="text-xs text-slate-400">•</span>
+            <span className="text-xs font-semibold text-slate-500">
+              {activeCourse.currentModule}
+            </span>
+          </div>
+
+          <h3 className="text-xl sm:text-2xl font-black text-slate-900 font-brand tracking-tight">
+            {activeCourse.title}
+          </h3>
+
+          <div className="p-3.5 rounded-2xl bg-slate-50 border border-slate-200/80 flex items-start gap-3">
+            <div className="p-1.5 rounded-lg bg-blue-100/70 text-[#0b69ff] mt-0.5">
+              <BookOpen size={16} />
+            </div>
+            <div>
+              <span className="text-[11px] font-bold text-[#0b69ff] uppercase tracking-wider block">
+                Next Up:
+              </span>
+              <p className="text-xs sm:text-sm font-bold text-slate-800 leading-snug">
+                {activeCourse.nextLesson}
+              </p>
+            </div>
+          </div>
+
+          {/* Progress bar with percentage */}
+          <div className="space-y-1.5 pt-1">
+            <div className="flex items-center justify-between text-xs">
+              <span className="text-slate-500 font-medium">
+                Overall Course Progress ({activeCourse.completedStages} of {activeCourse.totalStages} stages completed)
+              </span>
+              <span className="font-mono font-bold text-[#0b69ff] text-sm">
+                {activeCourse.progressPercent}%
+              </span>
+            </div>
+            <div className="w-full h-2.5 bg-slate-100 rounded-full overflow-hidden border border-slate-200/70">
+              <div
+                className="h-full bg-gradient-to-r from-[#0b69ff] via-blue-500 to-indigo-600 rounded-full transition-all duration-500"
+                style={{ width: `${activeCourse.progressPercent}%` }}
+              />
+            </div>
+          </div>
+        </div>
+
+        {/* Right 4 Cols: CTA Button & Quick info */}
+        <div className="lg:col-span-4 flex flex-col justify-center gap-3 p-4 rounded-2xl bg-gradient-to-br from-blue-50/50 to-indigo-50/30 border border-blue-100/80">
+          <div className="text-xs text-slate-600 space-y-1">
+            <div className="flex items-center justify-between">
+              <span className="text-slate-500">Estimated Left:</span>
+              <span className="font-bold text-slate-800">{activeCourse.estimatedRemaining}</span>
+            </div>
+            <div className="flex items-center justify-between">
+              <span className="text-slate-500">XP Reward:</span>
+              <span className="font-bold text-[#0b69ff]">+120 XP upon stage finish</span>
+            </div>
+          </div>
+
+          <Link
+            href={activeCourse.targetHref}
+            className="w-full py-3 px-5 rounded-xl bg-[#0b69ff] hover:bg-blue-600 text-white font-extrabold text-xs sm:text-sm shadow-md shadow-blue-500/20 transition-all flex items-center justify-center gap-2 group cursor-pointer"
+          >
+            <Play size={15} className="fill-white" />
+            <span>Resume Lesson Now</span>
+            <ChevronRight size={16} className="group-hover:translate-x-1 transition-transform" />
+          </Link>
+
+          <Link
+            href="/roadmap"
+            className="text-center text-xs text-slate-500 hover:text-slate-900 font-semibold transition-colors py-1"
+          >
+            View all 14 stages in roadmap →
+          </Link>
+        </div>
+      </div>
+    </div>
+  );
+}

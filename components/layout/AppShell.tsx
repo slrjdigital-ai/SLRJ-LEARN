@@ -7,6 +7,7 @@ import { MessageSquare, Bot } from "lucide-react";
 
 export default function AppShell({ children }: { children: React.ReactNode }) {
   const [collapsed, setCollapsed] = useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
 
   const handleOpenSAM = () => {
     if (typeof window !== "undefined") {
@@ -20,19 +21,21 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
       <AppSidebar
         collapsed={collapsed}
         onToggle={() => setCollapsed(!collapsed)}
+        mobileOpen={mobileOpen}
+        onMobileClose={() => setMobileOpen(false)}
       />
 
       {/* ── Main Area ── */}
       <div
         className={`flex-1 transition-all duration-300 flex flex-col min-w-0 ${
-          collapsed ? "ml-20" : "ml-64"
-        }`}
+          collapsed ? "md:ml-20" : "md:ml-64"
+        } ml-0`}
       >
         {/* Top Header */}
-        <AppTopBar />
+        <AppTopBar onMobileMenuToggle={() => setMobileOpen(!mobileOpen)} />
 
         {/* Page Content */}
-        <main className="flex-1 p-6 sm:p-10 max-w-[1780px] w-full mx-auto">
+        <main className="flex-1 p-4 sm:p-6 lg:p-10 max-w-[1780px] w-full mx-auto">
           {children}
         </main>
       </div>
