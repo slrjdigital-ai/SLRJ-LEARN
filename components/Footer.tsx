@@ -73,8 +73,10 @@ export default function Footer() {
       title: "Learning Platform",
       links: [
         { name: "Career Learning Paths", href: "/roadmap" },
-        { name: "Free Developer Notes", href: "/notes" },
+        { name: "Explore Micro-Topics", href: "/topics" },
+        { name: "Gamification & Challenges", href: "/gamification" },
         { name: "Code Playground & Practice", href: "/practice" },
+        { name: "Free Developer Notes", href: "/notes" },
         { name: "Real-World Projects", href: "/projects" },
         { name: "Lumio AI Chatbot", href: "/ai-tutor" },
       ],

@@ -1,8 +1,9 @@
 "use client";
 
+import Link from "next/link";
 import CodePlayground from "@/components/playground/CodePlayground";
 import { DAILY_CHALLENGES } from "@/data/community";
-import { Sparkles, Terminal, Award } from "lucide-react";
+import { Sparkles, Terminal, Award, Trophy, BookOpen } from "lucide-react";
 
 export default function PracticeClient() {
   return (
@@ -20,11 +21,24 @@ export default function PracticeClient() {
             </h1>
           </div>
 
-          <div className="flex items-center gap-2">
-            <span className="text-xs font-mono text-slate-400">Sandbox Status:</span>
-            <span className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-emerald-300 text-xs font-mono font-bold">
+          <div className="flex flex-wrap items-center gap-2.5">
+            <Link
+              href="/gamification"
+              className="px-3.5 py-2 rounded-xl bg-amber-500/15 hover:bg-amber-500/25 border border-amber-500/30 text-amber-300 text-xs font-mono font-bold flex items-center gap-1.5 transition-all shadow-sm"
+            >
+              <Trophy size={14} />
+              <span>Weekly Challenges</span>
+            </Link>
+            <Link
+              href="/topics"
+              className="px-3.5 py-2 rounded-xl bg-cyan-500/15 hover:bg-cyan-500/25 border border-cyan-500/30 text-cyan-300 text-xs font-mono font-bold flex items-center gap-1.5 transition-all shadow-sm"
+            >
+              <BookOpen size={14} />
+              <span>Explore Topics</span>
+            </Link>
+            <span className="hidden sm:flex items-center gap-1.5 px-3 py-2 rounded-xl bg-emerald-500/15 border border-emerald-500/30 text-emerald-300 text-xs font-mono font-bold">
               <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-              <span>Real-Time Engine Active</span>
+              <span>Sandbox Active</span>
             </span>
           </div>
         </div>

@@ -25,9 +25,13 @@ import {
   ChevronDown,
   ArrowRight,
   ShieldCheck,
+  Flame,
+  Trophy,
+  Zap,
 } from "lucide-react";
 import { motion, useScroll, useMotionValueEvent, AnimatePresence } from "framer-motion";
 import GlobalSearchModal from "./GlobalSearchModal";
+import { useGamification } from "@/context/GamificationContext";
 
 interface NavItem {
   name: string;
@@ -41,7 +45,9 @@ interface NavItem {
 const NAV_ITEMS: NavItem[] = [
   { name: "Home", href: "/", exact: true, icon: Home },
   { name: "Learning Paths", href: "/roadmap", exact: false, icon: Compass },
+  { name: "Topics", href: "/topics", exact: false, icon: BookOpen },
   { name: "Practice", href: "/practice", exact: false, icon: Code },
+  { name: "Challenges", href: "/gamification", exact: false, icon: Trophy, badge: "XP" },
   { name: "Projects", href: "/projects", exact: false, icon: FolderGit2 },
   { name: "Community", href: "/community", exact: false, icon: Users },
 ];
@@ -49,6 +55,7 @@ const NAV_ITEMS: NavItem[] = [
 export default function Navbar() {
   const pathname = usePathname();
   const { user, logout } = useAuth();
+  const { state: gamificationState } = useGamification();
   const [isOpen, setIsOpen] = useState(false);
   const [hidden, setHidden] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -175,8 +182,25 @@ export default function Navbar() {
               })}
             </div>
 
-            {/* ─── Right Controls: Lumio AI, Search, Notifications & Auth ─── */}
+            {/* ─── Right Controls: Streak & XP, Lumio AI, Search, Notifications & Auth ─── */}
             <div className="flex items-center gap-2.5 sm:gap-3.5">
+              {/* Daily Streak & XP Pill */}
+              <Link
+                href="/gamification"
+                className="hidden lg:flex items-center gap-2.5 px-3 py-2 rounded-2xl bg-white/[0.04] hover:bg-white/[0.08] border border-white/10 hover:border-amber-400/40 transition-all cursor-pointer shadow-sm group"
+                title="Gamification, Streak & Challenges"
+              >
+                <div className="flex items-center gap-1 text-xs font-mono font-bold text-rose-400">
+                  <Flame size={15} className="text-rose-400 animate-pulse" />
+                  <span>{gamificationState.streak.currentStreak}d</span>
+                </div>
+                <span className="text-slate-600">•</span>
+                <div className="flex items-center gap-1 text-xs font-mono font-bold text-amber-300">
+                  <Zap size={14} className="text-amber-400" />
+                  <span>{gamificationState.xp.totalXP} XP</span>
+                </div>
+              </Link>
+
               {/* Lumio AI Chatbot Launcher */}
               <button
                 onClick={() => {
@@ -374,6 +398,22 @@ export default function Navbar() {
                   </Link>
                 );
               })}
+
+              {/* Daily Streak & Gamification Mobile Pill */}
+              <Link
+                href="/gamification"
+                onClick={() => setIsOpen(false)}
+                className="w-full flex items-center justify-between px-4 py-3 rounded-2xl text-xs font-mono font-bold bg-[#0A1224] border border-cyan-500/30 text-white shadow-md cursor-pointer"
+              >
+                <div className="flex items-center gap-2">
+                  <Flame size={16} className="text-rose-400 animate-pulse" />
+                  <span>{gamificationState.streak.currentStreak}-Day Streak</span>
+                </div>
+                <div className="flex items-center gap-1.5 text-amber-300">
+                  <Zap size={14} className="text-amber-400" />
+                  <span>{gamificationState.xp.totalXP} XP</span>
+                </div>
+              </Link>
 
               {/* Chat with Lumio AI Mobile Button */}
               <button

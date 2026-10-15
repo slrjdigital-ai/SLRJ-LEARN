@@ -10,6 +10,7 @@ import AnimatedBackground from "@/components/AnimatedBackground";
 import BorderLight from "@/components/BorderLight";
 import PageTransition from "@/components/PageTransition";
 import { AuthProvider } from "@/context/AuthContext";
+import { GamificationProvider } from "@/context/GamificationContext";
 import AuthGuard from "@/components/AuthGuard";
 
 import JsonLd from "@/components/JsonLd";
@@ -102,19 +103,21 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} ${orbitron.variable} antialiased flex flex-col min-h-screen relative`}
       >
         <AuthProvider>
-          <BorderLight />
-          <AnimatedBackground />
-          <MouseLight />
-          <SmoothScroll />
-          <ScrollProgress />
-          <Navbar />
-          <AuthGuard>
-            <PageTransition>
-              <main className="flex-grow">{children}</main>
-            </PageTransition>
-          </AuthGuard>
-          <Footer />
-          <LumioChatbot />
+          <GamificationProvider>
+            <BorderLight />
+            <AnimatedBackground />
+            <MouseLight />
+            <SmoothScroll />
+            <ScrollProgress />
+            <Navbar />
+            <AuthGuard>
+              <PageTransition>
+                <main className="flex-grow">{children}</main>
+              </PageTransition>
+            </AuthGuard>
+            <Footer />
+            <LumioChatbot />
+          </GamificationProvider>
         </AuthProvider>
       </body>
     </html>

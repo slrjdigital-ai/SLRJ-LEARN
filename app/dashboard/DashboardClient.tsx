@@ -5,6 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/context/AuthContext";
+import { useGamification } from "@/context/GamificationContext";
 import { getAllNotes } from "@/data/notes";
 import { getAllCourses, Course } from "@/data/courses";
 import { ROADMAP_STAGES } from "@/data/roadmap";
@@ -35,6 +36,7 @@ import {
 export default function DashboardClient() {
   const router = useRouter();
   const { user, logout, toggleBookmark } = useAuth();
+  const { state: gamificationState, currentLevel } = useGamification();
   const allNotes = useMemo(() => getAllNotes(), []);
   const allCourses = useMemo(() => getAllCourses(), []);
 
@@ -90,9 +92,9 @@ export default function DashboardClient() {
   const completedStepsCount = user.completedRoadmapSteps?.length || 2;
   const roadmapPct = Math.round((completedStepsCount / ROADMAP_STAGES.length) * 100);
 
-  // Dynamic user XP based on actual milestones
-  const userXp = 450 + completedStepsCount * 100 + Object.keys(submittedProjects).length * 350;
-  const userStreak = 5; // 5-day streak
+  // Dynamic user XP & Streak connected to Gamification engine
+  const userXp = gamificationState.xp.totalXP;
+  const userStreak = gamificationState.streak.currentStreak;
 
   // Weekly activity chart mock data (Minutes studied per day)
   const weeklyActivity = [
@@ -198,32 +200,48 @@ export default function DashboardClient() {
       {/* ── Metric Stats Overview Cards ── */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
         {/* Total XP Points */}
-        <div className="p-5 rounded-2xl bg-[#080D1A] border border-white/10 shadow-lg">
+        <Link
+          href="/gamification"
+          className="p-5 rounded-2xl bg-[#080D1A] border border-white/10 hover:border-amber-400/40 transition-all shadow-lg cursor-pointer group"
+        >
           <div className="flex items-center justify-between mb-2">
-            <span className="text-xs font-mono text-slate-400 uppercase tracking-wider">Total XP</span>
-            <div className="p-2 rounded-xl bg-amber-500/15 text-amber-400">
+            <span className="text-xs font-mono text-slate-400 uppercase tracking-wider group-hover:text-amber-300 transition-colors">
+              Total XP
+            </span>
+            <div className="p-2 rounded-xl bg-amber-500/15 text-amber-400 group-hover:scale-110 transition-transform">
               <Award size={16} />
             </div>
           </div>
           <div className="text-2xl sm:text-3xl font-black text-white font-brand mb-1">
             {userXp} XP
           </div>
-          <span className="text-[11px] font-mono text-amber-300">Level 4 Scholar</span>
-        </div>
+          <span className="text-[11px] font-mono text-amber-300 flex items-center justify-between">
+            <span>{currentLevel.title}</span>
+            <span className="text-slate-500">&rarr;</span>
+          </span>
+        </Link>
 
         {/* Current Learning Streak */}
-        <div className="p-5 rounded-2xl bg-[#080D1A] border border-white/10 shadow-lg">
+        <Link
+          href="/gamification"
+          className="p-5 rounded-2xl bg-[#080D1A] border border-white/10 hover:border-rose-500/40 transition-all shadow-lg cursor-pointer group"
+        >
           <div className="flex items-center justify-between mb-2">
-            <span className="text-xs font-mono text-slate-400 uppercase tracking-wider">Day Streak</span>
-            <div className="p-2 rounded-xl bg-rose-500/15 text-rose-400">
-              <Flame size={16} />
+            <span className="text-xs font-mono text-slate-400 uppercase tracking-wider group-hover:text-rose-300 transition-colors">
+              Day Streak
+            </span>
+            <div className="p-2 rounded-xl bg-rose-500/15 text-rose-400 group-hover:scale-110 transition-transform">
+              <Flame size={16} className="animate-pulse" />
             </div>
           </div>
           <div className="text-2xl sm:text-3xl font-black text-white font-brand mb-1">
             {userStreak} Days
           </div>
-          <span className="text-[11px] font-mono text-emerald-400">Keep it up today!</span>
-        </div>
+          <span className="text-[11px] font-mono text-emerald-400 flex items-center justify-between">
+            <span>Keep it up today!</span>
+            <span className="text-slate-500">&rarr;</span>
+          </span>
+        </Link>
 
         {/* Roadmap Milestones */}
         <div className="p-5 rounded-2xl bg-[#080D1A] border border-white/10 shadow-lg">
