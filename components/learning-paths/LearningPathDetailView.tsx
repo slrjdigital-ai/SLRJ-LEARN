@@ -150,23 +150,23 @@ Can you explain the main concepts simply, clarify common beginner mistakes, and 
   const isCurrentStepDone = completedSteps.includes(currentStep.id);
 
   return (
-    <div className="min-h-screen bg-[#030712] text-white pt-24 pb-20">
-      <div className="max-w-[1780px] w-full mx-auto px-4 sm:px-8 lg:px-12">
+    <div className="space-y-6 text-slate-800 max-w-[1600px] mx-auto pb-16">
+      <div>
         {/* ─── Top Nav & Breadcrumbs ─── */}
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-6 border-b border-white/10 mb-8">
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-6 border-b border-slate-200 mb-6">
           <div>
             <Link
               href="/roadmap"
-              className="inline-flex items-center gap-2 text-xs font-mono text-cyan-400 hover:text-cyan-300 transition-colors mb-2 group"
+              className="inline-flex items-center gap-2 text-xs font-semibold text-[#0b69ff] hover:text-blue-700 transition-colors mb-2 group"
             >
               <ArrowLeft size={14} className="group-hover:-translate-x-1 transition-transform" />
               <span>Back to All Learning Paths</span>
             </Link>
             <div className="flex items-center gap-3">
-              <h1 className="text-2xl sm:text-3xl font-black text-white font-brand">
+              <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 font-brand">
                 {track.name}
               </h1>
-              <span className="text-xs font-mono font-bold px-2.5 py-0.5 rounded-full bg-cyan-500/15 text-cyan-300 border border-cyan-500/30">
+              <span className="text-xs font-bold px-2.5 py-0.5 rounded-full bg-blue-50 text-[#0b69ff] border border-blue-200">
                 {track.level}
               </span>
             </div>
@@ -176,12 +176,12 @@ Can you explain the main concepts simply, clarify common beginner mistakes, and 
           <div className="flex items-center gap-4">
             <div className="text-right">
               <div className="flex items-center justify-end gap-2 text-xs font-mono">
-                <span className="text-slate-400">Current Stage:</span>
-                <span className="text-cyan-300 font-bold">{currentIndex + 1} of {steps.length}</span>
+                <span className="text-slate-500">Current Stage:</span>
+                <span className="text-[#0b69ff] font-bold">{currentIndex + 1} of {steps.length}</span>
               </div>
-              <div className="w-48 h-2 bg-white/5 rounded-full overflow-hidden mt-1.5 border border-white/10">
+              <div className="w-48 h-2 bg-slate-200 rounded-full overflow-hidden mt-1.5 border border-slate-200">
                 <div
-                  className={`h-full bg-gradient-to-r ${track.gradient} transition-all duration-300`}
+                  className="h-full bg-[#0b69ff] transition-all duration-300"
                   style={{ width: `${Math.round(((currentIndex + 1) / steps.length) * 100)}%` }}
                 />
               </div>
@@ -189,38 +189,38 @@ Can you explain the main concepts simply, clarify common beginner mistakes, and 
 
             <button
               onClick={handleAskLumio}
-              className="px-3.5 py-2 rounded-xl bg-gradient-to-r from-purple-500/20 to-cyan-500/20 hover:from-purple-500/30 hover:to-cyan-500/30 border border-cyan-400/40 text-cyan-200 text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer shadow-sm"
+              className="px-3.5 py-2 rounded-xl bg-purple-50 hover:bg-purple-100 border border-purple-200 text-purple-700 text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer shadow-sm"
               title="Ask Lumio AI about this stage"
             >
-              <Bot size={15} className="text-cyan-300 animate-pulse" />
+              <Bot size={15} className="text-purple-600 animate-pulse" />
               <span className="hidden sm:inline">Ask Lumio</span>
             </button>
           </div>
         </div>
 
         {/* ─── Main Two-Column Layout ─── */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
           {/* ── Left Sticky Sidebar (Curriculum Stages) ── */}
-          <div className="lg:col-span-4 xl:col-span-3 space-y-4 lg:sticky lg:top-28">
-            <div className="p-4 rounded-3xl bg-[#060a14] border border-white/10 shadow-xl">
+          <div className="lg:col-span-4 xl:col-span-3 space-y-4 lg:sticky lg:top-24">
+            <div className="p-4 rounded-2xl bg-white border border-slate-200/80 shadow-sm">
               <div className="flex items-center justify-between mb-3">
-                <span className="text-xs font-mono font-bold uppercase tracking-wider text-slate-400">
+                <span className="text-xs font-bold uppercase tracking-wider text-slate-500">
                   Curriculum Stages ({steps.length})
                 </span>
-                <span className="text-xs font-mono text-cyan-400 font-bold">
+                <span className="text-xs font-mono text-[#0b69ff] font-bold">
                   +{earnedXP} XP
                 </span>
               </div>
 
               {/* Sidebar Search */}
               <div className="relative mb-3">
-                <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500" />
+                <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
                 <input
                   type="text"
                   value={sidebarSearch}
                   onChange={(e) => setSidebarSearch(e.target.value)}
                   placeholder="Search stages or topics..."
-                  className="w-full pl-8 pr-3 py-1.5 rounded-xl bg-white/[0.04] border border-white/10 text-white placeholder-slate-500 text-xs focus:outline-none focus:border-cyan-400/50"
+                  className="w-full pl-8 pr-3 py-1.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-800 placeholder-slate-400 text-xs focus:outline-none focus:border-[#0b69ff]"
                 />
               </div>
 
@@ -235,27 +235,27 @@ Can you explain the main concepts simply, clarify common beginner mistakes, and 
                     <button
                       key={step.id}
                       onClick={() => setActiveStepId(step.id)}
-                      className={`w-full text-left p-3 rounded-2xl border transition-all flex items-center justify-between gap-3 cursor-pointer ${
+                      className={`w-full text-left p-3 rounded-xl border transition-all flex items-center justify-between gap-3 cursor-pointer ${
                         isActive
-                          ? "bg-gradient-to-r from-cyan-500/20 via-teal-500/10 to-transparent border-cyan-400/50 text-white shadow-md shadow-cyan-500/10"
-                          : "bg-white/[0.02] border-white/5 text-slate-400 hover:text-white hover:bg-white/[0.05]"
+                          ? "bg-blue-50/80 border-[#0b69ff] text-[#0b69ff] shadow-sm"
+                          : "bg-white border-slate-100 text-slate-700 hover:bg-slate-50 hover:border-slate-200"
                       }`}
                     >
                       <div className="flex items-center gap-2.5 truncate">
                         <span
-                          className={`text-[10px] font-mono font-black px-1.5 py-0.5 rounded-lg border ${
+                          className={`text-[10px] font-mono font-bold px-1.5 py-0.5 rounded-md border ${
                             isActive
-                              ? "bg-cyan-400 text-black border-cyan-300"
-                              : "bg-white/5 text-slate-400 border-white/10"
+                              ? "bg-[#0b69ff] text-white border-[#0b69ff]"
+                              : "bg-slate-100 text-slate-500 border-slate-200"
                           }`}
                         >
                           {stepNum}
                         </span>
                         <div className="truncate">
-                          <div className={`text-xs font-bold truncate ${isActive ? "text-cyan-200" : "text-white"}`}>
+                          <div className={`text-xs font-bold truncate ${isActive ? "text-[#0b69ff]" : "text-slate-800"}`}>
                             {step.title.replace(/^\d+\.\s*/, "")}
                           </div>
-                          <span className="text-[10px] font-mono text-slate-500 block truncate">
+                          <span className="text-[10px] text-slate-400 block truncate">
                             {step.category} • {step.duration}
                           </span>
                         </div>
@@ -265,7 +265,7 @@ Can you explain the main concepts simply, clarify common beginner mistakes, and 
                       <div className="flex-shrink-0">
                         <ChevronRight
                           size={15}
-                          className={isActive ? "text-cyan-400 translate-x-0.5 transition-transform" : "text-slate-600"}
+                          className={isActive ? "text-[#0b69ff] translate-x-0.5 transition-transform" : "text-slate-400"}
                         />
                       </div>
                     </button>
@@ -274,31 +274,29 @@ Can you explain the main concepts simply, clarify common beginner mistakes, and 
               </div>
 
               {/* Capstone Card Link */}
-              <div className="mt-4 pt-3 border-t border-white/10 p-3 rounded-2xl bg-gradient-to-r from-purple-500/10 via-cyan-500/10 to-emerald-500/10 border border-cyan-500/20 text-center">
-                <span className="text-[10px] font-mono font-bold text-cyan-300 uppercase block mb-1">
+              <div className="mt-4 pt-3 border-t border-slate-100 p-3 rounded-xl bg-blue-50/60 border border-blue-100 text-center">
+                <span className="text-[10px] font-mono font-bold text-[#0b69ff] uppercase block mb-1">
                   Capstone Deliverable
                 </span>
-                <div className="text-xs font-bold text-white line-clamp-1">{track.finalProject.title}</div>
+                <div className="text-xs font-bold text-slate-800 line-clamp-1">{track.finalProject.title}</div>
               </div>
             </div>
           </div>
 
           {/* ── Right Main Content Area (In-Depth Lesson, Code & Practice) ── */}
-          <div className="lg:col-span-8 xl:col-span-9 space-y-8">
+          <div className="lg:col-span-8 xl:col-span-9 space-y-6">
             {/* Stage Hero Banner */}
-            <div className="p-6 sm:p-8 rounded-3xl bg-gradient-to-br from-[#060c1c] via-[#09152b] to-[#040812] border border-cyan-500/30 shadow-2xl relative overflow-hidden">
-              <div className="absolute top-0 right-0 w-80 h-80 bg-cyan-500/5 blur-3xl pointer-events-none" />
-
+            <div className="p-6 sm:p-8 rounded-2xl bg-white border border-slate-200/80 shadow-sm relative overflow-hidden">
               <div className="flex flex-wrap items-center justify-between gap-3 mb-4">
                 <div className="flex items-center gap-2">
-                  <span className="text-xs font-mono font-black px-3 py-1 rounded-xl bg-cyan-400 text-black font-bold">
+                  <span className="text-xs font-mono font-black px-3 py-1 rounded-lg bg-[#0b69ff] text-white">
                     STAGE {String(currentStep.stepNumber).padStart(2, "0")}
                   </span>
-                  <span className="text-xs font-mono font-bold text-cyan-300 px-3 py-1 rounded-xl bg-white/[0.04] border border-white/10">
+                  <span className="text-xs font-semibold text-[#0b69ff] px-3 py-1 rounded-lg bg-blue-50 border border-blue-200">
                     {currentStep.category}
                   </span>
-                  <span className="text-xs font-mono text-slate-400 flex items-center gap-1.5">
-                    <Clock size={13} className="text-slate-500" />
+                  <span className="text-xs font-mono text-slate-500 flex items-center gap-1.5">
+                    <Clock size={13} className="text-slate-400" />
                     {currentStep.duration}
                   </span>
                 </div>
@@ -306,20 +304,20 @@ Can you explain the main concepts simply, clarify common beginner mistakes, and 
                 <div className="flex items-center gap-2">
                   <button
                     onClick={handleAskLumio}
-                    className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white/5 hover:bg-white/10 text-cyan-300 hover:text-white border border-white/10 text-xs font-mono transition-all cursor-pointer"
+                    className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-purple-50 hover:bg-purple-100 text-purple-700 border border-purple-200 text-xs font-semibold transition-all cursor-pointer"
                   >
-                    <Bot size={13} className="text-cyan-400" />
+                    <Bot size={13} className="text-purple-600" />
                     <span>Ask Lumio</span>
                   </button>
                 </div>
               </div>
 
-              <h2 className="text-2xl sm:text-4xl font-black text-white font-brand tracking-tight mb-4">
+              <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 font-brand tracking-tight mb-4">
                 {currentStep.title.replace(/^\d+\.\s*/, "")}
               </h2>
 
               {/* In-depth Overview Paragraphs */}
-              <div className="space-y-3 text-slate-300 text-sm sm:text-base leading-relaxed">
+              <div className="space-y-3 text-slate-600 text-sm sm:text-base leading-relaxed">
                 {currentLesson.overview.map((para, pIdx) => (
                   <p key={pIdx}>{para}</p>
                 ))}
@@ -327,9 +325,9 @@ Can you explain the main concepts simply, clarify common beginner mistakes, and 
             </div>
 
             {/* ── Key Concepts Deconstruction ── */}
-            <div className="p-6 sm:p-8 rounded-3xl bg-[#060a14] border border-white/10 shadow-xl">
-              <div className="flex items-center gap-2 text-xs font-mono font-bold text-cyan-300 uppercase tracking-wider mb-4">
-                <BookOpen size={16} className="text-cyan-400" />
+            <div className="p-6 sm:p-8 rounded-2xl bg-white border border-slate-200/80 shadow-sm">
+              <div className="flex items-center gap-2 text-xs font-bold text-slate-700 uppercase tracking-wider mb-4">
+                <BookOpen size={16} className="text-[#0b69ff]" />
                 <span>Key Concepts & Principles You Must Understand:</span>
               </div>
 
@@ -337,21 +335,21 @@ Can you explain the main concepts simply, clarify common beginner mistakes, and 
                 {currentLesson.keyConceptDetails.map((concept, cIdx) => (
                   <div
                     key={cIdx}
-                    className="p-4 rounded-2xl bg-white/[0.02] border border-white/5 hover:border-cyan-400/30 transition-colors"
+                    className="p-4 rounded-xl bg-slate-50/80 border border-slate-200/80 hover:border-blue-300 transition-colors"
                   >
-                    <h5 className="font-bold text-white text-sm mb-1 flex items-center gap-2">
-                      <span className="w-1.5 h-1.5 rounded-full bg-cyan-400" />
+                    <h5 className="font-bold text-slate-900 text-sm mb-1 flex items-center gap-2">
+                      <span className="w-1.5 h-1.5 rounded-full bg-[#0b69ff]" />
                       <span>{concept.title}</span>
                     </h5>
-                    <p className="text-xs text-slate-300 leading-relaxed">{concept.description}</p>
+                    <p className="text-xs text-slate-600 leading-relaxed">{concept.description}</p>
                   </div>
                 ))}
               </div>
             </div>
 
             {/* ── Syntax-Highlighted Working Code Example ── */}
-            <div className="rounded-3xl border border-white/10 bg-[#02050e] shadow-2xl overflow-hidden">
-              <div className="flex items-center justify-between px-5 py-3 bg-white/[0.04] border-b border-white/10 text-xs font-mono">
+            <div className="rounded-2xl border border-slate-700 bg-slate-950 text-slate-100 shadow-sm overflow-hidden">
+              <div className="flex items-center justify-between px-5 py-3 bg-slate-900 border-b border-slate-800 text-xs font-mono">
                 <div className="flex items-center gap-2 text-cyan-300 font-bold">
                   <Terminal size={14} className="text-cyan-400" />
                   <span>Interactive Code Example ({currentLesson.codeExample.language})</span>
@@ -360,7 +358,7 @@ Can you explain the main concepts simply, clarify common beginner mistakes, and 
                 <div className="flex items-center gap-2">
                   <Link
                     href="/practice"
-                    className="flex items-center gap-1.5 text-xs text-slate-400 hover:text-white px-2.5 py-1 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 transition-colors"
+                    className="flex items-center gap-1.5 text-xs text-slate-300 hover:text-white px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 border border-slate-700 transition-colors"
                   >
                     <Code2 size={13} className="text-emerald-400" />
                     <span>Run in Playground</span>
@@ -368,7 +366,7 @@ Can you explain the main concepts simply, clarify common beginner mistakes, and 
 
                   <button
                     onClick={() => handleCopyCode(currentLesson.codeExample.code)}
-                    className="flex items-center gap-1.5 text-xs text-slate-300 hover:text-white px-2.5 py-1 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 transition-colors cursor-pointer"
+                    className="flex items-center gap-1.5 text-xs text-slate-300 hover:text-white px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 border border-slate-700 transition-colors cursor-pointer"
                   >
                     {copiedCode ? <Check size={13} className="text-emerald-400" /> : <Copy size={13} />}
                     <span>{copiedCode ? "Copied!" : "Copy Code"}</span>
@@ -380,23 +378,23 @@ Can you explain the main concepts simply, clarify common beginner mistakes, and 
                 <code>{currentLesson.codeExample.code}</code>
               </pre>
 
-              <div className="px-5 py-3 bg-white/[0.02] border-t border-white/5 text-xs text-slate-400 font-sans">
-                💡 <strong className="text-slate-300">Explanation:</strong> {currentLesson.codeExample.explanation}
+              <div className="px-5 py-3 bg-slate-900/60 border-t border-slate-800 text-xs text-slate-300 font-sans">
+                💡 <strong className="text-slate-100">Explanation:</strong> {currentLesson.codeExample.explanation}
               </div>
             </div>
 
             {/* ── Common Mistakes & Pro Tips (Two Column Split) ── */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {/* Common Mistakes */}
-              <div className="p-6 rounded-3xl bg-rose-950/15 border border-rose-500/25 shadow-lg">
-                <div className="flex items-center gap-2 text-rose-300 font-bold text-xs uppercase font-mono tracking-wider mb-3">
-                  <AlertTriangle size={15} className="text-rose-400" />
+              <div className="p-6 rounded-2xl bg-rose-50/70 border border-rose-200 shadow-sm">
+                <div className="flex items-center gap-2 text-rose-700 font-bold text-xs uppercase tracking-wider mb-3">
+                  <AlertTriangle size={15} className="text-rose-600" />
                   <span>Common Beginner Pitfalls:</span>
                 </div>
-                <ul className="space-y-2.5 text-xs text-slate-300">
+                <ul className="space-y-2.5 text-xs text-slate-700">
                   {currentLesson.commonMistakes.map((mistake, mIdx) => (
                     <li key={mIdx} className="flex items-start gap-2">
-                      <span className="text-rose-400 font-bold mt-0.5">✕</span>
+                      <span className="text-rose-600 font-bold mt-0.5">✕</span>
                       <span>{mistake}</span>
                     </li>
                   ))}
@@ -404,15 +402,15 @@ Can you explain the main concepts simply, clarify common beginner mistakes, and 
               </div>
 
               {/* Pro Tips */}
-              <div className="p-6 rounded-3xl bg-emerald-950/15 border border-emerald-500/25 shadow-lg">
-                <div className="flex items-center gap-2 text-emerald-300 font-bold text-xs uppercase font-mono tracking-wider mb-3">
-                  <Lightbulb size={15} className="text-emerald-400" />
+              <div className="p-6 rounded-2xl bg-emerald-50/70 border border-emerald-200 shadow-sm">
+                <div className="flex items-center gap-2 text-emerald-800 font-bold text-xs uppercase tracking-wider mb-3">
+                  <Lightbulb size={15} className="text-emerald-600" />
                   <span>Senior Engineer Pro Tips:</span>
                 </div>
-                <ul className="space-y-2.5 text-xs text-slate-300">
+                <ul className="space-y-2.5 text-xs text-slate-700">
                   {currentLesson.proTips.map((tip, tIdx) => (
                     <li key={tIdx} className="flex items-start gap-2">
-                      <span className="text-emerald-400 font-bold mt-0.5">✓</span>
+                      <span className="text-emerald-600 font-bold mt-0.5">✓</span>
                       <span>{tip}</span>
                     </li>
                   ))}
@@ -421,28 +419,28 @@ Can you explain the main concepts simply, clarify common beginner mistakes, and 
             </div>
 
             {/* ── Hands-On Milestone Project Callout ── */}
-            <div className="p-6 sm:p-8 rounded-3xl bg-gradient-to-r from-[#08152e] to-[#040916] border border-cyan-500/40 shadow-2xl relative overflow-hidden">
+            <div className="p-6 sm:p-8 rounded-2xl bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-200 shadow-sm relative overflow-hidden">
               <div className="flex items-center justify-between gap-2 mb-3">
-                <div className="flex items-center gap-2 text-cyan-300 font-mono font-bold text-xs uppercase tracking-wider">
-                  <Rocket size={16} className="text-cyan-400" />
+                <div className="flex items-center gap-2 text-[#0b69ff] font-bold text-xs uppercase tracking-wider">
+                  <Rocket size={16} className="text-[#0b69ff]" />
                   <span>Stage Milestone Project Assignment</span>
                 </div>
-                <span className="text-[10px] font-mono font-bold px-2.5 py-0.5 rounded-full bg-cyan-500/20 text-cyan-300 border border-cyan-500/30">
+                <span className="text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-blue-100 text-[#0b69ff] border border-blue-200">
                   Practical Deliverable
                 </span>
               </div>
 
-              <h4 className="text-xl font-black text-white font-brand mb-2">
+              <h4 className="text-xl font-bold text-slate-900 mb-2">
                 {currentStep.practicalMilestone}
               </h4>
-              <p className="text-slate-300 text-xs sm:text-sm leading-relaxed mb-4">
+              <p className="text-slate-600 text-xs sm:text-sm leading-relaxed mb-4">
                 To master this stage, build this deliverable independently. Open your IDE or our Code Playground, write the code, and test edge cases.
               </p>
 
               <div className="flex flex-wrap items-center gap-3">
                 <Link
                   href="/practice"
-                  className="px-5 py-2.5 rounded-xl font-bold text-xs sm:text-sm bg-gradient-to-r from-cyan-400 to-emerald-400 hover:from-cyan-300 hover:to-emerald-300 text-black shadow-md shadow-cyan-500/20 transition-all flex items-center gap-1.5"
+                  className="px-5 py-2.5 rounded-xl font-bold text-xs sm:text-sm bg-[#0b69ff] hover:bg-blue-600 text-white shadow-sm transition-all flex items-center gap-1.5"
                 >
                   <Code2 size={15} />
                   <span>Launch Playground to Build</span>
@@ -450,25 +448,25 @@ Can you explain the main concepts simply, clarify common beginner mistakes, and 
 
                 <button
                   onClick={handleAskLumio}
-                  className="px-5 py-2.5 rounded-xl font-bold text-xs sm:text-sm bg-white/5 hover:bg-white/10 text-white border border-white/10 transition-all flex items-center gap-1.5 cursor-pointer"
+                  className="px-5 py-2.5 rounded-xl font-bold text-xs sm:text-sm bg-white hover:bg-slate-50 text-slate-700 border border-slate-200 transition-all flex items-center gap-1.5 cursor-pointer shadow-sm"
                 >
-                  <Bot size={15} className="text-cyan-400" />
+                  <Bot size={15} className="text-[#0b69ff]" />
                   <span>Ask Lumio for Starter Hints</span>
                 </button>
               </div>
             </div>
 
             {/* ── Interactive Stage Quiz (SoloLearn Style) ── */}
-            <div className="p-6 sm:p-8 rounded-3xl bg-[#060a14] border border-white/10 shadow-xl">
+            <div className="p-6 sm:p-8 rounded-2xl bg-white border border-slate-200/80 shadow-sm">
               <div className="flex items-center justify-between mb-4">
-                <div className="flex items-center gap-2 text-xs font-mono font-bold text-amber-300 uppercase tracking-wider">
-                  <HelpCircle size={16} className="text-amber-400" />
+                <div className="flex items-center gap-2 text-xs font-bold text-amber-600 uppercase tracking-wider">
+                  <HelpCircle size={16} className="text-amber-500" />
                   <span>Knowledge Check (Test Your Retention)</span>
                 </div>
                 <span className="text-xs font-mono text-slate-500">1 Question</span>
               </div>
 
-              <h4 className="text-base sm:text-lg font-bold text-white mb-4">
+              <h4 className="text-base sm:text-lg font-bold text-slate-900 mb-4">
                 {currentLesson.quiz.question}
               </h4>
 
@@ -478,15 +476,15 @@ Can you explain the main concepts simply, clarify common beginner mistakes, and 
                   const isSelected = selectedOption === oIdx;
                   const isCorrect = oIdx === currentLesson.quiz.correctIndex;
 
-                  let optionStyle = "bg-white/[0.03] border-white/10 text-slate-300 hover:bg-white/[0.06]";
+                  let optionStyle = "bg-slate-50 border-slate-200 text-slate-700 hover:bg-slate-100";
                   if (hasCheckedAnswer) {
                     if (isCorrect) {
-                      optionStyle = "bg-emerald-500/20 border-emerald-400 text-emerald-200 font-bold";
+                      optionStyle = "bg-emerald-50 border-emerald-400 text-emerald-900 font-bold";
                     } else if (isSelected && !isCorrect) {
-                      optionStyle = "bg-rose-500/20 border-rose-400 text-rose-200";
+                      optionStyle = "bg-rose-50 border-rose-400 text-rose-900";
                     }
                   } else if (isSelected) {
-                    optionStyle = "bg-cyan-500/20 border-cyan-400 text-cyan-200 font-semibold";
+                    optionStyle = "bg-blue-50 border-[#0b69ff] text-[#0b69ff] font-semibold";
                   }
 
                   return (
@@ -494,16 +492,16 @@ Can you explain the main concepts simply, clarify common beginner mistakes, and 
                       key={oIdx}
                       disabled={hasCheckedAnswer}
                       onClick={() => setSelectedOption(oIdx)}
-                      className={`w-full text-left p-4 rounded-2xl border transition-all text-xs sm:text-sm flex items-center justify-between cursor-pointer ${optionStyle}`}
+                      className={`w-full text-left p-4 rounded-xl border transition-all text-xs sm:text-sm flex items-center justify-between cursor-pointer ${optionStyle}`}
                     >
                       <span>{opt}</span>
                       <div className="flex-shrink-0 ml-3">
                         {hasCheckedAnswer && isCorrect ? (
-                          <CheckCircle2 size={16} className="text-emerald-400" />
+                          <CheckCircle2 size={16} className="text-emerald-600" />
                         ) : hasCheckedAnswer && isSelected && !isCorrect ? (
-                          <AlertTriangle size={16} className="text-rose-400" />
+                          <AlertTriangle size={16} className="text-rose-600" />
                         ) : (
-                          <div className={`w-4 h-4 rounded-full border ${isSelected ? "border-cyan-400 bg-cyan-400" : "border-slate-600"}`} />
+                          <div className={`w-4 h-4 rounded-full border ${isSelected ? "border-[#0b69ff] bg-[#0b69ff]" : "border-slate-400"}`} />
                         )}
                       </div>
                     </button>
@@ -514,10 +512,10 @@ Can you explain the main concepts simply, clarify common beginner mistakes, and 
               {/* Feedback box */}
               {hasCheckedAnswer && (
                 <div
-                  className={`p-4 rounded-2xl border mb-4 text-xs sm:text-sm leading-relaxed ${
+                  className={`p-4 rounded-xl border mb-4 text-xs sm:text-sm leading-relaxed ${
                     selectedOption === currentLesson.quiz.correctIndex
-                      ? "bg-emerald-950/20 border-emerald-500/30 text-emerald-200"
-                      : "bg-rose-950/20 border-rose-500/30 text-rose-200"
+                      ? "bg-emerald-50 border-emerald-200 text-emerald-900"
+                      : "bg-rose-50 border-rose-200 text-rose-900"
                   }`}
                 >
                   <strong className="block font-bold mb-1">
@@ -533,7 +531,7 @@ Can you explain the main concepts simply, clarify common beginner mistakes, and 
                   <button
                     disabled={selectedOption === null}
                     onClick={() => setHasCheckedAnswer(true)}
-                    className="px-6 py-2.5 rounded-xl font-bold text-xs sm:text-sm bg-gradient-to-r from-cyan-400 to-emerald-400 disabled:opacity-40 disabled:cursor-not-allowed text-black shadow-md cursor-pointer"
+                    className="px-6 py-2.5 rounded-xl font-bold text-xs sm:text-sm bg-[#0b69ff] hover:bg-blue-600 disabled:opacity-40 disabled:cursor-not-allowed text-white shadow-sm cursor-pointer"
                   >
                     Check Answer
                   </button>
@@ -543,7 +541,7 @@ Can you explain the main concepts simply, clarify common beginner mistakes, and 
                       setSelectedOption(null);
                       setHasCheckedAnswer(false);
                     }}
-                    className="px-4 py-2 rounded-xl text-xs font-mono font-bold text-slate-400 hover:text-white bg-white/5 border border-white/10 cursor-pointer"
+                    className="px-4 py-2 rounded-xl text-xs font-bold text-slate-600 hover:text-slate-900 bg-slate-100 hover:bg-slate-200 border border-slate-200 cursor-pointer"
                   >
                     Retry Quiz
                   </button>
@@ -552,11 +550,11 @@ Can you explain the main concepts simply, clarify common beginner mistakes, and 
             </div>
 
             {/* ── Previous & Next Stage Controls ── */}
-            <div className="pt-6 border-t border-white/10 flex items-center justify-between gap-4">
+            <div className="pt-6 border-t border-slate-200 flex items-center justify-between gap-4">
               {prevStep ? (
                 <button
                   onClick={() => setActiveStepId(prevStep.id)}
-                  className="px-5 py-3 rounded-2xl bg-white/5 hover:bg-white/10 border border-white/10 text-slate-300 hover:text-white text-xs sm:text-sm font-bold flex items-center gap-2 transition-all cursor-pointer"
+                  className="px-5 py-3 rounded-xl bg-white hover:bg-slate-50 border border-slate-200 text-slate-700 text-xs sm:text-sm font-bold flex items-center gap-2 transition-all cursor-pointer shadow-sm"
                 >
                   <ArrowLeft size={16} />
                   <span>Stage {String(prevStep.stepNumber).padStart(2, "0")}: {prevStep.title.replace(/^\d+\.\s*/, "")}</span>
@@ -571,7 +569,7 @@ Can you explain the main concepts simply, clarify common beginner mistakes, and 
                     setActiveStepId(nextStep.id);
                     window.scrollTo({ top: 0, behavior: "smooth" });
                   }}
-                  className="px-6 py-3 rounded-2xl bg-gradient-to-r from-cyan-400 to-emerald-400 hover:from-cyan-300 hover:to-emerald-300 text-black font-extrabold text-xs sm:text-sm flex items-center gap-2 shadow-lg shadow-cyan-500/25 transition-all cursor-pointer"
+                  className="px-6 py-3 rounded-xl bg-[#0b69ff] hover:bg-blue-600 text-white font-extrabold text-xs sm:text-sm flex items-center gap-2 shadow-sm transition-all cursor-pointer"
                 >
                   <span>Next: Stage {String(nextStep.stepNumber).padStart(2, "0")}</span>
                   <ArrowRight size={16} />
@@ -579,7 +577,7 @@ Can you explain the main concepts simply, clarify common beginner mistakes, and 
               ) : (
                 <Link
                   href="/certificates"
-                  className="px-6 py-3 rounded-2xl bg-gradient-to-r from-amber-400 to-yellow-400 text-black font-black text-xs sm:text-sm flex items-center gap-2 shadow-lg shadow-amber-500/25"
+                  className="px-6 py-3 rounded-xl bg-amber-500 hover:bg-amber-600 text-white font-bold text-xs sm:text-sm flex items-center gap-2 shadow-sm"
                 >
                   <Trophy size={16} />
                   <span>Claim Career Certificate</span>

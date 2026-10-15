@@ -10,24 +10,19 @@
 
 @layer base {
   :root {
-    --background: #030712;
-    --foreground: #f8fafc;
-    --card: #080D1A;
-    --card-foreground: #ffffff;
-    --primary: #06B6D4;
-    --primary-foreground: #000000;
-    --secondary: #0D1527;
-    --secondary-foreground: #f8fafc;
-    --muted: #0D1527;
-    --muted-foreground: #94a3b8;
-    --accent: #38BDF8;
-    --accent-foreground: #000000;
-    --border: #1E293B;
-    --indigo-glow: #6366F1;
-    --purple-glow: #8B5CF6;
-    --cyan-glow: #06B6D4;
-    --emerald-glow: #10B981;
-    --blue-glow: #3B82F6;
+    --background: #f4f7fb;
+    --foreground: #0f172a;
+    --card: #ffffff;
+    --card-foreground: #0f172a;
+    --primary: #0b69ff;
+    --primary-foreground: #ffffff;
+    --secondary: #e8f1fd;
+    --secondary-foreground: #0b69ff;
+    --muted: #f1f5f9;
+    --muted-foreground: #64748b;
+    --accent: #0b69ff;
+    --accent-foreground: #ffffff;
+    --border: #e2e8f0;
   }
 }
 
@@ -40,100 +35,30 @@
   body {
     overflow-x: hidden;
     max-width: 100vw;
-    background-color: var(--background);
-    color: var(--foreground);
-    @apply selection:bg-cyan-500/25 selection:text-cyan-200;
+    background-color: #f4f7fb;
+    color: #0f172a;
+    font-family: var(--font-geist-sans), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    @apply selection:bg-blue-100 selection:text-blue-900;
   }
 }
 
 @layer utilities {
   .font-brand {
     font-family: var(--font-geist-sans), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
-    letter-spacing: -0.028em;
+    letter-spacing: -0.025em;
   }
 
-  .glass-nav {
-    @apply bg-[#030712]/85 backdrop-blur-2xl border-b border-white/[0.08] shadow-[0_4px_30px_rgba(0,0,0,0.5)];
+  .clean-card {
+    background-color: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 1rem;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.05), 0 1px 2px -1px rgba(0, 0, 0, 0.05);
+    transition: all 0.2s ease-in-out;
   }
 
-  .glass-card {
-    @apply bg-[#080D1A]/90 backdrop-blur-xl border border-white/[0.08] rounded-2xl transition-all duration-300 relative overflow-hidden shadow-[0_4px_20px_rgba(0,0,0,0.35)];
-  }
-
-  .glass-card::before {
-    content: '';
-    pointer-events: none;
-    @apply absolute inset-x-0 top-0 h-[1px] bg-gradient-to-r from-transparent via-white/15 to-transparent;
-  }
-
-  .glass-card:hover {
-    @apply border-cyan-500/40 shadow-[0_12px_32px_rgba(0,0,0,0.5),0_0_24px_rgba(6,182,212,0.15)] -translate-y-1;
-  }
-
-  .gold-gradient-text, .tech-gradient-text {
-    @apply bg-gradient-to-r from-white via-cyan-200 to-emerald-400 bg-[length:200%_auto] text-transparent bg-clip-text font-bold;
-  }
-
-  .gold-glow, .tech-glow {
-    @apply transition-all duration-300;
-  }
-
-  .gold-glow:hover, .tech-glow:hover {
-    @apply shadow-[0_0_25px_rgba(6,182,212,0.3)];
-  }
-
-  .grid-bg {
-    background-size: 32px 32px;
-    background-image: 
-      linear-gradient(to right, rgba(255, 255, 255, 0.04) 1px, transparent 1px),
-      linear-gradient(to bottom, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
-  }
-
-  @keyframes gradient {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
-  }
-
-  @keyframes shimmer {
-    0% { transform: translateX(-100%) skewX(-20deg); }
-    100% { transform: translateX(200%) skewX(-20deg); }
-  }
-
-  @keyframes marquee {
-    0% { transform: translateX(0); }
-    100% { transform: translateX(-33.333%); }
-  }
-
-  @keyframes float-orb {
-    0%, 100% { transform: translate(0, 0) scale(1); }
-    33% { transform: translate(30px, -50px) scale(1.1); }
-    66% { transform: translate(-20px, 20px) scale(0.9); }
-  }
-
-  .animate-float-slow {
-    animation: float-orb 20s ease-in-out infinite;
-  }
-  .animate-float-medium {
-    animation: float-orb 15s ease-in-out infinite;
-  }
-  .animate-float-fast {
-    animation: float-orb 10s ease-in-out infinite;
-  }
-
-  @keyframes star-drift {
-    0% { transform: translate3d(0, 0, 0); }
-    100% { transform: translate3d(-200px, 200px, 0); }
-  }
-
-  .animate-star-drift {
-    animation: star-drift 20s linear infinite;
-    will-change: transform;
-  }
-
-  .animate-star-drift-slow {
-    animation: star-drift 35s linear infinite;
-    will-change: transform;
+  .clean-card:hover {
+    box-shadow: 0 4px 14px 0 rgba(0, 0, 0, 0.08);
+    border-color: #cbd5e1;
   }
 
   /* Hide scrollbars cleanly */
@@ -147,4 +72,3 @@
     scrollbar-width: none;
   }
 }
-

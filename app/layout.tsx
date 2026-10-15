@@ -1,17 +1,13 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono, Orbitron } from "next/font/google";
 import "./globals.css";
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
 import ScrollProgress from "@/components/ScrollProgress";
 import SmoothScroll from "@/components/SmoothScroll";
-import MouseLight from "@/components/MouseLight";
-import AnimatedBackground from "@/components/AnimatedBackground";
-import BorderLight from "@/components/BorderLight";
 import PageTransition from "@/components/PageTransition";
 import { AuthProvider } from "@/context/AuthContext";
 import { GamificationProvider } from "@/context/GamificationContext";
 import AuthGuard from "@/components/AuthGuard";
+import AppShell from "@/components/layout/AppShell";
 
 import JsonLd from "@/components/JsonLd";
 import LumioChatbot from "@/components/ai/LumioChatbot";
@@ -104,18 +100,15 @@ export default function RootLayout({
       >
         <AuthProvider>
           <GamificationProvider>
-            <BorderLight />
-            <AnimatedBackground />
-            <MouseLight />
             <SmoothScroll />
             <ScrollProgress />
-            <Navbar />
             <AuthGuard>
-              <PageTransition>
-                <main className="flex-grow">{children}</main>
-              </PageTransition>
+              <AppShell>
+                <PageTransition>
+                  {children}
+                </PageTransition>
+              </AppShell>
             </AuthGuard>
-            <Footer />
             <LumioChatbot />
           </GamificationProvider>
         </AuthProvider>
