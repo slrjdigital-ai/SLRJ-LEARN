@@ -7,11 +7,10 @@ import { usePathname } from "next/navigation";
 import { useAuth } from "@/context/AuthContext";
 import {
   Home,
-  Percent,
   BookOpen,
-  Calendar,
+  Compass,
+  Trophy,
   Terminal,
-  MessageSquare,
   Bot,
   Search,
   PanelLeftClose,
@@ -28,39 +27,58 @@ interface AppSidebarProps {
   onToggle: () => void;
 }
 
+interface MainNavItem {
+  name: string;
+  href: string;
+  icon: any;
+  exact?: boolean;
+  badge?: string;
+  badgeColor?: string;
+}
+
+interface SecondaryNavItem {
+  name: string;
+  href?: string;
+  action?: () => void;
+  icon: any;
+  exact?: boolean;
+  badge?: string;
+  badgeColor?: string;
+  external?: boolean;
+}
+
 export default function AppSidebar({ collapsed, onToggle }: AppSidebarProps) {
   const pathname = usePathname();
   const { user, logout } = useAuth();
   const [profileOpen, setProfileOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
 
-  const mainNav = [
+  const mainNav: MainNavItem[] = [
     { name: "Home", href: "/", icon: Home, exact: true },
-    { name: "My Journey", href: "/roadmap", icon: Percent, exact: false },
+    {
+      name: "Role Roadmaps",
+      href: "/roadmap",
+      icon: Compass,
+      exact: false,
+      badge: "New",
+      badgeColor: "bg-blue-50 text-[#0b69ff] border border-blue-200",
+    },
     { name: "Course Library", href: "/topics", icon: BookOpen, exact: false },
-    { name: "Events", href: "/gamification", icon: Calendar, exact: false },
+    { name: "Events & Challenges", href: "/gamification", icon: Trophy, exact: false },
   ];
 
-  const secondaryNav = [
+  const secondaryNav: SecondaryNavItem[] = [
     { name: "Playground", href: "/practice", icon: Terminal, exact: false },
     {
-      name: "1:1 Doubts",
-      href: "/ai-tutor",
-      icon: MessageSquare,
-      badge: "LIVE",
-      badgeColor: "bg-rose-50 text-rose-600 border border-rose-200",
-      external: true,
-    },
-    {
-      name: "SAM",
+      name: "SAM Assistant",
       action: () => {
         if (typeof window !== "undefined") {
           window.dispatchEvent(new CustomEvent("open-lumio"));
         }
       },
       icon: Bot,
-      badge: "New",
-      badgeColor: "bg-rose-50 text-rose-500 border border-rose-200",
+      badge: "AI",
+      badgeColor: "bg-purple-50 text-purple-600 border border-purple-200",
     },
   ];
 
@@ -74,26 +92,26 @@ export default function AppSidebar({ collapsed, onToggle }: AppSidebarProps) {
         collapsed ? "w-20" : "w-64"
       }`}
     >
-      {/* ── Top Header & Logo ── */}
+      {/* ── Top Header & Logo (h-20 aligned with top bar) ── */}
       <div>
-        <div className="h-16 px-4 flex items-center justify-between border-b border-slate-100">
+        <div className="h-20 px-4 flex items-center justify-between border-b border-slate-100">
           {!collapsed ? (
-            <Link href="/" className="flex items-center gap-2.5">
-              <div className="w-8 h-8 rounded-xl bg-[#0b69ff] flex items-center justify-center text-white font-black text-sm shadow-md shadow-blue-500/20">
+            <Link href="/" className="flex items-center gap-2.5 group">
+              <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-[#0b69ff] to-blue-600 flex items-center justify-center text-white font-black text-sm shadow-md shadow-blue-500/20 group-hover:scale-105 transition-transform">
                 SL
               </div>
               <div className="flex flex-col">
-                <span className="font-extrabold text-sm text-slate-900 leading-none tracking-tight">
+                <span className="font-extrabold text-sm text-slate-900 leading-none tracking-tight group-hover:text-[#0b69ff] transition-colors">
                   SLRJ LEARN
                 </span>
-                <span className="text-[10px] font-bold text-[#0b69ff] tracking-widest uppercase">
+                <span className="text-[10px] font-bold text-[#0b69ff] tracking-widest uppercase mt-0.5">
                   ACADEMY
                 </span>
               </div>
             </Link>
           ) : (
-            <Link href="/" className="mx-auto">
-              <div className="w-8 h-8 rounded-xl bg-[#0b69ff] flex items-center justify-center text-white font-bold text-sm shadow-md">
+            <Link href="/" className="mx-auto group">
+              <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-[#0b69ff] to-blue-600 flex items-center justify-center text-white font-bold text-sm shadow-md group-hover:scale-105 transition-transform">
                 SL
               </div>
             </Link>
@@ -108,20 +126,20 @@ export default function AppSidebar({ collapsed, onToggle }: AppSidebarProps) {
           </button>
         </div>
 
-        {/* ── Search Input (as seen in photo) ── */}
+        {/* ── Search Input ── */}
         {!collapsed && (
           <div className="p-3">
             <div className="relative">
               <Search
-                size={15}
+                size={14}
                 className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"
               />
               <input
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="Search"
-                className="w-full pl-9 pr-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:border-[#0b69ff] focus:bg-white transition-all"
+                placeholder="Search topics, paths..."
+                className="w-full pl-9 pr-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:border-[#0b69ff] focus:bg-white transition-all shadow-2xs"
               />
             </div>
           </div>
@@ -139,15 +157,24 @@ export default function AppSidebar({ collapsed, onToggle }: AppSidebarProps) {
               <Link
                 key={item.name}
                 href={item.href}
-                className={`flex items-center gap-3 px-3 py-2.5 rounded-xl text-xs font-semibold transition-all ${
+                className={`flex items-center justify-between px-3 py-2.5 rounded-xl text-xs font-semibold transition-all ${
                   isActive
-                    ? "bg-[#e8f1fd] text-[#0b69ff] font-bold shadow-sm"
+                    ? "bg-[#e8f1fd] text-[#0b69ff] font-bold shadow-xs border border-blue-200/50"
                     : "text-slate-600 hover:text-slate-900 hover:bg-slate-50"
                 } ${collapsed ? "justify-center" : ""}`}
                 title={collapsed ? item.name : undefined}
               >
-                <Icon size={18} className={isActive ? "text-[#0b69ff]" : "text-slate-500"} />
-                {!collapsed && <span>{item.name}</span>}
+                <div className="flex items-center gap-3">
+                  <Icon size={18} className={isActive ? "text-[#0b69ff]" : "text-slate-500"} />
+                  {!collapsed && <span>{item.name}</span>}
+                </div>
+                {!collapsed && item.badge && (
+                  <span
+                    className={`text-[9px] font-bold px-1.5 py-0.5 rounded-md uppercase tracking-wider ${item.badgeColor}`}
+                  >
+                    {item.badge}
+                  </span>
+                )}
               </Link>
             );
           })}
