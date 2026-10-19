@@ -1,6 +1,5 @@
 import { Metadata } from "next";
 import PublicHeroSection from "@/components/home/PublicHeroSection";
-import LearningBenefitsSection from "@/components/home/LearningBenefitsSection";
 import CertificatePreviewSection from "@/components/home/CertificatePreviewSection";
 import HowItWorksSection from "@/components/home/HowItWorksSection";
 import HomeWelcomeBanner from "@/components/home/HomeWelcomeBanner";
@@ -41,9 +40,6 @@ export default function HomePage() {
 
       {/* ─── 7. Frequently Asked Questions Accordion ─── */}
       <FaqSection />
-
-      {/* ─── 8. Why Learn With SLRJ Learn (Platform Benefits & Pillars) ─── */}
-      <LearningBenefitsSection />
     </div>
   );
 }
