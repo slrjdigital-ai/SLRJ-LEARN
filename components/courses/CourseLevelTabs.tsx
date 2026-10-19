@@ -1,6 +1,6 @@
 "use client";
 
-import { Sparkles, Layers, Rocket, Grid } from "lucide-react";
+import { Sparkles, Layers, Rocket } from "lucide-react";
 import { CourseLevelId } from "@/data/courses";
 
 export type CourseLevelFilter = "all" | CourseLevelId;
@@ -26,7 +26,7 @@ export default function CourseLevelTabs({
     label: string;
     sublabel: string;
     levelTag: string;
-    icon: typeof Grid;
+    icon: typeof Sparkles;
     count: number;
     activeBorder: string;
     activeBg: string;
@@ -34,19 +34,6 @@ export default function CourseLevelTabs({
     activeBadge: string;
     inactiveBadge: string;
   }> = [
-    {
-      id: "all",
-      label: "All Levels",
-      sublabel: "Complete curriculum",
-      levelTag: "Overview",
-      icon: Grid,
-      count: counts.all,
-      activeBorder: "border-[#12316B] ring-2 ring-[#12316B]/15",
-      activeBg: "bg-gradient-to-r from-[#12316B] to-[#1E488F]",
-      activeText: "text-white",
-      activeBadge: "bg-white/20 text-white border-white/30",
-      inactiveBadge: "bg-slate-100 text-slate-700 border-slate-200",
-    },
     {
       id: "basic",
       label: "Level 1: Basic",
@@ -63,7 +50,7 @@ export default function CourseLevelTabs({
     {
       id: "intermediate",
       label: "Level 2: Intermediate",
-      sublabel: "Engineering & DSA",
+      sublabel: "Engineering & Stack",
       levelTag: "Intermediate",
       icon: Layers,
       count: counts.intermediate,
@@ -110,7 +97,7 @@ export default function CourseLevelTabs({
         )}
       </div>
 
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-2.5 sm:gap-3">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5 sm:gap-3">
         {tabs.map((tab) => {
           const Icon = tab.icon;
           const isActive = selectedLevel === tab.id;
@@ -118,7 +105,7 @@ export default function CourseLevelTabs({
           return (
             <button
               key={tab.id}
-              onClick={() => onSelectLevel(tab.id)}
+              onClick={() => onSelectLevel(isActive ? "all" : tab.id)}
               className={`p-3.5 sm:p-4 rounded-2xl border text-left transition-all duration-200 flex flex-col justify-between gap-3 cursor-pointer group shadow-2xs relative overflow-hidden ${
                 isActive
                   ? `${tab.activeBg} ${tab.activeBorder} ${tab.activeText} shadow-md`
