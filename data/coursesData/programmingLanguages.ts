@@ -759,7 +759,7 @@ export const PROGRAMMING_LANGUAGES_COURSES: Course[] = [
     shortDescription: "Master modern C++20, RAII, smart pointers, templates, and the STL for high-performance software.",
     thumbnailUrl: "/course-web-dev.jpg",
     category: "Programming Languages",
-    difficulty: "Intermediate",
+    difficulty: "Beginner",
     estimatedDuration: "25 Hours",
     estimatedDurationMinutes: 1500,
     totalLessons: 12,
@@ -775,7 +775,7 @@ export const PROGRAMMING_LANGUAGES_COURSES: Course[] = [
       "Write high-performance generic code using function and class templates",
       "Build optimized C++ applications with zero-cost abstractions"
     ],
-    prerequisites: ["Basic understanding of programming or C syntax"],
+    prerequisites: ["Basic computer literacy", "Interest in high-performance systems and C++"],
     accessType: "Free",
     isFeatured: false,
     createdAt: "2026-03-10T00:00:00Z",

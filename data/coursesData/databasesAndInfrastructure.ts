@@ -141,7 +141,7 @@ export const DATABASES_AND_INFRASTRUCTURE_COURSES: Course[] = [
     shortDescription: "Master networking defense, Linux security, cryptography, OWASP Top 10 vulnerabilities, and security auditing.",
     thumbnailUrl: "/course-web-dev.jpg",
     category: "Cybersecurity",
-    difficulty: "Beginner",
+    difficulty: "Intermediate",
     estimatedDuration: "18 Hours",
     estimatedDurationMinutes: 1080,
     totalLessons: 12,
@@ -157,7 +157,7 @@ export const DATABASES_AND_INFRASTRUCTURE_COURSES: Course[] = [
       "Implement secure authentication, Multi-Factor Authentication (MFA), and RBAC access control",
       "Conduct authorized vulnerability assessments with industry tools (Nmap, Wireshark)"
     ],
-    prerequisites: ["Basic computer networking and operating systems familiarity"],
+    prerequisites: ["Familiarity with operating systems, command line, and basic networking"],
     accessType: "Free",
     isFeatured: true,
     createdAt: "2026-03-04T00:00:00Z",
