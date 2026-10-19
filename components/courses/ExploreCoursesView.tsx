@@ -11,7 +11,10 @@ import {
   getCourseLevel,
 } from "@/data/courses";
 import ExploreCoursesHeader, { SortOption } from "./ExploreCoursesHeader";
-import { CourseCategoryFilter } from "./CourseCategoryTabs";
+import CourseCategoryTabs, {
+  COURSE_CATEGORIES,
+  CourseCategoryFilter,
+} from "./CourseCategoryTabs";
 import CourseLevelTabs, { CourseLevelFilter } from "./CourseLevelTabs";
 import CourseFilterPanel, {
   DifficultyFilter,
@@ -50,14 +53,26 @@ export default function ExploreCoursesView() {
   const searchParams = useSearchParams();
   const allCourses = useMemo(() => getAllCourses(), []);
 
-  // Sync Level with URL query (?level=basic | intermediate | pro | all)
+  // Sync Level & Category with URL query (?level=basic|intermediate|pro|all & ?category=...)
   const levelQuery = searchParams ? searchParams.get("level") : null;
+  const categoryQuery = searchParams ? searchParams.get("category") : null;
+
+  const initialCategory: CourseCategoryFilter = useMemo(() => {
+    if (!categoryQuery) return "All Courses";
+    const decoded = decodeURIComponent(categoryQuery).trim().toLowerCase();
+    const match = COURSE_CATEGORIES.find((c) => c.toLowerCase() === decoded);
+    return match || "All Courses";
+  }, [categoryQuery]);
+
+  const [selectedCategory, setSelectedCategory] = useState<CourseCategoryFilter>(initialCategory);
+
   const initialLevel: CourseLevelFilter = useMemo(() => {
     if (levelQuery === "intermediate" || levelQuery === "2") return "intermediate";
     if (levelQuery === "pro" || levelQuery === "3") return "pro";
     if (levelQuery === "all") return "all";
-    return "basic"; // Default to Level 1 (Basic) when opening explore courses
-  }, [levelQuery]);
+    if (categoryQuery) return "all"; // When filtering by category from URL, default to "all" to show all matching courses
+    return "basic"; // Default to Level 1 (Basic)
+  }, [levelQuery, categoryQuery]);
 
   const [selectedLevel, setSelectedLevel] = useState<CourseLevelFilter>(initialLevel);
 
@@ -68,16 +83,29 @@ export default function ExploreCoursesView() {
       setSelectedLevel("pro");
     } else if (levelQuery === "all") {
       setSelectedLevel("all");
+    } else if (categoryQuery) {
+      setSelectedLevel("all");
     } else {
-      setSelectedLevel("basic"); // Default to Level 1
+      setSelectedLevel("basic");
     }
-  }, [levelQuery]);
+  }, [levelQuery, categoryQuery]);
+
+  useEffect(() => {
+    if (categoryQuery) {
+      const decoded = decodeURIComponent(categoryQuery).trim().toLowerCase();
+      const match = COURSE_CATEGORIES.find((c) => c.toLowerCase() === decoded);
+      if (match) {
+        setSelectedCategory(match);
+      }
+    } else {
+      setSelectedCategory("All Courses");
+    }
+  }, [categoryQuery]);
 
   const { getProgress } = useCourseProgress();
 
   // Filter & Search states
   const [searchQuery, setSearchQuery] = useState("");
-  const [selectedCategory, setSelectedCategory] = useState<CourseCategoryFilter>("All Courses");
   const [selectedDifficulty, setSelectedDifficulty] = useState<DifficultyFilter>("All");
   const [selectedStatus, setSelectedStatus] = useState<StatusFilter>("All");
   const [selectedAccess, setSelectedAccess] = useState<AccessFilter>("All");
@@ -121,15 +149,44 @@ export default function ExploreCoursesView() {
     return count;
   }, [selectedLevel, selectedCategory, selectedDifficulty, selectedStatus, selectedAccess, selectedDuration]);
 
+  // Category counts computation (Total catalog distribution)
+  const categoryCounts = useMemo(() => {
+    const counts: Record<string, number> = { All: allCourses.length };
+    for (const c of allCourses) {
+      counts[c.category] = (counts[c.category] || 0) + 1;
+    }
+    return counts;
+  }, [allCourses]);
+
   // Level selection handler with URL sync
   const handleSelectLevel = useCallback(
     (level: CourseLevelFilter) => {
       setSelectedLevel(level);
       const params = new URLSearchParams(searchParams ? searchParams.toString() : "");
-      if (level === "basic") {
+      if (level === "basic" && !params.get("category")) {
         params.delete("level"); // /courses naturally opens Level 1
       } else {
         params.set("level", level);
+      }
+      const qs = params.toString();
+      router.replace(qs ? `/courses?${qs}` : "/courses", { scroll: false });
+    },
+    [searchParams, router]
+  );
+
+  // Category selection handler with URL sync
+  const handleSelectCategory = useCallback(
+    (category: CourseCategoryFilter) => {
+      setSelectedCategory(category);
+      const params = new URLSearchParams(searchParams ? searchParams.toString() : "");
+      if (category === "All Courses") {
+        params.delete("category");
+      } else {
+        params.set("category", category);
+        if (!searchParams?.get("level")) {
+          params.set("level", "all");
+          setSelectedLevel("all");
+        }
       }
       const qs = params.toString();
       router.replace(qs ? `/courses?${qs}` : "/courses", { scroll: false });
@@ -145,8 +202,9 @@ export default function ExploreCoursesView() {
     setSelectedStatus("All");
     setSelectedAccess("All");
     setSelectedDuration("All");
-    handleSelectLevel("basic");
-  }, [handleSelectLevel]);
+    setSelectedLevel("basic");
+    router.replace("/courses", { scroll: false });
+  }, [router]);
 
   // Multi-faceted filtering & sorting logic
   const filteredAndSortedCourses = useMemo(() => {
@@ -390,7 +448,7 @@ export default function ExploreCoursesView() {
         isOpen={isFilterPanelOpen}
         onClose={() => setIsFilterPanelOpen(false)}
         selectedCategory={selectedCategory}
-        onCategoryChange={setSelectedCategory}
+        onCategoryChange={handleSelectCategory}
         selectedDifficulty={selectedDifficulty}
         onDifficultyChange={setSelectedDifficulty}
         selectedStatus={selectedStatus}
@@ -401,6 +459,13 @@ export default function ExploreCoursesView() {
         onDurationChange={setSelectedDuration}
         onResetFilters={handleResetFilters}
         activeFilterCount={activeFilterCount}
+      />
+
+      {/* ── Category Tabs ── */}
+      <CourseCategoryTabs
+        selectedCategory={selectedCategory}
+        onSelectCategory={handleSelectCategory}
+        categoryCounts={categoryCounts}
       />
 
       {/* ── Level Tabs (Level 1: Basic, Level 2: Intermediate, Level 3: Pro) ── */}

@@ -18,6 +18,7 @@ import {
   ExternalLink,
   Eye,
   Check,
+  ArrowLeft,
 } from "lucide-react";
 
 interface CourseDetailsViewProps {
@@ -74,14 +75,46 @@ export default function CourseDetailsView({ course }: CourseDetailsViewProps) {
   return (
     <div className="space-y-10 pb-20 max-w-7xl mx-auto">
       {/* ── Breadcrumbs & Back Navigation ── */}
-      <div className="flex items-center gap-2 text-xs text-[#64748B]">
-        <Link href="/courses" className="hover:text-[#173B70] transition-colors font-semibold">
-          Explore Courses
-        </Link>
-        <span>/</span>
-        <span className="text-[#173B70] font-semibold">{course.category}</span>
-        <span>/</span>
-        <span className="text-[#182230] font-bold truncate max-w-xs">{course.title}</span>
+      <div className="flex flex-wrap items-center justify-between gap-3 pb-3 border-b border-slate-200">
+        <div className="flex flex-wrap items-center gap-3">
+          {/* Back to Courses Menu Button */}
+          <Link
+            href="/courses"
+            className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-xl bg-white hover:bg-slate-100 text-slate-700 hover:text-[#173B70] border border-slate-200 text-xs sm:text-sm font-bold transition-all shadow-2xs hover:shadow-xs group cursor-pointer"
+            title="Back to Courses Menu"
+          >
+            <ArrowLeft size={15} className="text-slate-500 group-hover:text-[#173B70] group-hover:-translate-x-0.5 transition-transform" />
+            <span className="hidden sm:inline">Back to Courses Menu</span>
+            <span className="sm:hidden">Back</span>
+          </Link>
+
+          <span className="text-slate-300 hidden sm:inline">|</span>
+
+          {/* Breadcrumb Navigation Bar */}
+          <nav aria-label="Breadcrumb navigation" className="flex items-center gap-2 text-xs sm:text-sm text-[#64748B]">
+            <Link
+              href="/courses"
+              className="hover:text-[#173B70] hover:underline transition-colors font-medium cursor-pointer"
+            >
+              Explore Courses
+            </Link>
+            <span className="text-slate-400">/</span>
+            <Link
+              href={`/courses?category=${encodeURIComponent(course.category)}`}
+              className="text-[#173B70] hover:text-[#12316B] hover:underline transition-colors font-semibold cursor-pointer"
+              title={`View all ${course.category} courses`}
+            >
+              {course.category}
+            </Link>
+            <span className="text-slate-400">/</span>
+            <span
+              className="text-[#182230] font-bold truncate max-w-[180px] sm:max-w-xs md:max-w-md"
+              title={course.title}
+            >
+              {course.title}
+            </span>
+          </nav>
+        </div>
       </div>
 
       {/* ── Course Hero Banner ── */}
@@ -399,13 +432,24 @@ export default function CourseDetailsView({ course }: CourseDetailsViewProps) {
             </div>
           </div>
 
-          <Link
-            href={`/dashboard/assessments/${course.slug}`}
-            className="px-6 py-3 rounded-xl bg-[#173B70] hover:bg-[#12316B] text-white text-xs font-bold transition-all text-center flex items-center justify-center gap-2 shadow-xs hover:shadow-md cursor-pointer flex-shrink-0"
-          >
-            <span>Take Final Assessment</span>
-            <ArrowRight size={14} />
-          </Link>
+          <div className="flex flex-wrap items-center gap-3 flex-shrink-0">
+            <Link
+              href="/courses"
+              className="px-4 py-3 rounded-xl bg-white hover:bg-slate-50 text-slate-700 border border-slate-200 text-xs font-bold transition-all text-center flex items-center justify-center gap-2 shadow-2xs hover:shadow-xs cursor-pointer"
+              title="Return to Courses Catalog"
+            >
+              <ArrowLeft size={14} />
+              <span>Back to Courses</span>
+            </Link>
+
+            <Link
+              href={`/dashboard/assessments/${course.slug}`}
+              className="px-6 py-3 rounded-xl bg-[#173B70] hover:bg-[#12316B] text-white text-xs font-bold transition-all text-center flex items-center justify-center gap-2 shadow-xs hover:shadow-md cursor-pointer"
+            >
+              <span>Take Final Assessment</span>
+              <ArrowRight size={14} />
+            </Link>
+          </div>
         </div>
       </section>
 
