@@ -18,6 +18,9 @@ import {
   Trophy,
   Menu,
   LayoutDashboard,
+  Bot,
+  User,
+  LogOut,
 } from "lucide-react";
 
 interface AppTopBarProps {
@@ -25,11 +28,12 @@ interface AppTopBarProps {
 }
 
 export default function AppTopBar({ onMobileMenuToggle }: AppTopBarProps) {
-  const { user } = useAuth();
+  const { user, logout } = useAuth();
   const { state, currentLevel } = useGamification();
   const [woolfOpen, setWoolfOpen] = useState(false);
   const [pendingOpen, setPendingOpen] = useState(false);
   const [notificationsOpen, setNotificationsOpen] = useState(false);
+  const [profileMenuOpen, setProfileMenuOpen] = useState(false);
 
   return (
     <header className="h-20 bg-white/95 backdrop-blur-md border-b border-slate-200 px-4 sm:px-6 lg:px-10 flex items-center justify-between select-none sticky top-0 z-30 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.04)]">
@@ -201,10 +205,27 @@ export default function AppTopBar({ onMobileMenuToggle }: AppTopBarProps) {
           )}
         </div>
 
+        {/* Samy AI Assistant Button */}
+        <button
+          onClick={() => {
+            if (typeof window !== "undefined") {
+              window.dispatchEvent(new CustomEvent("open-lumio"));
+            }
+          }}
+          className="flex items-center gap-2 px-3 sm:px-3.5 py-2 rounded-xl bg-purple-50 hover:bg-purple-100 text-purple-700 border border-purple-200 text-sm font-bold transition-all shadow-2xs hover:shadow-xs cursor-pointer group"
+          title="Open Samy AI Assistant"
+        >
+          <Bot size={17} className="text-purple-600 group-hover:rotate-12 transition-transform" />
+          <span className="hidden md:inline">Samy AI</span>
+          <span className="text-[10px] font-black px-1.5 py-0.5 rounded-md bg-purple-200/70 text-purple-800 uppercase tracking-wide">
+            24/7 AI
+          </span>
+        </button>
+
         {/* Student Dashboard Button on Right Side Top Corner */}
         <Link
           href="/dashboard"
-          className="flex items-center gap-2 px-3.5 py-2 rounded-xl bg-[#12316B] hover:bg-[#2456A6] text-white text-sm font-bold shadow-xs hover:shadow-sm transition-all active:scale-[0.98] cursor-pointer"
+          className="flex items-center gap-2 px-3 sm:px-3.5 py-2 rounded-xl bg-[#12316B] hover:bg-[#2456A6] text-white text-sm font-bold shadow-xs hover:shadow-sm transition-all active:scale-[0.98] cursor-pointer"
           title="Open Student Dashboard"
         >
           <LayoutDashboard size={16} className="text-[#18B6D2]" />
@@ -212,16 +233,93 @@ export default function AppTopBar({ onMobileMenuToggle }: AppTopBarProps) {
           <span className="sm:hidden">Dashboard</span>
         </Link>
 
-        {/* User Profile Avatar with Online Dot */}
-        <Link href="/dashboard" className="relative group flex-shrink-0" title="Student Profile & Dashboard">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src={user?.avatar || "/icon.jpg"}
-            alt={user?.name || "Student"}
-            className="w-10 h-10 rounded-full object-cover border-2 border-slate-200 group-hover:border-[#0b69ff] shadow-xs transition-all"
-          />
-          <span className="absolute bottom-0 right-0 w-3 h-3 rounded-full bg-emerald-500 ring-2 ring-white" />
-        </Link>
+        {/* User Profile Avatar with Dropdown Menu (Profile & Keys) */}
+        <div className="relative">
+          <button
+            onClick={() => {
+              setProfileMenuOpen(!profileMenuOpen);
+              setNotificationsOpen(false);
+              setWoolfOpen(false);
+              setPendingOpen(false);
+            }}
+            className="relative p-0.5 rounded-full hover:ring-2 hover:ring-[#12316B] transition-all cursor-pointer flex-shrink-0 flex items-center"
+            title="User Profile & Settings"
+          >
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={user?.avatar || "/icon.jpg"}
+              alt={user?.name || "Student"}
+              className="w-10 h-10 rounded-full object-cover border-2 border-slate-200 shadow-xs"
+            />
+            <span className="absolute bottom-0 right-0 w-3 h-3 rounded-full bg-emerald-500 ring-2 ring-white" />
+          </button>
+
+          {profileMenuOpen && (
+            <div className="absolute right-0 mt-2 w-64 p-3 bg-white rounded-2xl border border-slate-200 shadow-xl text-sm z-50 animate-in fade-in slide-in-from-top-2 duration-150">
+              {/* User Identity Header */}
+              <div className="flex items-center gap-3 p-2 pb-3 mb-1 border-b border-slate-100">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={user?.avatar || "/icon.jpg"}
+                  alt={user?.name || "Student"}
+                  className="w-10 h-10 rounded-full object-cover border border-slate-200"
+                />
+                <div className="min-w-0">
+                  <div className="font-bold text-slate-900 truncate">
+                    {user?.name || "Shahid"}
+                  </div>
+                  <div className="text-xs font-semibold text-slate-500 truncate mt-0.5">
+                    {user?.level || "Beginner"} • Learner
+                  </div>
+                </div>
+              </div>
+
+              {/* Action Keys & Links */}
+              <div className="space-y-1 py-1">
+                <Link
+                  href="/dashboard"
+                  onClick={() => setProfileMenuOpen(false)}
+                  className="flex items-center gap-2.5 px-3 py-2 rounded-xl text-slate-700 hover:text-slate-950 hover:bg-slate-100 font-medium transition-colors"
+                >
+                  <User size={16} className="text-[#12316B]" />
+                  <span>Student Profile</span>
+                </Link>
+
+                <button
+                  onClick={() => {
+                    setProfileMenuOpen(false);
+                    if (typeof window !== "undefined") {
+                      window.dispatchEvent(new CustomEvent("open-lumio"));
+                    }
+                  }}
+                  className="w-full flex items-center justify-between px-3 py-2 rounded-xl text-slate-700 hover:text-slate-950 hover:bg-slate-100 font-medium transition-colors text-left cursor-pointer"
+                >
+                  <div className="flex items-center gap-2.5">
+                    <Bot size={16} className="text-purple-600" />
+                    <span>Samy AI Assistant</span>
+                  </div>
+                  <span className="text-[10px] font-bold px-1.5 py-0.5 rounded bg-purple-100 text-purple-700">
+                    24/7 AI
+                  </span>
+                </button>
+              </div>
+
+              {/* Divider & Sign Out */}
+              <div className="border-t border-slate-100 pt-1 mt-1">
+                <button
+                  onClick={() => {
+                    setProfileMenuOpen(false);
+                    logout();
+                  }}
+                  className="w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-rose-600 hover:bg-rose-50 font-semibold transition-colors text-left cursor-pointer"
+                >
+                  <LogOut size={16} />
+                  <span>Sign Out</span>
+                </button>
+              </div>
+            </div>
+          )}
+        </div>
       </div>
     </header>
   );

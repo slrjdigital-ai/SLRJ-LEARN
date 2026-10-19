@@ -4,26 +4,19 @@ import { useState, useMemo } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { useAuth } from "@/context/AuthContext";
 import {
   Home,
   BookOpen,
   Compass,
   Trophy,
   Terminal,
-  Bot,
   Search,
   PanelLeftClose,
   PanelLeft,
-  ChevronRight,
   ExternalLink,
-  Sparkles,
-  LogOut,
-  User,
   FolderGit2,
   Users,
   X,
-  FileText,
   Award,
 } from "lucide-react";
 
@@ -57,8 +50,6 @@ export default function AppSidebar({
   onMobileClose,
 }: AppSidebarProps) {
   const pathname = usePathname();
-  const { user, logout } = useAuth();
-  const [profileOpen, setProfileOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
 
   const navGroups: NavGroup[] = [
@@ -127,22 +118,6 @@ export default function AppSidebar({
         },
       ],
     },
-    {
-      label: "Tools & Support",
-      items: [
-        {
-          name: "Samy AI Assistant",
-          action: () => {
-            if (typeof window !== "undefined") {
-              window.dispatchEvent(new CustomEvent("open-lumio"));
-            }
-          },
-          icon: Bot,
-          badge: "24/7 AI",
-          badgeColor: "bg-purple-50 text-purple-700 border border-purple-200",
-        },
-      ],
-    },
   ];
 
   const filteredGroups = useMemo(() => {
@@ -158,10 +133,6 @@ export default function AppSidebar({
       .filter((group) => group.items.length > 0);
   }, [searchQuery]);
 
-  const userName = user?.name || "Shahid";
-  const userRole = user?.level || "Learner";
-  const userAvatar = user?.avatar || "/icon.jpg";
-
   return (
     <>
       {/* Mobile Drawer Backdrop */}
@@ -173,7 +144,7 @@ export default function AppSidebar({
       )}
 
       <aside
-        className={`fixed top-0 left-0 z-50 h-screen bg-white border-r border-slate-200 shadow-sm transition-all duration-300 flex flex-col justify-between select-none ${
+        className={`fixed top-0 left-0 z-50 h-screen bg-white border-r border-slate-200 shadow-sm transition-all duration-300 flex flex-col select-none ${
           collapsed ? "w-20" : "w-72"
         } ${
           mobileOpen ? "translate-x-0 shadow-2xl" : "-translate-x-full md:translate-x-0"
@@ -359,63 +330,6 @@ export default function AppSidebar({
                 })}
               </div>
             ))
-          )}
-        </div>
-
-        {/* ── Bottom User Profile Card ── */}
-        <div className="p-3 border-t border-slate-200 flex-shrink-0 relative bg-slate-50/50">
-          <button
-            onClick={() => setProfileOpen(!profileOpen)}
-            className={`w-full p-2.5 rounded-xl hover:bg-white hover:shadow-xs border border-transparent hover:border-slate-200 transition-all flex items-center gap-3 cursor-pointer ${
-              collapsed ? "justify-center" : "justify-between"
-            }`}
-          >
-            <div className="flex items-center gap-3 min-w-0">
-              <div className="relative flex-shrink-0">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src={userAvatar}
-                  alt={userName}
-                  className="w-10 h-10 rounded-full object-cover border-2 border-slate-200"
-                />
-                <span className="absolute bottom-0 right-0 w-3 h-3 rounded-full bg-emerald-500 ring-2 ring-white" />
-              </div>
-              {!collapsed && (
-                <div className="text-left truncate">
-                  <div className="text-sm font-bold text-slate-900 leading-tight truncate">
-                    {userName}
-                  </div>
-                  <div className="text-xs font-semibold text-slate-500 truncate mt-0.5">
-                    {userRole}
-                  </div>
-                </div>
-              )}
-            </div>
-            {!collapsed && <ChevronRight size={16} className="text-slate-400 flex-shrink-0" />}
-          </button>
-
-          {/* Profile Popover Menu */}
-          {profileOpen && (
-            <div className="absolute bottom-20 left-3 right-3 p-2 bg-white rounded-2xl border border-slate-200 shadow-xl text-sm space-y-1 animate-in fade-in duration-200 z-50">
-              <Link
-                href="/dashboard"
-                onClick={() => setProfileOpen(false)}
-                className="flex items-center gap-2.5 px-3.5 py-2.5 rounded-xl text-slate-700 hover:text-slate-950 hover:bg-slate-50 font-medium"
-              >
-                <User size={16} className="text-[#12316B]" />
-                <span>Student Profile</span>
-              </Link>
-              <button
-                onClick={() => {
-                  setProfileOpen(false);
-                  logout();
-                }}
-                className="w-full flex items-center gap-2.5 px-3.5 py-2.5 rounded-xl text-rose-600 hover:bg-rose-50 transition-all cursor-pointer text-left font-medium"
-              >
-                <LogOut size={16} />
-                <span>Sign Out</span>
-              </button>
-            </div>
           )}
         </div>
       </aside>
