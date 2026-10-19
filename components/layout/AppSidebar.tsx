@@ -107,12 +107,6 @@ export default function AppSidebar({
           exact: false,
           badge: "8 Paths",
           badgeColor: "bg-blue-50 text-[#12316B] border border-blue-200",
-          children: [
-            { name: "Full-Stack Developer", href: "/roadmap/fullstack" },
-            { name: "Frontend Engineer", href: "/roadmap/frontend" },
-            { name: "Backend Architect", href: "/roadmap/backend" },
-            { name: "AI & ML Specialist", href: "/roadmap/ai" },
-          ],
         },
         {
           name: "Practical Projects",
