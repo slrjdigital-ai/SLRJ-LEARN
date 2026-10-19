@@ -29,6 +29,7 @@ export const DSA_AND_TOOLS_COURSES: Course[] = [
     ],
     prerequisites: ["Proficiency in at least one language (C, C++, Java, Python, or TypeScript)"],
     accessType: "Free",
+    displayOrder: 5,
     isFeatured: true,
     createdAt: "2026-03-02T00:00:00Z",
     updatedAt: "2026-10-19T00:00:00Z",

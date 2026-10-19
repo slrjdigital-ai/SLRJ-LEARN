@@ -292,6 +292,9 @@ export default function ExploreCoursesView() {
       if (sortBy === "shortest") {
         return (a.estimatedDurationMinutes || 0) - (b.estimatedDurationMinutes || 0);
       }
+      if (a.displayOrder && b.displayOrder && a.displayOrder !== b.displayOrder) {
+        return a.displayOrder - b.displayOrder;
+      }
       if (a.isFeatured && !b.isFeatured) return -1;
       if (!a.isFeatured && b.isFeatured) return 1;
       return a.title.localeCompare(b.title);
@@ -309,10 +312,30 @@ export default function ExploreCoursesView() {
   ]);
 
   // Partition filtered courses into the 3 discrete levels
-  const level1Courses = useMemo(
-    () => filteredAndSortedCourses.filter((c) => getCourseLevel(c).id === "basic"),
-    [filteredAndSortedCourses]
-  );
+  // Level 1: Basic ordered strictly as: 1. C, 2. C++, 3. HTML & CSS, 4. Python, 5. Data Structures
+  const level1Courses = useMemo(() => {
+    const list = filteredAndSortedCourses.filter((c) => getCourseLevel(c).id === "basic");
+    if (sortBy === "recommended") {
+      const basicOrderMap: Record<string, number> = {
+        "c-programming": 1,
+        "course-c-programming": 1,
+        "cpp-programming": 2,
+        "course-cpp-programming": 2,
+        "html-css": 3,
+        "course-html-css": 3,
+        "python-programming": 4,
+        "course-python-programming": 4,
+        "data-structures-and-algorithms": 5,
+        "course-dsa-algorithms": 5,
+      };
+      return [...list].sort((a, b) => {
+        const orderA = basicOrderMap[a.slug] || basicOrderMap[a.id] || (a.displayOrder ?? 99);
+        const orderB = basicOrderMap[b.slug] || basicOrderMap[b.id] || (b.displayOrder ?? 99);
+        return orderA - orderB;
+      });
+    }
+    return list;
+  }, [filteredAndSortedCourses, sortBy]);
   const level2Courses = useMemo(
     () => filteredAndSortedCourses.filter((c) => getCourseLevel(c).id === "intermediate"),
     [filteredAndSortedCourses]

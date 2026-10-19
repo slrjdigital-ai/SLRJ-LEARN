@@ -29,6 +29,7 @@ export const WEB_DEVELOPMENT_COURSES: Course[] = [
     ],
     prerequisites: ["Basic computer usage", "A web browser and code editor"],
     accessType: "Free",
+    displayOrder: 3,
     isFeatured: true,
     createdAt: "2026-02-10T00:00:00Z",
     updatedAt: "2026-10-19T00:00:00Z",

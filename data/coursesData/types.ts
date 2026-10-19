@@ -83,6 +83,7 @@ export interface Course {
   accessType: "Free" | "Premium";
   isPaid?: boolean;
   price?: number;
+  displayOrder?: number;
   isFeatured: boolean;
   createdAt: string;
   updatedAt: string;
