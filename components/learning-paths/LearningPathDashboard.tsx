@@ -201,21 +201,21 @@ export default function LearningPathDashboard() {
 
   return (
     <div className="space-y-8">
-      {/* ─── Top Tabs: Modern Elevated Segmented Navigation ─── */}
+      {/* ─── Top Tabs: Modern Dark Navy Segmented Navigation ─── */}
       <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 pb-2 border-b border-slate-200">
-        <div className="p-1.5 bg-slate-100/90 border border-slate-200/90 rounded-2xl inline-flex flex-wrap items-center gap-1.5 shadow-2xs">
+        <div className="p-1.5 bg-[#12316B] border border-[#0d2757] rounded-2xl inline-flex flex-wrap items-center gap-1.5 shadow-lg shadow-[#12316B]/15">
           {/* Tab 1: My Learning */}
           <button
             onClick={() => setActiveTab("my_learning")}
             className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-bold transition-all cursor-pointer ${
               activeTab === "my_learning"
-                ? "bg-white text-[#12316B] shadow-sm ring-1 ring-slate-200/80 scale-[1.01]"
-                : "text-slate-600 hover:text-slate-900 hover:bg-white/70"
+                ? "bg-white text-[#12316B] shadow-md scale-[1.02]"
+                : "text-blue-100/90 hover:text-white hover:bg-white/10"
             }`}
           >
             <BookOpen
               size={17}
-              className={activeTab === "my_learning" ? "text-[#18B6D2]" : "text-slate-400"}
+              className={activeTab === "my_learning" ? "text-[#18B6D2]" : "text-blue-300"}
             />
             <span>My Learning</span>
           </button>
@@ -225,16 +225,20 @@ export default function LearningPathDashboard() {
             onClick={() => setActiveTab("role_roadmaps")}
             className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-bold transition-all cursor-pointer ${
               activeTab === "role_roadmaps"
-                ? "bg-white text-[#12316B] shadow-sm ring-1 ring-slate-200/80 scale-[1.01]"
-                : "text-slate-600 hover:text-slate-900 hover:bg-white/70"
+                ? "bg-white text-[#12316B] shadow-md scale-[1.02]"
+                : "text-blue-100/90 hover:text-white hover:bg-white/10"
             }`}
           >
             <Compass
               size={17}
-              className={activeTab === "role_roadmaps" ? "text-[#12316B]" : "text-slate-400"}
+              className={activeTab === "role_roadmaps" ? "text-[#12316B]" : "text-blue-300"}
             />
             <span>Role Roadmaps</span>
-            <span className="text-[10px] font-black px-2 py-0.5 rounded-full bg-gradient-to-r from-[#12316B] to-[#18B6D2] text-white uppercase tracking-wider shadow-2xs">
+            <span className={`text-[10px] font-black px-2 py-0.5 rounded-full uppercase tracking-wider transition-all ${
+              activeTab === "role_roadmaps"
+                ? "bg-[#12316B] text-white"
+                : "bg-[#18B6D2] text-[#12316B]"
+            }`}>
               8 Paths
             </span>
           </button>
@@ -244,13 +248,13 @@ export default function LearningPathDashboard() {
             onClick={() => setActiveTab("recommended")}
             className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-bold transition-all cursor-pointer ${
               activeTab === "recommended"
-                ? "bg-white text-[#12316B] shadow-sm ring-1 ring-slate-200/80 scale-[1.01]"
-                : "text-slate-600 hover:text-slate-900 hover:bg-white/70"
+                ? "bg-white text-[#12316B] shadow-md scale-[1.02]"
+                : "text-blue-100/90 hover:text-white hover:bg-white/10"
             }`}
           >
             <Sparkles
               size={17}
-              className={activeTab === "recommended" ? "text-amber-500" : "text-slate-400"}
+              className={activeTab === "recommended" ? "text-amber-500" : "text-blue-300"}
             />
             <span>Recommended Courses</span>
           </button>
@@ -260,23 +264,23 @@ export default function LearningPathDashboard() {
             onClick={() => setActiveTab("completed")}
             className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-bold transition-all cursor-pointer ${
               activeTab === "completed"
-                ? "bg-white text-[#12316B] shadow-sm ring-1 ring-slate-200/80 scale-[1.01]"
-                : "text-slate-600 hover:text-slate-900 hover:bg-white/70"
+                ? "bg-white text-[#12316B] shadow-md scale-[1.02]"
+                : "text-blue-100/90 hover:text-white hover:bg-white/10"
             }`}
           >
             <CheckCircle2
               size={17}
-              className={activeTab === "completed" ? "text-emerald-500" : "text-slate-400"}
+              className={activeTab === "completed" ? "text-emerald-500" : "text-blue-300"}
             />
             <span>Completed Courses</span>
           </button>
         </div>
 
         {/* Counter Badge */}
-        <div className="flex items-center gap-2 px-3.5 py-2 rounded-xl bg-slate-50 border border-slate-200 text-xs font-semibold text-slate-600 self-start lg:self-auto shadow-2xs">
+        <div className="flex items-center gap-2 px-4 py-2 rounded-xl bg-[#12316B] border border-[#0d2757] text-xs font-semibold text-white self-start lg:self-auto shadow-md shadow-[#12316B]/10">
           <Layers size={15} className="text-[#18B6D2]" />
           <span>
-            Showing <strong className="text-slate-900 font-bold">{activeTab === "role_roadmaps" ? ROADMAP_TRACKS.length : filteredCourses.length}</strong> items
+            Showing <strong className="text-[#18B6D2] font-black">{activeTab === "role_roadmaps" ? ROADMAP_TRACKS.length : filteredCourses.length}</strong> items
           </span>
         </div>
       </div>
@@ -292,7 +296,7 @@ export default function LearningPathDashboard() {
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Filter by course, skill, or keyword..."
-              className="w-full pl-10 pr-9 py-2 bg-slate-50 hover:bg-slate-100/70 focus:bg-white border border-slate-200 rounded-xl text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:border-[#18B6D2] focus:ring-2 focus:ring-[#18B6D2]/20 transition-all font-medium"
+              className="w-full pl-10 pr-9 py-2 bg-slate-50 hover:bg-slate-100/70 focus:bg-white border border-slate-200 rounded-xl text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:border-[#12316B] focus:ring-2 focus:ring-[#12316B]/15 transition-all font-medium"
             />
             {searchQuery && (
               <button
