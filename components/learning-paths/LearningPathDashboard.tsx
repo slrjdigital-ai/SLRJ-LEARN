@@ -203,13 +203,13 @@ export default function LearningPathDashboard() {
     <div className="space-y-8">
       {/* ─── Top Tabs: Modern Dark Navy Segmented Navigation ─── */}
       <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 pb-2 border-b border-slate-200">
-        <div className="p-1.5 bg-[#12316B] border border-[#0d2757] rounded-2xl inline-flex flex-wrap items-center gap-1.5 shadow-lg shadow-[#12316B]/15">
+        <div className="p-1.5 bg-[#12316B] border border-[#0d2757] rounded-2xl flex flex-wrap items-center gap-2 sm:gap-2.5 shadow-lg shadow-[#12316B]/15">
           {/* Tab 1: My Learning */}
           <button
             onClick={() => setActiveTab("my_learning")}
-            className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-bold transition-all cursor-pointer ${
+            className={`flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-sm font-bold transition-all cursor-pointer ${
               activeTab === "my_learning"
-                ? "bg-white text-[#12316B] shadow-md scale-[1.02]"
+                ? "bg-white text-[#12316B] shadow-md"
                 : "text-blue-100/90 hover:text-white hover:bg-white/10"
             }`}
           >
@@ -223,9 +223,9 @@ export default function LearningPathDashboard() {
           {/* Tab 2: Role Roadmaps */}
           <button
             onClick={() => setActiveTab("role_roadmaps")}
-            className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-bold transition-all cursor-pointer ${
+            className={`flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-sm font-bold transition-all cursor-pointer ${
               activeTab === "role_roadmaps"
-                ? "bg-white text-[#12316B] shadow-md scale-[1.02]"
+                ? "bg-white text-[#12316B] shadow-md"
                 : "text-blue-100/90 hover:text-white hover:bg-white/10"
             }`}
           >
@@ -246,9 +246,9 @@ export default function LearningPathDashboard() {
           {/* Tab 3: Recommended Courses */}
           <button
             onClick={() => setActiveTab("recommended")}
-            className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-bold transition-all cursor-pointer ${
+            className={`flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-sm font-bold transition-all cursor-pointer ${
               activeTab === "recommended"
-                ? "bg-white text-[#12316B] shadow-md scale-[1.02]"
+                ? "bg-white text-[#12316B] shadow-md"
                 : "text-blue-100/90 hover:text-white hover:bg-white/10"
             }`}
           >
@@ -262,9 +262,9 @@ export default function LearningPathDashboard() {
           {/* Tab 4: Completed Courses */}
           <button
             onClick={() => setActiveTab("completed")}
-            className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-bold transition-all cursor-pointer ${
+            className={`flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-sm font-bold transition-all cursor-pointer ${
               activeTab === "completed"
-                ? "bg-white text-[#12316B] shadow-md scale-[1.02]"
+                ? "bg-white text-[#12316B] shadow-md"
                 : "text-blue-100/90 hover:text-white hover:bg-white/10"
             }`}
           >
