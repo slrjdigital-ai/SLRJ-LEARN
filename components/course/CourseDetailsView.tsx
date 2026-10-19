@@ -11,11 +11,9 @@ import {
   Award,
   CheckCircle2,
   FileText,
-  ShieldCheck,
   ArrowRight,
   ChevronDown,
   Layers,
-  GraduationCap,
   Sparkles,
   ExternalLink,
   Download,
@@ -376,21 +374,20 @@ export default function CourseDetailsView({ course }: CourseDetailsViewProps) {
           </section>
       </div>
 
-      {/* ── Bottom Horizontal Section: Final Assessment, Prerequisites & Academic Authority ── */}
-      <section className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-6 border-t border-slate-200">
-        {/* Final Assessment & Certificate Eligibility */}
-        <div className="clean-card p-6 space-y-4 bg-gradient-to-br from-blue-50/70 via-white to-indigo-50/50 rounded-2xl border border-blue-200/80 shadow-xs flex flex-col justify-between">
-          <div className="space-y-3">
+      {/* ── Final Assessment & Certificate Eligibility Banner ── */}
+      <section className="pt-6 border-t border-slate-200">
+        <div className="clean-card p-6 sm:p-8 bg-gradient-to-br from-blue-50/70 via-white to-indigo-50/50 rounded-2xl border border-blue-200/80 shadow-xs flex flex-col md:flex-row md:items-center justify-between gap-6">
+          <div className="space-y-3 max-w-2xl">
             <div className="flex items-center gap-2.5">
-              <div className="w-9 h-9 rounded-xl bg-[#173B70] text-white flex items-center justify-center shadow-xs flex-shrink-0">
-                <Award size={18} />
+              <div className="w-10 h-10 rounded-xl bg-[#173B70] text-white flex items-center justify-center shadow-xs flex-shrink-0">
+                <Award size={20} />
               </div>
               <div>
-                <h3 className="font-extrabold text-sm text-[#182230] font-brand">
-                  Final Assessment
+                <h3 className="font-extrabold text-base text-[#182230] font-brand">
+                  Final Assessment &amp; Certificate Eligibility
                 </h3>
-                <span className="text-[11px] font-semibold text-emerald-700">
-                  Certificate Eligible
+                <span className="text-xs font-semibold text-emerald-700">
+                  Verified QR-Linked Credential
                 </span>
               </div>
             </div>
@@ -399,17 +396,17 @@ export default function CourseDetailsView({ course }: CourseDetailsViewProps) {
               Complete the rigorous 10-question evaluation with an 80%+ score to earn your verified SLRJ Learn credential with verifiable QR code.
             </p>
 
-            <div className="space-y-2 pt-2 border-t border-slate-200/60 text-xs text-slate-600">
-              <div className="flex items-center justify-between">
-                <span>Passing Criteria:</span>
+            <div className="flex flex-wrap items-center gap-4 sm:gap-6 pt-1 text-xs text-slate-600 font-medium">
+              <div>
+                <span>Passing Criteria: </span>
                 <strong className="text-[#173B70] font-bold">80% or Higher</strong>
               </div>
-              <div className="flex items-center justify-between">
-                <span>Time Allowed:</span>
+              <div>
+                <span>Time Allowed: </span>
                 <strong className="text-slate-800 font-bold">20 Minutes</strong>
               </div>
-              <div className="flex items-center justify-between">
-                <span>Assessment Format:</span>
+              <div>
+                <span>Assessment Format: </span>
                 <strong className="text-slate-800 font-bold">Server-Evaluated MCQ</strong>
               </div>
             </div>
@@ -417,44 +414,11 @@ export default function CourseDetailsView({ course }: CourseDetailsViewProps) {
 
           <Link
             href={`/dashboard/assessments/${course.slug}`}
-            className="w-full py-2.5 px-4 rounded-xl bg-[#173B70] hover:bg-[#12316B] text-white text-xs font-bold transition-all text-center flex items-center justify-center gap-2 shadow-xs cursor-pointer mt-2"
+            className="px-6 py-3 rounded-xl bg-[#173B70] hover:bg-[#12316B] text-white text-xs font-bold transition-all text-center flex items-center justify-center gap-2 shadow-xs hover:shadow-md cursor-pointer flex-shrink-0"
           >
             <span>Take Final Assessment</span>
-            <ArrowRight size={13} />
+            <ArrowRight size={14} />
           </Link>
-        </div>
-
-        {/* Prerequisites */}
-        <div className="clean-card p-6 space-y-3 bg-white rounded-2xl border border-[#E2E8F0] shadow-xs flex flex-col">
-          <h3 className="font-extrabold text-sm text-[#182230] font-brand flex items-center gap-2">
-            <GraduationCap size={16} className="text-[#173B70]" />
-            <span>Prerequisites</span>
-          </h3>
-          <ul className="space-y-2.5 text-xs text-[#64748B] pt-1">
-            {course.prerequisites.map((p, idx) => (
-              <li key={idx} className="flex items-start gap-2">
-                <CheckCircle2 size={15} className="text-[#18B6D2] flex-shrink-0 mt-0.5" />
-                <span className="text-slate-700 font-medium">{p}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
-
-        {/* Academic Authority */}
-        <div className="clean-card p-6 space-y-3 bg-white rounded-2xl border border-[#E2E8F0] shadow-xs flex flex-col justify-between">
-          <div className="space-y-3">
-            <h3 className="font-extrabold text-sm text-[#182230] font-brand flex items-center gap-2">
-              <ShieldCheck size={16} className="text-[#16865C]" />
-              <span>Academic Authority</span>
-            </h3>
-            <div className="space-y-1">
-              <div className="font-bold text-xs text-[#182230]">SLRJ Learn Academic Team</div>
-              <div className="text-xs text-[#64748B]">Curated by Kouluri Shahid & Engineering Mentors</div>
-            </div>
-            <p className="text-[11px] text-[#64748B] leading-relaxed pt-1">
-              Curriculum engineered adhering to modern industry standards, clear architectural patterns, and verified assessments.
-            </p>
-          </div>
         </div>
       </section>
 
