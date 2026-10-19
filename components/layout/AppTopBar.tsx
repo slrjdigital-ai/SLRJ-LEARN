@@ -63,7 +63,7 @@ export default function AppTopBar({ onMobileMenuToggle }: AppTopBarProps) {
         </div>
 
         {/* ── Right: Notifications & Profile ── */}
-        <div className="flex items-center gap-2 sm:gap-3">
+        <div className="flex items-center gap-3 sm:gap-4">
           {/* Notifications Bell */}
           <div className="relative">
             <button
@@ -71,11 +71,11 @@ export default function AppTopBar({ onMobileMenuToggle }: AppTopBarProps) {
                 setNotificationsOpen(!notificationsOpen);
                 setProfileMenuOpen(false);
               }}
-              className="relative p-2.5 rounded-xl text-slate-600 hover:text-slate-950 hover:bg-slate-100 transition-all cursor-pointer"
+              className="relative w-12 h-12 rounded-2xl text-slate-700 hover:text-slate-950 bg-slate-50 hover:bg-slate-100 border border-slate-200 transition-all cursor-pointer flex items-center justify-center shadow-2xs hover:shadow-xs"
               title="Notifications"
             >
-              <Bell size={20} />
-              <span className="absolute top-2 right-2 w-2.5 h-2.5 rounded-full bg-rose-500 ring-2 ring-white" />
+              <Bell size={24} />
+              <span className="absolute top-2.5 right-2.5 w-3.5 h-3.5 rounded-full bg-rose-500 ring-2 ring-white" />
             </button>
 
             {notificationsOpen && (
@@ -109,16 +109,16 @@ export default function AppTopBar({ onMobileMenuToggle }: AppTopBarProps) {
                 setProfileMenuOpen(!profileMenuOpen);
                 setNotificationsOpen(false);
               }}
-              className="relative p-0.5 rounded-full hover:ring-2 hover:ring-[#12316B] transition-all cursor-pointer flex-shrink-0 flex items-center"
+              className="relative p-1 rounded-full hover:ring-2 hover:ring-[#12316B] transition-all cursor-pointer flex-shrink-0 flex items-center"
               title="User Profile & Settings"
             >
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src={user?.avatar || "/icon.jpg"}
                 alt={user?.name || "Student"}
-                className="w-10 h-10 rounded-full object-cover border-2 border-slate-200 shadow-xs"
+                className="w-12 h-12 sm:w-13 sm:h-13 rounded-full object-cover border-2 border-slate-200 shadow-sm hover:scale-105 transition-transform"
               />
-              <span className="absolute bottom-0 right-0 w-3 h-3 rounded-full bg-emerald-500 ring-2 ring-white" />
+              <span className="absolute bottom-1 right-1 w-4 h-4 rounded-full bg-emerald-500 ring-2 ring-white" />
             </button>
 
             {profileMenuOpen && (
