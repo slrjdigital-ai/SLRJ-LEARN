@@ -16,7 +16,6 @@ import {
   Layers,
   Sparkles,
   ExternalLink,
-  Download,
   Eye,
   Check,
 } from "lucide-react";
@@ -186,7 +185,7 @@ export default function CourseDetailsView({ course }: CourseDetailsViewProps) {
                   <span>PDF Learning Materials & Lessons</span>
                 </h2>
                 <p className="text-xs text-[#64748B] mt-0.5">
-                  Follow the structured curriculum in its intended learning order. Read inline or download for offline study.
+                  Follow the structured curriculum in its intended learning order. Read inline with our interactive viewer.
                 </p>
               </div>
               <span className="text-xs font-semibold text-[#173B70] bg-blue-50 px-2.5 py-1 rounded-lg border border-blue-200 self-start sm:self-auto">
@@ -235,7 +234,7 @@ export default function CourseDetailsView({ course }: CourseDetailsViewProps) {
                       </div>
                     </div>
 
-                    {/* Actions: Read PDF & Download */}
+                    {/* Action: Read PDF */}
                     <div className="flex items-center gap-2 flex-shrink-0 self-end sm:self-auto">
                       <button
                         onClick={() => handleOpenPdf(pdf)}
@@ -245,18 +244,6 @@ export default function CourseDetailsView({ course }: CourseDetailsViewProps) {
                         <Eye size={13} />
                         <span>Read PDF</span>
                       </button>
-
-                      {pdf.downloadAllowed && (
-                        <a
-                          href={pdf.fileUrl}
-                          download
-                          className="px-3 py-1.5 rounded-lg bg-white hover:bg-slate-100 text-slate-700 border border-[#E2E8F0] text-xs font-semibold transition-colors flex items-center gap-1.5 cursor-pointer"
-                          title="Download PDF file"
-                        >
-                          <Download size={13} />
-                          <span className="hidden sm:inline">Download</span>
-                        </a>
-                      )}
                     </div>
                   </div>
                 );
