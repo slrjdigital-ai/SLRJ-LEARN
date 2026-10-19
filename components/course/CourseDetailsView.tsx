@@ -72,9 +72,6 @@ export default function CourseDetailsView({ course }: CourseDetailsViewProps) {
   const hasNextLesson =
     activeLessonIndex >= 0 && activeLessonIndex < (course.pdfLessons || []).length - 1;
 
-  const firstLessonId = course.modules[0]?.lessons[0]?.id || "intro";
-  const startLearningHref = `/learn/${course.id}/${firstLessonId}`;
-
   const hasStarted = progress && progress.progressPercentage > 0;
 
   return (
@@ -175,18 +172,6 @@ export default function CourseDetailsView({ course }: CourseDetailsViewProps) {
                   <strong className="text-[#16865C]">100% Free</strong>
                 </div>
               </div>
-
-              <Link
-                href={startLearningHref}
-                className="w-full py-3.5 rounded-xl bg-[#173B70] hover:bg-[#12316B] text-white font-extrabold text-sm uppercase tracking-wider flex items-center justify-center gap-2 shadow-md shadow-[#173B70]/20 transition-all cursor-pointer"
-              >
-                <span>{hasStarted ? "Continue Learning" : "Start Learning"}</span>
-                <ArrowRight size={16} />
-              </Link>
-
-              <p className="text-[11px] text-center text-[#64748B]">
-                Instant self-paced access • No credit card required
-              </p>
             </div>
           </div>
         </div>
