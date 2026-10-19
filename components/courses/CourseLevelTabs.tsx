@@ -33,63 +33,71 @@ export default function CourseLevelTabs({
     activeText: string;
     activeBadge: string;
     inactiveBadge: string;
+    inactiveIconBg: string;
+    indicatorColor: string;
   }> = [
     {
       id: "basic",
       label: "Level 1: Basic",
       sublabel: "Foundations & Syntax",
-      levelTag: "Beginner",
+      levelTag: "Beginner Tier",
       icon: Sparkles,
       count: counts.basic,
-      activeBorder: "border-emerald-600 ring-2 ring-emerald-600/15",
-      activeBg: "bg-gradient-to-r from-emerald-700 to-emerald-600",
+      activeBorder: "border-emerald-500 ring-2 ring-emerald-500/25 shadow-lg shadow-emerald-700/15",
+      activeBg: "bg-gradient-to-br from-emerald-700 via-emerald-600 to-teal-600",
       activeText: "text-white",
-      activeBadge: "bg-white/20 text-white border-white/30",
-      inactiveBadge: "bg-emerald-50 text-emerald-800 border-emerald-200",
+      activeBadge: "bg-white/20 text-white border-white/30 backdrop-blur-xs",
+      inactiveBadge: "bg-emerald-50 text-emerald-800 border-emerald-200 group-hover:bg-emerald-100/80",
+      inactiveIconBg: "bg-emerald-50 text-emerald-700 border border-emerald-200/70 group-hover:bg-emerald-100/90",
+      indicatorColor: "bg-emerald-400",
     },
     {
       id: "intermediate",
       label: "Level 2: Intermediate",
-      sublabel: "Engineering & Stack",
-      levelTag: "Intermediate",
+      sublabel: "Full-Stack & Engineering",
+      levelTag: "Intermediate Tier",
       icon: Layers,
       count: counts.intermediate,
-      activeBorder: "border-[#173B70] ring-2 ring-[#173B70]/15",
-      activeBg: "bg-gradient-to-r from-[#173B70] to-[#2456A6]",
+      activeBorder: "border-[#18B6D2] ring-2 ring-[#18B6D2]/30 shadow-lg shadow-[#173B70]/20",
+      activeBg: "bg-gradient-to-br from-[#12316B] via-[#173B70] to-[#1E488F]",
       activeText: "text-white",
-      activeBadge: "bg-white/20 text-white border-white/30",
-      inactiveBadge: "bg-blue-50 text-[#12316B] border-blue-200",
+      activeBadge: "bg-white/20 text-white border-white/30 backdrop-blur-xs",
+      inactiveBadge: "bg-blue-50 text-[#12316B] border-blue-200 group-hover:bg-blue-100/80",
+      inactiveIconBg: "bg-blue-50 text-[#12316B] border border-blue-200/70 group-hover:bg-blue-100/90",
+      indicatorColor: "bg-[#18B6D2]",
     },
     {
       id: "pro",
       label: "Level 3: Pro",
-      sublabel: "Architecture & AI",
-      levelTag: "Advanced",
+      sublabel: "Architecture, Cloud & AI",
+      levelTag: "Advanced Tier",
       icon: Rocket,
       count: counts.pro,
-      activeBorder: "border-purple-600 ring-2 ring-purple-600/15",
-      activeBg: "bg-gradient-to-r from-purple-800 to-purple-600",
+      activeBorder: "border-purple-500 ring-2 ring-purple-500/25 shadow-lg shadow-purple-900/20",
+      activeBg: "bg-gradient-to-br from-purple-900 via-purple-800 to-indigo-700",
       activeText: "text-white",
-      activeBadge: "bg-white/20 text-white border-white/30",
-      inactiveBadge: "bg-purple-50 text-purple-800 border-purple-200",
+      activeBadge: "bg-white/20 text-white border-white/30 backdrop-blur-xs",
+      inactiveBadge: "bg-purple-50 text-purple-800 border-purple-200 group-hover:bg-purple-100/80",
+      inactiveIconBg: "bg-purple-50 text-purple-700 border border-purple-200/70 group-hover:bg-purple-100/90",
+      indicatorColor: "bg-purple-400",
     },
   ];
 
   return (
-    <div className="space-y-2">
+    <div className="space-y-2.5">
       <div className="flex items-center justify-between text-xs text-[#64748B]">
         <div className="flex items-center gap-2">
-          <span className="font-extrabold uppercase tracking-wider text-[11px] text-[#12316B]">
+          <span className="font-black uppercase tracking-wider text-[11px] text-[#12316B]">
             Structured Learning Levels
           </span>
           <span className="text-slate-300">•</span>
-          <span className="text-[11px] text-slate-500 hidden sm:inline">
+          <span className="text-[11px] text-slate-500 hidden sm:inline font-medium">
             Step-by-step from zero to industry pro
           </span>
         </div>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5 sm:gap-3">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
         {tabs.map((tab) => {
           const Icon = tab.icon;
           const isActive = selectedLevel === tab.id;
@@ -98,24 +106,29 @@ export default function CourseLevelTabs({
             <button
               key={tab.id}
               onClick={() => onSelectLevel(tab.id)}
-              className={`p-3.5 sm:p-4 rounded-2xl border text-left transition-all duration-200 flex flex-col justify-between gap-3 cursor-pointer group shadow-2xs relative overflow-hidden ${
+              className={`p-4 sm:p-5 rounded-2xl border text-left transition-all duration-300 flex flex-col justify-between gap-3.5 cursor-pointer group shadow-2xs relative overflow-hidden active:scale-[0.98] ${
                 isActive
                   ? `${tab.activeBg} ${tab.activeBorder} ${tab.activeText} shadow-md`
-                  : "bg-white hover:bg-slate-50/80 border-slate-200 text-slate-800 hover:border-slate-300"
+                  : "bg-white hover:bg-gradient-to-br hover:from-white hover:to-slate-50 border-slate-200/90 text-slate-800 hover:border-slate-300 hover:shadow-md hover:-translate-y-1"
               }`}
             >
+              {/* Active Bottom Glow Line Indicator */}
+              {isActive && (
+                <div className={`absolute bottom-0 left-0 right-0 h-1 ${tab.indicatorColor} shadow-xs`} />
+              )}
+
               <div className="flex items-center justify-between gap-1 w-full">
                 <div
-                  className={`w-8 h-8 rounded-xl flex items-center justify-center transition-colors flex-shrink-0 ${
+                  className={`w-9 h-9 rounded-xl flex items-center justify-center transition-all duration-300 flex-shrink-0 group-hover:scale-110 group-hover:rotate-6 ${
                     isActive
-                      ? "bg-white/20 text-white"
-                      : "bg-slate-100 text-slate-700 group-hover:bg-slate-200"
+                      ? "bg-white/20 text-white shadow-xs backdrop-blur-xs"
+                      : tab.inactiveIconBg
                   }`}
                 >
-                  <Icon size={16} />
+                  <Icon size={17} />
                 </div>
                 <span
-                  className={`text-[10px] font-black px-2 py-0.5 rounded-md border tracking-wider uppercase ${
+                  className={`text-[10px] font-black px-2.5 py-1 rounded-md border tracking-wider uppercase shadow-2xs transition-colors ${
                     isActive ? tab.activeBadge : tab.inactiveBadge
                   }`}
                 >
@@ -126,7 +139,7 @@ export default function CourseLevelTabs({
               <div>
                 <div className="flex items-center gap-1.5">
                   <span
-                    className={`text-[10px] font-extrabold tracking-widest uppercase ${
+                    className={`text-[10px] font-black tracking-widest uppercase ${
                       isActive ? "text-white/80" : "text-slate-400"
                     }`}
                   >
@@ -134,15 +147,15 @@ export default function CourseLevelTabs({
                   </span>
                 </div>
                 <div
-                  className={`text-sm sm:text-[15px] font-black font-brand leading-snug mt-0.5 ${
+                  className={`text-base font-black font-brand leading-snug mt-0.5 ${
                     isActive ? "text-white" : "text-[#182230] group-hover:text-[#12316B]"
                   }`}
                 >
                   {tab.label}
                 </div>
                 <div
-                  className={`text-xs mt-0.5 line-clamp-1 ${
-                    isActive ? "text-white/80" : "text-slate-500"
+                  className={`text-xs mt-0.5 line-clamp-1 font-medium ${
+                    isActive ? "text-white/85" : "text-slate-500"
                   }`}
                 >
                   {tab.sublabel}

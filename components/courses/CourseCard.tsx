@@ -29,25 +29,36 @@ export default function CourseCard({ course, onOpenQuickRead }: CourseCardProps)
   const priceLabel = isPaid ? (course.price ? `$${course.price}` : "Paid") : "Free";
 
   return (
-    <div className="clean-card flex flex-col justify-between overflow-hidden group hover:border-[#173B70]/30 transition-all bg-white rounded-2xl border border-[#E2E8F0] shadow-xs hover:shadow-md">
+    <div className="flex flex-col justify-between overflow-hidden bg-white rounded-2xl border border-slate-200/80 shadow-2xs hover:shadow-xl hover:border-slate-300/90 hover:-translate-y-1.5 transition-all duration-300 ease-out group cursor-pointer relative">
+      {/* ── Top Level Accent Gradient Stripe ── */}
+      <div
+        className={`h-1 w-full transition-all duration-300 group-hover:h-1.5 ${
+          level.id === "basic"
+            ? "bg-gradient-to-r from-emerald-500 via-teal-400 to-emerald-400"
+            : level.id === "intermediate"
+            ? "bg-gradient-to-r from-[#173B70] via-[#12316B] to-[#18B6D2]"
+            : "bg-gradient-to-r from-purple-700 via-indigo-600 to-pink-500"
+        }`}
+      />
+
       <div className="p-5 sm:p-6 space-y-4">
         {/* Top Header: Category Illustration & Access Label */}
         <div className="flex items-center justify-between gap-2">
-          <div className="flex items-center gap-2.5">
-            <div className="w-10 h-10 rounded-xl bg-slate-50 border border-slate-200/80 flex items-center justify-center text-xl flex-shrink-0 group-hover:scale-105 transition-transform">
+          <div className="flex items-center gap-3">
+            <div className="w-11 h-11 rounded-xl bg-gradient-to-br from-slate-50 to-slate-100/90 border border-slate-200/90 flex items-center justify-center text-2xl flex-shrink-0 shadow-2xs group-hover:scale-110 group-hover:rotate-6 group-hover:shadow-md transition-all duration-300">
               {course.icon || "📘"}
             </div>
             <div>
-              <span className="text-[11px] font-bold text-[#64748B] uppercase tracking-wider block">
+              <span className="text-[11px] font-bold text-slate-500 uppercase tracking-wider block group-hover:text-[#12316B] transition-colors">
                 {course.category}
               </span>
               <div className="flex items-center gap-1.5 mt-0.5">
                 <span
-                  className={`inline-block px-2 py-0.5 rounded text-[10px] font-extrabold uppercase tracking-wider border ${level.badgeClass}`}
+                  className={`inline-flex items-center px-2 py-0.5 rounded-md text-[10px] font-black uppercase tracking-wider border shadow-2xs ${level.badgeClass}`}
                 >
                   {level.badgeLabel}
                 </span>
-                <span className="text-[10px] font-semibold text-slate-500 uppercase tracking-wider">
+                <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">
                   {course.difficulty}
                 </span>
               </div>
@@ -55,10 +66,10 @@ export default function CourseCard({ course, onOpenQuickRead }: CourseCardProps)
           </div>
 
           <span
-            className={`px-2.5 py-1 rounded-full text-[10px] font-extrabold uppercase tracking-wider border ${
+            className={`px-2.5 py-1 rounded-full text-[10px] font-black uppercase tracking-wider border shadow-2xs transition-colors ${
               isPaid
-                ? "bg-amber-50 text-amber-700 border-amber-200"
-                : "bg-emerald-50 text-[#16865C] border-emerald-200"
+                ? "bg-amber-50 text-amber-700 border-amber-200 group-hover:bg-amber-100/80"
+                : "bg-emerald-50 text-emerald-700 border-emerald-200 group-hover:bg-emerald-100/80"
             }`}
           >
             {priceLabel}
@@ -69,33 +80,33 @@ export default function CourseCard({ course, onOpenQuickRead }: CourseCardProps)
         <div className="space-y-1.5">
           <Link
             href={`/courses/${course.slug}`}
-            className="block text-base sm:text-lg font-bold font-brand text-[#182230] group-hover:text-[#173B70] transition-colors leading-snug line-clamp-2"
+            className="block text-base sm:text-lg font-black font-brand text-[#182230] group-hover:text-[#0b69ff] transition-colors duration-200 leading-snug line-clamp-2"
           >
             {course.title}
           </Link>
-          <p className="text-xs text-[#64748B] line-clamp-2 leading-relaxed">
+          <p className="text-xs text-slate-500 group-hover:text-slate-600 line-clamp-2 leading-relaxed transition-colors">
             {course.shortDescription}
           </p>
         </div>
 
         {/* Metadata Strip: Modules, Lessons, Duration, Materials */}
-        <div className="pt-2 space-y-2 border-t border-slate-100 text-xs text-[#64748B]">
+        <div className="pt-2 space-y-2 border-t border-slate-100 text-xs text-slate-500">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-1.5" title="Modules and lessons count">
-              <Layers size={13} className="text-[#173B70]" />
-              <span className="font-semibold text-slate-700">
+              <Layers size={13.5} className="text-[#12316B] group-hover:scale-110 transition-transform" />
+              <span className="font-bold text-slate-700">
                 {totalModules} Modules • {totalLessons} Lessons
               </span>
             </div>
 
             <div className="flex items-center gap-1.5" title="Estimated duration">
-              <Clock size={13} className="text-[#0b69ff]" />
-              <span>{course.estimatedDuration}</span>
+              <Clock size={13.5} className="text-[#0b69ff] group-hover:rotate-45 transition-transform duration-300" />
+              <span className="font-medium text-slate-600">{course.estimatedDuration}</span>
             </div>
           </div>
 
           {course.pdfLessons && course.pdfLessons.length > 0 && (
-            <div className="flex items-center gap-1.5 text-[11px] text-emerald-700">
+            <div className="flex items-center gap-1.5 text-[11px] font-semibold text-emerald-700 bg-emerald-50/70 border border-emerald-200/60 px-2.5 py-1 rounded-lg w-fit group-hover:bg-emerald-100/80 group-hover:border-emerald-300 transition-all">
               <FileText size={12} className="text-emerald-600" />
               <span>{course.pdfLessons.length} PDF Guides &amp; Notes</span>
             </div>
@@ -105,11 +116,11 @@ export default function CourseCard({ course, onOpenQuickRead }: CourseCardProps)
         {/* Optional Progress Indicator (only if user started course) */}
         {hasStarted && (
           <div className="space-y-1 pt-1">
-            <div className="flex justify-between text-[11px] text-[#64748B]">
-              <span className="font-semibold text-slate-700">
+            <div className="flex justify-between text-[11px] text-slate-500">
+              <span className="font-bold text-slate-700">
                 {isCompleted ? "Completed" : "In Progress"}
               </span>
-              <span className="font-bold text-[#173B70]">{progress.progressPercentage}%</span>
+              <span className="font-extrabold text-[#173B70]">{progress.progressPercentage}%</span>
             </div>
             <div className="w-full h-1.5 bg-slate-100 rounded-full overflow-hidden">
               <div
@@ -126,10 +137,10 @@ export default function CourseCard({ course, onOpenQuickRead }: CourseCardProps)
       </div>
 
       {/* Bottom Action Footer */}
-      <div className="p-4 bg-slate-50/60 border-t border-slate-100 flex items-center justify-between gap-2">
+      <div className="p-4 bg-slate-50/70 border-t border-slate-100 flex items-center justify-between gap-2.5">
         <Link
           href={`/courses/${course.slug}`}
-          className="flex-1 py-2 px-3 rounded-xl bg-[#173B70] hover:bg-[#12316B] text-white text-xs font-bold transition-all text-center flex items-center justify-center gap-1.5 group/btn cursor-pointer shadow-2xs"
+          className="flex-1 py-2.5 px-3.5 rounded-xl bg-gradient-to-r from-[#173B70] to-[#12316B] hover:from-[#12316B] hover:to-[#0b69ff] text-white text-xs font-black transition-all duration-200 text-center flex items-center justify-center gap-1.5 group/btn cursor-pointer shadow-xs hover:shadow-md active:scale-95"
         >
           <span>
             {isCompleted
@@ -138,17 +149,17 @@ export default function CourseCard({ course, onOpenQuickRead }: CourseCardProps)
               ? "Continue Learning"
               : "Start Learning"}
           </span>
-          <ArrowRight size={13} className="group-hover/btn:translate-x-0.5 transition-transform" />
+          <ArrowRight size={13} className="group-hover/btn:translate-x-1 transition-transform duration-200" />
         </Link>
 
         {course.pdfLessons && course.pdfLessons.length > 0 && onOpenQuickRead && (
           <button
             onClick={() => onOpenQuickRead(course)}
-            className="py-2 px-3 rounded-xl bg-white hover:bg-slate-100 text-[#182230] text-xs font-semibold border border-[#E2E8F0] transition-colors flex items-center gap-1 cursor-pointer"
-            title="Read PDF lesson directly"
+            className="py-2.5 px-3 rounded-xl bg-white hover:bg-blue-50/80 text-slate-700 hover:text-[#12316B] text-xs font-bold border border-slate-200 hover:border-blue-200 transition-all flex items-center gap-1.5 group/notes cursor-pointer shadow-2xs hover:shadow-xs active:scale-95"
+            title="Read PDF lesson notes directly"
           >
-            <BookOpen size={13} className="text-[#0b69ff]" />
-            <span className="hidden sm:inline">Notes</span>
+            <BookOpen size={13} className="text-[#0b69ff] group-hover/notes:scale-110 transition-transform duration-200" />
+            <span className="hidden sm:inline font-bold">Notes</span>
           </button>
         )}
       </div>
