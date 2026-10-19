@@ -394,8 +394,52 @@ export default function CourseDetailsView({ course }: CourseDetailsViewProps) {
           </section>
         </div>
 
-        {/* Right 4 Cols: Prerequisites, Academic Authority, Certificate Info */}
+        {/* Right 4 Cols: Assessment, Prerequisites, Academic Authority */}
         <div className="lg:col-span-4 space-y-6">
+          {/* Final Assessment & Certificate Eligibility */}
+          <div className="clean-card p-6 space-y-4 bg-gradient-to-br from-blue-50/70 via-white to-indigo-50/50 rounded-2xl border border-blue-200/80 shadow-xs">
+            <div className="flex items-center gap-2.5">
+              <div className="w-9 h-9 rounded-xl bg-[#173B70] text-white flex items-center justify-center shadow-xs">
+                <Award size={18} />
+              </div>
+              <div>
+                <h3 className="font-extrabold text-sm text-[#182230] font-brand">
+                  Final Assessment
+                </h3>
+                <span className="text-[11px] font-semibold text-emerald-700">
+                  Certificate Eligible
+                </span>
+              </div>
+            </div>
+
+            <p className="text-xs text-[#64748B] leading-relaxed">
+              Complete the rigorous 10-question evaluation with an 80%+ score to earn your verified SLRJ Learn credential with verifiable QR code.
+            </p>
+
+            <div className="space-y-2 pt-1 border-t border-slate-200/60 text-xs text-slate-600">
+              <div className="flex items-center justify-between">
+                <span>Passing Criteria:</span>
+                <strong className="text-[#173B70] font-bold">80% or Higher</strong>
+              </div>
+              <div className="flex items-center justify-between">
+                <span>Time Allowed:</span>
+                <strong className="text-slate-800 font-bold">20 Minutes</strong>
+              </div>
+              <div className="flex items-center justify-between">
+                <span>Assessment Format:</span>
+                <strong className="text-slate-800 font-bold">Server-Evaluated MCQ</strong>
+              </div>
+            </div>
+
+            <Link
+              href={`/dashboard/assessments/${course.slug}`}
+              className="w-full py-2.5 px-4 rounded-xl bg-[#173B70] hover:bg-[#12316B] text-white text-xs font-bold transition-all text-center flex items-center justify-center gap-2 shadow-xs cursor-pointer"
+            >
+              <span>Take Final Assessment</span>
+              <ArrowRight size={13} />
+            </Link>
+          </div>
+
           {/* Prerequisites */}
           <div className="clean-card p-6 space-y-3 bg-white rounded-2xl border border-[#E2E8F0]">
             <h3 className="font-extrabold text-sm text-[#182230] font-brand flex items-center gap-2">

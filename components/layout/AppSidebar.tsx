@@ -96,7 +96,7 @@ export default function AppSidebar({
           icon: BookOpen,
           iconColor: "text-[#18B6D2]",
           exact: false,
-          badge: "11 Courses",
+          badge: "21 Courses",
           badgeColor: "bg-cyan-50 text-[#12316B] border border-cyan-200",
         },
         {

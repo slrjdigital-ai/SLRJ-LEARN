@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { COURSE_ASSESSMENTS } from "@/data/assessments";
+import { getAssessment } from "@/data/assessments";
 import { issueCertificate } from "@/data/certificatesStore";
 
 export async function POST(req: Request) {
@@ -14,7 +14,7 @@ export async function POST(req: Request) {
       );
     }
 
-    const assessment = COURSE_ASSESSMENTS[courseId];
+    const assessment = getAssessment(courseId);
     if (!assessment) {
       return NextResponse.json(
         { error: "Assessment not found for specified course." },

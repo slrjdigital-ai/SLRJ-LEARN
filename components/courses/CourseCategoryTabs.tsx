@@ -5,14 +5,15 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 
 export const COURSE_CATEGORIES = [
   "All Courses",
-  "Programming",
+  "Programming Languages",
   "Web Development",
-  "Mobile Development",
-  "Artificial Intelligence",
-  "Data Science",
-  "UI/UX Design",
+  "Data Structures & Algorithms",
+  "Tools & Developer Workflow",
+  "Artificial Intelligence & Machine Learning",
+  "Databases",
   "Cybersecurity",
-  "Career Development",
+  "Cloud & DevOps",
+  "Data Analytics",
 ] as const;
 
 export type CourseCategoryFilter = (typeof COURSE_CATEGORIES)[number];

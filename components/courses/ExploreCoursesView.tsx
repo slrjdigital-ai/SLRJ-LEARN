@@ -17,7 +17,9 @@ import CourseFilterPanel, {
   DifficultyFilter,
   AccessFilter,
   DurationFilter,
+  StatusFilter,
 } from "./CourseFilterPanel";
+import { useCourseProgress } from "@/lib/courseProgress";
 import CourseGrid from "./CourseGrid";
 import CourseEmptyState from "./CourseEmptyState";
 import PdfReaderModal from "./PdfReaderModal";
@@ -133,10 +135,13 @@ export default function ExploreCoursesView() {
     }
   }, [levelQuery]);
 
+  const { getProgress } = useCourseProgress();
+
   // Filter & Search states
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState<CourseCategoryFilter>("All Courses");
   const [selectedDifficulty, setSelectedDifficulty] = useState<DifficultyFilter>("All");
+  const [selectedStatus, setSelectedStatus] = useState<StatusFilter>("All");
   const [selectedAccess, setSelectedAccess] = useState<AccessFilter>("All");
   const [selectedDuration, setSelectedDuration] = useState<DurationFilter>("All");
   const [sortBy, setSortBy] = useState<SortOption>("recommended");
@@ -181,10 +186,11 @@ export default function ExploreCoursesView() {
     if (selectedLevel !== "all") count++;
     if (selectedCategory !== "All Courses") count++;
     if (selectedDifficulty !== "All") count++;
+    if (selectedStatus !== "All") count++;
     if (selectedAccess !== "All") count++;
     if (selectedDuration !== "All") count++;
     return count;
-  }, [selectedLevel, selectedCategory, selectedDifficulty, selectedAccess, selectedDuration]);
+  }, [selectedLevel, selectedCategory, selectedDifficulty, selectedStatus, selectedAccess, selectedDuration]);
 
   // Level selection handler with URL sync
   const handleSelectLevel = useCallback(
@@ -207,6 +213,7 @@ export default function ExploreCoursesView() {
     setSearchQuery("");
     setSelectedCategory("All Courses");
     setSelectedDifficulty("All");
+    setSelectedStatus("All");
     setSelectedAccess("All");
     setSelectedDuration("All");
     handleSelectLevel("all");
@@ -236,15 +243,7 @@ export default function ExploreCoursesView() {
 
       // Category filter
       if (selectedCategory !== "All Courses") {
-        if (selectedCategory === "Programming") {
-          if (
-            course.category !== "Programming" &&
-            course.category !== "Java Programming" &&
-            course.category !== "Python Programming"
-          ) {
-            return false;
-          }
-        } else if (course.category !== selectedCategory) {
+        if (course.category !== selectedCategory) {
           return false;
         }
       }
@@ -254,9 +253,21 @@ export default function ExploreCoursesView() {
         return false;
       }
 
-      // Access filter
-      if (selectedAccess !== "All" && course.accessType !== selectedAccess) {
-        return false;
+      // Learning Status filter
+      if (selectedStatus !== "All") {
+        const p = getProgress(course.id);
+        const isStarted = !!(p && p.progressPercentage > 0);
+        const isDone = !!(p && p.progressPercentage >= 100);
+        if (selectedStatus === "in_progress" && (!isStarted || isDone)) return false;
+        if (selectedStatus === "completed" && !isDone) return false;
+        if (selectedStatus === "not_started" && isStarted) return false;
+      }
+
+      // Access filter (Free / Premium)
+      if (selectedAccess !== "All") {
+        const isPaid = !!course.isPaid || course.accessType === "Premium";
+        if (selectedAccess === "Free" && isPaid) return false;
+        if (selectedAccess === "Premium" && !isPaid) return false;
       }
 
       // Duration filter
@@ -290,9 +301,11 @@ export default function ExploreCoursesView() {
     searchQuery,
     selectedCategory,
     selectedDifficulty,
+    selectedStatus,
     selectedAccess,
     selectedDuration,
     sortBy,
+    getProgress,
   ]);
 
   // Partition filtered courses into the 3 discrete levels
@@ -376,6 +389,8 @@ export default function ExploreCoursesView() {
         onCategoryChange={setSelectedCategory}
         selectedDifficulty={selectedDifficulty}
         onDifficultyChange={setSelectedDifficulty}
+        selectedStatus={selectedStatus}
+        onStatusChange={setSelectedStatus}
         selectedAccess={selectedAccess}
         onAccessChange={setSelectedAccess}
         selectedDuration={selectedDuration}

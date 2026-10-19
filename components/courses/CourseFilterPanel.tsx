@@ -6,6 +6,7 @@ import { COURSE_CATEGORIES, CourseCategoryFilter } from "./CourseCategoryTabs";
 export type DifficultyFilter = "All" | "Beginner" | "Intermediate" | "Advanced";
 export type AccessFilter = "All" | "Free" | "Premium";
 export type DurationFilter = "All" | "short" | "medium" | "long";
+export type StatusFilter = "All" | "in_progress" | "completed" | "not_started";
 
 interface CourseFilterPanelProps {
   isOpen: boolean;
@@ -14,6 +15,8 @@ interface CourseFilterPanelProps {
   onCategoryChange: (category: CourseCategoryFilter) => void;
   selectedDifficulty: DifficultyFilter;
   onDifficultyChange: (diff: DifficultyFilter) => void;
+  selectedStatus: StatusFilter;
+  onStatusChange: (status: StatusFilter) => void;
   selectedAccess: AccessFilter;
   onAccessChange: (access: AccessFilter) => void;
   selectedDuration: DurationFilter;
@@ -29,6 +32,8 @@ export default function CourseFilterPanel({
   onCategoryChange,
   selectedDifficulty,
   onDifficultyChange,
+  selectedStatus,
+  onStatusChange,
   selectedAccess,
   onAccessChange,
   selectedDuration,
@@ -70,7 +75,7 @@ export default function CourseFilterPanel({
         </div>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 text-xs">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-5 text-xs">
         {/* 1. Category */}
         <div className="space-y-2">
           <label className="font-bold text-[#182230] uppercase tracking-wider text-[11px]">
@@ -97,14 +102,14 @@ export default function CourseFilterPanel({
           <div className="grid grid-cols-2 gap-1.5">
             {[
               { id: "All", label: "All Levels" },
-              { id: "Beginner", label: "Level 1: Basic" },
-              { id: "Intermediate", label: "Level 2: Intermediate" },
-              { id: "Advanced", label: "Level 3: Pro" },
+              { id: "Beginner", label: "L1: Basic" },
+              { id: "Intermediate", label: "L2: Mid" },
+              { id: "Advanced", label: "L3: Pro" },
             ].map((diff) => (
               <button
                 key={diff.id}
                 onClick={() => onDifficultyChange(diff.id as DifficultyFilter)}
-                className={`py-2 px-2.5 rounded-xl text-xs font-bold transition-all text-center cursor-pointer ${
+                className={`py-2 px-2 rounded-xl text-[11px] font-bold transition-all text-center cursor-pointer ${
                   selectedDifficulty === diff.id
                     ? "bg-[#173B70] text-white"
                     : "bg-[#F8FAFC] text-[#64748B] hover:text-[#182230] border border-[#E2E8F0]"
@@ -116,7 +121,34 @@ export default function CourseFilterPanel({
           </div>
         </div>
 
-        {/* 3. Access Type */}
+        {/* 3. Learning Status */}
+        <div className="space-y-2">
+          <label className="font-bold text-[#182230] uppercase tracking-wider text-[11px]">
+            Learning Status
+          </label>
+          <div className="grid grid-cols-2 gap-1.5">
+            {[
+              { id: "All", label: "All Status" },
+              { id: "in_progress", label: "In Progress" },
+              { id: "completed", label: "Completed" },
+              { id: "not_started", label: "Not Started" },
+            ].map((st) => (
+              <button
+                key={st.id}
+                onClick={() => onStatusChange(st.id as StatusFilter)}
+                className={`py-2 px-2 rounded-xl text-[11px] font-bold transition-all text-center cursor-pointer ${
+                  selectedStatus === st.id
+                    ? "bg-[#173B70] text-white"
+                    : "bg-[#F8FAFC] text-[#64748B] hover:text-[#182230] border border-[#E2E8F0]"
+                }`}
+              >
+                {st.label}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {/* 4. Access Type */}
         <div className="space-y-2">
           <label className="font-bold text-[#182230] uppercase tracking-wider text-[11px]">
             Access Type
@@ -138,7 +170,7 @@ export default function CourseFilterPanel({
           </div>
         </div>
 
-        {/* 4. Estimated Duration */}
+        {/* 5. Estimated Duration */}
         <div className="space-y-2">
           <label className="font-bold text-[#182230] uppercase tracking-wider text-[11px]">
             Estimated Duration

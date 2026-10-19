@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { COURSE_ASSESSMENTS } from "@/data/assessments";
+import { getAssessment } from "@/data/assessments";
 
 interface RouteParams {
   params: Promise<{
@@ -9,7 +9,7 @@ interface RouteParams {
 
 export async function GET(req: Request, { params }: RouteParams) {
   const { assessmentId } = await params;
-  const assessment = COURSE_ASSESSMENTS[assessmentId];
+  const assessment = getAssessment(assessmentId);
 
   if (!assessment) {
     return NextResponse.json(

@@ -156,6 +156,7 @@ export function useCourseProgress() {
   return {
     isLoaded,
     progressMap,
+    allProgress: progressMap,
     getProgress,
     activeCourses,
     recordAccess: recordCourseAccess,

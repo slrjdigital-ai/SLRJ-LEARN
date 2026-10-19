@@ -10,6 +10,7 @@ import { getAllNotes } from "@/data/notes";
 import { getAllCourses } from "@/data/courses";
 import { ROADMAP_STAGES } from "@/data/roadmap";
 import { PRACTICAL_PROJECTS } from "@/data/projectsData";
+import { useCourseProgress, LearnerCourseProgress } from "@/lib/courseProgress";
 import {
   User as UserIcon,
   BookOpen,
@@ -26,6 +27,8 @@ import {
   BarChart3,
   Target,
   ChevronRight,
+  Layers,
+  FileText,
 } from "lucide-react";
 
 export default function DashboardClient() {
@@ -34,6 +37,17 @@ export default function DashboardClient() {
   const { state: gamificationState, currentLevel } = useGamification();
   const allNotes = useMemo(() => getAllNotes(), []);
   const allCourses = useMemo(() => getAllCourses(), []);
+  const { allProgress } = useCourseProgress();
+
+  const enrolledList: LearnerCourseProgress[] = useMemo(() => {
+    return Object.values(allProgress).sort(
+      (a: LearnerCourseProgress, b: LearnerCourseProgress) =>
+        new Date(b.lastAccessedAt).getTime() - new Date(a.lastAccessedAt).getTime()
+    );
+  }, [allProgress]);
+
+  const activeCourseProgress: LearnerCourseProgress | null =
+    enrolledList.length > 0 ? enrolledList[0] : null;
 
   const [submittedProjects, setSubmittedProjects] = useState<Record<string, string>>({});
 
@@ -240,36 +254,54 @@ export default function DashboardClient() {
         <div className="lg:col-span-7 p-6 rounded-2xl bg-white border border-slate-200/90 shadow-sm flex flex-col justify-between">
           <div>
             <div className="flex items-center justify-between mb-4">
-              <span className="text-xs font-bold text-[#0b69ff] uppercase tracking-wider flex items-center gap-1.5">
+              <span className="text-xs font-bold text-[#173B70] uppercase tracking-wider flex items-center gap-1.5">
                 <BookOpen size={14} />
-                <span>Current Course</span>
+                <span>Continue Learning</span>
               </span>
-              <span className="text-xs text-slate-400">{completedStepsCount > 0 ? "Recently Active" : "Not started yet"}</span>
+              <span className="text-xs text-slate-400">
+                {activeCourseProgress ? "Recently Active" : "Ready to Start"}
+              </span>
             </div>
 
             <h3 className="text-lg font-bold text-slate-900 font-brand mb-1">
-              Web Development Foundations: HTML5, CSS3 & JavaScript
+              {activeCourseProgress
+                ? activeCourseProgress.courseTitle
+                : "Python Programming: Fundamentals to Applied Problem Solving"}
             </h3>
             <p className="text-xs text-slate-500 leading-relaxed mb-4">
-              Next Up: Introduction to HTML5 tags, document structures, and modern syntax.
+              {activeCourseProgress
+                ? `Next Up: ${activeCourseProgress.currentLessonTitle || "Next lesson in curriculum"}`
+                : "Begin with Python variables, syntax, data types, and core algorithmic thinking."}
             </p>
 
             <div className="space-y-1.5 mb-4">
               <div className="flex justify-between text-xs text-slate-600 font-semibold">
-                <span>Module Progress</span>
-                <span className="text-[#0b69ff]">{roadmapPct}%</span>
+                <span>Course Progress</span>
+                <span className="text-[#173B70]">
+                  {activeCourseProgress ? activeCourseProgress.progressPercentage : 0}%
+                </span>
               </div>
               <div className="w-full h-2 bg-slate-100 rounded-full overflow-hidden">
-                <div className="h-full bg-[#0b69ff] rounded-full" style={{ width: `${roadmapPct}%` }} />
+                <div
+                  className="h-full bg-gradient-to-r from-[#18B6D2] to-[#173B70] rounded-full transition-all"
+                  style={{
+                    width: `${activeCourseProgress ? activeCourseProgress.progressPercentage : 0}%`,
+                  }}
+                />
               </div>
             </div>
           </div>
 
           <Link
-            href="/roadmap/frontend"
-            className="w-full py-2.5 rounded-xl bg-[#0b69ff] hover:bg-blue-600 text-white font-bold text-xs text-center transition-all shadow-sm"
+            href={
+              activeCourseProgress
+                ? `/courses/${activeCourseProgress.courseSlug}`
+                : "/courses/python-programming"
+            }
+            className="w-full py-2.5 rounded-xl bg-[#173B70] hover:bg-[#12316B] text-white font-bold text-xs text-center transition-all shadow-sm flex items-center justify-center gap-2 cursor-pointer"
           >
-            {completedStepsCount > 0 ? "Resume Course" : "Start Course"}
+            <span>{activeCourseProgress ? "Continue Learning" : "Start Learning"}</span>
+            <ArrowRight size={13} />
           </Link>
         </div>
 
@@ -278,7 +310,7 @@ export default function DashboardClient() {
           <div>
             <div className="flex items-center justify-between mb-4">
               <span className="text-xs font-bold text-slate-500 uppercase tracking-wider flex items-center gap-1.5">
-                <BarChart3 size={14} className="text-[#0b69ff]" />
+                <BarChart3 size={14} className="text-[#173B70]" />
                 <span>Weekly Time Spent</span>
               </span>
               <span className="text-xs font-bold text-slate-600 font-mono">0.0 hrs</span>
@@ -292,7 +324,7 @@ export default function DashboardClient() {
                     <span className="text-[9px] font-mono text-slate-400">{item.mins}m</span>
                     <div className="w-full bg-slate-100 rounded-t-md h-full flex items-end overflow-hidden">
                       <div
-                        className="w-full bg-[#0b69ff] rounded-t-md transition-all duration-300"
+                        className="w-full bg-[#173B70] rounded-t-md transition-all duration-300"
                         style={{ height: `${heightPct}%` }}
                       />
                     </div>
@@ -302,6 +334,156 @@ export default function DashboardClient() {
               })}
             </div>
           </div>
+        </div>
+      </div>
+
+      {/* ── Enrolled Courses Section ── */}
+      {enrolledList.length > 0 && (
+        <div className="space-y-4">
+          <div className="flex items-center justify-between">
+            <h2 className="text-lg font-bold text-slate-900 font-brand flex items-center gap-2">
+              <BookOpen size={18} className="text-[#173B70]" />
+              <span>My Enrolled Courses ({enrolledList.length})</span>
+            </h2>
+            <Link
+              href="/courses"
+              className="text-xs font-bold text-[#173B70] hover:underline flex items-center gap-1"
+            >
+              <span>Explore All Courses</span>
+              <ArrowRight size={13} />
+            </Link>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {enrolledList.map((item) => (
+              <div
+                key={item.courseId}
+                className="p-5 rounded-2xl bg-white border border-slate-200 shadow-xs flex flex-col justify-between space-y-3"
+              >
+                <div>
+                  <div className="flex items-center justify-between gap-2 mb-2">
+                    <span className="text-[10px] font-bold text-[#64748B] uppercase tracking-wider">
+                      {item.category}
+                    </span>
+                    <span className="text-[10px] font-extrabold px-2 py-0.5 rounded-full bg-blue-50 text-[#173B70] border border-blue-200">
+                      {item.progressPercentage}% Complete
+                    </span>
+                  </div>
+                  <Link
+                    href={`/courses/${item.courseSlug}`}
+                    className="font-bold text-sm text-[#182230] hover:text-[#173B70] line-clamp-2"
+                  >
+                    {item.courseTitle}
+                  </Link>
+                  <p className="text-xs text-slate-500 mt-1 line-clamp-1">
+                    Current: {item.currentLessonTitle}
+                  </p>
+                </div>
+
+                <div className="space-y-2 pt-2 border-t border-slate-100">
+                  <div className="w-full h-1.5 bg-slate-100 rounded-full overflow-hidden">
+                    <div
+                      className="h-full bg-gradient-to-r from-[#18B6D2] to-[#173B70] rounded-full"
+                      style={{ width: `${item.progressPercentage}%` }}
+                    />
+                  </div>
+                  <div className="flex items-center justify-between text-[11px] text-[#64748B]">
+                    <span>
+                      {item.completedPdfLessonIds.length} of {item.totalPdfLessons} lessons
+                    </span>
+                    <Link
+                      href={`/courses/${item.courseSlug}`}
+                      className="font-bold text-[#173B70] hover:underline flex items-center gap-1"
+                    >
+                      <span>Resume</span>
+                      <ChevronRight size={12} />
+                    </Link>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* ── Recommended Next Courses ── */}
+      <div className="space-y-4">
+        <div className="flex items-center justify-between">
+          <h2 className="text-lg font-bold text-slate-900 font-brand flex items-center gap-2">
+            <Sparkles size={18} className="text-[#18B6D2]" />
+            <span>Recommended Next Courses</span>
+          </h2>
+          <Link
+            href="/courses"
+            className="text-xs font-bold text-[#173B70] hover:underline flex items-center gap-1"
+          >
+            <span>View All 21 Courses</span>
+            <ArrowRight size={13} />
+          </Link>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          {allCourses.slice(0, 3).map((c) => (
+            <div
+              key={c.id}
+              className="p-5 rounded-2xl bg-white border border-slate-200 hover:border-[#173B70]/30 transition-all shadow-xs flex flex-col justify-between space-y-3"
+            >
+              <div>
+                <div className="flex items-center justify-between gap-2 mb-2">
+                  <span className="text-[10px] font-bold text-[#64748B] uppercase tracking-wider">
+                    {c.category}
+                  </span>
+                  <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-slate-100 text-slate-700 uppercase">
+                    {c.difficulty}
+                  </span>
+                </div>
+                <Link
+                  href={`/courses/${c.slug}`}
+                  className="font-bold text-sm text-[#182230] hover:text-[#173B70] line-clamp-2"
+                >
+                  {c.title}
+                </Link>
+                <p className="text-xs text-[#64748B] mt-1 line-clamp-2 leading-relaxed">
+                  {c.shortDescription}
+                </p>
+              </div>
+
+              <div className="pt-2 border-t border-slate-100 flex items-center justify-between text-xs">
+                <span className="text-slate-500 font-medium">{c.estimatedDuration}</span>
+                <Link
+                  href={`/courses/${c.slug}`}
+                  className="px-3 py-1.5 rounded-lg bg-[#173B70] hover:bg-[#12316B] text-white text-xs font-bold transition-all flex items-center gap-1 cursor-pointer"
+                >
+                  <span>Start</span>
+                  <ArrowRight size={12} />
+                </Link>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* ── Assessments & Certificates Hub Banner ── */}
+      <div className="p-6 rounded-2xl bg-gradient-to-r from-[#12316B] to-[#1F4A8A] text-white flex flex-col sm:flex-row sm:items-center justify-between gap-6 shadow-md">
+        <div className="space-y-1">
+          <div className="flex items-center gap-2">
+            <Award size={20} className="text-[#18B6D2]" />
+            <h3 className="text-base sm:text-lg font-bold font-brand">
+              Official Course Assessments &amp; Certificates
+            </h3>
+          </div>
+          <p className="text-xs text-blue-100 max-w-xl">
+            Validate your skills with rigorous timed evaluations for all 21 courses. Earn cryptographic digital credentials with instant QR verification.
+          </p>
+        </div>
+        <div className="flex items-center gap-3">
+          <Link
+            href="/certificates"
+            className="px-4 py-2.5 rounded-xl bg-white text-[#12316B] hover:bg-blue-50 font-bold text-xs transition-all shadow-xs flex items-center gap-1.5"
+          >
+            <span>My Certificates</span>
+            <ChevronRight size={14} />
+          </Link>
         </div>
       </div>
     </div>
