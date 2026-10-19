@@ -22,7 +22,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
       {/* ── Main Area ── */}
       <div
         className={`flex-1 transition-all duration-300 flex flex-col min-w-0 ${
-          collapsed ? "md:ml-20" : "md:ml-72"
+          collapsed ? "md:ml-20" : "md:ml-80"
         } ml-0`}
       >
         {/* Top Header */}
