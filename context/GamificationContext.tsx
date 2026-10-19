@@ -4,6 +4,7 @@ import React, { createContext, useContext, useState, useEffect, useCallback } fr
 import {
   GamificationState,
   getStoredGamificationState,
+  getInitialGamificationState,
   saveGamificationState,
   calculateLevel,
   getLocalDateString,
@@ -36,10 +37,13 @@ interface GamificationContextType {
 const GamificationContext = createContext<GamificationContextType | undefined>(undefined);
 
 export function GamificationProvider({ children }: { children: React.ReactNode }) {
-  const [state, setState] = useState<GamificationState>(getStoredGamificationState());
+  // Initialize with deterministic state for identical SSR & initial client hydration
+  const [state, setState] = useState<GamificationState>(getInitialGamificationState);
 
-  // Listen to updates from other tabs or windows
+  // Restore client-stored gamification progress on mount and listen to updates
   useEffect(() => {
+    setState(getStoredGamificationState());
+
     const handleUpdate = () => {
       setState(getStoredGamificationState());
     };

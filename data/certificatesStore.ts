@@ -1,54 +1,122 @@
-import fs from "fs";
-import path from "path";
+// ============================================================================
+// SLRJ Learn — Authoritative Certificates & Credentials Store
+// In-memory persistent registry for verifiable certificates issued for
+// Courses, Role Roadmaps, Practical Projects, and Events/Hackathons.
+// ============================================================================
+
+export type CertificateCategory =
+  | "Course"
+  | "Roadmap"
+  | "Project"
+  | "Event"
+  | "Special";
 
 export interface CertificateRecord {
-  id: string;
+  id: string; // e.g. SLRJ-CERT-2026-WD101
   learnerName: string;
   learnerEmail?: string;
-  courseId: string;
-  courseTitle: string;
+  title: string;
+  category: CertificateCategory;
+  sourceType: "course" | "roadmap" | "project" | "event" | "custom";
+  sourceId: string;
+  sourceTitle: string;
+  courseTitle?: string; // backwards compatibility alias for sourceTitle
+  courseId?: string; // backwards compatibility alias for sourceId
   issueDate: string;
-  scorePercentage: number;
+  scorePercentage?: number;
   status: "valid" | "revoked";
   revocationReason?: string;
   issuer: string;
+  skillsGained: string[];
   verifiedAt?: string;
+  verificationUrl?: string;
 }
 
 // In-memory seed database with verifiable certificates
 const INITIAL_CERTIFICATES: Record<string, CertificateRecord> = {
   "SLRJ-CERT-2026-WD101": {
     id: "SLRJ-CERT-2026-WD101",
-    learnerName: "Alex Morgan",
-    learnerEmail: "alex.morgan@example.com",
-    courseId: "course-web-dev-101",
-    courseTitle: "Web Development Foundations: HTML5, CSS3 & JavaScript",
+    learnerName: "Shahid",
+    learnerEmail: "shahid@slrjlearn.in",
+    title: "Certificate of Course Completion",
+    category: "Course",
+    sourceType: "course",
+    sourceId: "course-web-dev-101",
+    sourceTitle: "Web Development Foundations: HTML5, CSS3 & JavaScript",
     issueDate: "October 15, 2026",
     scorePercentage: 100,
     status: "valid",
     issuer: "SLRJ Learn Academy • SLRJ Digital",
+    skillsGained: ["Semantic HTML5", "Modern CSS Layouts (Grid & Flexbox)", "DOM Events", "Responsive Design"],
+    verifiedAt: "2026-10-15T12:00:00.000Z",
   },
+
   "SLRJ-CERT-2026-PY101": {
     id: "SLRJ-CERT-2026-PY101",
     learnerName: "Kouluri Shahid",
     learnerEmail: "shahid@slrjlearn.in",
-    courseId: "course-python-101",
-    courseTitle: "Python Programming: Zero to Production",
+    title: "Certificate of Programming Mastery",
+    category: "Course",
+    sourceType: "course",
+    sourceId: "course-python-101",
+    sourceTitle: "Python Programming: Zero to Production",
     issueDate: "October 14, 2026",
     scorePercentage: 100,
     status: "valid",
     issuer: "SLRJ Learn Academy • SLRJ Digital",
+    skillsGained: ["Object-Oriented Python", "Data Structures", "Algorithm Optimization", "File I/O"],
+    verifiedAt: "2026-10-14T10:00:00.000Z",
   },
+
+  "SLRJ-CERT-2026-HACK-SAAS": {
+    id: "SLRJ-CERT-2026-HACK-SAAS",
+    learnerName: "Shahid",
+    learnerEmail: "shahid@slrjlearn.in",
+    title: "Hackathon Finalist Distinction Certificate",
+    category: "Event",
+    sourceType: "event",
+    sourceId: "evt-hackathon-saas-2026",
+    sourceTitle: "Build Something Amazing: Full-Stack SaaS Hackathon",
+    issueDate: "October 16, 2026",
+    scorePercentage: 96,
+    status: "valid",
+    issuer: "SLRJ Innovation Labs • SLRJ Digital",
+    skillsGained: ["Full-Stack Architecture", "Next.js 16 & Turbopack", "Stripe API Integration", "CI/CD Deployment"],
+    verifiedAt: "2026-10-16T18:00:00.000Z",
+  },
+
+  "SLRJ-CERT-2026-ROADMAP-FE": {
+    id: "SLRJ-CERT-2026-ROADMAP-FE",
+    learnerName: "Kouluri Shahid",
+    learnerEmail: "shahid@slrjlearn.in",
+    title: "Career Track Completion Certificate",
+    category: "Roadmap",
+    sourceType: "roadmap",
+    sourceId: "frontend",
+    sourceTitle: "Frontend Developer Career Roadmap",
+    issueDate: "October 12, 2026",
+    scorePercentage: 98,
+    status: "valid",
+    issuer: "SLRJ Engineering Guild • SLRJ Digital",
+    skillsGained: ["React 19 & Next.js", "Tailwind CSS", "TypeScript", "Performance & Web Vitals"],
+    verifiedAt: "2026-10-12T15:30:00.000Z",
+  },
+
   "demo": {
     id: "demo",
     learnerName: "Sample Learner",
     learnerEmail: "learner@slrjlearn.in",
-    courseId: "course-web-dev-101",
-    courseTitle: "Web Development Foundations: HTML5, CSS3 & JavaScript",
+    title: "Certificate of Course Completion",
+    category: "Course",
+    sourceType: "course",
+    sourceId: "course-web-dev-101",
+    sourceTitle: "Web Development Foundations: HTML5, CSS3 & JavaScript",
     issueDate: "October 15, 2026",
     scorePercentage: 92,
     status: "valid",
     issuer: "SLRJ Learn Academy • SLRJ Digital",
+    skillsGained: ["HTML5", "CSS3", "JavaScript"],
+    verifiedAt: "2026-10-15T08:00:00.000Z",
   },
 };
 
@@ -73,16 +141,27 @@ export function getCertificateById(id: string): CertificateRecord | null {
 export function issueCertificate(params: {
   learnerName: string;
   learnerEmail?: string;
-  courseId: string;
-  courseTitle: string;
-  scorePercentage: number;
+  title?: string;
+  category?: CertificateCategory;
+  sourceType?: "course" | "roadmap" | "project" | "event" | "custom";
+  sourceId?: string;
+  sourceTitle?: string;
+  courseId?: string; // backwards compatibility
+  courseTitle?: string; // backwards compatibility
+  scorePercentage?: number;
+  skillsGained?: string[];
+  issuer?: string;
 }): CertificateRecord {
   const store = getStore();
 
+  const resolvedSourceId = params.sourceId || params.courseId || "course-gen";
+  const resolvedSourceTitle = params.sourceTitle || params.courseTitle || "Course Study";
+
   // Create unique, non-predictable certificate identifier
-  const codePrefix = params.courseId.replace("course-", "").replace("-101", "").toUpperCase();
+  const prefix = (params.sourceType || "CERT").toUpperCase().substring(0, 4);
+  const codePrefix = resolvedSourceId.replace("course-", "").replace("-101", "").replace("evt-", "").toUpperCase();
   const randomHex = Math.random().toString(36).substring(2, 7).toUpperCase();
-  const certId = `SLRJ-CERT-2026-${codePrefix}-${randomHex}`;
+  const certId = `SLRJ-${prefix}-2026-${codePrefix.substring(0, 8)}-${randomHex}`;
 
   const now = new Date();
   const dateFormatted = now.toLocaleDateString("en-US", {
@@ -95,12 +174,19 @@ export function issueCertificate(params: {
     id: certId,
     learnerName: params.learnerName || "Learner",
     learnerEmail: params.learnerEmail,
-    courseId: params.courseId,
-    courseTitle: params.courseTitle,
+    title: params.title || "Certificate of Completion",
+    category: params.category || "Course",
+    sourceType: params.sourceType || "course",
+    sourceId: resolvedSourceId,
+    sourceTitle: resolvedSourceTitle,
+    courseId: resolvedSourceId,
+    courseTitle: resolvedSourceTitle,
     issueDate: dateFormatted,
-    scorePercentage: params.scorePercentage,
+    scorePercentage: params.scorePercentage ?? 100,
     status: "valid",
-    issuer: "SLRJ Learn Academy • SLRJ Digital",
+    issuer: params.issuer || "SLRJ Learn Academy • SLRJ Digital",
+    skillsGained: params.skillsGained || ["Verified Practical Skills", "Technical Competence"],
+    verifiedAt: now.toISOString(),
   };
 
   store[certId] = record;

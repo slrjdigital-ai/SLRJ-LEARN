@@ -4,6 +4,7 @@ import LearningBenefitsSection from "@/components/home/LearningBenefitsSection";
 import FeaturedCoursesSection from "@/components/home/FeaturedCoursesSection";
 import HowItWorksSection from "@/components/home/HowItWorksSection";
 import CertificatePreviewSection from "@/components/home/CertificatePreviewSection";
+import HomeWelcomeBanner from "@/components/home/HomeWelcomeBanner";
 import PersonalizedLearningOverview from "@/components/home/PersonalizedLearningOverview";
 import ContinueLearningCard from "@/components/home/ContinueLearningCard";
 import DailyLearningHub from "@/components/home/DailyLearningHub";
@@ -24,7 +25,8 @@ export default function HomePage() {
       {/* ─── 1. Hero Section (Learn Skills. Build Projects. Grow Your Future.) ─── */}
       <PublicHeroSection />
 
-      {/* ─── 2. Personalized Student Dashboard Summary (When active session exists) ─── */}
+      {/* ─── 2. Personalized Student Dashboard Summary (Default User Experience) ─── */}
+      <HomeWelcomeBanner />
       <PersonalizedLearningOverview />
       <ContinueLearningCard />
 

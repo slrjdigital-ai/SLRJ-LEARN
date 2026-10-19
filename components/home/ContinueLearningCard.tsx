@@ -17,18 +17,22 @@ import {
 export default function ContinueLearningCard() {
   const { user } = useAuth();
 
+  const totalStages = 14;
+  const completedStages = user?.completedRoadmapSteps?.length || 0;
+  const progressPercent = Math.round((completedStages / totalStages) * 100);
+
   // Active course data based on user track / progress
   const activeCourse = {
     title: "Build Your Own Responsive Website",
     category: "Frontend Development",
     track: "Full-Stack Software Development",
-    currentModule: "Module 2: CSS Flexbox & Responsive Layouts",
-    nextLesson: "Stage 02 • Flexbox Directions, Alignments & Responsive Breakpoints",
-    progressPercent: 55,
-    totalStages: 14,
-    completedStages: 7,
-    lastActivity: "Today, 45 minutes ago",
-    estimatedRemaining: "1 hour 15 mins",
+    currentModule: "Module 1: HTML5 Document Structure & Semantic Web",
+    nextLesson: "Stage 01 • Introduction to Web Development & HTML Basics",
+    progressPercent,
+    totalStages,
+    completedStages,
+    lastActivity: completedStages > 0 ? "Recently active" : "Not started yet",
+    estimatedRemaining: "14 stages to complete",
     targetHref: "/roadmap/frontend",
   };
 
@@ -39,14 +43,14 @@ export default function ContinueLearningCard() {
 
       <div className="flex items-center justify-between gap-4 mb-4 pb-3 border-b border-slate-100">
         <div className="flex items-center gap-2">
-          <span className="w-2.5 h-2.5 rounded-full bg-[#0b69ff] animate-ping" />
+          <span className="w-2.5 h-2.5 rounded-full bg-[#0b69ff]" />
           <h2 className="text-sm font-bold text-slate-900 uppercase tracking-wider font-brand">
-            Continue Learning
+            {completedStages > 0 ? "Continue Learning" : "Start Your First Course"}
           </h2>
         </div>
         <div className="flex items-center gap-2 text-xs text-slate-500">
           <Clock size={13} className="text-slate-400" />
-          <span>Last active: <strong className="text-slate-700 font-semibold">{activeCourse.lastActivity}</strong></span>
+          <span>Status: <strong className="text-slate-700 font-semibold">{activeCourse.lastActivity}</strong></span>
         </div>
       </div>
 
@@ -118,7 +122,7 @@ export default function ContinueLearningCard() {
             className="w-full py-3 px-5 rounded-xl bg-[#0b69ff] hover:bg-blue-600 text-white font-extrabold text-xs sm:text-sm shadow-md shadow-blue-500/20 transition-all flex items-center justify-center gap-2 group cursor-pointer"
           >
             <Play size={15} className="fill-white" />
-            <span>Resume Lesson Now</span>
+            <span>{completedStages > 0 ? "Resume Lesson Now" : "Begin Lesson Now"}</span>
             <ChevronRight size={16} className="group-hover:translate-x-1 transition-transform" />
           </Link>
 

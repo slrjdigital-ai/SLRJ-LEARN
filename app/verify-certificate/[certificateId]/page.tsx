@@ -12,6 +12,8 @@ export async function generateStaticParams() {
   return [
     { certificateId: "SLRJ-CERT-2026-WD101" },
     { certificateId: "SLRJ-CERT-2026-PY101" },
+    { certificateId: "SLRJ-CERT-2026-HACK-SAAS" },
+    { certificateId: "SLRJ-CERT-2026-ROADMAP-FE" },
     { certificateId: "demo" },
   ];
 }
@@ -27,9 +29,11 @@ export async function generateMetadata({ params }: VerifyPageProps): Promise<Met
     };
   }
 
+  const title = cert.sourceTitle || (cert as any).courseTitle || cert.title;
+
   return {
     title: `Verified Certificate — ${cert.learnerName} | SLRJ Learn`,
-    description: `Official Certificate of Completion awarded to ${cert.learnerName} for ${cert.courseTitle}.`,
+    description: `Official Certificate of Completion awarded to ${cert.learnerName} for ${title}.`,
   };
 }
 

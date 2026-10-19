@@ -22,7 +22,7 @@ export default function PricingPage() {
       primary: true,
       features: [
         "All 6 Comprehensive Interactive Courses",
-        "17 Curated Handwritten PDF Handbooks",
+        "Structured Interactive Lessons & Study Notes",
         "Full Access to Coding Playground",
         "Interactive Daily Challenges & Quizzes",
         "Server-Graded Course Assessments",
@@ -84,7 +84,7 @@ export default function PricingPage() {
         </h1>
 
         <p className="text-[#64748B] text-sm sm:text-base leading-relaxed">
-          We believe high-quality engineering education should be open to all. All courses, handwritten PDF handbooks, and verifiable certificates are 100% free.
+          We believe high-quality engineering education should be open to all. All courses, interactive roadmaps, and verifiable certificates are 100% free.
         </p>
       </section>
 

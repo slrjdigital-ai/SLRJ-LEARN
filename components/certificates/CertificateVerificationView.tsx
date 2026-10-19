@@ -86,6 +86,7 @@ export default function CertificateVerificationView({
   }
 
   const isRevoked = certificate.status === "revoked";
+  const displayTitle = certificate.sourceTitle || (certificate as any).courseTitle || certificate.title;
 
   return (
     <div className="max-w-5xl mx-auto py-8 px-4 sm:px-6 space-y-8">
@@ -178,8 +179,22 @@ export default function CertificateVerificationView({
 
             {/* Official Brief Wording */}
             <p className="text-xs sm:text-sm text-[#64748B] max-w-xl leading-relaxed">
-              for successfully completing <strong className="text-[#12316B]">{certificate.courseTitle}</strong> and satisfying all course completion and assessment requirements of SLRJ Learn.
+              for successfully completing <strong className="text-[#12316B]">{displayTitle}</strong> and satisfying all completion, milestone, and assessment requirements of SLRJ Learn.
             </p>
+
+            {/* Skills Tag Cloud */}
+            {certificate.skillsGained && certificate.skillsGained.length > 0 && (
+              <div className="flex flex-wrap items-center justify-center gap-1.5 pt-1 max-w-lg">
+                {certificate.skillsGained.map((skill, idx) => (
+                  <span
+                    key={idx}
+                    className="px-2.5 py-0.5 rounded-full bg-slate-100 border border-slate-200 text-[10px] text-slate-700 font-medium"
+                  >
+                    {skill}
+                  </span>
+                ))}
+              </div>
+            )}
 
             {/* Score & Evaluation Note */}
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 border border-blue-200 text-xs font-semibold text-[#12316B]">
@@ -234,14 +249,39 @@ export default function CertificateVerificationView({
       </div>
 
       {/* ── Verification Authority Strip ── */}
-      <div className="p-5 rounded-2xl bg-white border border-[#E2E8F0] text-xs text-[#64748B] space-y-2">
+      <div className="p-5 rounded-2xl bg-white border border-[#E2E8F0] text-xs text-[#64748B] space-y-3">
         <h3 className="font-bold text-[#182230] flex items-center gap-2">
           <ShieldCheck size={16} className="text-[#16865C]" />
           <span>About SLRJ Learn Public Verification</span>
         </h3>
         <p className="leading-relaxed">
-          This record confirms that the designated learner has completed all pedagogical requirements, modules, and server-graded assessments for <strong>{certificate.courseTitle}</strong>. SLRJ Learn maintains permanent, tamper-resistant issuance logs for employer and academic background checks.
+          This record confirms that the designated learner has completed all pedagogical requirements, modules, and verified criteria for <strong>{displayTitle}</strong>. SLRJ Learn maintains permanent, tamper-resistant issuance logs for employer and academic background checks.
         </p>
+
+        {certificate.sourceId && (
+          <div className="pt-2 border-t border-slate-100 flex items-center justify-between">
+            <span className="text-[11px] text-slate-500">
+              Associated Learning Activity: <strong className="text-slate-700">{displayTitle}</strong>
+            </span>
+            <Link
+              href={
+                certificate.sourceType === "course"
+                  ? `/courses/${certificate.sourceId}`
+                  : certificate.sourceType === "roadmap"
+                  ? `/roadmap/${certificate.sourceId}`
+                  : certificate.sourceType === "project"
+                  ? `/projects/${certificate.sourceId}`
+                  : certificate.sourceType === "event"
+                  ? `/events/${certificate.sourceId}`
+                  : `/courses`
+              }
+              className="inline-flex items-center gap-1 font-bold text-[#12316B] hover:text-[#2456A6]"
+            >
+              <span>View Learning Activity</span>
+              <ExternalLink size={12} />
+            </Link>
+          </div>
+        )}
       </div>
     </div>
   );

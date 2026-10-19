@@ -1,23 +1,17 @@
 import { Metadata } from "next";
-import ProjectsContent from "./ProjectsContent";
+import ProjectsMainView from "@/components/projects/ProjectsMainView";
 
 export const metadata: Metadata = {
-  title: "Projects & Architecture Portfolio | SLRJ Learn",
+  title: "Projects & Portfolio — Practical Engineering | SLRJ Learn",
   description:
-    "Explore our production prototypes, full-stack web applications, e-commerce architectures, and verified performance benchmarks.",
-  alternates: {
-    canonical: "https://slrjlearn.in/projects",
-  },
+    "Turn your skills into real projects. Build, document, and showcase production software applications across 8 career roadmaps with Playground integration and a verified public portfolio.",
   openGraph: {
-    title: "Projects & Architecture Portfolio | SLRJ Learn",
+    title: "Projects & Portfolio | SLRJ Learn Academy",
     description:
-      "Explore our production prototypes, full-stack web applications, e-commerce architectures, and verified performance benchmarks.",
-    url: "https://slrjlearn.in/projects",
-    siteName: "SLRJ Learn",
-    type: "website",
+      "Explore 24+ practical software projects, guided milestones, starter code, interactive Playground sandbox, and public portfolio publishing.",
   },
 };
 
 export default function ProjectsPage() {
-  return <ProjectsContent />;
+  return <ProjectsMainView />;
 }

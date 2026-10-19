@@ -23,19 +23,16 @@ export default function HomeWelcomeBanner() {
 
   const studentName = user?.name || "Shahid";
   const currentTrack = user?.track || "Full-Stack Software Development";
-  const streakDays = state.streak.currentStreak || 5;
+  const streakDays = state.streak.currentStreak || 0;
 
-  // Real or calculated goals
+  // Real or calculated goals (0 completed for fresh user)
   const todayGoalTarget = 3;
-  const todayGoalDone = Math.min(
-    todayGoalTarget,
-    Math.max(1, state.completedActivityIds.length % (todayGoalTarget + 1))
-  );
+  const todayGoalDone = state.completedActivityIds.length || 0;
 
   const nextRecommendedLesson = {
-    title: "2. Build Your Own Responsive Website",
-    stage: "Stage 02 • Flexbox & Grid",
-    duration: "25 mins remaining",
+    title: "1. Introduction to Web Development & HTML Basics",
+    stage: "Stage 01 • HTML & Web Foundations",
+    duration: "15 mins estimated",
     link: "/roadmap/frontend",
   };
 
@@ -54,10 +51,10 @@ export default function HomeWelcomeBanner() {
 
           <div>
             <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 font-brand tracking-tight">
-              Welcome back, {studentName}!
+              Welcome, {studentName}!
             </h1>
             <p className="text-slate-600 text-sm sm:text-base mt-2 leading-relaxed">
-              Your next skill is one lesson away. Continue your learning journey and turn your knowledge into real projects.
+              Ready to begin your coding journey? Master modern full-stack software development from the ground up and build real projects.
             </p>
           </div>
 
@@ -71,12 +68,12 @@ export default function HomeWelcomeBanner() {
 
             <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-amber-50 border border-amber-200 text-amber-800 font-semibold">
               <Flame size={14} className="text-orange-500 fill-orange-500" />
-              <span>{streakDays} Day Streak</span>
+              <span suppressHydrationWarning>{streakDays} Day Streak</span>
             </div>
 
             <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-blue-50 border border-blue-200 text-[#0b69ff] font-semibold">
               <Target size={14} className="text-[#0b69ff]" />
-              <span>Today&apos;s Goal: {todayGoalDone}/{todayGoalTarget} Completed</span>
+              <span suppressHydrationWarning>Today&apos;s Goal: {todayGoalDone}/{todayGoalTarget} Completed</span>
             </div>
           </div>
         </div>
@@ -86,7 +83,7 @@ export default function HomeWelcomeBanner() {
           {/* Next Lesson Snapshot Card */}
           <div className="p-4 rounded-2xl bg-slate-50/80 border border-slate-200/80 space-y-2">
             <div className="flex items-center justify-between text-[11px] font-bold text-slate-500 uppercase tracking-wider">
-              <span>Next Incomplete Lesson</span>
+              <span>First Lesson</span>
               <span className="flex items-center gap-1 text-[#0b69ff]">
                 <Clock size={12} />
                 <span>{nextRecommendedLesson.duration}</span>
@@ -107,7 +104,7 @@ export default function HomeWelcomeBanner() {
               className="w-full px-5 py-3 rounded-xl bg-[#0b69ff] hover:bg-blue-600 text-white font-extrabold text-sm transition-all shadow-md shadow-blue-500/20 flex items-center justify-center gap-2 group cursor-pointer"
             >
               <PlayCircle size={16} />
-              <span>Continue Learning</span>
+              <span>Start Learning Now</span>
               <ChevronRight size={16} className="group-hover:translate-x-1 transition-transform" />
             </Link>
 

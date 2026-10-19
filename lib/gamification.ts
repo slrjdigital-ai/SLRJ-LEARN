@@ -130,7 +130,7 @@ export function calculateLevel(totalXP: number): {
   };
 }
 
-// Initial Standard Badges matching prompt requirements exactly
+// Initial Standard Badges matching prompt requirements exactly (all default/locked for fresh learner)
 export const DEFAULT_BADGES: AchievementBadge[] = [
   {
     id: "first_lesson",
@@ -139,9 +139,8 @@ export const DEFAULT_BADGES: AchievementBadge[] = [
     requirement: "Complete any 1 micro-lesson",
     category: "milestone",
     icon: "🎯",
-    unlocked: true,
-    unlockedAt: "Oct 12, 2026",
-    progress: 100,
+    unlocked: false,
+    progress: 0,
   },
   {
     id: "python_beginner",
@@ -150,9 +149,8 @@ export const DEFAULT_BADGES: AchievementBadge[] = [
     requirement: "Complete 3 Python micro-lessons",
     category: "coding",
     icon: "🐍",
-    unlocked: true,
-    unlockedAt: "Oct 13, 2026",
-    progress: 100,
+    unlocked: false,
+    progress: 0,
   },
   {
     id: "js_explorer",
@@ -161,9 +159,8 @@ export const DEFAULT_BADGES: AchievementBadge[] = [
     requirement: "Complete 3 JavaScript challenges",
     category: "coding",
     icon: "⚡",
-    unlocked: true,
-    unlockedAt: "Oct 14, 2026",
-    progress: 100,
+    unlocked: false,
+    progress: 0,
   },
   {
     id: "quiz_master",
@@ -173,7 +170,7 @@ export const DEFAULT_BADGES: AchievementBadge[] = [
     category: "quiz",
     icon: "🏆",
     unlocked: false,
-    progress: 66,
+    progress: 0,
   },
   {
     id: "streak_7",
@@ -183,7 +180,7 @@ export const DEFAULT_BADGES: AchievementBadge[] = [
     category: "streak",
     icon: "🔥",
     unlocked: false,
-    progress: 71, // 5 of 7
+    progress: 0,
   },
   {
     id: "challenge_champ",
@@ -192,9 +189,8 @@ export const DEFAULT_BADGES: AchievementBadge[] = [
     requirement: "Solve 2 weekly or daily coding challenges",
     category: "coding",
     icon: "⚔️",
-    unlocked: true,
-    unlockedAt: "Oct 15, 2026",
-    progress: 100,
+    unlocked: false,
+    progress: 0,
   },
   {
     id: "project_builder",
@@ -204,7 +200,7 @@ export const DEFAULT_BADGES: AchievementBadge[] = [
     category: "project",
     icon: "🚀",
     unlocked: false,
-    progress: 50,
+    progress: 0,
   },
   {
     id: "debugging_expert",
@@ -214,7 +210,7 @@ export const DEFAULT_BADGES: AchievementBadge[] = [
     category: "coding",
     icon: "🐞",
     unlocked: false,
-    progress: 50,
+    progress: 0,
   },
   {
     id: "consistent_learner",
@@ -223,9 +219,8 @@ export const DEFAULT_BADGES: AchievementBadge[] = [
     requirement: "Earn at least 600 total XP across multiple topics",
     category: "milestone",
     icon: "📚",
-    unlocked: true,
-    unlockedAt: "Oct 14, 2026",
-    progress: 100,
+    unlocked: false,
+    progress: 0,
   },
   {
     id: "fullstack_explorer",
@@ -235,7 +230,7 @@ export const DEFAULT_BADGES: AchievementBadge[] = [
     category: "coding",
     icon: "🌐",
     unlocked: false,
-    progress: 40,
+    progress: 0,
   },
 ];
 
@@ -355,15 +350,15 @@ export const MOCK_LEADERBOARDS: Record<
   weekly: {
     challenges: [
       {
-        id: "usr_alex_01",
-        rank: 1,
-        name: "Alex Chen (You)",
-        avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80",
+        id: "usr_shahid_01",
+        rank: 6,
+        name: "Shahid (You)",
+        avatar: "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=150&auto=format&fit=crop&q=80",
         role: "Student",
-        score: 450,
-        streak: 5,
-        completedChallenges: 6,
-        badgesCount: 5,
+        score: 0,
+        streak: 0,
+        completedChallenges: 0,
+        badgesCount: 0,
         isCurrentUser: true,
       },
       {
@@ -424,15 +419,15 @@ export const MOCK_LEADERBOARDS: Record<
         badgesCount: 7,
       },
       {
-        id: "usr_alex_01",
-        rank: 2,
-        name: "Alex Chen (You)",
-        avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80",
+        id: "usr_shahid_01",
+        rank: 4,
+        name: "Shahid (You)",
+        avatar: "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=150&auto=format&fit=crop&q=80",
         role: "Student",
-        score: 310,
-        streak: 5,
-        completedChallenges: 6,
-        badgesCount: 5,
+        score: 0,
+        streak: 0,
+        completedChallenges: 0,
+        badgesCount: 0,
         isCurrentUser: true,
       },
       {
@@ -449,20 +444,8 @@ export const MOCK_LEADERBOARDS: Record<
     ],
     activity: [
       {
-        id: "usr_alex_01",
-        rank: 1,
-        name: "Alex Chen (You)",
-        avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80",
-        role: "Student",
-        score: 640,
-        streak: 5,
-        completedChallenges: 6,
-        badgesCount: 5,
-        isCurrentUser: true,
-      },
-      {
         id: "usr_priya_03",
-        rank: 2,
+        rank: 1,
         name: "Priya Sharma",
         avatar: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=150&auto=format&fit=crop&q=80",
         role: "Full-Stack Dev",
@@ -471,23 +454,23 @@ export const MOCK_LEADERBOARDS: Record<
         completedChallenges: 5,
         badgesCount: 7,
       },
+      {
+        id: "usr_shahid_01",
+        rank: 2,
+        name: "Shahid (You)",
+        avatar: "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=150&auto=format&fit=crop&q=80",
+        role: "Student",
+        score: 0,
+        streak: 0,
+        completedChallenges: 0,
+        badgesCount: 0,
+        isCurrentUser: true,
+      },
     ],
     overall: [
       {
-        id: "usr_alex_01",
-        rank: 1,
-        name: "Alex Chen (You)",
-        avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80",
-        role: "Student",
-        score: 1400,
-        streak: 5,
-        completedChallenges: 6,
-        badgesCount: 5,
-        isCurrentUser: true,
-      },
-      {
         id: "usr_priya_03",
-        rank: 2,
+        rank: 1,
         name: "Priya Sharma",
         avatar: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=150&auto=format&fit=crop&q=80",
         role: "Full-Stack Dev",
@@ -495,6 +478,18 @@ export const MOCK_LEADERBOARDS: Record<
         streak: 12,
         completedChallenges: 5,
         badgesCount: 7,
+      },
+      {
+        id: "usr_shahid_01",
+        rank: 2,
+        name: "Shahid (You)",
+        avatar: "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=150&auto=format&fit=crop&q=80",
+        role: "Student",
+        score: 0,
+        streak: 0,
+        completedChallenges: 0,
+        badgesCount: 0,
+        isCurrentUser: true,
       },
     ],
   },
@@ -512,15 +507,15 @@ export const MOCK_LEADERBOARDS: Record<
         badgesCount: 7,
       },
       {
-        id: "usr_alex_01",
+        id: "usr_shahid_01",
         rank: 2,
-        name: "Alex Chen (You)",
-        avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80",
+        name: "Shahid (You)",
+        avatar: "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=150&auto=format&fit=crop&q=80",
         role: "Student",
-        score: 1680,
-        streak: 5,
-        completedChallenges: 18,
-        badgesCount: 5,
+        score: 0,
+        streak: 0,
+        completedChallenges: 0,
+        badgesCount: 0,
         isCurrentUser: true,
       },
     ],
@@ -553,15 +548,15 @@ export const MOCK_LEADERBOARDS: Record<
         badgesCount: 7,
       },
       {
-        id: "usr_alex_01",
+        id: "usr_shahid_01",
         rank: 3,
-        name: "Alex Chen (You)",
-        avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80",
+        name: "Shahid (You)",
+        avatar: "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=150&auto=format&fit=crop&q=80",
         role: "Student",
-        score: 3850,
-        streak: 5,
-        completedChallenges: 42,
-        badgesCount: 5,
+        score: 0,
+        streak: 0,
+        completedChallenges: 0,
+        badgesCount: 0,
         isCurrentUser: true,
       },
     ],
@@ -590,14 +585,10 @@ export function getPast30Days(): Array<{ date: string; dayNumber: number; isComp
     d.setDate(d.getDate() - i);
     const dateStr = getLocalDateString(d);
 
-    // Mock completion: last 5 consecutive days + selective past days
-    const isCompleted =
-      i <= 4 || i === 7 || i === 8 || i === 11 || i === 12 || i === 13 || i === 18 || i === 19 || i === 24;
-
     result.push({
       date: dateStr,
       dayNumber: d.getDate(),
-      isCompleted,
+      isCompleted: false, // 0 past activity for fresh learner
       isToday: dateStr === todayStr,
     });
   }
@@ -605,7 +596,7 @@ export function getPast30Days(): Array<{ date: string; dayNumber: number; isComp
   return result;
 }
 
-const STORAGE_KEY = "slrj_gamification_state_v2";
+const STORAGE_KEY = "slrj_gamification_state_v3";
 
 export function getStoredGamificationState(): GamificationState {
   if (typeof window === "undefined") {
@@ -640,39 +631,23 @@ export function saveGamificationState(state: GamificationState): void {
 }
 
 export function getInitialGamificationState(): GamificationState {
-  const today = getLocalDateString();
-  const completedPastDays: string[] = [];
-  const now = new Date();
-
-  // Seed last 5 active days including today
-  for (let i = 4; i >= 0; i--) {
-    const d = new Date(now);
-    d.setDate(d.getDate() - i);
-    completedPastDays.push(getLocalDateString(d));
-  }
-
   return {
     streak: {
-      currentStreak: 5,
-      longestStreak: 9,
-      lastActiveDate: today,
-      completedDays: completedPastDays,
+      currentStreak: 0,
+      longestStreak: 0,
+      lastActiveDate: "",
+      completedDays: [],
     },
     xp: {
-      lessonsXP: 350,
-      quizzesXP: 240,
-      challengesXP: 350,
-      projectsXP: 250,
-      communityXP: 60,
-      totalXP: 1250, // Level 4
+      lessonsXP: 0,
+      quizzesXP: 0,
+      challengesXP: 0,
+      projectsXP: 0,
+      communityXP: 0,
+      totalXP: 0, // Level 1 Novice
     },
     badges: DEFAULT_BADGES,
-    completedActivityIds: [
-      "lesson-python-01",
-      "lesson-js-01",
-      "challenge-palindrome",
-      "quiz-web-intro",
-    ],
+    completedActivityIds: [],
     incognitoMode: false,
     submittedChallenges: {},
   };

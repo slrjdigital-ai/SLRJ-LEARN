@@ -19,29 +19,23 @@ export default function PersonalizedLearningOverview() {
   const { user } = useAuth();
   const { state, currentLevel, nextLevel, levelProgress, xpToNextLevel } = useGamification();
 
-  // 1. Learning Streak
-  const streak = state.streak.currentStreak || 5;
-  const bestStreak = state.streak.longestStreak || 12;
+  // 1. Learning Streak (0 for fresh learner)
+  const streak = state.streak.currentStreak || 0;
+  const bestStreak = state.streak.longestStreak || 0;
 
-  // 2. XP & Level
-  const totalXP = state.xp.totalXP || 1250;
+  // 2. XP & Level (0 XP, Level 1)
+  const totalXP = state.xp.totalXP || 0;
   const levelNum = currentLevel.levelNumber;
   const levelTitle = currentLevel.title;
 
-  // 3. Weekly Goal
+  // 3. Weekly Goal (0 completed this week)
   const weeklyTarget = 10;
-  const completedThisWeek = Math.min(
-    weeklyTarget,
-    Math.max(4, (state.completedActivityIds.length % 7) + 3)
-  );
+  const completedThisWeek = state.completedActivityIds.length || 0;
   const weeklyPercent = Math.round((completedThisWeek / weeklyTarget) * 100);
 
-  // 4. Skills Progress
+  // 4. Skills Progress (0 modules mastered)
   const totalModules = 24;
-  const completedModules = Math.min(
-    totalModules,
-    Math.max(8, (user?.completedRoadmapSteps?.length || 3) * 2 + 6)
-  );
+  const completedModules = user?.completedRoadmapSteps?.length || 0;
   const skillsPercent = Math.round((completedModules / totalModules) * 100);
 
   const cards = [
@@ -49,16 +43,16 @@ export default function PersonalizedLearningOverview() {
       id: "streak",
       title: "Learning Streak",
       value: `${streak} Days`,
-      subtext: `Personal Best: ${bestStreak} days consecutive`,
+      subtext: streak > 0 ? `Personal Best: ${bestStreak} days consecutive` : "Start your daily habit today",
       icon: Flame,
       iconColor: "text-orange-500 fill-orange-500",
       bgColor: "bg-gradient-to-br from-amber-500/10 to-orange-500/5",
       borderColor: "border-amber-200/80",
-      progress: Math.min(100, Math.round((streak / bestStreak) * 100)),
+      progress: bestStreak > 0 ? Math.min(100, Math.round((streak / bestStreak) * 100)) : 0,
       progressBarColor: "bg-gradient-to-r from-amber-500 to-orange-500",
       href: "/gamification",
-      badgeText: "Habit Active",
-      badgeColor: "bg-amber-100 text-amber-800",
+      badgeText: streak > 0 ? "Habit Active" : "Day 0",
+      badgeColor: streak > 0 ? "bg-amber-100 text-amber-800" : "bg-slate-100 text-slate-600",
     },
     {
       id: "xp-level",
@@ -87,8 +81,8 @@ export default function PersonalizedLearningOverview() {
       progress: weeklyPercent,
       progressBarColor: "bg-gradient-to-r from-emerald-500 to-teal-500",
       href: "/topics",
-      badgeText: "On Track",
-      badgeColor: "bg-emerald-100 text-emerald-800",
+      badgeText: completedThisWeek > 0 ? "On Track" : "Get Started",
+      badgeColor: completedThisWeek > 0 ? "bg-emerald-100 text-emerald-800" : "bg-slate-100 text-slate-600",
     },
     {
       id: "skills-progress",
@@ -102,8 +96,8 @@ export default function PersonalizedLearningOverview() {
       progress: skillsPercent,
       progressBarColor: "bg-gradient-to-r from-purple-500 to-pink-500",
       href: "/roadmap",
-      badgeText: "Frontend Track",
-      badgeColor: "bg-purple-100 text-purple-800",
+      badgeText: completedModules > 0 ? "Frontend Track" : "Not Started",
+      badgeColor: completedModules > 0 ? "bg-purple-100 text-purple-800" : "bg-slate-100 text-slate-600",
     },
   ];
 
@@ -130,7 +124,7 @@ export default function PersonalizedLearningOverview() {
               <span className="text-xs font-semibold text-slate-500 uppercase tracking-wider block">
                 {card.title}
               </span>
-              <div className="text-2xl font-black text-slate-900 font-brand tracking-tight">
+              <div suppressHydrationWarning className="text-2xl font-black text-slate-900 font-brand tracking-tight">
                 {card.value}
               </div>
               <p className="text-xs text-slate-500 line-clamp-1">

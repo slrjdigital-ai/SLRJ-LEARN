@@ -48,31 +48,39 @@ export default function LoginClient() {
     return () => clearInterval(interval);
   }, [resendTimer]);
 
-  // If already logged in, show logged-in confirmation
-  if (user) {
+  const [switchAccount, setSwitchAccount] = useState(false);
+
+  // If already logged in and not switching, show logged-in confirmation
+  if (user && !switchAccount) {
     return (
       <div className="max-w-md mx-auto p-8 rounded-3xl bg-[#0C0E23] border border-indigo-500/25 shadow-2xl text-center">
         <div className="w-16 h-16 rounded-2xl bg-indigo-500/10 border border-indigo-500/30 flex items-center justify-center text-indigo-400 mx-auto mb-4">
           <CheckCircle2 size={32} />
         </div>
-        <h2 className="text-2xl font-bold text-white mb-2 font-brand">Already Signed In</h2>
+        <h2 className="text-2xl font-bold text-white mb-2 font-brand">Active Default Session</h2>
         <p className="text-gray-400 text-sm mb-6">
-          Logged in as <span className="text-indigo-400 font-semibold">{user.email}</span>
+          Currently signed in as <span className="text-indigo-400 font-semibold">{user.name}</span> ({user.email})
         </p>
         <div className="flex flex-col gap-3">
           <Link
             href="/"
             className="w-full py-3.5 px-4 rounded-xl font-bold text-sm text-white bg-gradient-to-r from-violet-600 via-indigo-600 to-cyan-500 hover:from-violet-500 hover:to-cyan-400 transition-all flex items-center justify-center gap-2 shadow-lg shadow-indigo-950/40"
           >
-            <span>Continue to Home Page</span>
+            <span>Continue to Learning Platform</span>
             <ArrowRight size={16} />
           </Link>
           <Link
-            href="/notes"
+            href="/dashboard"
             className="w-full py-3 px-4 rounded-xl text-sm text-gray-300 hover:text-white bg-white/5 hover:bg-white/10 border border-white/10 transition-colors text-center"
           >
-            Explore Notes
+            Go to Student Dashboard
           </Link>
+          <button
+            onClick={() => setSwitchAccount(true)}
+            className="w-full py-2.5 px-4 rounded-xl text-xs text-indigo-400 hover:text-indigo-300 hover:bg-white/5 transition-all text-center cursor-pointer"
+          >
+            Switch Account / Sign In with Another Email
+          </button>
         </div>
       </div>
     );

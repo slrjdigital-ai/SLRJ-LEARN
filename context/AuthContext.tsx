@@ -16,7 +16,22 @@ export interface User {
   downloadedPdfs: string[];
 }
 
+export const DEFAULT_USER: User = {
+  id: "usr_shahid_01",
+  name: "Shahid",
+  email: "shahid@slrjlearn.in",
+  avatar: "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=150&auto=format&fit=crop&q=80",
+  role: "student",
+  track: "Full-Stack Software Development",
+  level: "Beginner",
+  joinedDate: "October 2026",
+  bookmarkedNotes: [],
+  completedRoadmapSteps: [],
+  downloadedPdfs: [],
+};
+
 export const DEMO_USERS: Record<string, User> = {
+  "shahid@slrjlearn.in": DEFAULT_USER,
   "alex.chen@student.dev": {
     id: "usr_alex_01",
     name: "Alex Chen",
@@ -74,41 +89,38 @@ interface AuthContextType {
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
-const STORAGE_KEY = "slrj_edu_user_session";
+const STORAGE_KEY = "slrj_edu_user_session_v3";
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
-  const [user, setUser] = useState<User | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
+  const [user, setUser] = useState<User>(DEFAULT_USER);
+  const [isLoading, setIsLoading] = useState(false);
 
-  // Restore session from localStorage on mount
+  // Restore session from localStorage on mount, falling back to DEFAULT_USER
   useEffect(() => {
     try {
       const stored = localStorage.getItem(STORAGE_KEY);
       if (stored) {
         const parsed = JSON.parse(stored);
-        queueMicrotask(() => {
-          setUser(parsed);
-          setIsLoading(false);
-        });
-        return;
+        if (parsed && parsed.name) {
+          queueMicrotask(() => {
+            setUser(parsed);
+          });
+          return;
+        }
       }
+      // If no stored session, initialize with DEFAULT_USER
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(DEFAULT_USER));
     } catch (e) {
       console.error("Failed to restore user session:", e);
     }
-    queueMicrotask(() => {
-      setIsLoading(false);
-    });
   }, []);
 
   // Sync to localStorage
   const saveUserSession = (newUser: User | null) => {
-    setUser(newUser);
+    const targetUser = newUser || DEFAULT_USER;
+    setUser(targetUser);
     try {
-      if (newUser) {
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(newUser));
-      } else {
-        localStorage.removeItem(STORAGE_KEY);
-      }
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(targetUser));
     } catch (e) {
       console.error("Failed to save session:", e);
     }
@@ -230,7 +242,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   };
 
   const logout = () => {
-    saveUserSession(null);
+    // Reset to default student user so the platform always remains fully operational
+    saveUserSession(DEFAULT_USER);
   };
 
   const toggleBookmark = (noteSlug: string) => {

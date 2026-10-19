@@ -1,3 +1,6 @@
+import { Course, getCourseById } from "@/data/courses";
+import { PracticalProject, PRACTICAL_PROJECTS } from "@/data/projectsData";
+
 export interface RoadmapStep {
   id: number;
   stepNumber: number;
@@ -10,6 +13,11 @@ export interface RoadmapStep {
   difficulty: "Beginner" | "Intermediate" | "Advanced";
   keyTopics: string[];
   practicalMilestone: string;
+  learningObjectives?: string[];
+  skills?: string[];
+  recommendedOrder?: number;
+  requiredCourseIds?: string[];
+  relatedProjectIds?: string[];
   recommendedNotes?: Array<{
     title: string;
     slug: string;
@@ -18,17 +26,21 @@ export interface RoadmapStep {
 
 export interface RoadmapTrack {
   id: string;
+  slug?: string;
   name: string;
   badge: string;
   level: "Beginner" | "Intermediate" | "Advanced";
+  category: "Web Development" | "Mobile Development" | "AI & Data" | "Design" | "Cybersecurity" | string;
   description: string;
   totalStages: number;
   totalLessons: number;
   duration: string;
   icon: string;
   skills: string[];
+  prerequisites?: string[];
   gradient: string;
   accentColor: string;
+  isFeatured?: boolean;
   finalProject: {
     title: string;
     description: string;
@@ -36,148 +48,242 @@ export interface RoadmapTrack {
 }
 
 export const ROADMAP_TRACKS: RoadmapTrack[] = [
+  // 1. Full-Stack Developer (Featured)
+  {
+    id: "fullstack",
+    slug: "fullstack",
+    name: "Full-Stack Developer",
+    badge: "Featured • High Demand",
+    level: "Intermediate",
+    category: "Web Development",
+    description: "Become a complete engineer. Master both frontend interfaces and robust backend APIs, databases, authentication, testing, Git workflows, and cloud deployment.",
+    totalStages: 8,
+    totalLessons: 48,
+    duration: "6 - 8 Months (Estimated)",
+    icon: "Layers",
+    isFeatured: true,
+    skills: ["HTML5 & CSS3", "JavaScript & TypeScript", "React 19 & Next.js", "Node.js & Express", "PostgreSQL & SQL", "RESTful APIs", "Git & CI/CD", "Docker & Deployment"],
+    prerequisites: ["Basic computer literacy", "Problem-solving mindset"],
+    gradient: "from-blue-600 via-indigo-600 to-purple-600",
+    accentColor: "text-indigo-500",
+    finalProject: {
+      title: "Full-Stack Task & Productivity SaaS Application",
+      description: "Develop a complete production web application with user authentication, database CRUD operations, responsive UI, and cloud container deployment."
+    }
+  },
+  // 2. Frontend Developer
   {
     id: "frontend",
-    name: "Frontend Web Developer",
+    slug: "frontend",
+    name: "Frontend Developer",
     badge: "Most Popular",
     level: "Beginner",
-    description: "Master modern user interfaces from Internet fundamentals and semantic HTML5 to advanced JavaScript, TypeScript, and React 19.",
-    totalStages: 14,
+    category: "Web Development",
+    description: "Master modern user interfaces from Internet fundamentals and semantic HTML5 to advanced CSS layouts, responsive design, JavaScript ES6+, React, and web deployment.",
+    totalStages: 8,
     totalLessons: 42,
-    duration: "4 - 6 Months",
+    duration: "4 - 6 Months (Estimated)",
     icon: "Globe",
-    skills: ["HTML5 & Semantics", "CSS3 & Tailwind", "JavaScript (ES6+)", "TypeScript", "React 19", "Web APIs", "Git & GitHub", "Performance & A11y"],
+    skills: ["HTML5 Semantics", "CSS3 Flexbox & Grid", "Responsive Design", "JavaScript (ES6+)", "React 19", "Web APIs & Fetch", "Git & GitHub", "Performance & A11y"],
+    prerequisites: ["No prior programming experience required"],
     gradient: "from-cyan-500 via-teal-500 to-emerald-500",
-    accentColor: "text-cyan-400",
+    accentColor: "text-cyan-500",
     finalProject: {
-      title: "Production Portfolio & Interactive Web Platform",
+      title: "Interactive Developer Portfolio & Web Platform",
       description: "Build, optimize, and deploy a responsive web application with dark mode, interactive API data fetching, and lighthouse score > 95."
     }
   },
+  // 3. Backend Developer
   {
-    id: "fullstack",
-    name: "Full-Stack Developer",
-    badge: "High Demand",
+    id: "backend",
+    slug: "backend",
+    name: "Backend Developer",
+    badge: "Core Engineering",
     level: "Intermediate",
-    description: "Become a complete engineer. Build interactive React frontends, robust Node/Express backends, PostgreSQL databases, and secure APIs.",
-    totalStages: 14,
-    totalLessons: 56,
-    duration: "6 - 8 Months",
-    icon: "Layers",
-    skills: ["React & Next.js", "Node.js & Express", "TypeScript", "PostgreSQL & SQL", "REST APIs", "JWT Authentication", "Backend Security", "Docker & CI/CD"],
-    gradient: "from-blue-500 via-indigo-500 to-purple-500",
-    accentColor: "text-indigo-400",
+    category: "Web Development",
+    description: "Architect scalable backend systems: programming fundamentals, REST APIs, relational databases, user authentication, caching, automated testing, and cloud deployment.",
+    totalStages: 8,
+    totalLessons: 44,
+    duration: "5 - 7 Months (Estimated)",
+    icon: "Terminal",
+    skills: ["Python / Node.js", "RESTful API Design", "PostgreSQL & SQL", "JWT & OAuth2", "Redis Caching", "Docker & Containers", "Unit Testing", "System Architecture"],
+    prerequisites: ["Basic familiarity with programming logic"],
+    gradient: "from-slate-700 via-slate-800 to-zinc-900",
+    accentColor: "text-slate-600",
     finalProject: {
-      title: "End-to-End SaaS Web Application",
-      description: "Develop a full-stack SaaS platform with user authentication, database CRUD, payment integration, and cloud container deployment."
+      title: "Enterprise REST API & Database Service",
+      description: "Engineer a high-throughput backend microservice with authenticated endpoints, database pooling, Redis caching, and automated integration tests."
     }
   },
+  // 4. Mobile App Developer
+  {
+    id: "mobile",
+    slug: "mobile",
+    name: "Mobile App Developer",
+    badge: "Cross-Platform",
+    level: "Intermediate",
+    category: "Mobile Development",
+    description: "Build and publish cross-platform iOS and Android mobile apps using React Native, native device APIs, local storage, state management, and app store deployment.",
+    totalStages: 8,
+    totalLessons: 40,
+    duration: "4 - 6 Months (Estimated)",
+    icon: "Smartphone",
+    skills: ["React Native", "Expo SDK", "Mobile UI/UX", "Component Navigation", "Native Device APIs", "Offline Storage", "Push Notifications", "App Store Publishing"],
+    prerequisites: ["Knowledge of JavaScript and basic React principles"],
+    gradient: "from-sky-500 via-blue-500 to-indigo-500",
+    accentColor: "text-sky-500",
+    finalProject: {
+      title: "Cross-Platform Personal Finance Mobile App",
+      description: "Architect, test, and package a production-ready mobile app with offline synchronization, camera/GPS access, and app store build bundles."
+    }
+  },
+  // 5. AI / Machine Learning Engineer
+  {
+    id: "ai-ml",
+    slug: "ai-ml",
+    name: "AI / Machine Learning Engineer",
+    badge: "Cutting-Edge",
+    level: "Advanced",
+    category: "AI & Data",
+    description: "Master modern AI and machine learning engineering: Python, linear algebra, NumPy/Pandas data handling, Scikit-Learn models, deep learning, RAG pipelines, and model deployment.",
+    totalStages: 8,
+    totalLessons: 48,
+    duration: "6 - 9 Months (Estimated)",
+    icon: "Sparkles",
+    skills: ["Python for AI", "NumPy & Pandas", "Mathematics & Statistics", "Scikit-Learn", "Neural Networks", "RAG & Vector DBs", "Model Evaluation", "Model Serving"],
+    prerequisites: ["Python fundamentals and basic linear algebra"],
+    gradient: "from-purple-600 via-pink-600 to-rose-500",
+    accentColor: "text-purple-500",
+    finalProject: {
+      title: "RAG-Powered AI Knowledge & Prediction System",
+      description: "Train, evaluate, and deploy an ML model combined with modern generative AI vector embeddings and LLM orchestration."
+    }
+  },
+  // 6. Data Analyst
+  {
+    id: "data-analyst",
+    slug: "data-analyst",
+    name: "Data Analyst",
+    badge: "High Growth",
+    level: "Beginner",
+    category: "AI & Data",
+    description: "Transform raw data into strategic business insights: Excel spreadsheets, SQL queries, relational schemas, statistical analysis, interactive dashboards, and Python data visualization.",
+    totalStages: 8,
+    totalLessons: 38,
+    duration: "3 - 5 Months (Estimated)",
+    icon: "BarChart3",
+    skills: ["Advanced Excel", "SQL & Database Queries", "Python & Pandas", "Data Cleaning", "Statistical Modeling", "Power BI / Tableau", "Exploratory Data Analysis", "KPI Storytelling"],
+    prerequisites: ["Basic arithmetic and curiosity for data-driven decisions"],
+    gradient: "from-teal-500 via-emerald-500 to-cyan-500",
+    accentColor: "text-teal-500",
+    finalProject: {
+      title: "Executive Business Analytics Dashboard",
+      description: "Ingest messy business data, clean and model with SQL/Python, and deliver a live interactive executive KPI dashboard with automated reporting."
+    }
+  },
+  // 7. UI/UX Designer
+  {
+    id: "ui-ux",
+    slug: "ui-ux",
+    name: "UI/UX Designer",
+    badge: "Creative Tech",
+    level: "Beginner",
+    category: "Design",
+    description: "Design intuitive digital products: design principles, user research, wireframing, high-fidelity Figma prototyping, usability testing, design systems, and portfolio case studies.",
+    totalStages: 8,
+    totalLessons: 36,
+    duration: "3 - 5 Months (Estimated)",
+    icon: "Palette",
+    skills: ["Design Principles", "User Research", "Wireframing", "Figma Prototyping", "Usability Testing", "Design Systems & Tokens", "WCAG Accessibility", "Case Study Storytelling"],
+    prerequisites: ["Eye for visual aesthetics and empathy for users"],
+    gradient: "from-amber-500 via-orange-500 to-rose-500",
+    accentColor: "text-amber-500",
+    finalProject: {
+      title: "End-to-End Mobile & Web Design Case Study",
+      description: "Conduct comprehensive user research, build design tokens, produce clickable Figma prototypes, and document an end-to-end UX case study."
+    }
+  },
+  // 8. Cybersecurity Analyst
+  {
+    id: "cybersecurity",
+    slug: "cybersecurity",
+    name: "Cybersecurity Analyst",
+    badge: "Security Core",
+    level: "Intermediate",
+    category: "Cybersecurity",
+    description: "Defend modern networks and systems: networking fundamentals, Linux administration, threat modeling, security scripting, defensive operations, and security monitoring.",
+    totalStages: 8,
+    totalLessons: 42,
+    duration: "5 - 8 Months (Estimated)",
+    icon: "ShieldCheck",
+    skills: ["Networking Protocols", "Linux Administration", "Threat Modeling", "Bash / Python Scripting", "Defensive Security", "Security Monitoring & SIEM", "OWASP Top 10", "Incident Response"],
+    prerequisites: ["Understanding of basic operating systems and networking"],
+    gradient: "from-rose-600 via-red-600 to-orange-500",
+    accentColor: "text-rose-500",
+    finalProject: {
+      title: "Defensive Security & Threat Monitoring Lab",
+      description: "Configure network monitoring, simulate vulnerability assessments, implement firewall/iptables rules, and document an incident mitigation report."
+    }
+  },
+  // ── Supplementary Specialized Paths ──
   {
     id: "python",
+    slug: "python",
     name: "Python Developer",
     badge: "Beginner Friendly",
     level: "Beginner",
+    category: "Web Development",
     description: "Learn Python from the ground up: syntax, data structures, object-oriented programming, automated scripting, APIs, and databases.",
     totalStages: 14,
     totalLessons: 45,
-    duration: "3 - 5 Months",
+    duration: "3 - 5 Months (Estimated)",
     icon: "Code2",
-    skills: ["Python 3", "Data Structures", "OOP Architecture", "File I/O", "Exception Handling", "FastAPI / Flask", "SQLite & PostgreSQL", "PyTest"],
+    skills: ["Python 3", "Data Structures", "OOP Architecture", "File I/O", "FastAPI / Flask", "SQLite & PostgreSQL", "PyTest"],
     gradient: "from-emerald-500 via-teal-500 to-cyan-500",
     accentColor: "text-emerald-400",
     finalProject: {
       title: "Practical Python Backend & Automation Tool",
-      description: "Build an automated web scraping, API processing, and database persistence tool with unit tests and clean modular packaging."
+      description: "Build an automated web scraping, API processing, and database persistence tool with unit tests."
     }
   },
   {
     id: "java",
+    slug: "java",
     name: "Java Developer",
     badge: "Enterprise Standard",
     level: "Intermediate",
+    category: "Web Development",
     description: "Master enterprise Java programming: object-oriented patterns, Collections, Generics, Streams, JDBC database connectivity, and JUnit.",
     totalStages: 14,
     totalLessons: 48,
-    duration: "4 - 6 Months",
+    duration: "4 - 6 Months (Estimated)",
     icon: "Coffee",
-    skills: ["Core Java 21", "OOP & Design Patterns", "Collections Framework", "Java Streams & Lambdas", "Generics", "JDBC & MySQL", "JUnit 5", "Maven & Build Tools"],
+    skills: ["Core Java 21", "OOP & Design Patterns", "Collections Framework", "Java Streams", "JDBC & MySQL", "JUnit 5", "Maven"],
     gradient: "from-amber-500 via-orange-500 to-red-500",
     accentColor: "text-amber-400",
     finalProject: {
       title: "Enterprise Java Management Application",
-      description: "Build a robust Java application with relational database persistence via JDBC, multithreaded processing, and comprehensive unit tests."
-    }
-  },
-  {
-    id: "ai-ml",
-    name: "AI and Machine Learning",
-    badge: "Cutting Edge",
-    level: "Advanced",
-    description: "Journey into artificial intelligence: linear algebra, NumPy, Pandas, supervised & unsupervised models, neural networks, and LLM APIs.",
-    totalStages: 14,
-    totalLessons: 52,
-    duration: "5 - 7 Months",
-    icon: "Sparkles",
-    skills: ["Python for AI", "NumPy & Pandas", "Statistics & Probability", "Scikit-Learn", "Supervised Learning", "Deep Neural Networks", "Model Evaluation", "LLM APIs"],
-    gradient: "from-violet-500 via-purple-500 to-pink-500",
-    accentColor: "text-purple-400",
-    finalProject: {
-      title: "AI-Powered Predictive & Generative System",
-      description: "Train, evaluate, and deploy an ML model combined with modern generative AI APIs to solve real-world classification or forecasting problems."
-    }
-  },
-  {
-    id: "data-analyst",
-    name: "Data Analyst",
-    badge: "Business Focus",
-    level: "Beginner",
-    description: "Transform raw data into strategic business decisions. Master Advanced Excel, SQL queries, Python data analysis, and Power BI dashboards.",
-    totalStages: 13,
-    totalLessons: 40,
-    duration: "3 - 5 Months",
-    icon: "BarChart3",
-    skills: ["Advanced Excel", "SQL & Relational DBs", "Python & Pandas", "Data Cleaning", "Statistical Analysis", "Power BI / Tableau", "Exploratory Data Analysis", "Executive Storytelling"],
-    gradient: "from-teal-500 via-cyan-500 to-blue-500",
-    accentColor: "text-teal-400",
-    finalProject: {
-      title: "Interactive Business Analytics Dashboard",
-      description: "Ingest messy business data, clean and model with SQL/Python, and deliver a live interactive executive KPI dashboard."
-    }
-  },
-  {
-    id: "mobile",
-    name: "Mobile App Developer",
-    badge: "Cross-Platform",
-    level: "Intermediate",
-    description: "Build and publish cross-platform iOS and Android mobile apps using modern component architecture, native device APIs, and app stores.",
-    totalStages: 14,
-    totalLessons: 46,
-    duration: "4 - 6 Months",
-    icon: "Smartphone",
-    skills: ["React Native / Flutter", "Mobile UI/UX", "Component Navigation", "State Management", "Native Device APIs", "Offline Storage", "Push Notifications", "App Store & Play Store"],
-    gradient: "from-rose-500 via-pink-500 to-purple-500",
-    accentColor: "text-rose-400",
-    finalProject: {
-      title: "Cross-Platform Mobile Application",
-      description: "Architect, test, and package a production-ready mobile application with offline synchronization, camera/GPS access, and app store bundles."
+      description: "Build a robust Java application with relational database persistence via JDBC and unit tests."
     }
   },
   {
     id: "dsa",
+    slug: "dsa",
     name: "Data Structures and Algorithms",
     badge: "Core Engineering",
     level: "Intermediate",
-    description: "Master algorithmic problem solving: Big-O analysis, arrays, strings, trees, graphs, dynamic programming, and technical interview strategies.",
+    category: "AI & Data",
+    description: "Master algorithmic problem solving: Big-O analysis, arrays, strings, trees, graphs, dynamic programming, and interview strategies.",
     totalStages: 14,
     totalLessons: 48,
-    duration: "3 - 5 Months",
+    duration: "3 - 5 Months (Estimated)",
     icon: "Code2",
-    skills: ["Big-O Complexity", "Arrays & Strings", "Two Pointers & Sliding Window", "Hash Maps & Sets", "Recursion & Backtracking", "Trees & BSTs", "Graphs & BFS/DFS", "Dynamic Programming"],
+    skills: ["Big-O Complexity", "Arrays & Strings", "Hash Maps & Sets", "Recursion", "Trees & BSTs", "Graphs & BFS/DFS", "Dynamic Programming"],
     gradient: "from-blue-600 via-indigo-600 to-cyan-500",
     accentColor: "text-blue-500",
     finalProject: {
-      title: "Interactive Algorithm & Data Structure Visualizer",
-      description: "Engineer an interactive browser visualizer illustrating pathfinding (Dijkstra/A*), tree traversal, and sorting algorithms with live complexity metrics."
+      title: "Interactive Algorithm Visualizer",
+      description: "Engineer an interactive browser visualizer illustrating pathfinding and sorting algorithms."
     }
   }
 ];
@@ -1766,6 +1872,426 @@ export const ROADMAP_STEPS: RoadmapStep[] = [
     keyTopics: ["Interactive Algorithm Animation Pipeline", "Asynchronous State Visualization with Pausing/Step-Over", "Dijkstra & A* Pathfinding Grid Visualizer", "Tree & Graph Memory Representation", "Live Time & Space Complexity Profiler"],
     practicalMilestone: "Publish a responsive visualizer where learners can construct maze grids, trigger pathfinding algorithms, and inspect real-time steps.",
     recommendedNotes: [{ title: "Next.js App Router, Server Components & Layouts", slug: "nextjs-app-router-layouts" }]
+  },
+
+  // ══════════════════════════════════════════════════════════════════
+  // PATH: BACKEND DEVELOPER (8 Stages)
+  // ══════════════════════════════════════════════════════════════════
+  {
+    id: 201,
+    stepNumber: 1,
+    trackId: "backend",
+    slug: "backend-programming-fundamentals",
+    title: "1. Programming & Architecture Fundamentals",
+    category: "Core Backend",
+    summary: "Understand server execution models, asynchronous I/O, event loops, memory allocation, and clean modular code design.",
+    duration: "2 - 3 Weeks",
+    difficulty: "Beginner",
+    keyTopics: ["Server-Side Execution Environments", "Asynchronous I/O & Non-Blocking Architecture", "Command Line & Environment Variables", "Exception Handling & Defensive Programming"],
+    practicalMilestone: "Build a modular CLI utility in Node.js or Python with command arguments, file processing, and robust error logging.",
+    learningObjectives: ["Understand how backend processes execute", "Master asynchronous event loops", "Write defensive modular code"],
+    skills: ["Python / Node.js", "CLI Tools", "Event Loop", "Error Logging"],
+    requiredCourseIds: ["course-python-101", "course-js-ts-101"],
+    relatedProjectIds: ["proj-python-automation"]
+  },
+  {
+    id: 202,
+    stepNumber: 2,
+    trackId: "backend",
+    slug: "backend-web-protocols-apis",
+    title: "2. Web Protocols & RESTful API Architecture",
+    category: "APIs",
+    summary: "Master the HTTP/HTTPS protocol, REST design principles, status codes, request-response lifecycles, and API versioning.",
+    duration: "2 Weeks",
+    difficulty: "Beginner",
+    keyTopics: ["HTTP Verbs (GET, POST, PUT, PATCH, DELETE)", "HTTP Status Codes (2xx, 3xx, 4xx, 5xx)", "Headers, Content-Type, & CORS Policies", "Stateless Architecture & JSON Payloads"],
+    practicalMilestone: "Design an OpenAPI/Swagger spec and implement standard REST endpoints with strict JSON schema validation.",
+    learningObjectives: ["Understand HTTP/HTTPS protocol nuances", "Design predictable, standardized RESTful endpoints", "Configure CORS policies"],
+    skills: ["REST APIs", "HTTP Status Codes", "JSON Schemas", "CORS Configuration"],
+    requiredCourseIds: ["course-python-101"],
+    relatedProjectIds: ["proj-weather"]
+  },
+  {
+    id: 203,
+    stepNumber: 3,
+    trackId: "backend",
+    slug: "backend-frameworks-routing",
+    title: "3. Server-Side Frameworks & Middleware",
+    category: "Frameworks",
+    summary: "Build production web services with Express.js or FastAPI. Implement route handlers, middleware pipelines, and input sanitization.",
+    duration: "3 Weeks",
+    difficulty: "Intermediate",
+    keyTopics: ["Express.js / FastAPI Routing Pipelines", "Middleware Architecture (Logging, Rate Limiting, Parsing)", "Input Sanitization & Validation (Zod/Pydantic)", "Centralized Error Handling Middleware"],
+    practicalMilestone: "Develop an authenticated Code Snippet API with middleware for request logging, validation, and error trapping.",
+    learningObjectives: ["Build modular router pipelines", "Create custom middleware for logging and security", "Handle errors gracefully"],
+    skills: ["Express.js", "FastAPI", "Middleware Pipelines", "Zod Validation"],
+    requiredCourseIds: ["course-python-101"],
+    relatedProjectIds: ["proj-snippet-vault"]
+  },
+  {
+    id: 204,
+    stepNumber: 4,
+    trackId: "backend",
+    slug: "backend-databases-sql-modeling",
+    title: "4. Relational Databases & SQL Schema Design",
+    category: "Databases",
+    summary: "Design relational schemas, master PostgreSQL, write complex queries, optimize indexes, and enforce ACID transaction guarantees.",
+    duration: "3 - 4 Weeks",
+    difficulty: "Intermediate",
+    keyTopics: ["Relational Schema Normalization (1NF, 2NF, 3NF)", "Primary, Foreign & Unique Keys", "Complex JOINs, Subqueries & Aggregations", "B-Tree Indexing Strategies & EXPLAIN ANALYZE", "ACID Transactions & Connection Pooling"],
+    practicalMilestone: "Design and normalize a database schema for an e-commerce platform with connection pooling and query optimization.",
+    learningObjectives: ["Normalize database schemas up to 3NF", "Write performant SQL with JOINs and aggregations", "Index columns strategically"],
+    skills: ["PostgreSQL & SQL", "Schema Normalization", "Indexing", "Connection Pooling"],
+    requiredCourseIds: ["course-sql-101"],
+    relatedProjectIds: ["proj-data-analytics"]
+  },
+  {
+    id: 205,
+    stepNumber: 5,
+    trackId: "backend",
+    slug: "backend-auth-security",
+    title: "5. Authentication, Authorization & Security",
+    category: "Security",
+    summary: "Implement secure user registration, password hashing with bcrypt, JSON Web Tokens (JWT), refresh tokens, and role-based access control.",
+    duration: "2 - 3 Weeks",
+    difficulty: "Intermediate",
+    keyTopics: ["Password Hashing with Salt (bcrypt/argon2)", "JWT Creation, Expiration & Verification", "Refresh Token Rotation Strategies", "Role-Based Access Control (RBAC)", "Protecting Against SQL Injection & XSS"],
+    practicalMilestone: "Implement an authentication microservice with secure login, signup, JWT access/refresh tokens, and protected routes.",
+    learningObjectives: ["Hash passwords securely with bcrypt", "Implement stateless JWT authentication", "Enforce role-based access control"],
+    skills: ["JWT Authentication", "Password Hashing (bcrypt)", "RBAC Permissions", "OWASP Security"],
+    requiredCourseIds: ["course-cybersecurity-101"],
+    relatedProjectIds: ["proj-task-manager"]
+  },
+  {
+    id: 206,
+    stepNumber: 6,
+    trackId: "backend",
+    slug: "backend-caching-redis-performance",
+    title: "6. Caching, Redis & Background Queues",
+    category: "Performance",
+    summary: "Accelerate API performance using in-memory Redis caching, mitigate database query bottlenecks, and offload asynchronous background tasks.",
+    duration: "2 Weeks",
+    difficulty: "Intermediate",
+    keyTopics: ["In-Memory Data Structures with Redis", "Cache Invalidation Strategies (TTL, Write-Through, Write-Back)", "API Rate Limiting with Redis Tokens", "Background Task Queues (BullMQ / Celery)"],
+    practicalMilestone: "Add Redis caching to hot database queries and implement rate limiting on public API endpoints.",
+    learningObjectives: ["Accelerate high-frequency endpoints with Redis", "Implement token bucket rate limiting", "Offload long-running tasks to queues"],
+    skills: ["Redis Caching", "Rate Limiting", "Cache Invalidation", "Background Queues"],
+    requiredCourseIds: ["course-sql-101"],
+    relatedProjectIds: ["proj-task-manager"]
+  },
+  {
+    id: 207,
+    stepNumber: 7,
+    trackId: "backend",
+    slug: "backend-testing-ci-cd",
+    title: "7. Automated Testing, CI/CD & Code Quality",
+    category: "Quality",
+    summary: "Write unit and integration tests using Jest or PyTest, mock external services, and automate test execution with GitHub Actions.",
+    duration: "2 Weeks",
+    difficulty: "Intermediate",
+    keyTopics: ["Unit Testing vs Integration Testing", "Test Fixtures, Mocks & Stubs", "Database Transaction Rollbacks in Tests", "GitHub Actions CI Pipeline Automation"],
+    practicalMilestone: "Build a comprehensive test suite achieving > 85% code coverage with automated GitHub Actions testing on pull requests.",
+    learningObjectives: ["Write isolated unit tests with mocks", "Test database queries using integration fixtures", "Automate CI with GitHub Actions"],
+    skills: ["Unit Testing (Jest/PyTest)", "Integration Tests", "GitHub Actions CI", "Code Coverage"],
+    requiredCourseIds: ["course-python-101"],
+    relatedProjectIds: ["proj-python-automation"]
+  },
+  {
+    id: 208,
+    stepNumber: 8,
+    trackId: "backend",
+    slug: "backend-deployment-docker",
+    title: "8. Docker Containerization & Cloud Deployment",
+    category: "DevOps",
+    summary: "Containerize web services with Docker, manage multi-container apps with Docker Compose, and deploy to cloud production infrastructure.",
+    duration: "3 Weeks",
+    difficulty: "Advanced",
+    keyTopics: ["Dockerfile Multi-Stage Builds", "Docker Compose for App + Database + Redis", "Environment Secrets & Config Management", "Cloud Container Deployment & Health Checks"],
+    practicalMilestone: "Containerize a full backend service with database and cache, write a Dockerfile, and deploy live with zero-downtime restarts.",
+    learningObjectives: ["Create optimized multi-stage Docker images", "Orchestrate local services with Docker Compose", "Deploy production backend containers"],
+    skills: ["Docker Containerization", "Docker Compose", "Cloud Deployment", "Health Checks"],
+    requiredCourseIds: ["course-devops-career-101"],
+    relatedProjectIds: ["proj-snippet-vault"]
+  },
+
+  // ══════════════════════════════════════════════════════════════════
+  // PATH: UI/UX DESIGNER (8 Stages)
+  // ══════════════════════════════════════════════════════════════════
+  {
+    id: 221,
+    stepNumber: 1,
+    trackId: "ui-ux",
+    slug: "ui-ux-design-principles",
+    title: "1. Design Principles & Visual Hierarchy",
+    category: "Foundations",
+    summary: "Master typography scales, color theory, contrast ratios, spacing systems, and Gestalt principles that guide human perception.",
+    duration: "2 Weeks",
+    difficulty: "Beginner",
+    keyTopics: ["Gestalt Psychology in UI Design", "Typographic Hierarchy & Modular Scales", "Color Harmonies & 60-30-10 Rule", "8pt Spacing Grids & Visual Balance"],
+    practicalMilestone: "Design a high-contrast landing page hero section applying standard 8pt spacing and modular typography scales.",
+    learningObjectives: ["Understand human visual perception", "Construct modular typographic scales", "Apply consistent 8pt spacing grids"],
+    skills: ["Typography Scales", "Color Harmony", "Gestalt Principles", "Spacing Grids"],
+    requiredCourseIds: ["course-uiux-101"],
+    relatedProjectIds: ["proj-portfolio"]
+  },
+  {
+    id: 222,
+    stepNumber: 2,
+    trackId: "ui-ux",
+    slug: "ui-ux-user-research",
+    title: "2. User Research & Empathy Mapping",
+    category: "Research",
+    summary: "Discover real user pain points through qualitative interviews, surveys, empathy maps, and data-driven persona creation.",
+    duration: "2 Weeks",
+    difficulty: "Beginner",
+    keyTopics: ["User Interview Methodologies", "Empathy Maps & Persona Synthesis", "Problem Statements & 'How Might We' Questions", "Competitive Analysis & UX Benchmarking"],
+    practicalMilestone: "Conduct user interviews for a personal finance app and create two verified user personas with empathy maps.",
+    learningObjectives: ["Interview target users effectively", "Synthesize qualitative data into personas", "Identify core problem statements"],
+    skills: ["User Interviews", "Personas", "Empathy Maps", "Competitive Audits"],
+    requiredCourseIds: ["course-uiux-101"],
+    relatedProjectIds: ["proj-portfolio"]
+  },
+  {
+    id: 223,
+    stepNumber: 3,
+    trackId: "ui-ux",
+    slug: "ui-ux-information-architecture",
+    title: "3. Information Architecture & Wireframing",
+    category: "Architecture",
+    summary: "Organize digital information intuitively: user flows, sitemaps, low-fidelity paper sketches, and rapid digital wireframes.",
+    duration: "2 - 3 Weeks",
+    difficulty: "Beginner",
+    keyTopics: ["Sitemaps & Content Hierarchies", "User Flow Diagrams & Decision Trees", "Low-Fidelity Wireframing in Figma", "Card Sorting for Navigation Organization"],
+    practicalMilestone: "Map out the complete user flow and wireframe a multi-step checkout experience in Figma.",
+    learningObjectives: ["Structure navigation logic logically", "Map complete end-to-end user journeys", "Produce clear low-fidelity wireframes"],
+    skills: ["Information Architecture", "Sitemaps", "Wireframing", "User Flows"],
+    requiredCourseIds: ["course-uiux-101"],
+    relatedProjectIds: ["proj-task-manager"]
+  },
+  {
+    id: 224,
+    stepNumber: 4,
+    trackId: "ui-ux",
+    slug: "ui-ux-figma-prototyping",
+    title: "4. Interactive Prototyping in Figma",
+    category: "Prototyping",
+    summary: "Build high-fidelity clickable prototypes in Figma using Auto-Layout, component variants, smart animations, and interactive overlays.",
+    duration: "3 Weeks",
+    difficulty: "Intermediate",
+    keyTopics: ["Figma Auto-Layout & Responsive Constraints", "Components, Variants & Component Properties", "Interactive Clickable Prototyping", "Smart Animate Transitions & Modal Overlays"],
+    practicalMilestone: "Build an interactive, clickable mobile app prototype in Figma with tab navigation, modal sheets, and smart animations.",
+    learningObjectives: ["Master Figma auto-layout and constraints", "Build re-usable component variants", "Create realistic interactive prototypes"],
+    skills: ["Figma Auto-Layout", "Component Variants", "Smart Animate", "Interactive Overlays"],
+    requiredCourseIds: ["course-uiux-101"],
+    relatedProjectIds: ["proj-weather"]
+  },
+  {
+    id: 225,
+    stepNumber: 5,
+    trackId: "ui-ux",
+    slug: "ui-ux-design-systems-tokens",
+    title: "5. Design Systems & Semantic Tokens",
+    category: "Systems",
+    summary: "Architect scalable design systems: design tokens for colors, spacing, typography, and stateful atomic component libraries.",
+    duration: "3 Weeks",
+    difficulty: "Intermediate",
+    keyTopics: ["Atomic Design Methodology (Atoms to Templates)", "Semantic Design Tokens (Global vs Alias Tokens)", "Creating Component Libraries & Documentation", "Designing for Dark Mode and Multi-Brand Themes"],
+    practicalMilestone: "Construct a comprehensive design system UI kit in Figma with tokens, button states, inputs, and badges.",
+    learningObjectives: ["Structure design tokens semantically", "Build scalable component libraries", "Document design systems clearly"],
+    skills: ["Design Tokens", "Design Systems", "Atomic Design", "Theme Architecture"],
+    requiredCourseIds: ["course-uiux-101"],
+    relatedProjectIds: ["proj-portfolio"]
+  },
+  {
+    id: 226,
+    stepNumber: 6,
+    trackId: "ui-ux",
+    slug: "ui-ux-usability-testing-accessibility",
+    title: "6. Usability Testing & Accessibility (WCAG AAA)",
+    category: "Evaluation",
+    summary: "Validate prototypes with real users, measure completion rates, identify friction, and audit color contrast according to WCAG AAA standards.",
+    duration: "2 Weeks",
+    difficulty: "Intermediate",
+    keyTopics: ["Moderated & Unmoderated Usability Testing", "System Usability Scale (SUS) & Task Metrics", "WCAG 2.2 Color Contrast & Focus Indicators", "Designing for Screen Readers and Keyboard Accessibility"],
+    practicalMilestone: "Run usability tests with 5 participants, record feedback, and document an accessibility audit with contrast fixes.",
+    learningObjectives: ["Conduct effective usability testing sessions", "Measure task completion and friction points", "Ensure full WCAG AA/AAA compliance"],
+    skills: ["Usability Testing", "Heuristic Evaluation", "WCAG AAA Accessibility", "Accessibility Auditing"],
+    requiredCourseIds: ["course-uiux-101"],
+    relatedProjectIds: ["proj-calculator"]
+  },
+  {
+    id: 227,
+    stepNumber: 7,
+    trackId: "ui-ux",
+    slug: "ui-ux-developer-handoff",
+    title: "7. Micro-interactions & Developer Handoff",
+    category: "Handoff",
+    summary: "Design fluid micro-interactions, define animation timing curves, document responsive breakpoints, and collaborate smoothly with developers.",
+    duration: "2 Weeks",
+    difficulty: "Intermediate",
+    keyTopics: ["Micro-interaction Physics & Easing Curves", "Figma Dev Mode & Spec Handoff", "Exporting SVG Assets & CSS Properties", "Design QA & Verifying Production Builds"],
+    practicalMilestone: "Create a complete developer handoff specification sheet with CSS tokens, animation easings, and responsive breakpoint guides.",
+    learningObjectives: ["Design functional micro-interactions", "Provide accurate CSS and asset specs to engineers", "Perform thorough design QA"],
+    skills: ["Micro-interactions", "Figma Dev Mode", "Handoff Specs", "Design QA"],
+    requiredCourseIds: ["course-uiux-101", "course-web-dev-101"],
+    relatedProjectIds: ["proj-portfolio"]
+  },
+  {
+    id: 228,
+    stepNumber: 8,
+    trackId: "ui-ux",
+    slug: "ui-ux-portfolio-case-study",
+    title: "8. Design Portfolio & Case Study Publication",
+    category: "Portfolio",
+    summary: "Craft impactful UX case studies that articulate the problem, research findings, design iterations, user testing, and measurable outcomes.",
+    duration: "3 - 4 Weeks",
+    difficulty: "Advanced",
+    keyTopics: ["UX Case Study Storytelling Frameworks", "Documenting Problem vs Solution Evolution", "Visualizing Metrics, Impact & Learnings", "Publishing a High-Converting Design Portfolio"],
+    practicalMilestone: "Publish a polished digital UX portfolio website featuring 2 comprehensive case studies and interactive Figma embeds.",
+    learningObjectives: ["Structure compelling UX case studies", "Demonstrate end-to-end design thinking", "Publish a professional design portfolio"],
+    skills: ["Case Study Storytelling", "UX Writing", "Portfolio Presentation", "Impact Metrics"],
+    requiredCourseIds: ["course-uiux-101"],
+    relatedProjectIds: ["proj-portfolio"]
+  },
+
+  // ══════════════════════════════════════════════════════════════════
+  // PATH: CYBERSECURITY ANALYST (8 Stages)
+  // ══════════════════════════════════════════════════════════════════
+  {
+    id: 241,
+    stepNumber: 1,
+    trackId: "cybersecurity",
+    slug: "cybersecurity-networking-fundamentals",
+    title: "1. Computer Networking & Protocol Architecture",
+    category: "Networking",
+    summary: "Understand the OSI and TCP/IP models, packet transmission, IP addressing, DNS, DHCP, routing, and network protocol inspection.",
+    duration: "3 Weeks",
+    difficulty: "Beginner",
+    keyTopics: ["OSI 7-Layer & TCP/IP 4-Layer Models", "IPv4/IPv6 Addressing, Subnets & CIDR Notation", "TCP 3-Way Handshake vs UDP Transmission", "Wireshark Packet Capture & Protocol Inspection"],
+    practicalMilestone: "Capture and analyze network traffic in Wireshark, inspecting TCP handshakes, DNS queries, and HTTP headers.",
+    learningObjectives: ["Understand network layer interactions", "Analyze live packets with Wireshark", "Calculate subnet masks and IP ranges"],
+    skills: ["TCP/IP Protocols", "Subnetting & CIDR", "Wireshark Packet Analysis", "DNS & Routing"],
+    requiredCourseIds: ["course-cybersecurity-101"],
+    relatedProjectIds: ["proj-python-automation"]
+  },
+  {
+    id: 242,
+    stepNumber: 2,
+    trackId: "cybersecurity",
+    slug: "cybersecurity-linux-os-internals",
+    title: "2. Operating Systems Internals & Linux Administration",
+    category: "Systems",
+    summary: "Master Linux terminal commands, user permissions (chmod/chown), process isolation, systemd services, and file system security.",
+    duration: "3 Weeks",
+    difficulty: "Beginner",
+    keyTopics: ["Linux Directory Structure & Essential Commands", "User Accounts, Sudo Privileges & Permissions (rwx/octal)", "Process Management (ps, top, kill, systemctl)", "Cron Jobs, Log Files (/var/log), and Syslog"],
+    practicalMilestone: "Configure a hardened Linux server environment with strict file permissions, disabled root SSH, and scheduled log audits.",
+    learningObjectives: ["Navigate and administer Linux via CLI", "Enforce strict file and user permissions", "Inspect and parse system logs"],
+    skills: ["Linux CLI & Bash", "File Permissions", "Process Management", "Log Inspection"],
+    requiredCourseIds: ["course-cybersecurity-101"],
+    relatedProjectIds: ["proj-python-automation"]
+  },
+  {
+    id: 243,
+    stepNumber: 3,
+    trackId: "cybersecurity",
+    slug: "cybersecurity-security-fundamentals-threat-modeling",
+    title: "3. Information Security Fundamentals & Threat Modeling",
+    category: "Security Core",
+    summary: "Apply the CIA triad (Confidentiality, Integrity, Availability), STRIDE threat modeling, attack surface analysis, and defense-in-depth principles.",
+    duration: "2 Weeks",
+    difficulty: "Beginner",
+    keyTopics: ["The CIA Triad & Non-Repudiation", "STRIDE Threat Modeling Methodology", "Attack Vectors, Surfaces & Threat Actors", "Security Governance, Policies & Compliance"],
+    practicalMilestone: "Perform a STRIDE threat model on a web application architecture and document an actionable risk mitigation plan.",
+    learningObjectives: ["Apply CIA triad to architectural decisions", "Execute STRIDE threat modeling", "Identify and reduce attack surfaces"],
+    skills: ["CIA Triad", "STRIDE Threat Modeling", "Risk Assessment", "Defense-in-Depth"],
+    requiredCourseIds: ["course-cybersecurity-101"],
+    relatedProjectIds: ["proj-python-automation"]
+  },
+  {
+    id: 244,
+    stepNumber: 4,
+    trackId: "cybersecurity",
+    slug: "cybersecurity-scripting-automation",
+    title: "4. Security Scripting & Automation with Python",
+    category: "Automation",
+    summary: "Write Python and Bash automation scripts for security audits, log parsing, automated vulnerability scanning, and incident alerting.",
+    duration: "3 Weeks",
+    difficulty: "Intermediate",
+    keyTopics: ["Python Socket Programming & Port Scanners", "Automated Regex Log Parsing for Anomalies", "Bash Shell Scripts for Server Auditing", "Automated Security Alerts & Webhooks"],
+    practicalMilestone: "Build an automated Python security script that scans local open ports and parses auth logs for brute-force attempts.",
+    learningObjectives: ["Write Python scripts for security workflows", "Parse system logs automatically with regex", "Automate audit checks and alerts"],
+    skills: ["Python Scripting", "Log Parsing", "Socket Programming", "Security Automation"],
+    requiredCourseIds: ["course-python-101", "course-cybersecurity-101"],
+    relatedProjectIds: ["proj-python-automation"]
+  },
+  {
+    id: 245,
+    stepNumber: 5,
+    trackId: "cybersecurity",
+    slug: "cybersecurity-defensive-security-hardening",
+    title: "5. Defensive Security & System Hardening",
+    category: "Defense",
+    summary: "Configure firewalls (UFW/iptables), SSH key authentication, disable unnecessary ports, and implement system hardening benchmarks (CIS).",
+    duration: "3 Weeks",
+    difficulty: "Intermediate",
+    keyTopics: ["Host-Based Firewalls (UFW & iptables)", "SSH Key-Based Authentication & Port Hardening", "Fail2ban for Automated IP Banning", "CIS Security Benchmarks & Kernel Hardening"],
+    practicalMilestone: "Harden a public cloud server: configure UFW firewalls, deploy Fail2ban against SSH attacks, and audit with Lynis.",
+    learningObjectives: ["Configure firewall rules defensively", "Harden SSH and access vectors", "Deploy automated intrusion countermeasures"],
+    skills: ["UFW & Firewalls", "SSH Hardening", "Fail2ban", "System Hardening"],
+    requiredCourseIds: ["course-cybersecurity-101"],
+    relatedProjectIds: ["proj-python-automation"]
+  },
+  {
+    id: 246,
+    stepNumber: 6,
+    trackId: "cybersecurity",
+    slug: "cybersecurity-siem-monitoring",
+    title: "6. Network Security Monitoring & SIEM Analysis",
+    category: "Monitoring",
+    summary: "Collect and analyze security event logs using SIEM tools, write detection rules, and identify anomalous network behaviors.",
+    duration: "3 Weeks",
+    difficulty: "Intermediate",
+    keyTopics: ["Security Information & Event Management (SIEM)", "Centralized Log Aggregation (Elasticsearch / Wazuh)", "Creating Detection Rules for Lateral Movement", "Baseline Traffic Anomaly Detection"],
+    practicalMilestone: "Deploy an open-source monitoring agent (Wazuh or Elastic), ingest server logs, and trigger an alert on unauthorized root escalation.",
+    learningObjectives: ["Understand SIEM architecture and ingestion", "Create alerting rules for security anomalies", "Trace suspicious activities across logs"],
+    skills: ["SIEM Fundamentals", "Log Aggregation", "Detection Rules", "Anomaly Detection"],
+    requiredCourseIds: ["course-cybersecurity-101"],
+    relatedProjectIds: ["proj-data-analytics"]
+  },
+  {
+    id: 247,
+    stepNumber: 7,
+    trackId: "cybersecurity",
+    slug: "cybersecurity-web-app-security-owasp",
+    title: "7. Web Application Security & OWASP Top 10",
+    category: "AppSec",
+    summary: "Understand, identify, and mitigate critical web vulnerabilities including SQL Injection, Cross-Site Scripting (XSS), CSRF, and broken authentication.",
+    duration: "3 Weeks",
+    difficulty: "Advanced",
+    keyTopics: ["OWASP Top 10 Vulnerabilities & Mitigations", "SQL Injection (SQLi) & Parameterized Queries", "Stored & Reflected Cross-Site Scripting (XSS)", "Cross-Site Request Forgery (CSRF) & SameSite Cookies", "Content Security Policy (CSP) & Security Headers"],
+    practicalMilestone: "Audit a vulnerable test web application, exploit vulnerabilities in a safe lab, and document parameterized code fixes.",
+    learningObjectives: ["Understand how attackers exploit web flaws", "Prevent SQLi, XSS, and CSRF vulnerabilities", "Implement defense headers and CSP"],
+    skills: ["OWASP Top 10", "SQLi Remediation", "XSS Prevention", "Security Headers & CSP"],
+    requiredCourseIds: ["course-cybersecurity-101", "course-web-dev-101"],
+    relatedProjectIds: ["proj-task-manager"]
+  },
+  {
+    id: 248,
+    stepNumber: 8,
+    trackId: "cybersecurity",
+    slug: "cybersecurity-incident-response-lab",
+    title: "8. Incident Response & Hands-On Defense Lab",
+    category: "Incident Response",
+    summary: "Execute the incident response lifecycle: preparation, identification, containment, eradication, recovery, and post-incident lessons learned.",
+    duration: "3 - 4 Weeks",
+    difficulty: "Advanced",
+    keyTopics: ["NIST & SANS Incident Response Lifecycles", "Live Memory & Process Forensics", "Network Containment & Evidence Preservation", "Post-Incident Reporting & Root-Cause Remediation"],
+    practicalMilestone: "Participate in a simulated cyber breach defense lab, contain the intrusion, preserve forensic evidence, and write a formal remediation report.",
+    learningObjectives: ["Execute structured incident response steps", "Contain active compromise scenarios", "Produce professional security remediation reports"],
+    skills: ["Incident Response", "Digital Forensics", "Evidence Preservation", "Security Remediation"],
+    requiredCourseIds: ["course-cybersecurity-101"],
+    relatedProjectIds: ["proj-python-automation"]
   }
 ];
 
@@ -1788,4 +2314,101 @@ export function getAllTracks(): RoadmapTrack[] {
   return ROADMAP_TRACKS;
 }
 
+export function getTrackById(id: string): RoadmapTrack | undefined {
+  return ROADMAP_TRACKS.find((t) => t.id === id || t.slug === id);
+}
+
+export function getRequiredCoursesForStep(step: RoadmapStep): Course[] {
+  if (step.requiredCourseIds && step.requiredCourseIds.length > 0) {
+    return step.requiredCourseIds.map((id) => getCourseById(id)).filter(Boolean) as Course[];
+  }
+  const text = (step.title + " " + step.summary + " " + step.category).toLowerCase();
+  if (text.includes("html") || text.includes("css") || text.includes("web fundamental") || text.includes("dom")) {
+    const c = getCourseById("course-web-dev-101");
+    if (c) return [c];
+  }
+  if (text.includes("react") || text.includes("next.js") || text.includes("frontend framework")) {
+    const c = getCourseById("course-nextjs-101") || getCourseById("course-web-dev-101");
+    if (c) return [c];
+  }
+  if (text.includes("python") || text.includes("backend") || text.includes("api") || text.includes("fastapi")) {
+    const c = getCourseById("course-python-101");
+    if (c) return [c];
+  }
+  if (text.includes("database") || text.includes("sql") || text.includes("postgres") || text.includes("query")) {
+    const c = getCourseById("course-sql-101");
+    if (c) return [c];
+  }
+  if (text.includes("javascript") || text.includes("typescript")) {
+    const c = getCourseById("course-js-ts-101");
+    if (c) return [c];
+  }
+  if (text.includes("ai") || text.includes("machine learning") || text.includes("neural") || text.includes("rag")) {
+    const c = getCourseById("course-ai-ml-101");
+    if (c) return [c];
+  }
+  if (text.includes("mobile") || text.includes("react native") || text.includes("flutter")) {
+    const c = getCourseById("course-mobile-dev-101");
+    if (c) return [c];
+  }
+  if (text.includes("security") || text.includes("linux") || text.includes("network") || text.includes("hardening")) {
+    const c = getCourseById("course-cybersecurity-101");
+    if (c) return [c];
+  }
+  if (text.includes("design") || text.includes("figma") || text.includes("ux") || text.includes("wireframe") || text.includes("prototype")) {
+    const c = getCourseById("course-uiux-101");
+    if (c) return [c];
+  }
+  if (text.includes("git") || text.includes("docker") || text.includes("deploy") || text.includes("ci/cd")) {
+    const c = getCourseById("course-devops-career-101");
+    if (c) return [c];
+  }
+  return [];
+}
+
+export function getRelatedProjectsForStep(step: RoadmapStep): PracticalProject[] {
+  if (step.relatedProjectIds && step.relatedProjectIds.length > 0) {
+    return step.relatedProjectIds.map((id) => PRACTICAL_PROJECTS.find((p) => p.id === id)).filter(Boolean) as PracticalProject[];
+  }
+  const text = (step.title + " " + step.summary + " " + step.category).toLowerCase();
+  if (text.includes("html") || text.includes("css") || text.includes("portfolio")) {
+    const p = PRACTICAL_PROJECTS.find((p) => p.id === "proj-portfolio");
+    if (p) return [p];
+  }
+  if (text.includes("javascript") || text.includes("dom") || text.includes("api") || text.includes("weather")) {
+    const p = PRACTICAL_PROJECTS.find((p) => p.id === "proj-weather") || PRACTICAL_PROJECTS.find((p) => p.id === "proj-calculator");
+    if (p) return [p];
+  }
+  if (text.includes("react") || text.includes("task") || text.includes("crud") || text.includes("app")) {
+    const p = PRACTICAL_PROJECTS.find((p) => p.id === "proj-task-manager");
+    if (p) return [p];
+  }
+  if (text.includes("database") || text.includes("sql") || text.includes("data") || text.includes("analytics")) {
+    const p = PRACTICAL_PROJECTS.find((p) => p.id === "proj-data-analytics");
+    if (p) return [p];
+  }
+  if (text.includes("mobile") || text.includes("expense") || text.includes("native")) {
+    const p = PRACTICAL_PROJECTS.find((p) => p.id === "proj-expense-tracker");
+    if (p) return [p];
+  }
+  if (text.includes("ai") || text.includes("machine learning") || text.includes("rag")) {
+    const p = PRACTICAL_PROJECTS.find((p) => p.id === "proj-ai-study-assistant");
+    if (p) return [p];
+  }
+  if (text.includes("python") || text.includes("automation") || text.includes("script") || text.includes("security")) {
+    const p = PRACTICAL_PROJECTS.find((p) => p.id === "proj-python-automation");
+    if (p) return [p];
+  }
+  if (text.includes("backend") || text.includes("snippet") || text.includes("service")) {
+    const p = PRACTICAL_PROJECTS.find((p) => p.id === "proj-snippet-vault");
+    if (p) return [p];
+  }
+  if (text.includes("full-stack") || text.includes("ecommerce") || text.includes("deployment")) {
+    const p = PRACTICAL_PROJECTS.find((p) => p.id === "proj-ecommerce") || PRACTICAL_PROJECTS.find((p) => p.id === "proj-task-manager");
+    if (p) return [p];
+  }
+  return [];
+}
+
 export const ROADMAP_STAGES = ROADMAP_STEPS;
+

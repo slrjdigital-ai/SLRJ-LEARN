@@ -74,7 +74,6 @@ export default function Footer() {
       links: [
         { name: "All Courses", href: "/courses" },
         { name: "Career Roadmaps (8 Tracks)", href: "/roadmap" },
-        { name: "Downloadable PDF Handbooks", href: "/pdfs" },
         { name: "Practical Projects", href: "/projects" },
         { name: "Coding Playground", href: "/practice" },
       ],
@@ -259,15 +258,15 @@ export default function Footer() {
           <div className="lg:col-span-7 grid grid-cols-2 sm:grid-cols-3 gap-8 sm:gap-10">
             {navSections.map((section, idx) => (
               <div key={idx}>
-                <h4 className="text-[#12316B] font-extrabold text-xs tracking-wider uppercase mb-4">
+                <h4 className="text-[#12316B] font-extrabold text-sm tracking-wider uppercase mb-4">
                   {section.title}
                 </h4>
-                <ul className="space-y-2.5">
+                <ul className="space-y-3">
                   {section.links.map((link, lIdx) => (
                     <li key={lIdx}>
                       <Link
                         href={link.href}
-                        className="text-[#64748B] hover:text-[#12316B] hover:translate-x-1 transition-all duration-200 text-xs sm:text-sm block"
+                        className="text-slate-600 hover:text-[#12316B] font-medium hover:translate-x-1 transition-all duration-200 text-sm block"
                       >
                         {link.name}
                       </Link>

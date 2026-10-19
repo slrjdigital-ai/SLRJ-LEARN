@@ -1,5 +1,6 @@
 "use client";
 
+import { Suspense } from "react";
 import Link from "next/link";
 import CodePlayground from "@/components/playground/CodePlayground";
 import { DAILY_CHALLENGES } from "@/data/community";
@@ -39,9 +40,9 @@ export default function PracticeClient() {
       </div>
 
       {/* The Code Playground */}
-      <div>
+      <Suspense fallback={<div className="p-8 text-center text-slate-400">Loading Code Playground...</div>}>
         <CodePlayground />
-      </div>
+      </Suspense>
 
       {/* Daily Coding Challenges Section */}
       <div className="pt-6 border-t border-slate-200">

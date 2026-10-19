@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { ROADMAP_TRACKS, ROADMAP_STEPS } from "@/data/roadmap";
-import LearningPathDetailView from "@/components/learning-paths/LearningPathDetailView";
+import RoadmapDetailsView from "@/components/roadmap/RoadmapDetailsView";
 
 interface LearningPathPageProps {
   params: Promise<{ trackId: string }>;
@@ -19,15 +19,15 @@ export async function generateMetadata({ params }: LearningPathPageProps): Promi
 
   if (!track) {
     return {
-      title: "Learning Path Not Found | SLRJ Learn",
+      title: "Career Roadmap Not Found | SLRJ Learn",
     };
   }
 
   return {
-    title: `${track.name} Learning Path | SLRJ Learn`,
+    title: `${track.name} Career Roadmap | SLRJ Learn`,
     description: track.description,
     openGraph: {
-      title: `${track.name} Curriculum | SLRJ Learn`,
+      title: `${track.name} Curriculum & Stages | SLRJ Learn`,
       description: track.description,
     },
   };
@@ -43,5 +43,5 @@ export default async function LearningPathDetailPage({ params }: LearningPathPag
 
   const steps = ROADMAP_STEPS.filter((s) => s.trackId === track.id);
 
-  return <LearningPathDetailView track={track} steps={steps} />;
+  return <RoadmapDetailsView track={track} steps={steps} />;
 }

@@ -3,9 +3,10 @@
 import { useState } from "react";
 import Link from "next/link";
 import { COURSES_DATA } from "@/data/courses";
-import { PDF_RESOURCES } from "@/data/pdfs";
 import { COURSE_ASSESSMENTS } from "@/data/assessments";
-import { getAllCertificates, revokeCertificate } from "@/data/certificatesStore";
+import { getAllCertificates, revokeCertificate, issueCertificate, CertificateCategory } from "@/data/certificatesStore";
+import { PRACTICAL_PROJECTS } from "@/data/projectsData";
+import { EVENTS_CATALOG } from "@/data/eventsData";
 import { useAuth } from "@/context/AuthContext";
 import {
   ShieldCheck,
@@ -25,12 +26,15 @@ import {
   Layers,
   Settings,
   TrendingUp,
+  FolderGit2,
+  Trophy,
+  Calendar,
 } from "lucide-react";
 
 export default function AdminDashboardPage() {
   const { user } = useAuth();
   const [activeTab, setActiveTab] = useState<
-    "overview" | "courses" | "pdfs" | "assessments" | "certificates" | "learners"
+    "overview" | "courses" | "projects" | "events" | "pdfs" | "assessments" | "certificates" | "learners"
   >("overview");
 
   // Admin access gate (default demo authorized for platform admins)
@@ -42,6 +46,15 @@ export default function AdminDashboardPage() {
   const [selectedCertToRevoke, setSelectedCertToRevoke] = useState<string | null>(null);
   const [revokeReason, setRevokeReason] = useState("");
 
+  // Issue Certificate state
+  const [isIssueModalOpen, setIsIssueModalOpen] = useState(false);
+  const [newCertLearnerName, setNewCertLearnerName] = useState("");
+  const [newCertCategory, setNewCertCategory] = useState<CertificateCategory>("Course");
+  const [newCertTitle, setNewCertTitle] = useState("Certificate of Completion");
+  const [newCertSourceTitle, setNewCertSourceTitle] = useState("");
+  const [newCertScore, setNewCertScore] = useState(100);
+  const [newCertSkills, setNewCertSkills] = useState("");
+
   const handleRevoke = (certId: string) => {
     if (!revokeReason.trim()) return;
     revokeCertificate(certId, revokeReason);
@@ -50,10 +63,41 @@ export default function AdminDashboardPage() {
     setRevokeReason("");
   };
 
+  const handleIssueCertificate = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!newCertLearnerName.trim() || !newCertSourceTitle.trim()) return;
+
+    issueCertificate({
+      learnerName: newCertLearnerName.trim(),
+      title: newCertTitle.trim() || "Certificate of Completion",
+      category: newCertCategory,
+      sourceType:
+        newCertCategory === "Roadmap"
+          ? "roadmap"
+          : newCertCategory === "Project"
+          ? "project"
+          : newCertCategory === "Event"
+          ? "event"
+          : "course",
+      sourceId: `admin-issued-${Date.now()}`,
+      sourceTitle: newCertSourceTitle.trim(),
+      scorePercentage: Number(newCertScore) || 100,
+      skillsGained: newCertSkills
+        .split(",")
+        .map((s) => s.trim())
+        .filter(Boolean),
+    });
+
+    setCertificates(getAllCertificates());
+    setIsIssueModalOpen(false);
+    setNewCertLearnerName("");
+    setNewCertSourceTitle("");
+    setNewCertSkills("");
+  };
+
   const stats = {
     totalLearners: 2480,
     publishedCourses: COURSES_DATA.length,
-    pdfHandbooks: PDF_RESOURCES.length,
     certificatesIssued: certificates.length,
     passRate: 86,
   };
@@ -71,7 +115,7 @@ export default function AdminDashboardPage() {
             Administrator Console
           </h1>
           <p className="text-xs sm:text-sm text-blue-100">
-            Protected management of courses, PDF assets, server-side assessments, and issued certificates.
+            Protected management of courses, curriculum modules, server-side assessments, and issued certificates.
           </p>
         </div>
 
@@ -87,7 +131,8 @@ export default function AdminDashboardPage() {
         {[
           { id: "overview", label: "Overview Metrics", icon: TrendingUp },
           { id: "courses", label: `Courses (${COURSES_DATA.length})`, icon: BookOpen },
-          { id: "pdfs", label: `PDF Handbooks (${PDF_RESOURCES.length})`, icon: FileText },
+          { id: "projects", label: `Projects (${PRACTICAL_PROJECTS.length})`, icon: FolderGit2 },
+          { id: "events", label: `Events (${EVENTS_CATALOG.length})`, icon: Trophy },
           { id: "assessments", label: "Assessments (6)", icon: CheckCircle2 },
           { id: "certificates", label: `Certificates (${certificates.length})`, icon: Award },
           { id: "learners", label: "Learners & Enrolments", icon: Users },
@@ -130,9 +175,9 @@ export default function AdminDashboardPage() {
             </div>
 
             <div className="clean-card p-5 space-y-1">
-              <span className="text-xs font-bold text-[#64748B]">PDF Handbooks</span>
-              <div className="text-2xl font-black text-[#182230]">{stats.pdfHandbooks}</div>
-              <span className="text-[10px] text-slate-500 font-semibold">In public/pdfs/</span>
+              <span className="text-xs font-bold text-[#64748B]">Curriculum Modules</span>
+              <div className="text-2xl font-black text-[#182230]">24</div>
+              <span className="text-[10px] text-slate-500 font-semibold">Active Stages</span>
             </div>
 
             <div className="clean-card p-5 space-y-1">
@@ -223,46 +268,79 @@ export default function AdminDashboardPage() {
         </div>
       )}
 
+
       {/* ══════════════════════════════════════════════════════════════
-          3. PDF HANDBOOKS TAB
+          PROJECTS & PORTFOLIO MANAGEMENT TAB
          ══════════════════════════════════════════════════════════════ */}
-      {activeTab === "pdfs" && (
-        <div className="clean-card overflow-hidden">
-          <div className="p-5 border-b border-[#E2E8F0]">
-            <h3 className="font-extrabold text-sm text-[#182230]">Digital PDF Handbooks</h3>
-            <p className="text-xs text-[#64748B]">
-              17 curated handwritten & structured PDF guides deployed in public/pdfs/.
-            </p>
+      {activeTab === "projects" && (
+        <div className="clean-card overflow-hidden space-y-4">
+          <div className="p-5 border-b border-[#E2E8F0] flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+            <div>
+              <h3 className="font-extrabold text-sm text-[#182230]">
+                Practical Engineering Projects & Portfolio Catalog ({PRACTICAL_PROJECTS.length})
+              </h3>
+              <p className="text-xs text-[#64748B]">
+                Official catalog projects mapped across all 8 career roadmaps with structured milestones.
+              </p>
+            </div>
+            <Link
+              href="/projects"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#12316B] text-white text-xs font-semibold hover:bg-blue-800 transition-colors"
+            >
+              <span>View Public Catalog</span>
+              <ExternalLink size={12} />
+            </Link>
           </div>
 
           <div className="overflow-x-auto">
-            <table className="w-full text-left text-xs">
-              <thead className="bg-[#F7F9FC] text-[#64748B] uppercase font-bold text-[10px] border-b border-[#E2E8F0]">
-                <tr>
-                  <th className="p-4">Handbook Title</th>
-                  <th className="p-4">File Name</th>
-                  <th className="p-4">Size</th>
+            <table className="w-full text-left border-collapse text-xs">
+              <thead>
+                <tr className="bg-[#F7F9FC] border-b border-[#E2E8F0] text-[#64748B] font-bold">
+                  <th className="p-4">Project Title</th>
                   <th className="p-4">Category</th>
-                  <th className="p-4 text-right">Download</th>
+                  <th className="p-4">Difficulty</th>
+                  <th className="p-4">Roadmap Link</th>
+                  <th className="p-4">Effort</th>
+                  <th className="p-4">Status</th>
+                  <th className="p-4 text-right">Actions</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-[#E2E8F0]">
-                {PDF_RESOURCES.map((pdf) => (
-                  <tr key={pdf.id} className="hover:bg-slate-50/70 transition-colors">
-                    <td className="p-4 font-bold text-[#182230] max-w-sm truncate">
-                      {pdf.title}
+                {PRACTICAL_PROJECTS.map((proj) => (
+                  <tr key={proj.id} className="hover:bg-slate-50 transition-colors">
+                    <td className="p-4 font-bold text-[#182230]">
+                      <div>{proj.title}</div>
+                      <div className="text-[11px] font-normal text-slate-400 truncate max-w-xs">{proj.slug}</div>
                     </td>
-                    <td className="p-4 font-mono text-[11px] text-[#64748B]">{pdf.filename}</td>
-                    <td className="p-4 font-mono text-[11px] text-[#12316B]">{pdf.fileSize}</td>
-                    <td className="p-4 text-[#64748B]">{pdf.category}</td>
+                    <td className="p-4 text-[#64748B]">
+                      <span className="px-2 py-0.5 rounded bg-blue-50 text-[#12316B] font-medium text-[11px]">
+                        {proj.category}
+                      </span>
+                    </td>
+                    <td className="p-4">
+                      <span className="px-2 py-0.5 rounded text-[11px] font-bold bg-slate-100 text-slate-700">
+                        {proj.difficulty}
+                      </span>
+                    </td>
+                    <td className="p-4 text-[#64748B] capitalize">
+                      {proj.roadmapIds.join(", ")}
+                    </td>
+                    <td className="p-4 text-[#64748B] font-medium">
+                      {proj.estimatedTime}
+                    </td>
+                    <td className="p-4">
+                      <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-50 text-[#16865C] border border-emerald-200">
+                        Published
+                      </span>
+                    </td>
                     <td className="p-4 text-right">
-                      <a
-                        href={pdf.fileUrl}
-                        download
+                      <Link
+                        href={`/projects/${proj.slug}`}
                         className="inline-flex items-center gap-1 text-xs font-bold text-[#12316B] hover:underline"
                       >
-                        <span>Download</span>
-                      </a>
+                        <Eye size={13} />
+                        <span>Workspace</span>
+                      </Link>
                     </td>
                   </tr>
                 ))}
@@ -273,7 +351,87 @@ export default function AdminDashboardPage() {
       )}
 
       {/* ══════════════════════════════════════════════════════════════
-          4. ASSESSMENTS TAB
+          4. EVENTS & CHALLENGES MANAGEMENT TAB
+         ══════════════════════════════════════════════════════════════ */}
+      {activeTab === "events" && (
+        <div className="clean-card overflow-hidden space-y-4">
+          <div className="p-5 border-b border-[#E2E8F0] flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+            <div>
+              <h3 className="font-extrabold text-sm text-[#182230]">
+                Events, Competitions & Hackathons Catalog
+              </h3>
+              <p className="text-xs text-[#64748B]">
+                Manage registrations, configure challenge rules, and review submitted deliverables.
+              </p>
+            </div>
+
+            <Link
+              href="/events"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#12316B] text-white text-xs font-bold"
+            >
+              <span>View Public Hub</span>
+              <ExternalLink size={12} />
+            </Link>
+          </div>
+
+          <div className="overflow-x-auto">
+            <table className="w-full text-left border-collapse text-xs">
+              <thead>
+                <tr className="bg-[#F7F9FC] border-b border-[#E2E8F0] text-[#64748B] font-bold">
+                  <th className="p-4">Event Title</th>
+                  <th className="p-4">Category</th>
+                  <th className="p-4">Format</th>
+                  <th className="p-4">Registrations</th>
+                  <th className="p-4">Registration Closes</th>
+                  <th className="p-4">Status</th>
+                  <th className="p-4 text-right">Actions</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-[#E2E8F0]">
+                {EVENTS_CATALOG.map((evt) => (
+                  <tr key={evt.id} className="hover:bg-slate-50 transition-colors">
+                    <td className="p-4 font-bold text-[#182230]">
+                      <div>{evt.title}</div>
+                      <div className="text-[11px] font-normal text-slate-400 truncate max-w-xs">{evt.slug}</div>
+                    </td>
+                    <td className="p-4">
+                      <span className="px-2 py-0.5 rounded bg-blue-50 text-[#12316B] font-medium text-[11px]">
+                        {evt.category}
+                      </span>
+                    </td>
+                    <td className="p-4 text-[#64748B]">
+                      {evt.format}
+                    </td>
+                    <td className="p-4 font-semibold text-slate-700">
+                      {evt.registeredCount} {evt.capacity > 0 ? `/ ${evt.capacity}` : "registered"}
+                    </td>
+                    <td className="p-4 text-[#64748B]">
+                      {new Date(evt.registrationClosesAt).toLocaleDateString()}
+                    </td>
+                    <td className="p-4">
+                      <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-50 text-[#16865C] border border-emerald-200">
+                        {evt.status}
+                      </span>
+                    </td>
+                    <td className="p-4 text-right">
+                      <Link
+                        href={`/events/${evt.slug}`}
+                        className="inline-flex items-center gap-1 text-xs font-bold text-[#12316B] hover:underline"
+                      >
+                        <Eye size={13} />
+                        <span>Inspect</span>
+                      </Link>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      )}
+
+      {/* ══════════════════════════════════════════════════════════════
+          5. ASSESSMENTS TAB
          ══════════════════════════════════════════════════════════════ */}
       {activeTab === "assessments" && (
         <div className="clean-card overflow-hidden">
@@ -315,11 +473,20 @@ export default function AdminDashboardPage() {
       {activeTab === "certificates" && (
         <div className="space-y-6">
           <div className="clean-card overflow-hidden">
-            <div className="p-5 border-b border-[#E2E8F0] flex items-center justify-between">
+            <div className="p-5 border-b border-[#E2E8F0] flex flex-col sm:flex-row sm:items-center justify-between gap-3">
               <div>
                 <h3 className="font-extrabold text-sm text-[#182230]">Issued Certificates Registry</h3>
-                <p className="text-xs text-[#64748B]">Permanent audit trail of all issued and revoked certificates.</p>
+                <p className="text-xs text-[#64748B]">Permanent audit trail of all issued and revoked credentials across courses, roadmaps, projects, and hackathons.</p>
               </div>
+
+              <button
+                type="button"
+                onClick={() => setIsIssueModalOpen(true)}
+                className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-[#12316B] hover:bg-[#2456A6] text-white text-xs font-bold transition-colors cursor-pointer self-start sm:self-auto shadow-2xs"
+              >
+                <Plus size={14} />
+                <span>Issue Certificate</span>
+              </button>
             </div>
 
             <div className="overflow-x-auto">
@@ -328,7 +495,8 @@ export default function AdminDashboardPage() {
                   <tr>
                     <th className="p-4">Certificate ID</th>
                     <th className="p-4">Learner Name</th>
-                    <th className="p-4">Course</th>
+                    <th className="p-4">Category</th>
+                    <th className="p-4">Activity / Program</th>
                     <th className="p-4">Issue Date</th>
                     <th className="p-4">Score</th>
                     <th className="p-4">Status</th>
@@ -340,9 +508,18 @@ export default function AdminDashboardPage() {
                     <tr key={cert.id} className="hover:bg-slate-50/70 transition-colors">
                       <td className="p-4 font-mono font-bold text-[#12316B]">{cert.id}</td>
                       <td className="p-4 font-semibold text-[#182230]">{cert.learnerName}</td>
-                      <td className="p-4 text-[#64748B] max-w-xs truncate">{cert.courseTitle}</td>
+                      <td className="p-4">
+                        <span className="px-2 py-0.5 rounded text-[10px] font-bold uppercase bg-blue-50 text-[#12316B] border border-blue-200">
+                          {cert.category}
+                        </span>
+                      </td>
+                      <td className="p-4 text-[#64748B] max-w-xs truncate">
+                        {cert.sourceTitle || (cert as any).courseTitle || cert.title}
+                      </td>
                       <td className="p-4 text-[#64748B]">{cert.issueDate}</td>
-                      <td className="p-4 font-bold text-[#182230]">{cert.scorePercentage}%</td>
+                      <td className="p-4 font-bold text-[#182230]">
+                        {cert.scorePercentage !== undefined ? `${cert.scorePercentage}%` : "100%"}
+                      </td>
                       <td className="p-4">
                         <span
                           className={`px-2 py-0.5 rounded text-[10px] font-bold uppercase ${
@@ -365,6 +542,7 @@ export default function AdminDashboardPage() {
 
                         {cert.status === "valid" && (
                           <button
+                            type="button"
                             onClick={() => setSelectedCertToRevoke(cert.id)}
                             className="inline-flex items-center gap-1 text-xs font-bold text-[#C83C4A] hover:underline cursor-pointer ml-3"
                           >
@@ -379,6 +557,127 @@ export default function AdminDashboardPage() {
               </table>
             </div>
           </div>
+
+          {/* Issue New Certificate Modal */}
+          {isIssueModalOpen && (
+            <div className="fixed inset-0 z-50 bg-slate-900/50 backdrop-blur-xs flex items-center justify-center p-4">
+              <div className="bg-white rounded-2xl p-6 max-w-lg w-full space-y-4 shadow-2xl border border-[#E2E8F0]">
+                <div className="flex items-center justify-between border-b border-slate-100 pb-3">
+                  <div className="flex items-center gap-2">
+                    <Award className="text-[#12316B]" size={20} />
+                    <h3 className="font-extrabold text-base text-[#182230]">
+                      Issue Verified Certificate
+                    </h3>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => setIsIssueModalOpen(false)}
+                    className="text-slate-400 hover:text-slate-600 text-sm font-bold"
+                  >
+                    ✕
+                  </button>
+                </div>
+
+                <form onSubmit={handleIssueCertificate} className="space-y-3 text-xs">
+                  <div>
+                    <label className="font-bold text-[#182230] block mb-1">Learner Full Name</label>
+                    <input
+                      type="text"
+                      required
+                      value={newCertLearnerName}
+                      onChange={(e) => setNewCertLearnerName(e.target.value)}
+                      placeholder="e.g. Shahid"
+                      className="w-full p-2.5 rounded-xl bg-[#F7F9FC] border border-[#E2E8F0] text-slate-800 focus:outline-none focus:border-[#12316B]"
+                    />
+                  </div>
+
+                  <div className="grid grid-cols-2 gap-3">
+                    <div>
+                      <label className="font-bold text-[#182230] block mb-1">Credential Category</label>
+                      <select
+                        value={newCertCategory}
+                        onChange={(e) => setNewCertCategory(e.target.value as CertificateCategory)}
+                        className="w-full p-2.5 rounded-xl bg-[#F7F9FC] border border-[#E2E8F0] text-slate-800 focus:outline-none focus:border-[#12316B]"
+                      >
+                        <option value="Course">Course</option>
+                        <option value="Roadmap">Roadmap</option>
+                        <option value="Project">Project</option>
+                        <option value="Event">Event / Hackathon</option>
+                        <option value="Special">Special Achievement</option>
+                      </select>
+                    </div>
+
+                    <div>
+                      <label className="font-bold text-[#182230] block mb-1">Assessment Score (%)</label>
+                      <input
+                        type="number"
+                        min="70"
+                        max="100"
+                        value={newCertScore}
+                        onChange={(e) => setNewCertScore(Number(e.target.value))}
+                        className="w-full p-2.5 rounded-xl bg-[#F7F9FC] border border-[#E2E8F0] text-slate-800 focus:outline-none focus:border-[#12316B]"
+                      />
+                    </div>
+                  </div>
+
+                  <div>
+                    <label className="font-bold text-[#182230] block mb-1">Certificate Title</label>
+                    <input
+                      type="text"
+                      required
+                      value={newCertTitle}
+                      onChange={(e) => setNewCertTitle(e.target.value)}
+                      placeholder="e.g. Certificate of Special Achievement"
+                      className="w-full p-2.5 rounded-xl bg-[#F7F9FC] border border-[#E2E8F0] text-slate-800 focus:outline-none focus:border-[#12316B]"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="font-bold text-[#182230] block mb-1">
+                      Associated Course, Roadmap, or Event Title
+                    </label>
+                    <input
+                      type="text"
+                      required
+                      value={newCertSourceTitle}
+                      onChange={(e) => setNewCertSourceTitle(e.target.value)}
+                      placeholder="e.g. Full-Stack Web Development Mastery"
+                      className="w-full p-2.5 rounded-xl bg-[#F7F9FC] border border-[#E2E8F0] text-slate-800 focus:outline-none focus:border-[#12316B]"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="font-bold text-[#182230] block mb-1">
+                      Skills Gained (comma-separated)
+                    </label>
+                    <input
+                      type="text"
+                      value={newCertSkills}
+                      onChange={(e) => setNewCertSkills(e.target.value)}
+                      placeholder="e.g. Next.js, TypeScript, PostgreSQL, REST APIs"
+                      className="w-full p-2.5 rounded-xl bg-[#F7F9FC] border border-[#E2E8F0] text-slate-800 focus:outline-none focus:border-[#12316B]"
+                    />
+                  </div>
+
+                  <div className="flex items-center justify-end gap-2 pt-3 border-t border-slate-100">
+                    <button
+                      type="button"
+                      onClick={() => setIsIssueModalOpen(false)}
+                      className="px-4 py-2 rounded-xl text-slate-600 font-bold hover:bg-slate-100 cursor-pointer"
+                    >
+                      Cancel
+                    </button>
+                    <button
+                      type="submit"
+                      className="px-4 py-2 rounded-xl bg-[#12316B] hover:bg-[#2456A6] text-white font-bold cursor-pointer"
+                    >
+                      Issue & Register
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          )}
 
           {/* Revoke Confirmation Modal */}
           {selectedCertToRevoke && (
@@ -408,12 +707,14 @@ export default function AdminDashboardPage() {
 
                 <div className="flex items-center justify-end gap-2 pt-2">
                   <button
+                    type="button"
                     onClick={() => setSelectedCertToRevoke(null)}
                     className="px-4 py-2 rounded-xl text-xs font-bold text-[#64748B] hover:bg-slate-100"
                   >
                     Cancel
                   </button>
                   <button
+                    type="button"
                     onClick={() => handleRevoke(selectedCertToRevoke)}
                     disabled={!revokeReason.trim()}
                     className="px-4 py-2 rounded-xl bg-[#C83C4A] text-white text-xs font-bold hover:bg-rose-700 disabled:opacity-50"

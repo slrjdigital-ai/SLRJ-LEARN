@@ -11,9 +11,9 @@
 @layer base {
   :root {
     --background: #F7F9FC;
-    --foreground: #182230;
+    --foreground: #0f172a;
     --card: #FFFFFF;
-    --card-foreground: #182230;
+    --card-foreground: #0f172a;
     --primary: #12316B;
     --primary-foreground: #FFFFFF;
     --secondary: #2456A6;
@@ -21,8 +21,8 @@
     --accent: #18B6D2;
     --accent-foreground: #12316B;
     --muted: #F1F5F9;
-    --muted-foreground: #64748B;
-    --border: #E2E8F0;
+    --muted-foreground: #334155;
+    --border: #CBD5E1;
     --success: #16865C;
     --error: #C83C4A;
   }
@@ -38,8 +38,13 @@
     overflow-x: hidden;
     max-width: 100vw;
     background-color: #F7F9FC;
-    color: #182230;
+    color: #0f172a;
+    font-size: 0.9375rem; /* 15px - optimal medium readable baseline */
+    line-height: 1.6;
     font-family: var(--font-geist-sans), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
     @apply selection:bg-[#18B6D2]/20 selection:text-[#12316B];
   }
 }
@@ -63,7 +68,7 @@
     border-color: #cbd5e1;
   }
 
-  /* SLRJ Brand Color Tokens */
+  /* SLRJ Brand Color Tokens with High Contrast Text */
   .bg-slrj-navy { background-color: #12316B; }
   .text-slrj-navy { color: #12316B; }
   .border-slrj-navy { border-color: #12316B; }
@@ -77,9 +82,9 @@
   .border-slrj-cyan { border-color: #18B6D2; }
 
   .bg-slrj-bg { background-color: #F7F9FC; }
-  .border-slrj-border { border-color: #E2E8F0; }
-  .text-slrj-text { color: #182230; }
-  .text-slrj-muted { color: #64748B; }
+  .border-slrj-border { border-color: #CBD5E1; }
+  .text-slrj-text { color: #0f172a; }
+  .text-slrj-muted { color: #334155; }
 
   /* Hide scrollbars cleanly */
   .no-scrollbar::-webkit-scrollbar {

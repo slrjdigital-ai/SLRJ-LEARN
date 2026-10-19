@@ -3,8 +3,9 @@
 import { useState, useEffect, useMemo } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { Course, CourseModule, Lesson } from "@/data/courses";
+import { Course, CourseModule, Lesson, PdfLesson } from "@/data/courses";
 import { useGamification } from "@/context/GamificationContext";
+import PdfReaderModal from "@/components/courses/PdfReaderModal";
 import {
   CheckCircle2,
   Circle,
@@ -49,19 +50,9 @@ export default function PdfLessonPlayer({ course, initialLessonId }: PdfLessonPl
   const [mobileSidebarOpen, setMobileSidebarOpen] = useState(false);
   const [curriculumSearch, setCurriculumSearch] = useState("");
 
-  // Find associated PDF handbook
-  const associatedPdf = useMemo(() => {
-    if (course.category === "Web Development") {
-      return { title: "HTML5 & Web Fundamentals Handbook", url: "/pdfs/html5-complete-notes.pdf", size: "4.8 MB" };
-    } else if (course.category === "Data Structures and Algorithms") {
-      return { title: "DSA Complete Handbook", url: "/pdfs/dsa-complete-handbook.pdf", size: "5.5 KB" };
-    } else if (course.category === "Python Programming") {
-      return { title: "Python & AI Essentials Guide", url: "/pdfs/python-ai-essentials.pdf", size: "5.5 KB" };
-    } else if (course.category === "SQL and Databases") {
-      return { title: "DBMS & SQL Cheatsheet", url: "/pdfs/dbms-sql-cheatsheet.pdf", size: "5.4 KB" };
-    }
-    return { title: "Modern JavaScript & Architecture Guide", url: "/pdfs/javascript-modern-guide.pdf", size: "5.7 KB" };
-  }, [course]);
+  // PDF Reader Modal state
+  const [selectedPdfLesson, setSelectedPdfLesson] = useState<PdfLesson | null>(null);
+  const [isPdfModalOpen, setIsPdfModalOpen] = useState(false);
 
   // Expanded modules state
   const [expandedModules, setExpandedModules] = useState<Record<string, boolean>>({
@@ -249,29 +240,29 @@ export default function PdfLessonPlayer({ course, initialLessonId }: PdfLessonPl
           {/* Sidebar Top: Search & Header */}
           <div className="p-4 border-b border-[#E2E8F0] space-y-3">
             <div className="flex items-center justify-between">
-              <h2 className="font-extrabold text-xs text-[#12316B] uppercase tracking-wider flex items-center gap-1.5">
-                <BookOpen size={14} className="text-[#18B6D2]" />
+              <h2 className="font-extrabold text-sm text-[#12316B] uppercase tracking-wider flex items-center gap-2">
+                <BookOpen size={16} className="text-[#18B6D2]" />
                 <span>Course Modules</span>
               </h2>
-              <span className="text-[11px] font-semibold text-[#64748B]">
+              <span className="text-xs font-bold text-slate-600 bg-slate-100 px-2 py-0.5 rounded-md">
                 {completedLessonIds.length}/{allLessons.length} Done
               </span>
             </div>
 
             <div className="relative">
-              <Search size={13} className="absolute left-3 top-1/2 -translate-y-1/2 text-[#64748B]" />
+              <Search size={15} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
               <input
                 type="text"
                 value={curriculumSearch}
                 onChange={(e) => setCurriculumSearch(e.target.value)}
                 placeholder="Search lessons..."
-                className="w-full pl-8 pr-3 py-1.5 rounded-lg bg-[#F7F9FC] border border-[#E2E8F0] text-xs text-[#182230] placeholder-[#64748B] focus:outline-none focus:border-[#12316B]"
+                className="w-full pl-9 pr-3 py-2 rounded-xl bg-[#F7F9FC] border border-[#CBD5E1] text-sm font-medium text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-[#12316B] focus:bg-white transition-all shadow-2xs"
               />
             </div>
           </div>
 
           {/* Module List Accordion */}
-          <div className="flex-1 overflow-y-auto p-3 space-y-2 no-scrollbar">
+          <div className="flex-1 overflow-y-auto p-3 space-y-2.5 no-scrollbar">
             {course.modules.map((mod, modIdx) => {
               const isOpen = !!expandedModules[mod.id];
               const modCompletedCount = mod.lessons.filter((l) =>
@@ -282,32 +273,32 @@ export default function PdfLessonPlayer({ course, initialLessonId }: PdfLessonPl
               return (
                 <div
                   key={mod.id}
-                  className="rounded-xl border border-[#E2E8F0] overflow-hidden bg-[#F7F9FC]"
+                  className="rounded-xl border border-[#CBD5E1] overflow-hidden bg-white shadow-2xs"
                 >
                   <button
                     onClick={() => toggleModule(mod.id)}
-                    className="w-full p-3 text-left flex items-center justify-between gap-2 hover:bg-slate-100 transition-colors cursor-pointer"
+                    className="w-full p-3 text-left flex items-center justify-between gap-2.5 hover:bg-slate-50 transition-colors cursor-pointer bg-slate-50/70"
                   >
-                    <div className="flex items-center gap-2 min-w-0">
+                    <div className="flex items-center gap-2.5 min-w-0">
                       {isModComplete ? (
-                        <CheckCircle2 size={16} className="text-[#16865C] flex-shrink-0" />
+                        <CheckCircle2 size={18} className="text-[#16865C] flex-shrink-0" />
                       ) : (
-                        <div className="w-5 h-5 rounded-md bg-white border border-[#E2E8F0] flex items-center justify-center text-[10px] font-bold text-[#12316B] flex-shrink-0">
+                        <div className="w-6 h-6 rounded-lg bg-white border border-slate-300 flex items-center justify-center text-xs font-bold text-[#12316B] flex-shrink-0 shadow-2xs">
                           {modIdx + 1}
                         </div>
                       )}
-                      <span className="font-bold text-xs text-[#182230] truncate">
+                      <span className="font-bold text-sm text-slate-900 truncate">
                         {mod.title}
                       </span>
                     </div>
 
-                    <div className="flex items-center gap-1.5 flex-shrink-0">
-                      <span className="text-[10px] text-[#64748B] font-mono">
+                    <div className="flex items-center gap-2 flex-shrink-0">
+                      <span className="text-xs text-slate-600 font-mono font-semibold">
                         {modCompletedCount}/{mod.lessons.length}
                       </span>
                       <ChevronDown
-                        size={14}
-                        className={`text-[#64748B] transition-transform duration-200 ${
+                        size={16}
+                        className={`text-slate-500 transition-transform duration-200 ${
                           isOpen ? "rotate-180" : ""
                         }`}
                       />
@@ -315,7 +306,7 @@ export default function PdfLessonPlayer({ course, initialLessonId }: PdfLessonPl
                   </button>
 
                   {isOpen && (
-                    <div className="p-1.5 space-y-1 bg-white border-t border-[#E2E8F0]">
+                    <div className="p-2 space-y-1 bg-white border-t border-[#E2E8F0]">
                       {mod.lessons.map((lesson) => {
                         const isActive = lesson.id === activeLessonId;
                         const isDone = completedLessonIds.includes(lesson.id);
@@ -328,22 +319,22 @@ export default function PdfLessonPlayer({ course, initialLessonId }: PdfLessonPl
                               router.push(`/learn/${course.id}/${lesson.id}`);
                               setMobileSidebarOpen(false);
                             }}
-                            className={`w-full p-2.5 rounded-lg text-left flex items-center justify-between text-xs transition-all cursor-pointer ${
+                            className={`w-full p-2.5 rounded-lg text-left flex items-center justify-between text-sm transition-all cursor-pointer ${
                               isActive
                                 ? "bg-[#12316B] text-white font-bold shadow-xs"
-                                : "text-[#64748B] hover:text-[#182230] hover:bg-slate-50"
+                                : "text-slate-700 hover:text-slate-950 hover:bg-slate-100 font-medium"
                             }`}
                           >
-                            <div className="flex items-center gap-2 min-w-0">
+                            <div className="flex items-center gap-2.5 min-w-0">
                               {isDone ? (
                                 <CheckCircle2
-                                  size={14}
+                                  size={16}
                                   className={isActive ? "text-[#18B6D2]" : "text-[#16865C]"}
                                 />
                               ) : (
                                 <Circle
-                                  size={13}
-                                  className={isActive ? "text-white/60" : "text-slate-300"}
+                                  size={15}
+                                  className={isActive ? "text-white/60" : "text-slate-400"}
                                 />
                               )}
                               <span className="truncate">{lesson.title}</span>
@@ -365,20 +356,37 @@ export default function PdfLessonPlayer({ course, initialLessonId }: PdfLessonPl
             })}
           </div>
 
-          {/* Sidebar Bottom: PDF Handbook Shortcut */}
-          <div className="p-3 border-t border-[#E2E8F0] bg-[#F7F9FC]">
-            <a
-              href={associatedPdf.url}
-              download
-              className="flex items-center justify-between p-2.5 rounded-xl bg-white border border-[#E2E8F0] hover:border-[#12316B]/30 text-xs text-[#12316B] font-bold shadow-2xs transition-colors"
-            >
-              <div className="flex items-center gap-2">
-                <FileText size={15} className="text-[#18B6D2]" />
-                <span className="truncate">{associatedPdf.title}</span>
+          {/* Course PDF Learning Materials Footer Section */}
+          {course.pdfLessons && course.pdfLessons.length > 0 && (
+            <div className="p-3 border-t border-[#E2E8F0] bg-slate-50 space-y-2">
+              <div className="flex items-center justify-between text-[11px] font-bold text-[#12316B] uppercase tracking-wider">
+                <span className="flex items-center gap-1.5">
+                  <FileText size={13} className="text-[#0b69ff]" />
+                  <span>PDF Materials</span>
+                </span>
+                <span className="font-mono text-slate-500">{course.pdfLessons.length}</span>
               </div>
-              <Download size={13} className="text-[#64748B] flex-shrink-0" />
-            </a>
-          </div>
+              <div className="space-y-1 max-h-36 overflow-y-auto no-scrollbar">
+                {course.pdfLessons.map((pdf) => (
+                  <button
+                    key={pdf.id}
+                    onClick={() => {
+                      setSelectedPdfLesson(pdf);
+                      setIsPdfModalOpen(true);
+                    }}
+                    className="w-full text-left p-2 rounded-lg bg-white border border-[#E2E8F0] hover:border-[#12316B]/40 hover:bg-blue-50/40 transition-colors flex items-center justify-between gap-2 text-xs group cursor-pointer"
+                  >
+                    <span className="truncate font-semibold text-[#182230] group-hover:text-[#12316B]">
+                      {pdf.title}
+                    </span>
+                    <span className="text-[10px] text-slate-400 font-mono flex-shrink-0">
+                      {pdf.fileSize}
+                    </span>
+                  </button>
+                ))}
+              </div>
+            </div>
+          )}
         </aside>
 
         {/* ══════════════════════════════════════════════════════════════
@@ -657,6 +665,19 @@ export default function PdfLessonPlayer({ course, initialLessonId }: PdfLessonPl
           </div>
         </main>
       </div>
+
+      {/* In-App Accessible PDF Reader Modal */}
+      {selectedPdfLesson && (
+        <PdfReaderModal
+          course={course}
+          lesson={selectedPdfLesson}
+          isOpen={isPdfModalOpen}
+          onClose={() => {
+            setIsPdfModalOpen(false);
+            setSelectedPdfLesson(null);
+          }}
+        />
+      )}
     </div>
   );
 }

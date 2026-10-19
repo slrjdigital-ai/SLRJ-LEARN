@@ -8,8 +8,8 @@ export default function FaqSection() {
 
   const faqs = [
     {
-      q: "Are the courses and PDF handbooks on SLRJ Learn completely free?",
-      a: "Yes. All curated courses, 17 downloadable handwritten PDF handbooks, and interactive code playgrounds are completely free and open to all registered learners. There are no surprise fees or paywalled core lessons.",
+      q: "Are the courses and learning paths on SLRJ Learn completely free?",
+      a: "Yes. All curated courses, interactive role roadmaps, and in-browser code playgrounds are completely free and open to all registered learners. There are no surprise fees or paywalled core lessons.",
     },
     {
       q: "How does the certificate verification system work?",
@@ -20,8 +20,8 @@ export default function FaqSection() {
       a: "To maintain academic credibility, certificates are only issued after a learner completes all course modules and passes the server-graded assessment with an 80% or higher score. Certificates cannot be purchased or earned merely by clicking buttons.",
     },
     {
-      q: "Can I download and print the digital PDF handbooks?",
-      a: "Yes. All 17 handbooks in our PDF Library are generated as high-resolution printable documents. You can view them in our in-browser reader or download them to your device for offline study.",
+      q: "Can I learn on mobile, tablet, and desktop devices?",
+      a: "Yes. SLRJ Learn is fully responsive and optimized across mobile phones, tablets, and desktop workstations, allowing you to study lessons and write code wherever you are.",
     },
     {
       q: "What programming languages and frameworks are covered?",

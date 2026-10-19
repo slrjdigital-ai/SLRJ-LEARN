@@ -78,20 +78,20 @@ export default function DashboardClient() {
     );
   }
 
-  const completedStepsCount = user.completedRoadmapSteps?.length || 2;
+  const completedStepsCount = user.completedRoadmapSteps?.length || 0;
   const roadmapPct = Math.round((completedStepsCount / ROADMAP_STAGES.length) * 100);
 
-  const userXp = gamificationState.xp.totalXP;
-  const userStreak = gamificationState.streak.currentStreak;
+  const userXp = gamificationState.xp.totalXP || 0;
+  const userStreak = gamificationState.streak.currentStreak || 0;
 
   const weeklyActivity = [
-    { day: "Mon", mins: 45 },
-    { day: "Tue", mins: 60 },
-    { day: "Wed", mins: 90 },
-    { day: "Thu", mins: 30 },
-    { day: "Fri", mins: 75 },
-    { day: "Sat", mins: 120 },
-    { day: "Sun", mins: 50 },
+    { day: "Mon", mins: 0 },
+    { day: "Tue", mins: 0 },
+    { day: "Wed", mins: 0 },
+    { day: "Thu", mins: 0 },
+    { day: "Fri", mins: 0 },
+    { day: "Sat", mins: 0 },
+    { day: "Sun", mins: 0 },
   ];
 
   const maxMins = 120;
@@ -229,9 +229,9 @@ export default function DashboardClient() {
             </div>
           </div>
           <div className="text-2xl sm:text-3xl font-extrabold text-slate-900 font-brand mb-1">
-            45 / 45m
+            0 / 45m
           </div>
-          <span className="text-[11px] font-semibold text-emerald-600">Goal Achieved!</span>
+          <span className="text-[11px] font-semibold text-slate-500">Not Started Today</span>
         </div>
       </div>
 
@@ -244,23 +244,23 @@ export default function DashboardClient() {
                 <BookOpen size={14} />
                 <span>Current Course</span>
               </span>
-              <span className="text-xs text-slate-400">Last active 2h ago</span>
+              <span className="text-xs text-slate-400">{completedStepsCount > 0 ? "Recently Active" : "Not started yet"}</span>
             </div>
 
             <h3 className="text-lg font-bold text-slate-900 font-brand mb-1">
-              Build Your Own Responsive Website
+              Web Development Foundations: HTML5, CSS3 & JavaScript
             </h3>
             <p className="text-xs text-slate-500 leading-relaxed mb-4">
-              Next Up: Responsive grid layouts and fluid breakpoint queries with modern CSS.
+              Next Up: Introduction to HTML5 tags, document structures, and modern syntax.
             </p>
 
             <div className="space-y-1.5 mb-4">
               <div className="flex justify-between text-xs text-slate-600 font-semibold">
                 <span>Module Progress</span>
-                <span className="text-[#0b69ff]">55%</span>
+                <span className="text-[#0b69ff]">{roadmapPct}%</span>
               </div>
               <div className="w-full h-2 bg-slate-100 rounded-full overflow-hidden">
-                <div className="h-full bg-[#0b69ff] rounded-full" style={{ width: "55%" }} />
+                <div className="h-full bg-[#0b69ff] rounded-full" style={{ width: `${roadmapPct}%` }} />
               </div>
             </div>
           </div>
@@ -269,7 +269,7 @@ export default function DashboardClient() {
             href="/roadmap/frontend"
             className="w-full py-2.5 rounded-xl bg-[#0b69ff] hover:bg-blue-600 text-white font-bold text-xs text-center transition-all shadow-sm"
           >
-            Resume Course
+            {completedStepsCount > 0 ? "Resume Course" : "Start Course"}
           </Link>
         </div>
 
@@ -281,7 +281,7 @@ export default function DashboardClient() {
                 <BarChart3 size={14} className="text-[#0b69ff]" />
                 <span>Weekly Time Spent</span>
               </span>
-              <span className="text-xs font-bold text-emerald-600 font-mono">7.8 hrs</span>
+              <span className="text-xs font-bold text-slate-600 font-mono">0.0 hrs</span>
             </div>
 
             <div className="flex items-end justify-between gap-2 h-32 pt-4">

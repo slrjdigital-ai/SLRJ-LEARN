@@ -8,8 +8,8 @@ export default function LearningBenefitsSection() {
       icon: FileText,
       title: "Structured Learning Materials",
       description:
-        "Access curated, handwritten digital notes and comprehensive PDF handbooks designed by engineers for clarity and deep retention.",
-      tag: "Handbooks & Notes",
+        "Access curated digital notes, interactive code examples, and structured lessons designed by engineers for clarity and deep retention.",
+      tag: "Curated Lessons",
       color: "bg-blue-50 text-[#12316B] border-blue-200",
     },
     {

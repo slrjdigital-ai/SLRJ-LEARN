@@ -211,6 +211,8 @@ export default function GamificationHub() {
           const isActive = activeTab === tab.id;
           return (
             <button
+              type="button"
+              suppressHydrationWarning
               key={tab.id}
               onClick={() => setActiveTab(tab.id as any)}
               className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-bold flex items-center gap-2 whitespace-nowrap transition-all cursor-pointer ${
@@ -362,14 +364,18 @@ export default function GamificationHub() {
 
             <div className="flex items-center justify-between">
               <button
+                type="button"
+                suppressHydrationWarning
                 onClick={() => setChallengeCode(CURRENT_WEEKLY_CHALLENGE.starterCode)}
-                className="px-3 py-1.5 rounded-lg text-slate-500 hover:text-slate-800 text-xs font-semibold"
+                className="px-3 py-1.5 rounded-lg text-slate-500 hover:text-slate-800 text-xs font-semibold cursor-pointer"
               >
                 Reset Code
               </button>
               <button
+                type="button"
+                suppressHydrationWarning
                 onClick={handleRunTests}
-                className="px-5 py-2 rounded-xl bg-[#0b69ff] hover:bg-blue-600 text-white font-bold text-xs font-mono flex items-center gap-1.5 shadow-sm"
+                className="px-5 py-2 rounded-xl bg-[#0b69ff] hover:bg-blue-600 text-white font-bold text-xs font-mono flex items-center gap-1.5 shadow-sm cursor-pointer"
               >
                 <Play size={13} />
                 <span>Run Automated Tests</span>
@@ -406,8 +412,10 @@ export default function GamificationHub() {
           <div className="flex items-center justify-between border-b border-slate-100 pb-3">
             <h3 className="text-base font-bold text-slate-900 font-brand">Academy Leaderboard</h3>
             <button
+              type="button"
+              suppressHydrationWarning
               onClick={toggleIncognito}
-              className="text-xs font-semibold text-slate-600 hover:text-slate-900 flex items-center gap-1"
+              className="text-xs font-semibold text-slate-600 hover:text-slate-900 flex items-center gap-1 cursor-pointer"
             >
               {state.incognitoMode ? <EyeOff size={13} /> : <Eye size={13} />}
               <span>{state.incognitoMode ? "Incognito On" : "Public Mode"}</span>

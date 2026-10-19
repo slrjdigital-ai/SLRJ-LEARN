@@ -1,6 +1,11 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { useSearchParams } from "next/navigation";
+import Link from "next/link";
+import { getPracticalProjectBySlug } from "@/data/projectsData";
+import { EVENTS_CATALOG } from "@/data/eventsData";
+import { startOrContinueProject } from "@/lib/projectProgress";
 import {
   Play,
   RotateCcw,
@@ -14,6 +19,9 @@ import {
   Sparkles,
   Maximize2,
   FileCode,
+  ArrowLeft,
+  FolderGit2,
+  Trophy,
 } from "lucide-react";
 
 interface SamplePreset {
@@ -113,6 +121,15 @@ print(f"Largest prime: {max(primes)}")`,
 ];
 
 export default function CodePlayground() {
+  const searchParams = useSearchParams();
+  const projectSlug = searchParams?.get("project");
+  const challengeSlug = searchParams?.get("challenge");
+
+  const linkedProject = projectSlug ? getPracticalProjectBySlug(projectSlug) : null;
+  const linkedEvent = challengeSlug
+    ? EVENTS_CATALOG.find((e) => e.id === challengeSlug || e.slug === challengeSlug || e.codingChallenge?.id === challengeSlug)
+    : null;
+
   const [languageMode, setLanguageMode] = useState<"web" | "python">("web");
   const [activeTab, setActiveTab] = useState<"html" | "css" | "js">("html");
 
@@ -120,6 +137,43 @@ export default function CodePlayground() {
   const [cssCode, setCssCode] = useState(SAMPLE_PRESETS[0].css || "");
   const [jsCode, setJsCode] = useState(SAMPLE_PRESETS[0].js || "");
   const [pythonCode, setPythonCode] = useState(SAMPLE_PRESETS[1].python || "");
+
+  // Project or Event Challenge starter files loader
+  useEffect(() => {
+    if (linkedEvent?.codingChallenge) {
+      const challenge = linkedEvent.codingChallenge;
+      if (challenge.starterTemplateId === "python" || challenge.supportedLanguages.includes("python")) {
+        setLanguageMode("python");
+        if (challenge.starterCode) setPythonCode(challenge.starterCode);
+      } else {
+        setLanguageMode("web");
+        if (challenge.starterCode) {
+          if (challenge.starterCode.includes("<!DOCTYPE html>") || challenge.starterCode.includes("<canvas")) {
+            setHtmlCode(challenge.starterCode);
+            setCssCode("");
+            setJsCode("");
+          } else {
+            setJsCode(challenge.starterCode);
+          }
+        }
+      }
+    } else if (linkedProject && linkedProject.starterFiles && linkedProject.starterFiles.length > 0) {
+      const htmlFile = linkedProject.starterFiles.find((f) => f.language === "html" || f.filename.endsWith(".html"));
+      const cssFile = linkedProject.starterFiles.find((f) => f.language === "css" || f.filename.endsWith(".css"));
+      const jsFile = linkedProject.starterFiles.find((f) => f.language === "javascript" || f.language === "js" || f.filename.endsWith(".js") || f.filename.endsWith(".tsx"));
+      const pyFile = linkedProject.starterFiles.find((f) => f.language === "python" || f.filename.endsWith(".py"));
+
+      if (pyFile) {
+        setLanguageMode("python");
+        setPythonCode(pyFile.content);
+      } else {
+        setLanguageMode("web");
+        if (htmlFile) setHtmlCode(htmlFile.content);
+        if (cssFile) setCssCode(cssFile.content);
+        if (jsFile) setJsCode(jsFile.content);
+      }
+    }
+  }, [linkedProject, linkedEvent]);
 
   const [consoleLogs, setConsoleLogs] = useState<string[]>([]);
   const [copied, setCopied] = useState(false);
@@ -256,6 +310,9 @@ export default function CodePlayground() {
 
   const handleSave = () => {
     setSaved(true);
+    if (linkedProject) {
+      startOrContinueProject(linkedProject.id);
+    }
     setTimeout(() => setSaved(false), 2000);
   };
 
@@ -274,8 +331,59 @@ export default function CodePlayground() {
   };
 
   return (
-    <div className="w-full h-[calc(100vh-6rem)] flex flex-col rounded-2xl bg-[#080D1A] border border-white/10 shadow-2xl overflow-hidden">
-      {/* ── Top Header Toolbar ── */}
+    <div className="space-y-3">
+      {/* ── Active Project Context Banner ── */}
+      {linkedProject && (
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-3.5 rounded-xl bg-blue-50 border border-blue-200 text-xs text-[#173B70] shadow-2xs">
+          <div className="flex items-center gap-2.5">
+            <div className="p-1.5 rounded-lg bg-[#173B70] text-white">
+              <FolderGit2 className="w-4 h-4" />
+            </div>
+            <div>
+              <span className="font-bold text-slate-900">Project Coding Sandbox: </span>
+              <span className="font-semibold text-blue-900">{linkedProject.title}</span>
+              <span className="ml-2 px-2 py-0.5 rounded-md bg-blue-100 text-[#173B70] text-[10px] font-bold">
+                {linkedProject.category}
+              </span>
+            </div>
+          </div>
+          <Link
+            href={`/projects/${linkedProject.slug}`}
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white border border-blue-200 text-[#173B70] hover:bg-blue-100/60 font-semibold transition-all shadow-2xs"
+          >
+            <ArrowLeft className="w-3.5 h-3.5" />
+            <span>Back to Project Workspace</span>
+          </Link>
+        </div>
+      )}
+
+      {/* ── Active Event Challenge Context Banner ── */}
+      {linkedEvent && (
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-3.5 rounded-xl bg-emerald-50 border border-emerald-200 text-xs text-emerald-950 shadow-2xs">
+          <div className="flex items-center gap-2.5">
+            <div className="p-1.5 rounded-lg bg-emerald-700 text-white">
+              <Trophy className="w-4 h-4" />
+            </div>
+            <div>
+              <span className="font-bold text-slate-900">Live Challenge Sandbox: </span>
+              <span className="font-semibold text-emerald-900">{linkedEvent.title}</span>
+              <span className="ml-2 px-2 py-0.5 rounded-md bg-emerald-100 text-emerald-800 text-[10px] font-bold">
+                {linkedEvent.category}
+              </span>
+            </div>
+          </div>
+          <Link
+            href={`/events/${linkedEvent.slug}`}
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white border border-emerald-200 text-emerald-800 hover:bg-emerald-100/60 font-semibold transition-all shadow-2xs"
+          >
+            <ArrowLeft className="w-3.5 h-3.5" />
+            <span>Back to Event Details</span>
+          </Link>
+        </div>
+      )}
+
+      <div className="w-full h-[calc(100vh-6rem)] flex flex-col rounded-2xl bg-[#080D1A] border border-white/10 shadow-2xl overflow-hidden">
+        {/* ── Top Header Toolbar ── */}
       <div className="flex flex-wrap items-center justify-between gap-3 px-4 py-3 bg-[#050814] border-b border-white/10">
         <div className="flex items-center gap-3">
           <div className="flex items-center gap-1.5 mr-2">
@@ -491,6 +599,7 @@ export default function CodePlayground() {
           )}
         </div>
       </div>
+    </div>
     </div>
   );
 }

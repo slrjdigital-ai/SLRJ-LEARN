@@ -29,25 +29,15 @@ export default function CertificateView() {
     router.push(`/verify-certificate/${encodeURIComponent(searchCertId.trim())}`);
   };
 
-  // Sample or earned certificates list
-  const earnedCertificates = [
-    {
-      id: "SLRJ-CERT-2026-WD101",
-      courseTitle: "Web Development Foundations: HTML5, CSS3 & JavaScript",
-      learnerName: user?.name || "Alex Morgan",
-      issueDate: "October 15, 2026",
-      scorePercentage: 100,
-      status: "valid",
-    },
-    {
-      id: "SLRJ-CERT-2026-PY101",
-      courseTitle: "Python Programming: Zero to Production",
-      learnerName: user?.name || "Kouluri Shahid",
-      issueDate: "October 14, 2026",
-      scorePercentage: 100,
-      status: "valid",
-    },
-  ];
+  // Fresh learner has not earned any certificates yet
+  const earnedCertificates: Array<{
+    id: string;
+    courseTitle: string;
+    learnerName: string;
+    issueDate: string;
+    scorePercentage: number;
+    status: string;
+  }> = [];
 
   return (
     <div className="space-y-10">
@@ -101,46 +91,67 @@ export default function CertificateView() {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-          {earnedCertificates.map((cert) => (
-            <div
-              key={cert.id}
-              className="clean-card p-6 flex flex-col justify-between space-y-4 border-l-4 border-l-[#12316B] hover:border-[#12316B]/30 transition-all"
-            >
-              <div className="space-y-2">
-                <div className="flex items-center justify-between">
-                  <span className="text-[11px] font-mono font-bold text-[#12316B] bg-blue-50 px-2.5 py-0.5 rounded-full border border-blue-200">
-                    {cert.id}
-                  </span>
-                  <span className="inline-flex items-center gap-1 text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-50 text-[#16865C] border border-emerald-200 uppercase">
-                    <CheckCircle2 size={12} />
-                    Verified
-                  </span>
+        {earnedCertificates.length === 0 ? (
+          <div className="clean-card p-8 sm:p-10 text-center space-y-3 max-w-xl mx-auto">
+            <div className="w-14 h-14 rounded-2xl bg-blue-50 text-[#12316B] flex items-center justify-center mx-auto">
+              <Award size={28} />
+            </div>
+            <h3 className="font-extrabold text-base text-[#182230]">No Certificates Earned Yet</h3>
+            <p className="text-xs sm:text-sm text-[#64748B] max-w-md mx-auto">
+              Complete all lessons in a course and score 80% or higher on the server-graded evaluation to unlock your verified landscape certificate.
+            </p>
+            <div className="pt-2">
+              <Link
+                href="/courses"
+                className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-[#12316B] hover:bg-[#2456A6] text-white text-xs font-bold transition-all shadow-xs"
+              >
+                <span>Browse Courses</span>
+                <ArrowRight size={14} />
+              </Link>
+            </div>
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+            {earnedCertificates.map((cert) => (
+              <div
+                key={cert.id}
+                className="clean-card p-6 flex flex-col justify-between space-y-4 border-l-4 border-l-[#12316B] hover:border-[#12316B]/30 transition-all"
+              >
+                <div className="space-y-2">
+                  <div className="flex items-center justify-between">
+                    <span className="text-[11px] font-mono font-bold text-[#12316B] bg-blue-50 px-2.5 py-0.5 rounded-full border border-blue-200">
+                      {cert.id}
+                    </span>
+                    <span className="inline-flex items-center gap-1 text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-50 text-[#16865C] border border-emerald-200 uppercase">
+                      <CheckCircle2 size={12} />
+                      Verified
+                    </span>
+                  </div>
+
+                  <h3 className="font-extrabold text-sm sm:text-base text-[#182230] leading-snug">
+                    {cert.courseTitle}
+                  </h3>
+
+                  <p className="text-xs text-[#64748B]">
+                    Awarded to <strong>{cert.learnerName}</strong> on {cert.issueDate} with a score of {cert.scorePercentage}%.
+                  </p>
                 </div>
 
-                <h3 className="font-extrabold text-sm sm:text-base text-[#182230] leading-snug">
-                  {cert.courseTitle}
-                </h3>
+                <div className="pt-3 border-t border-slate-100 flex items-center justify-between">
+                  <span className="text-xs text-[#64748B]">Status: Active</span>
 
-                <p className="text-xs text-[#64748B]">
-                  Awarded to <strong>{cert.learnerName}</strong> on {cert.issueDate} with a score of {cert.scorePercentage}%.
-                </p>
+                  <Link
+                    href={`/verify-certificate/${cert.id}`}
+                    className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg bg-[#12316B] hover:bg-[#2456A6] text-white text-xs font-bold transition-colors shadow-2xs"
+                  >
+                    <span>View Certificate</span>
+                    <ExternalLink size={12} />
+                  </Link>
+                </div>
               </div>
-
-              <div className="pt-3 border-t border-slate-100 flex items-center justify-between">
-                <span className="text-xs text-[#64748B]">Status: Active</span>
-
-                <Link
-                  href={`/verify-certificate/${cert.id}`}
-                  className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg bg-[#12316B] hover:bg-[#2456A6] text-white text-xs font-bold transition-colors shadow-2xs"
-                >
-                  <span>View Certificate</span>
-                  <ExternalLink size={12} />
-                </Link>
-              </div>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
+        )}
       </section>
 
       {/* ── Available Assessments to Earn Certificates ── */}

@@ -30,7 +30,7 @@ export default function PublicHeroSection() {
 
           {/* Supporting text strictly adhering to brief */}
           <p className="text-blue-100 text-base sm:text-lg leading-relaxed max-w-2xl font-normal">
-            Study structured courses, access PDF resources and handwritten notes, complete practical programming projects, test your knowledge through assessments, and earn verifiable certificates.
+            Study structured courses, master foundational engineering concepts, complete practical programming projects, test your knowledge through assessments, and earn verifiable certificates.
           </p>
 
           {/* CTAs */}
@@ -64,8 +64,8 @@ export default function PublicHeroSection() {
           {/* Trust Highlights Strip */}
           <div className="pt-6 border-t border-white/10 grid grid-cols-2 sm:grid-cols-4 gap-4">
             <div>
-              <div className="text-xl sm:text-2xl font-black text-white">17 Handbooks</div>
-              <div className="text-xs text-blue-200">Curated PDF Notes</div>
+              <div className="text-xl sm:text-2xl font-black text-white">Interactive</div>
+              <div className="text-xs text-blue-200">Structured Lessons</div>
             </div>
             <div>
               <div className="text-xl sm:text-2xl font-black text-white">8 Career Tracks</div>
