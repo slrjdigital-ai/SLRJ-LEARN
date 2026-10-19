@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { Course, getCourseLevel } from "@/data/courses";
 import { useCourseProgress } from "@/lib/courseProgress";
-import { Clock, FileText, ArrowRight, BookOpen, Layers } from "lucide-react";
+import { Clock, FileText, ArrowRight, Layers } from "lucide-react";
 
 interface CourseCardProps {
   course: Course;
@@ -108,7 +108,7 @@ export default function CourseCard({ course, onOpenQuickRead }: CourseCardProps)
           {course.pdfLessons && course.pdfLessons.length > 0 && (
             <div className="flex items-center gap-1.5 text-[11px] font-semibold text-emerald-700 bg-emerald-50/70 border border-emerald-200/60 px-2.5 py-1 rounded-lg w-fit group-hover:bg-emerald-100/80 group-hover:border-emerald-300 transition-all">
               <FileText size={12} className="text-emerald-600" />
-              <span>{course.pdfLessons.length} PDF Guides &amp; Notes</span>
+              <span>{course.pdfLessons.length} PDF Guides &amp; Resources</span>
             </div>
           )}
         </div>
@@ -137,10 +137,10 @@ export default function CourseCard({ course, onOpenQuickRead }: CourseCardProps)
       </div>
 
       {/* Bottom Action Footer */}
-      <div className="p-4 bg-slate-50/70 border-t border-slate-100 flex items-center justify-between gap-2.5">
+      <div className="p-4 bg-slate-50/70 border-t border-slate-100">
         <Link
           href={`/courses/${course.slug}`}
-          className="flex-1 py-2.5 px-3.5 rounded-xl bg-gradient-to-r from-[#173B70] to-[#12316B] hover:from-[#12316B] hover:to-[#0b69ff] text-white text-xs font-black transition-all duration-200 text-center flex items-center justify-center gap-1.5 group/btn cursor-pointer shadow-xs hover:shadow-md active:scale-95"
+          className="w-full py-2.5 px-4 rounded-xl bg-gradient-to-r from-[#173B70] to-[#12316B] hover:from-[#12316B] hover:to-[#0b69ff] text-white text-xs font-black transition-all duration-200 text-center flex items-center justify-center gap-2 group/btn cursor-pointer shadow-xs hover:shadow-md active:scale-95"
         >
           <span>
             {isCompleted
@@ -151,17 +151,6 @@ export default function CourseCard({ course, onOpenQuickRead }: CourseCardProps)
           </span>
           <ArrowRight size={13} className="group-hover/btn:translate-x-1 transition-transform duration-200" />
         </Link>
-
-        {course.pdfLessons && course.pdfLessons.length > 0 && onOpenQuickRead && (
-          <button
-            onClick={() => onOpenQuickRead(course)}
-            className="py-2.5 px-3 rounded-xl bg-white hover:bg-blue-50/80 text-slate-700 hover:text-[#12316B] text-xs font-bold border border-slate-200 hover:border-blue-200 transition-all flex items-center gap-1.5 group/notes cursor-pointer shadow-2xs hover:shadow-xs active:scale-95"
-            title="Read PDF lesson notes directly"
-          >
-            <BookOpen size={13} className="text-[#0b69ff] group-hover/notes:scale-110 transition-transform duration-200" />
-            <span className="hidden sm:inline font-bold">Notes</span>
-          </button>
-        )}
       </div>
     </div>
   );
