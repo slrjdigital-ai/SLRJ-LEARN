@@ -1,9 +1,9 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { usePathname } from "next/navigation";
+import { usePathname, useSearchParams } from "next/navigation";
 import {
   Home,
   BookOpen,
@@ -65,11 +65,20 @@ export default function AppSidebar({
   onMobileClose,
 }: AppSidebarProps) {
   const pathname = usePathname();
+  const searchParams = useSearchParams();
+  const currentLevel = searchParams ? searchParams.get("level") : null;
   const [searchQuery, setSearchQuery] = useState("");
   const [expandedItems, setExpandedItems] = useState<Record<string, boolean>>({
     "Explore Courses": true,
     "Role Roadmaps": false,
   });
+
+  // Ensure "Explore Courses" subnavigation is opened whenever user navigates to /courses
+  useEffect(() => {
+    if (pathname.startsWith("/courses")) {
+      setExpandedItems((prev) => ({ ...prev, "Explore Courses": true }));
+    }
+  }, [pathname]);
 
   const toggleExpand = (name: string, e: React.MouseEvent) => {
     e.preventDefault();
@@ -97,14 +106,12 @@ export default function AppSidebar({
           icon: BookOpen,
           iconColor: "text-[#18B6D2]",
           exact: false,
-          badge: "17 Courses",
+          badge: "11 Courses",
           badgeColor: "bg-cyan-50 text-[#12316B] border border-cyan-200",
           children: [
-            { name: "HTML5 & CSS3 Masterclass", href: "/courses/html5-complete-guide" },
-            { name: "JavaScript Zero to Hero", href: "/courses/javascript-zero-to-hero" },
-            { name: "Python for Beginners", href: "/courses/python-for-beginners" },
-            { name: "React 19 & Next.js", href: "/courses/react-complete-guide" },
-            { name: "DSA & Problem Solving", href: "/courses/dsa-essentials" },
+            { name: "Level 1: Basic", href: "/courses?level=basic", badge: "5 Courses" },
+            { name: "Level 2: Intermediate", href: "/courses?level=intermediate", badge: "4 Courses" },
+            { name: "Level 3: Pro", href: "/courses?level=pro", badge: "2 Courses" },
           ],
         },
         {
@@ -413,6 +420,11 @@ export default function AppSidebar({
                       ) : (
                         <Link
                           href={item.href!}
+                          onClick={() => {
+                            if (hasChildren) {
+                              setExpandedItems((prev) => ({ ...prev, [item.name]: true }));
+                            }
+                          }}
                           className={`flex items-center justify-between px-3 py-2 rounded-xl text-sm font-semibold transition-all group relative ${
                             isActive
                               ? "bg-gradient-to-r from-[#12316B] to-[#1E488F] text-white font-bold shadow-md shadow-[#12316B]/15 before:absolute before:left-0 before:top-2 before:bottom-2 before:w-1.5 before:bg-[#18B6D2] before:rounded-r-md"
@@ -428,19 +440,42 @@ export default function AppSidebar({
                       {!collapsed && hasChildren && isExpanded && (
                         <div className="ml-5 pl-4 border-l-2 border-slate-200/80 space-y-1 py-1 animate-in fade-in slide-in-from-top-1 duration-150">
                           {item.children!.map((child) => {
-                            const isChildActive = pathname === child.href;
+                            let isChildActive = false;
+                            if (child.href.includes("?level=")) {
+                              const targetLevel = child.href.split("?level=")[1];
+                              isChildActive = pathname === "/courses" && currentLevel === targetLevel;
+                            } else {
+                              isChildActive = pathname === child.href;
+                            }
+
                             return (
                               <Link
                                 key={child.name}
                                 href={child.href}
-                                className={`flex items-center justify-between py-1.5 px-2.5 rounded-lg text-xs font-semibold transition-all ${
+                                className={`flex items-center justify-between py-2 px-2.5 rounded-lg text-xs font-semibold transition-all ${
                                   isChildActive
-                                    ? "bg-blue-50 text-[#12316B] font-bold"
+                                    ? "bg-blue-50 text-[#12316B] font-bold border border-blue-200"
                                     : "text-slate-600 hover:text-slate-950 hover:bg-slate-100"
                                 }`}
                               >
                                 <span className="truncate">{child.name}</span>
-                                <ChevronRight size={12} className="text-slate-400 flex-shrink-0" />
+                                <div className="flex items-center gap-1.5 flex-shrink-0">
+                                  {child.badge && (
+                                    <span
+                                      className={`text-[10px] font-bold px-1.5 py-0.2 rounded border ${
+                                        isChildActive
+                                          ? "bg-white text-[#12316B] border-blue-200"
+                                          : "bg-slate-100 text-slate-500 border-slate-200"
+                                      }`}
+                                    >
+                                      {child.badge}
+                                    </span>
+                                  )}
+                                  <ChevronRight
+                                    size={12}
+                                    className={isChildActive ? "text-[#12316B]" : "text-slate-400"}
+                                  />
+                                </div>
                               </Link>
                             );
                           })}

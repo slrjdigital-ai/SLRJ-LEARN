@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, Suspense } from "react";
 import AppSidebar from "./AppSidebar";
 import AppTopBar from "./AppTopBar";
 import Footer from "@/components/Footer";
@@ -12,12 +12,14 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
   return (
     <div className="min-h-screen bg-[#F7F9FC] text-[#182230] flex">
       {/* ── Left Sidebar ── */}
-      <AppSidebar
-        collapsed={collapsed}
-        onToggle={() => setCollapsed(!collapsed)}
-        mobileOpen={mobileOpen}
-        onMobileClose={() => setMobileOpen(false)}
-      />
+      <Suspense fallback={<div className="w-80 h-screen bg-white hidden md:block" />}>
+        <AppSidebar
+          collapsed={collapsed}
+          onToggle={() => setCollapsed(!collapsed)}
+          mobileOpen={mobileOpen}
+          onMobileClose={() => setMobileOpen(false)}
+        />
+      </Suspense>
 
       {/* ── Main Area ── */}
       <div

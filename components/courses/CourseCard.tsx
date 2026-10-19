@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { Course } from "@/data/courses";
+import { Course, getCourseLevel } from "@/data/courses";
 import { useCourseProgress } from "@/lib/courseProgress";
 import { Clock, FileText, ArrowRight, BookOpen, CheckCircle2 } from "lucide-react";
 
@@ -15,13 +15,7 @@ export default function CourseCard({ course, onOpenQuickRead }: CourseCardProps)
   const progress = getProgress(course.id);
 
   const hasStarted = progress && progress.progressPercentage > 0;
-
-  const difficultyBadge =
-    course.difficulty === "Beginner"
-      ? "bg-emerald-50 text-emerald-700 border-emerald-200"
-      : course.difficulty === "Intermediate"
-      ? "bg-blue-50 text-[#173B70] border-blue-200"
-      : "bg-purple-50 text-purple-700 border-purple-200";
+  const level = getCourseLevel(course);
 
   return (
     <div className="clean-card flex flex-col justify-between overflow-hidden group hover:border-[#173B70]/30 transition-all bg-white rounded-2xl border border-[#E2E8F0] shadow-xs">
@@ -37,9 +31,9 @@ export default function CourseCard({ course, onOpenQuickRead }: CourseCardProps)
                 {course.category}
               </span>
               <span
-                className={`inline-block px-2 py-0.5 rounded text-[10px] font-extrabold uppercase tracking-wider border mt-0.5 ${difficultyBadge}`}
+                className={`inline-block px-2 py-0.5 rounded text-[10px] font-extrabold uppercase tracking-wider border mt-0.5 ${level.badgeClass}`}
               >
-                {course.difficulty}
+                {level.badgeLabel}
               </span>
             </div>
           </div>

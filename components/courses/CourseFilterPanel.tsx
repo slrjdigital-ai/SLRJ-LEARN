@@ -95,17 +95,22 @@ export default function CourseFilterPanel({
             Difficulty Level
           </label>
           <div className="grid grid-cols-2 gap-1.5">
-            {(["All", "Beginner", "Intermediate", "Advanced"] as DifficultyFilter[]).map((diff) => (
+            {[
+              { id: "All", label: "All Levels" },
+              { id: "Beginner", label: "Level 1: Basic" },
+              { id: "Intermediate", label: "Level 2: Intermediate" },
+              { id: "Advanced", label: "Level 3: Pro" },
+            ].map((diff) => (
               <button
-                key={diff}
-                onClick={() => onDifficultyChange(diff)}
-                className={`py-2 px-2.5 rounded-xl font-bold transition-all text-center cursor-pointer ${
-                  selectedDifficulty === diff
+                key={diff.id}
+                onClick={() => onDifficultyChange(diff.id as DifficultyFilter)}
+                className={`py-2 px-2.5 rounded-xl text-xs font-bold transition-all text-center cursor-pointer ${
+                  selectedDifficulty === diff.id
                     ? "bg-[#173B70] text-white"
                     : "bg-[#F8FAFC] text-[#64748B] hover:text-[#182230] border border-[#E2E8F0]"
                 }`}
               >
-                {diff}
+                {diff.label}
               </button>
             ))}
           </div>

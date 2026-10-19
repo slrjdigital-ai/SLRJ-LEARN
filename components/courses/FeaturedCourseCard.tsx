@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { Course } from "@/data/courses";
+import { Course, getCourseLevel } from "@/data/courses";
 import { Sparkles, Clock, FileText, ArrowRight, BookOpen, Award } from "lucide-react";
 
 interface FeaturedCourseCardProps {
@@ -9,12 +9,7 @@ interface FeaturedCourseCardProps {
 }
 
 export default function FeaturedCourseCard({ course }: FeaturedCourseCardProps) {
-  const difficultyBadge =
-    course.difficulty === "Beginner"
-      ? "bg-emerald-50 text-emerald-700 border-emerald-200"
-      : course.difficulty === "Intermediate"
-      ? "bg-blue-50 text-[#173B70] border-blue-200"
-      : "bg-purple-50 text-purple-700 border-purple-200";
+  const level = getCourseLevel(course);
 
   return (
     <section className="space-y-3">
@@ -43,8 +38,8 @@ export default function FeaturedCourseCard({ course }: FeaturedCourseCardProps) 
                 <span className="px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider bg-slate-100 text-slate-600">
                   {course.category}
                 </span>
-                <span className={`px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider border ${difficultyBadge}`}>
-                  {course.difficulty}
+                <span className={`px-2 py-0.5 rounded text-[10px] font-extrabold uppercase tracking-wider border ${level.badgeClass}`}>
+                  {level.badgeLabel}
                 </span>
               </div>
 

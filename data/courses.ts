@@ -1273,3 +1273,69 @@ export function getCourseBySlug(slug: string): Course | undefined {
 export function getCourseById(id: string): Course | undefined {
   return COURSES_DATA.find((c) => c.id === id || c.slug === id);
 }
+
+export type CourseLevelId = "basic" | "intermediate" | "pro";
+
+export interface CourseLevelInfo {
+  id: CourseLevelId;
+  levelNumber: 1 | 2 | 3;
+  name: string;
+  badgeLabel: string;
+  title: string;
+  subtitle: string;
+  badgeClass: string;
+  cardBorderClass: string;
+  accentBgClass: string;
+  headerGradientClass: string;
+}
+
+export const COURSE_LEVELS: Record<CourseLevelId, CourseLevelInfo> = {
+  basic: {
+    id: "basic",
+    levelNumber: 1,
+    name: "Level 1: Basic",
+    badgeLabel: "Level 1: Basic",
+    title: "Level 1: Basic Foundations",
+    subtitle: "Foundational programming syntax, semantic web building blocks, database basics, and UI systems.",
+    badgeClass: "bg-emerald-50 text-emerald-800 border-emerald-200",
+    cardBorderClass: "border-emerald-200/80 hover:border-emerald-400",
+    accentBgClass: "bg-emerald-600 text-white",
+    headerGradientClass: "from-emerald-50/70 via-white to-slate-50 border-emerald-200/80",
+  },
+  intermediate: {
+    id: "intermediate",
+    levelNumber: 2,
+    name: "Level 2: Intermediate",
+    badgeLabel: "Level 2: Intermediate",
+    title: "Level 2: Intermediate Engineering",
+    subtitle: "Enterprise JavaScript & TypeScript, algorithms & data structures, mobile apps, and systems security.",
+    badgeClass: "bg-blue-50 text-[#12316B] border-blue-200",
+    cardBorderClass: "border-blue-200/80 hover:border-blue-400",
+    accentBgClass: "bg-[#173B70] text-white",
+    headerGradientClass: "from-blue-50/70 via-white to-slate-50 border-blue-200/80",
+  },
+  pro: {
+    id: "pro",
+    levelNumber: 3,
+    name: "Level 3: Pro",
+    badgeLabel: "Level 3: Pro",
+    title: "Level 3: Pro & Production Architecture",
+    subtitle: "Enterprise Next.js 15 full-stack systems, machine learning engineering, and autonomous AI agents.",
+    badgeClass: "bg-purple-50 text-purple-800 border-purple-200",
+    cardBorderClass: "border-purple-200/80 hover:border-purple-400",
+    accentBgClass: "bg-purple-700 text-white",
+    headerGradientClass: "from-purple-50/70 via-white to-slate-50 border-purple-200/80",
+  },
+};
+
+export function getCourseLevel(courseOrDifficulty: Course | string): CourseLevelInfo {
+  const diff = typeof courseOrDifficulty === "string" ? courseOrDifficulty : courseOrDifficulty.difficulty;
+  if (diff === "Beginner" || diff === "Essential") {
+    return COURSE_LEVELS.basic;
+  }
+  if (diff === "Intermediate") {
+    return COURSE_LEVELS.intermediate;
+  }
+  return COURSE_LEVELS.pro;
+}
+

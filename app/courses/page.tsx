@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import { Metadata } from "next";
 import ExploreCoursesView from "@/components/courses/ExploreCoursesView";
 
@@ -8,5 +9,17 @@ export const metadata: Metadata = {
 };
 
 export default function CoursesPage() {
-  return <ExploreCoursesView />;
+  return (
+    <Suspense
+      fallback={
+        <div className="min-h-screen py-12 flex flex-col items-center justify-center space-y-3 text-slate-500">
+          <div className="w-8 h-8 rounded-full border-3 border-slate-300 border-t-[#12316B] animate-spin" />
+          <p className="text-sm font-semibold">Loading courses catalog...</p>
+        </div>
+      }
+    >
+      <ExploreCoursesView />
+    </Suspense>
+  );
 }
+
