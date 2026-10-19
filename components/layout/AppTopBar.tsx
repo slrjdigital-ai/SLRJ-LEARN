@@ -17,6 +17,7 @@ import {
   CheckCircle2,
   Trophy,
   Menu,
+  LayoutDashboard,
 } from "lucide-react";
 
 interface AppTopBarProps {
@@ -200,8 +201,19 @@ export default function AppTopBar({ onMobileMenuToggle }: AppTopBarProps) {
           )}
         </div>
 
+        {/* Student Dashboard Button on Right Side Top Corner */}
+        <Link
+          href="/dashboard"
+          className="flex items-center gap-2 px-3.5 py-2 rounded-xl bg-[#12316B] hover:bg-[#2456A6] text-white text-sm font-bold shadow-xs hover:shadow-sm transition-all active:scale-[0.98] cursor-pointer"
+          title="Open Student Dashboard"
+        >
+          <LayoutDashboard size={16} className="text-[#18B6D2]" />
+          <span className="hidden sm:inline">Student Dashboard</span>
+          <span className="sm:hidden">Dashboard</span>
+        </Link>
+
         {/* User Profile Avatar with Online Dot */}
-        <Link href="/dashboard" className="relative group flex-shrink-0">
+        <Link href="/dashboard" className="relative group flex-shrink-0" title="Student Profile & Dashboard">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src={user?.avatar || "/icon.jpg"}

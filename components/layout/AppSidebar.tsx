@@ -25,8 +25,6 @@ import {
   X,
   FileText,
   Award,
-  ShieldCheck,
-  LayoutDashboard,
 } from "lucide-react";
 
 interface AppSidebarProps {
@@ -142,20 +140,6 @@ export default function AppSidebar({
           icon: Bot,
           badge: "24/7 AI",
           badgeColor: "bg-purple-50 text-purple-700 border border-purple-200",
-        },
-        {
-          name: "Student Dashboard",
-          href: "/dashboard",
-          icon: LayoutDashboard,
-          exact: false,
-        },
-        {
-          name: "Admin Console",
-          href: "/admin",
-          icon: ShieldCheck,
-          exact: false,
-          badge: "Admin",
-          badgeColor: "bg-slate-100 text-slate-800 border border-slate-300",
         },
       ],
     },
