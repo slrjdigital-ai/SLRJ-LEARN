@@ -328,7 +328,7 @@ export default function ExploreCoursesView() {
     return list;
   }, [filteredAndSortedCourses, sortBy]);
 
-  // Level 2: Intermediate ordered as: 1. Java, 2. JavaScript, 3. Node.js, 4. React & Next.js, 5. Git & GitHub, 6. Cybersecurity, 7. AI & Machine Learning
+  // Level 2: Intermediate ordered as: 1. Java, 2. JavaScript, 3. Node.js, 4. React & Next.js, 5. Git & GitHub, 6. Cybersecurity, 7. AI & Machine Learning, 8. SQL & MongoDB
   const level2Courses = useMemo(() => {
     const list = filteredAndSortedCourses.filter((c) => getCourseLevel(c).id === "intermediate");
     if (sortBy === "recommended") {
@@ -347,6 +347,8 @@ export default function ExploreCoursesView() {
         "course-cybersecurity-fundamentals": 6,
         "ai-machine-learning": 7,
         "course-ai-machine-learning": 7,
+        "sql-mongodb": 8,
+        "course-sql-mongodb": 8,
       };
       return [...list].sort((a, b) => {
         const orderA = intermediateOrderMap[a.slug] || intermediateOrderMap[a.id] || (a.displayOrder ?? 99);
@@ -362,24 +364,22 @@ export default function ExploreCoursesView() {
     const list = filteredAndSortedCourses.filter((c) => getCourseLevel(c).id === "pro");
     if (sortBy === "recommended") {
       const proOrderMap: Record<string, number> = {
-        "sql-mongodb": 1,
-        "course-sql-mongodb": 1,
-        "cloud-native-serverless": 2,
-        "course-cloud-native-serverless": 2,
-        "ai-data-analytics-bi": 3,
-        "course-ai-data-analytics-bi": 3,
-        "generative-ai-llms": 4,
-        "course-generative-ai-llms": 4,
-        "ai-agents-automation": 5,
-        "course-ai-agents-automation": 5,
-        "ai-agents-agentic-ai": 6,
-        "course-ai-agents-agentic-ai": 6,
-        "generative-ai-llm-app-dev": 7,
-        "course-generative-ai-llm-app-dev": 7,
-        "ai-assisted-coding-dev-tools": 8,
-        "course-ai-assisted-coding-dev-tools": 8,
-        "ai-chatbots-voice-ai": 9,
-        "course-ai-chatbots-voice-ai": 9,
+        "cloud-native-serverless": 1,
+        "course-cloud-native-serverless": 1,
+        "ai-data-analytics-bi": 2,
+        "course-ai-data-analytics-bi": 2,
+        "generative-ai-llms": 3,
+        "course-generative-ai-llms": 3,
+        "ai-agents-automation": 4,
+        "course-ai-agents-automation": 4,
+        "ai-agents-agentic-ai": 5,
+        "course-ai-agents-agentic-ai": 5,
+        "generative-ai-llm-app-dev": 6,
+        "course-generative-ai-llm-app-dev": 6,
+        "ai-assisted-coding-dev-tools": 7,
+        "course-ai-assisted-coding-dev-tools": 7,
+        "ai-chatbots-voice-ai": 8,
+        "course-ai-chatbots-voice-ai": 8,
       };
       return [...list].sort((a, b) => {
         const orderA = proOrderMap[a.slug] || proOrderMap[a.id] || (a.displayOrder ?? 99);
