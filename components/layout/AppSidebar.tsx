@@ -1,9 +1,9 @@
 "use client";
 
-import { useState, useMemo, useEffect } from "react";
+import { useState, useMemo } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { usePathname, useSearchParams } from "next/navigation";
+import { usePathname } from "next/navigation";
 import {
   Home,
   BookOpen,
@@ -65,20 +65,10 @@ export default function AppSidebar({
   onMobileClose,
 }: AppSidebarProps) {
   const pathname = usePathname();
-  const searchParams = useSearchParams();
-  const currentLevel = searchParams ? searchParams.get("level") : null;
   const [searchQuery, setSearchQuery] = useState("");
   const [expandedItems, setExpandedItems] = useState<Record<string, boolean>>({
-    "Explore Courses": true,
     "Role Roadmaps": false,
   });
-
-  // Ensure "Explore Courses" subnavigation is opened whenever user navigates to /courses
-  useEffect(() => {
-    if (pathname.startsWith("/courses")) {
-      setExpandedItems((prev) => ({ ...prev, "Explore Courses": true }));
-    }
-  }, [pathname]);
 
   const toggleExpand = (name: string, e: React.MouseEvent) => {
     e.preventDefault();
@@ -108,11 +98,6 @@ export default function AppSidebar({
           exact: false,
           badge: "11 Courses",
           badgeColor: "bg-cyan-50 text-[#12316B] border border-cyan-200",
-          children: [
-            { name: "Level 1: Basic", href: "/courses?level=basic", badge: "5 Courses" },
-            { name: "Level 2: Intermediate", href: "/courses?level=intermediate", badge: "4 Courses" },
-            { name: "Level 3: Pro", href: "/courses?level=pro", badge: "2 Courses" },
-          ],
         },
         {
           name: "Role Roadmaps",
@@ -440,13 +425,7 @@ export default function AppSidebar({
                       {!collapsed && hasChildren && isExpanded && (
                         <div className="ml-5 pl-4 border-l-2 border-slate-200/80 space-y-1 py-1 animate-in fade-in slide-in-from-top-1 duration-150">
                           {item.children!.map((child) => {
-                            let isChildActive = false;
-                            if (child.href.includes("?level=")) {
-                              const targetLevel = child.href.split("?level=")[1];
-                              isChildActive = pathname === "/courses" && currentLevel === targetLevel;
-                            } else {
-                              isChildActive = pathname === child.href;
-                            }
+                            const isChildActive = pathname === child.href;
 
                             return (
                               <Link
