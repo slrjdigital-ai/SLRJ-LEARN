@@ -24,6 +24,10 @@ import {
   Lock,
   Play,
   RotateCcw,
+  Compass,
+  Tag,
+  ChevronDown,
+  X,
 } from "lucide-react";
 
 export interface GrowthCourse {
@@ -197,107 +201,154 @@ export default function LearningPathDashboard() {
 
   return (
     <div className="space-y-8">
-      {/* ─── Top Tabs: 4-Way Split ─── */}
-      <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 pb-3 border-b border-slate-200">
-        <div className="flex flex-wrap items-center gap-2">
+      {/* ─── Top Tabs: Modern Elevated Segmented Navigation ─── */}
+      <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 pb-2 border-b border-slate-200">
+        <div className="p-1.5 bg-slate-100/90 border border-slate-200/90 rounded-2xl inline-flex flex-wrap items-center gap-1.5 shadow-2xs">
+          {/* Tab 1: My Learning */}
           <button
             onClick={() => setActiveTab("my_learning")}
-            className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer ${
+            className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-bold transition-all cursor-pointer ${
               activeTab === "my_learning"
-                ? "bg-[#e8f1fd] text-[#0b69ff] shadow-xs"
-                : "text-slate-600 hover:text-slate-900 hover:bg-slate-50"
+                ? "bg-white text-[#12316B] shadow-sm ring-1 ring-slate-200/80 scale-[1.01]"
+                : "text-slate-600 hover:text-slate-900 hover:bg-white/70"
             }`}
           >
-            My Learning
+            <BookOpen
+              size={17}
+              className={activeTab === "my_learning" ? "text-[#18B6D2]" : "text-slate-400"}
+            />
+            <span>My Learning</span>
           </button>
 
+          {/* Tab 2: Role Roadmaps */}
           <button
             onClick={() => setActiveTab("role_roadmaps")}
-            className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer flex items-center gap-1.5 ${
+            className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-bold transition-all cursor-pointer ${
               activeTab === "role_roadmaps"
-                ? "bg-[#e8f1fd] text-[#0b69ff] shadow-xs"
-                : "text-slate-600 hover:text-slate-900 hover:bg-slate-50"
+                ? "bg-white text-[#12316B] shadow-sm ring-1 ring-slate-200/80 scale-[1.01]"
+                : "text-slate-600 hover:text-slate-900 hover:bg-white/70"
             }`}
           >
+            <Compass
+              size={17}
+              className={activeTab === "role_roadmaps" ? "text-[#12316B]" : "text-slate-400"}
+            />
             <span>Role Roadmaps</span>
-            <span className="text-[10px] px-1.5 py-0.2 rounded-full bg-[#0b69ff] text-white font-mono">
+            <span className="text-[10px] font-black px-2 py-0.5 rounded-full bg-gradient-to-r from-[#12316B] to-[#18B6D2] text-white uppercase tracking-wider shadow-2xs">
               8 Paths
             </span>
           </button>
 
+          {/* Tab 3: Recommended Courses */}
           <button
             onClick={() => setActiveTab("recommended")}
-            className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer ${
+            className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-bold transition-all cursor-pointer ${
               activeTab === "recommended"
-                ? "bg-[#e8f1fd] text-[#0b69ff] shadow-xs"
-                : "text-slate-600 hover:text-slate-900 hover:bg-slate-50"
+                ? "bg-white text-[#12316B] shadow-sm ring-1 ring-slate-200/80 scale-[1.01]"
+                : "text-slate-600 hover:text-slate-900 hover:bg-white/70"
             }`}
           >
-            Recommended Courses
+            <Sparkles
+              size={17}
+              className={activeTab === "recommended" ? "text-amber-500" : "text-slate-400"}
+            />
+            <span>Recommended Courses</span>
           </button>
 
+          {/* Tab 4: Completed Courses */}
           <button
             onClick={() => setActiveTab("completed")}
-            className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer ${
+            className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-bold transition-all cursor-pointer ${
               activeTab === "completed"
-                ? "bg-[#e8f1fd] text-[#0b69ff] shadow-xs"
-                : "text-slate-600 hover:text-slate-900 hover:bg-slate-50"
+                ? "bg-white text-[#12316B] shadow-sm ring-1 ring-slate-200/80 scale-[1.01]"
+                : "text-slate-600 hover:text-slate-900 hover:bg-white/70"
             }`}
           >
-            Completed Courses
+            <CheckCircle2
+              size={17}
+              className={activeTab === "completed" ? "text-emerald-500" : "text-slate-400"}
+            />
+            <span>Completed Courses</span>
           </button>
         </div>
 
-        <div className="text-xs text-slate-500 font-semibold">
-          Showing <strong className="text-slate-800">{activeTab === "role_roadmaps" ? ROADMAP_TRACKS.length : filteredCourses.length}</strong> items
+        {/* Counter Badge */}
+        <div className="flex items-center gap-2 px-3.5 py-2 rounded-xl bg-slate-50 border border-slate-200 text-xs font-semibold text-slate-600 self-start lg:self-auto shadow-2xs">
+          <Layers size={15} className="text-[#18B6D2]" />
+          <span>
+            Showing <strong className="text-slate-900 font-bold">{activeTab === "role_roadmaps" ? ROADMAP_TRACKS.length : filteredCourses.length}</strong> items
+          </span>
         </div>
       </div>
 
       {/* ─── Search & Filter Bar (for course tabs) ─── */}
       {activeTab !== "role_roadmaps" && (
-        <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 p-3 rounded-2xl bg-white border border-slate-200/90 shadow-xs">
+        <div className="flex flex-col xl:flex-row items-stretch xl:items-center justify-between gap-3.5 p-3.5 rounded-2xl bg-white border border-slate-200 shadow-xs">
           {/* Search Box */}
-          <div className="relative flex-1">
-            <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
+          <div className="relative flex-1 min-w-[240px]">
+            <Search size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400" />
             <input
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Filter by course, skill, or keyword..."
-              className="w-full pl-9 pr-3 py-1.5 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:border-[#0b69ff]"
+              className="w-full pl-10 pr-9 py-2 bg-slate-50 hover:bg-slate-100/70 focus:bg-white border border-slate-200 rounded-xl text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:border-[#18B6D2] focus:ring-2 focus:ring-[#18B6D2]/20 transition-all font-medium"
             />
-          </div>
-
-          {/* Topic Pills */}
-          <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar py-1">
-            <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider pl-1">Topic:</span>
-            {topicsList.map((top) => (
+            {searchQuery && (
               <button
-                key={top}
-                onClick={() => setSelectedTopic(top)}
-                className={`px-2.5 py-1 rounded-lg text-xs font-semibold transition-all cursor-pointer ${
-                  selectedTopic === top
-                    ? "bg-[#0b69ff] text-white"
-                    : "bg-slate-50 text-slate-600 hover:bg-slate-100"
-                }`}
+                onClick={() => setSearchQuery("")}
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-700 p-0.5 rounded-md hover:bg-slate-200 transition-colors cursor-pointer"
+                title="Clear search"
               >
-                {top}
+                <X size={14} />
               </button>
-            ))}
+            )}
           </div>
 
-          {/* Level Filter */}
-          <div className="flex items-center gap-1.5">
-            <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Level:</span>
-            <select
-              value={selectedLevel}
-              onChange={(e) => setSelectedLevel(e.target.value)}
-              className="px-2.5 py-1 bg-slate-50 border border-slate-200 rounded-lg text-xs text-slate-700 font-semibold focus:outline-none"
-            >
-              {levelsList.map((lvl) => (
-                <option key={lvl} value={lvl}>{lvl}</option>
-              ))}
-            </select>
+          {/* Controls Right Group */}
+          <div className="flex flex-wrap sm:flex-nowrap items-center gap-3">
+            {/* Topic Filter Pills */}
+            <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar py-0.5">
+              <span className="flex items-center gap-1 text-xs font-bold text-slate-500 uppercase tracking-wider pl-1 flex-shrink-0">
+                <Tag size={13} className="text-[#18B6D2]" />
+                Topic:
+              </span>
+              <div className="flex items-center gap-1.5">
+                {topicsList.map((top) => {
+                  const isActive = selectedTopic === top;
+                  return (
+                    <button
+                      key={top}
+                      onClick={() => setSelectedTopic(top)}
+                      className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer whitespace-nowrap shadow-2xs ${
+                        isActive
+                          ? "bg-[#12316B] text-white shadow-xs"
+                          : "bg-slate-100 text-slate-700 hover:bg-slate-200 hover:text-slate-950"
+                      }`}
+                    >
+                      {top}
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+
+            {/* Level Filter Dropdown */}
+            <div className="flex items-center gap-1.5 flex-shrink-0 border-l border-slate-200 pl-3">
+              <span className="text-xs font-bold text-slate-500 uppercase tracking-wider">Level:</span>
+              <div className="relative">
+                <select
+                  value={selectedLevel}
+                  onChange={(e) => setSelectedLevel(e.target.value)}
+                  className="appearance-none pl-3 pr-8 py-1.5 bg-slate-100 hover:bg-slate-200 border border-slate-200 rounded-xl text-xs text-slate-900 font-bold focus:outline-none focus:ring-2 focus:ring-[#18B6D2]/20 cursor-pointer transition-colors"
+                >
+                  {levelsList.map((lvl) => (
+                    <option key={lvl} value={lvl}>{lvl}</option>
+                  ))}
+                </select>
+                <ChevronDown size={14} className="absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-500 pointer-events-none" />
+              </div>
+            </div>
           </div>
         </div>
       )}
