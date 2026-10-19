@@ -177,10 +177,8 @@ export default function CourseDetailsView({ course }: CourseDetailsViewProps) {
         </div>
       </section>
 
-      {/* ── Main Details Grid (2 Columns) ── */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
-        {/* Left 8 Cols: Curriculum, PDF Lessons, Learning Outcomes */}
-        <div className="lg:col-span-8 space-y-8">
+      {/* ── Main Details (Full Width) ── */}
+      <div className="space-y-8">
           {/* PDF Curriculum Lessons Section */}
           <section className="clean-card p-6 sm:p-8 space-y-5 bg-white rounded-2xl border border-[#E2E8F0]">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-3 border-b border-slate-100">
@@ -377,14 +375,15 @@ export default function CourseDetailsView({ course }: CourseDetailsViewProps) {
               })}
             </div>
           </section>
-        </div>
+      </div>
 
-        {/* Right 4 Cols: Assessment, Prerequisites, Academic Authority */}
-        <div className="lg:col-span-4 space-y-6">
-          {/* Final Assessment & Certificate Eligibility */}
-          <div className="clean-card p-6 space-y-4 bg-gradient-to-br from-blue-50/70 via-white to-indigo-50/50 rounded-2xl border border-blue-200/80 shadow-xs">
+      {/* ── Bottom Horizontal Section: Final Assessment, Prerequisites & Academic Authority ── */}
+      <section className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-6 border-t border-slate-200">
+        {/* Final Assessment & Certificate Eligibility */}
+        <div className="clean-card p-6 space-y-4 bg-gradient-to-br from-blue-50/70 via-white to-indigo-50/50 rounded-2xl border border-blue-200/80 shadow-xs flex flex-col justify-between">
+          <div className="space-y-3">
             <div className="flex items-center gap-2.5">
-              <div className="w-9 h-9 rounded-xl bg-[#173B70] text-white flex items-center justify-center shadow-xs">
+              <div className="w-9 h-9 rounded-xl bg-[#173B70] text-white flex items-center justify-center shadow-xs flex-shrink-0">
                 <Award size={18} />
               </div>
               <div>
@@ -401,7 +400,7 @@ export default function CourseDetailsView({ course }: CourseDetailsViewProps) {
               Complete the rigorous 10-question evaluation with an 80%+ score to earn your verified SLRJ Learn credential with verifiable QR code.
             </p>
 
-            <div className="space-y-2 pt-1 border-t border-slate-200/60 text-xs text-slate-600">
+            <div className="space-y-2 pt-2 border-t border-slate-200/60 text-xs text-slate-600">
               <div className="flex items-center justify-between">
                 <span>Passing Criteria:</span>
                 <strong className="text-[#173B70] font-bold">80% or Higher</strong>
@@ -415,34 +414,36 @@ export default function CourseDetailsView({ course }: CourseDetailsViewProps) {
                 <strong className="text-slate-800 font-bold">Server-Evaluated MCQ</strong>
               </div>
             </div>
-
-            <Link
-              href={`/dashboard/assessments/${course.slug}`}
-              className="w-full py-2.5 px-4 rounded-xl bg-[#173B70] hover:bg-[#12316B] text-white text-xs font-bold transition-all text-center flex items-center justify-center gap-2 shadow-xs cursor-pointer"
-            >
-              <span>Take Final Assessment</span>
-              <ArrowRight size={13} />
-            </Link>
           </div>
 
-          {/* Prerequisites */}
-          <div className="clean-card p-6 space-y-3 bg-white rounded-2xl border border-[#E2E8F0]">
-            <h3 className="font-extrabold text-sm text-[#182230] font-brand flex items-center gap-2">
-              <GraduationCap size={16} className="text-[#173B70]" />
-              <span>Prerequisites</span>
-            </h3>
-            <ul className="space-y-2 text-xs text-[#64748B]">
-              {course.prerequisites.map((p, idx) => (
-                <li key={idx} className="flex items-start gap-2">
-                  <CheckCircle2 size={14} className="text-[#18B6D2] flex-shrink-0 mt-0.5" />
-                  <span>{p}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
+          <Link
+            href={`/dashboard/assessments/${course.slug}`}
+            className="w-full py-2.5 px-4 rounded-xl bg-[#173B70] hover:bg-[#12316B] text-white text-xs font-bold transition-all text-center flex items-center justify-center gap-2 shadow-xs cursor-pointer mt-2"
+          >
+            <span>Take Final Assessment</span>
+            <ArrowRight size={13} />
+          </Link>
+        </div>
 
-          {/* Academic Authority */}
-          <div className="clean-card p-6 space-y-3 bg-white rounded-2xl border border-[#E2E8F0]">
+        {/* Prerequisites */}
+        <div className="clean-card p-6 space-y-3 bg-white rounded-2xl border border-[#E2E8F0] shadow-xs flex flex-col">
+          <h3 className="font-extrabold text-sm text-[#182230] font-brand flex items-center gap-2">
+            <GraduationCap size={16} className="text-[#173B70]" />
+            <span>Prerequisites</span>
+          </h3>
+          <ul className="space-y-2.5 text-xs text-[#64748B] pt-1">
+            {course.prerequisites.map((p, idx) => (
+              <li key={idx} className="flex items-start gap-2">
+                <CheckCircle2 size={15} className="text-[#18B6D2] flex-shrink-0 mt-0.5" />
+                <span className="text-slate-700 font-medium">{p}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        {/* Academic Authority */}
+        <div className="clean-card p-6 space-y-3 bg-white rounded-2xl border border-[#E2E8F0] shadow-xs flex flex-col justify-between">
+          <div className="space-y-3">
             <h3 className="font-extrabold text-sm text-[#182230] font-brand flex items-center gap-2">
               <ShieldCheck size={16} className="text-[#16865C]" />
               <span>Academic Authority</span>
@@ -451,12 +452,12 @@ export default function CourseDetailsView({ course }: CourseDetailsViewProps) {
               <div className="font-bold text-xs text-[#182230]">SLRJ Learn Academic Team</div>
               <div className="text-xs text-[#64748B]">Curated by Kouluri Shahid & Engineering Mentors</div>
             </div>
-            <p className="text-[11px] text-[#64748B] leading-relaxed">
+            <p className="text-[11px] text-[#64748B] leading-relaxed pt-1">
               Curriculum engineered adhering to modern industry standards, clear architectural patterns, and verified assessments.
             </p>
           </div>
         </div>
-      </div>
+      </section>
 
       {/* Accessible In-App PDF Reader Modal */}
       {activePdfLesson && (
