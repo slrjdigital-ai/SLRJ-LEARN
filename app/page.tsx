@@ -2,6 +2,7 @@ import { Metadata } from "next";
 import PublicHeroSection from "@/components/home/PublicHeroSection";
 import LearningBenefitsSection from "@/components/home/LearningBenefitsSection";
 import CertificatePreviewSection from "@/components/home/CertificatePreviewSection";
+import HowItWorksSection from "@/components/home/HowItWorksSection";
 import HomeWelcomeBanner from "@/components/home/HomeWelcomeBanner";
 import PersonalizedLearningOverview from "@/components/home/PersonalizedLearningOverview";
 import ContinueLearningCard from "@/components/home/ContinueLearningCard";
@@ -32,13 +33,16 @@ export default function HomePage() {
       {/* ─── 4. Real Certificate Preview & Authentic QR Verification ─── */}
       <CertificatePreviewSection />
 
-      {/* ─── 5. Peer Discussion Community ─── */}
+      {/* ─── 5. How Learning Works at SLRJ Learn (5-Step Methodology) ─── */}
+      <HowItWorksSection />
+
+      {/* ─── 6. Peer Discussion Community ─── */}
       <HomeCommunityPreview />
 
-      {/* ─── 6. Frequently Asked Questions Accordion ─── */}
+      {/* ─── 7. Frequently Asked Questions Accordion ─── */}
       <FaqSection />
 
-      {/* ─── 7. Why Learn With SLRJ Learn (Platform Benefits & Pillars) ─── */}
+      {/* ─── 8. Why Learn With SLRJ Learn (Platform Benefits & Pillars) ─── */}
       <LearningBenefitsSection />
     </div>
   );
