@@ -190,10 +190,10 @@ Can you explain the main concepts simply, clarify common beginner mistakes, and 
             <button
               onClick={handleAskLumio}
               className="px-3.5 py-2 rounded-xl bg-purple-50 hover:bg-purple-100 border border-purple-200 text-purple-700 text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer shadow-sm"
-              title="Ask Lumio AI about this stage"
+              title="Ask Samy AI about this stage"
             >
               <Bot size={15} className="text-purple-600 animate-pulse" />
-              <span className="hidden sm:inline">Ask Lumio</span>
+              <span className="hidden sm:inline">Ask Samy</span>
             </button>
           </div>
         </div>
@@ -307,7 +307,7 @@ Can you explain the main concepts simply, clarify common beginner mistakes, and 
                     className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-purple-50 hover:bg-purple-100 text-purple-700 border border-purple-200 text-xs font-semibold transition-all cursor-pointer"
                   >
                     <Bot size={13} className="text-purple-600" />
-                    <span>Ask Lumio</span>
+                    <span>Ask Samy</span>
                   </button>
                 </div>
               </div>
@@ -451,7 +451,7 @@ Can you explain the main concepts simply, clarify common beginner mistakes, and 
                   className="px-5 py-2.5 rounded-xl font-bold text-xs sm:text-sm bg-white hover:bg-slate-50 text-slate-700 border border-slate-200 transition-all flex items-center gap-1.5 cursor-pointer shadow-sm"
                 >
                   <Bot size={15} className="text-[#0b69ff]" />
-                  <span>Ask Lumio for Starter Hints</span>
+                  <span>Ask Samy for Starter Hints</span>
                 </button>
               </div>
             </div>

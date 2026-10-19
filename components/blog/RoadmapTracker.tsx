@@ -618,14 +618,14 @@ Explain the core concepts simply, what common mistakes to avoid, and how to buil
                   {/* Action Bar: Ask Lumio AI & Linked Notes */}
                   <div className="pt-3 border-t border-white/10 flex flex-wrap items-center justify-between gap-3">
                     <div className="flex items-center gap-2">
-                      {/* Ask Lumio Button */}
+                      {/* Ask Samy Button */}
                       <button
                         onClick={() => handleAskLumio(step)}
                         className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-gradient-to-r from-purple-500/20 to-cyan-500/20 hover:from-purple-500/30 hover:to-cyan-500/30 border border-cyan-400/40 text-cyan-200 text-xs font-bold transition-all cursor-pointer shadow-sm"
-                        title="Get Lumio AI guidance on this topic"
+                        title="Get Samy AI guidance on this topic"
                       >
                         <Bot size={14} className="text-cyan-300 animate-pulse" />
-                        <span>Ask Lumio to Explain</span>
+                        <span>Ask Samy to Explain</span>
                       </button>
 
                       {/* Practice link */}
@@ -718,7 +718,7 @@ Explain the core concepts simply, what common mistakes to avoid, and how to buil
                     className="inline-flex items-center gap-1 text-xs text-cyan-300 hover:text-cyan-200 font-bold cursor-pointer"
                   >
                     <Bot size={13} />
-                    <span>Ask Lumio</span>
+                    <span>Ask Samy</span>
                   </button>
                   <span className="text-[11px] font-mono text-slate-500">{step.duration}</span>
                 </div>

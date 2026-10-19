@@ -133,7 +133,7 @@ export default function AppSidebar({
       label: "Tools & Support",
       items: [
         {
-          name: "SAM AI Assistant",
+          name: "Samy AI Assistant",
           action: () => {
             if (typeof window !== "undefined") {
               window.dispatchEvent(new CustomEvent("open-lumio"));

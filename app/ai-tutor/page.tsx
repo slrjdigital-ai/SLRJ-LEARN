@@ -3,7 +3,7 @@ import AiTutorChat from "@/components/ai/AiTutorChat";
 import { Bot, Sparkles, BookOpen, CheckCircle2, ShieldCheck } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "SAM / Lumio — AI Coding Companion | SLRJ Learn",
+  title: "Samy — AI Coding Companion | SLRJ Learn",
   description:
     "Interactive AI programming mentor. Get step-by-step code explanations, error diagnosis, progressive hints, and practice quizzes.",
 };
@@ -22,11 +22,11 @@ export default function AiTutorPage() {
           </div>
 
           <h1 className="text-3xl sm:text-5xl font-black font-brand tracking-tight text-white">
-            SAM AI Coding Assistant
+            Samy AI Coding Assistant
           </h1>
 
           <p className="text-blue-100 text-sm sm:text-base leading-relaxed">
-            Never get stuck on a bug or syntax question again. Ask SAM for instant line-by-line code breakdowns, error diagnoses, and concept practice.
+            Never get stuck on a bug or syntax question again. Ask Samy for instant line-by-line code breakdowns, error diagnoses, and concept practice.
           </p>
         </div>
       </section>

@@ -29,7 +29,7 @@ const INITIAL_MESSAGES: ChatMessage[] = [
   {
     id: "msg-welcome",
     sender: "ai",
-    text: `👋 Hello! I am **Lumio**, your AI coding companion. 
+    text: `👋 Hello! I am **Samy**, your AI coding companion. 
 
 I am here to help you learn deeply, not just copy answers. You can ask me to:
 - 📖 **Explain code** line by line

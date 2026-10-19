@@ -33,7 +33,7 @@ const INITIAL_MESSAGES: LumioMessage[] = [
   {
     id: "lumio-welcome",
     sender: "lumio",
-    text: `👋 Hey there! I'm **Lumio**, your personal AI coding companion.
+    text: `👋 Hey there! I'm **Samy**, your personal AI coding companion.
 
 I'm here to help you master programming step-by-step. You can ask me to:
 - 📖 **Explain code** or complex concepts line-by-line
@@ -140,7 +140,7 @@ export default function LumioChatbot() {
       });
 
       const data = await res.json();
-      if (!res.ok) throw new Error(data.error || "Failed to fetch Lumio response");
+      if (!res.ok) throw new Error(data.error || "Failed to fetch Samy response");
 
       const lumioMsg: LumioMessage = {
         id: "lumio-" + Date.now(),
@@ -157,7 +157,7 @@ export default function LumioChatbot() {
       const errorMsg: LumioMessage = {
         id: "lumio-err-" + Date.now(),
         sender: "lumio",
-        text: `⚠️ **Lumio Service Notice:** ${err.message || "Something went wrong while connecting to Lumio."}\n\n*Tip: Check that your network connection is active or try asking again in a moment.*`,
+        text: `⚠️ **Samy Service Notice:** ${err.message || "Something went wrong while connecting to Samy."}\n\n*Tip: Check that your network connection is active or try asking again in a moment.*`,
         timestamp: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
       };
       setMessages((prev) => [...prev, errorMsg]);
@@ -271,7 +271,7 @@ export default function LumioChatbot() {
             className="hidden sm:flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#0a0f1d]/90 border border-cyan-500/30 text-xs text-slate-200 shadow-xl backdrop-blur-md pointer-events-none"
           >
             <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse shadow-[0_0_8px_#34d399]" />
-            <span>Need help? Chat with <strong className="text-cyan-300 font-semibold">Lumio</strong></span>
+            <span>Need help? Chat with <strong className="text-cyan-300 font-semibold">Samy</strong></span>
           </motion.div>
         )}
 
@@ -288,7 +288,7 @@ export default function LumioChatbot() {
               ? "bg-[#0b1329] border border-cyan-400/50 text-cyan-300"
               : "bg-gradient-to-r from-cyan-500 via-teal-500 to-emerald-500 hover:from-cyan-400 hover:to-emerald-400"
           }`}
-          aria-label="Toggle Lumio AI Chatbot"
+          aria-label="Toggle Samy AI Chatbot"
         >
           {isOpen ? (
             <X size={22} className="text-cyan-300 group-hover:rotate-90 transition-transform duration-200" />
@@ -299,7 +299,7 @@ export default function LumioChatbot() {
                 <span className="absolute -top-1 -right-1 w-2.5 h-2.5 rounded-full bg-white ring-2 ring-emerald-500 animate-ping" />
               </div>
               <span className="hidden sm:inline text-black font-extrabold tracking-wide font-brand text-sm">
-                Lumio AI
+                Samy AI
               </span>
               {hasUnread && (
                 <span className="absolute -top-1 -right-1 w-3.5 h-3.5 rounded-full bg-rose-500 border-2 border-[#030712] animate-bounce" />
@@ -339,7 +339,7 @@ export default function LumioChatbot() {
                 <div>
                   <div className="flex items-center gap-2">
                     <h3 className="font-extrabold text-base tracking-tight text-white font-brand">
-                      Lumio <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-emerald-400 font-mono text-xs">AI</span>
+                      Samy <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-emerald-400 font-mono text-xs">AI</span>
                     </h3>
                     <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-cyan-500/15 text-cyan-300 border border-cyan-500/30 font-bold">
                       Online
@@ -463,7 +463,7 @@ export default function LumioChatbot() {
                       </div>
                       <div className="px-4 py-2.5 rounded-2xl bg-[#0b1122] border border-white/10 text-slate-300 flex items-center gap-2">
                         <span className="w-2 h-2 rounded-full bg-cyan-400 animate-ping" />
-                        <span className="text-xs font-medium text-cyan-300">Lumio is reasoning...</span>
+                        <span className="text-xs font-medium text-cyan-300">Samy is reasoning...</span>
                       </div>
                     </div>
                   )}
@@ -550,7 +550,7 @@ export default function LumioChatbot() {
                       value={inputText}
                       onChange={(e) => setInputText(e.target.value)}
                       onKeyDown={handleKeyDown}
-                      placeholder="Ask Lumio anything about code... (Enter to send)"
+                      placeholder="Ask Samy anything about code... (Enter to send)"
                       rows={1}
                       className="flex-1 bg-transparent text-slate-200 placeholder-slate-500 text-xs sm:text-sm py-1.5 focus:outline-none resize-none max-h-24 leading-relaxed"
                     />
@@ -561,14 +561,14 @@ export default function LumioChatbot() {
                       onClick={() => handleSend()}
                       disabled={isLoading || (!inputText.trim() && !codeSnippet.trim())}
                       className="p-2 sm:px-3 sm:py-2 rounded-xl bg-gradient-to-r from-cyan-500 to-emerald-500 hover:from-cyan-400 hover:to-emerald-400 disabled:opacity-40 disabled:cursor-not-allowed text-black font-bold transition-all shadow-md shadow-cyan-500/25 cursor-pointer flex items-center justify-center flex-shrink-0"
-                      aria-label="Send message to Lumio"
+                      aria-label="Send message to Samy"
                     >
                       <Send size={15} />
                     </button>
                   </div>
                   <div className="flex items-center justify-between mt-2 px-1 text-[10px] text-slate-500">
                     <span>Press Enter to send, Shift+Enter for new line</span>
-                    <span>Powered by Lumio Socratic Engine</span>
+                    <span>Powered by Samy Socratic Engine</span>
                   </div>
                 </div>
               </>

@@ -30,7 +30,7 @@ export async function POST(req: Request) {
                 {
                   parts: [
                     {
-                      text: `You are the SLRJ Learn AI Coding Tutor: an expert, patient, Socratic programming instructor.
+                      text: `You are Samy, the SLRJ Learn AI Coding Tutor: an expert, patient, Socratic programming instructor.
 Your goal is to help students truly understand computer science principles.
 Rules:
 1. Explain step-by-step in clear, accessible language.
