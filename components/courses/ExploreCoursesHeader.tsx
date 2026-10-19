@@ -1,6 +1,6 @@
 "use client";
 
-import { Search, Filter, X, BookOpen, SlidersHorizontal, ArrowUpDown } from "lucide-react";
+import { Search, Filter, X, BookOpen, SlidersHorizontal } from "lucide-react";
 
 export type SortOption = "recommended" | "newest" | "popular" | "shortest";
 
@@ -12,8 +12,8 @@ interface ExploreCoursesHeaderProps {
   isFilterOpen: boolean;
   onToggleFilter: () => void;
   activeFilterCount: number;
-  sortBy: SortOption;
-  onSortChange: (sort: SortOption) => void;
+  sortBy?: SortOption;
+  onSortChange?: (sort: SortOption) => void;
 }
 
 export default function ExploreCoursesHeader({
@@ -24,8 +24,6 @@ export default function ExploreCoursesHeader({
   isFilterOpen,
   onToggleFilter,
   activeFilterCount,
-  sortBy,
-  onSortChange,
 }: ExploreCoursesHeaderProps) {
   return (
     <section className="space-y-6">
@@ -85,25 +83,8 @@ export default function ExploreCoursesHeader({
           )}
         </div>
 
-        {/* Right Action Controls: Filter Button + Sort Select */}
-        <div className="flex items-center gap-2.5 w-full md:w-auto justify-between md:justify-end">
-          {/* Sorting Dropdown */}
-          <div className="flex items-center gap-1.5 bg-[#F8FAFC] border border-[#E2E8F0] rounded-xl px-2.5 py-1.5">
-            <ArrowUpDown size={13} className="text-[#64748B]" />
-            <span className="text-[11px] font-semibold text-[#64748B] hidden sm:inline">Sort:</span>
-            <select
-              value={sortBy}
-              onChange={(e) => onSortChange(e.target.value as SortOption)}
-              className="bg-transparent text-xs font-bold text-[#182230] focus:outline-none cursor-pointer pr-1"
-              aria-label="Sort courses by"
-            >
-              <option value="recommended">Recommended</option>
-              <option value="newest">Newest</option>
-              <option value="popular">Most Popular</option>
-              <option value="shortest">Shortest Duration</option>
-            </select>
-          </div>
-
+        {/* Right Action Controls: Filter Toggle Button */}
+        <div className="flex items-center gap-2.5 w-full md:w-auto justify-end">
           {/* Filter Toggle Button */}
           <button
             onClick={onToggleFilter}

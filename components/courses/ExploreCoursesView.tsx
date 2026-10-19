@@ -445,8 +445,6 @@ export default function ExploreCoursesView() {
         isFilterOpen={isFilterPanelOpen}
         onToggleFilter={() => setIsFilterPanelOpen((prev) => !prev)}
         activeFilterCount={activeFilterCount}
-        sortBy={sortBy}
-        onSortChange={setSortBy}
       />
 
       {/* ── Filter Panel Popover (when toggled) ── */}
