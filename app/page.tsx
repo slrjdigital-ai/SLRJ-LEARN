@@ -1,7 +1,6 @@
 import { Metadata } from "next";
 import PublicHeroSection from "@/components/home/PublicHeroSection";
 import LearningBenefitsSection from "@/components/home/LearningBenefitsSection";
-import HowItWorksSection from "@/components/home/HowItWorksSection";
 import CertificatePreviewSection from "@/components/home/CertificatePreviewSection";
 import HomeWelcomeBanner from "@/components/home/HomeWelcomeBanner";
 import PersonalizedLearningOverview from "@/components/home/PersonalizedLearningOverview";
@@ -30,19 +29,16 @@ export default function HomePage() {
       {/* ─── 3. Learning Paths & Role Roadmaps (8 Career Tracks) ─── */}
       <LearningPathDashboard />
 
-      {/* ─── 4. How It Works (Discover -> Enrol -> Study -> Pass Assessment -> Certificate) ─── */}
-      <HowItWorksSection />
-
-      {/* ─── 5. Real Certificate Preview & Authentic QR Verification ─── */}
+      {/* ─── 4. Real Certificate Preview & Authentic QR Verification ─── */}
       <CertificatePreviewSection />
 
-      {/* ─── 6. Peer Discussion Community ─── */}
+      {/* ─── 5. Peer Discussion Community ─── */}
       <HomeCommunityPreview />
 
-      {/* ─── 7. Frequently Asked Questions Accordion ─── */}
+      {/* ─── 6. Frequently Asked Questions Accordion ─── */}
       <FaqSection />
 
-      {/* ─── 8. Why Learn With SLRJ Learn (Platform Benefits & Pillars) ─── */}
+      {/* ─── 7. Why Learn With SLRJ Learn (Platform Benefits & Pillars) ─── */}
       <LearningBenefitsSection />
     </div>
   );
