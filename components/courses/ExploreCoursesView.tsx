@@ -23,84 +23,22 @@ import { useCourseProgress } from "@/lib/courseProgress";
 import CourseGrid from "./CourseGrid";
 import CourseEmptyState from "./CourseEmptyState";
 import PdfReaderModal from "./PdfReaderModal";
-import { ArrowRight, RotateCcw } from "lucide-react";
 
 interface LevelSectionProps {
   info: CourseLevelInfo;
   courses: Course[];
-  totalLevelCount: number;
-  isIsolated: boolean;
   onOpenQuickRead: (course: Course) => void;
-  onSelectLevel: (level: CourseLevelFilter) => void;
-  onResetToAll: () => void;
 }
 
 function CourseLevelSection({
   info,
   courses,
-  totalLevelCount,
-  isIsolated,
   onOpenQuickRead,
-  onSelectLevel,
-  onResetToAll,
 }: LevelSectionProps) {
+  if (courses.length === 0) return null;
+
   return (
     <section id={`level-${info.levelNumber}`} className="space-y-4 scroll-mt-24">
-      {/* ── Level Header Card ── */}
-      <div
-        className={`p-4 sm:p-5 rounded-2xl bg-gradient-to-r ${info.headerGradientClass} border shadow-2xs flex flex-col md:flex-row md:items-center justify-between gap-4 transition-all`}
-      >
-        <div className="flex items-start sm:items-center gap-3.5 min-w-0">
-          <div
-            className={`w-12 h-12 rounded-2xl flex items-center justify-center font-black text-sm flex-shrink-0 shadow-xs ${info.accentBgClass}`}
-          >
-            L{info.levelNumber}
-          </div>
-          <div className="min-w-0 space-y-1">
-            <div className="flex flex-wrap items-center gap-2">
-              <span
-                className={`text-[10px] font-black px-2 py-0.5 rounded-md border tracking-wider uppercase ${info.badgeClass}`}
-              >
-                {info.badgeLabel}
-              </span>
-              <span className="text-xs font-semibold text-slate-500">
-                • Tier {info.levelNumber} Curriculum
-              </span>
-            </div>
-            <h2 className="text-lg sm:text-xl font-black font-brand text-[#182230] truncate">
-              {info.title}
-            </h2>
-            <p className="text-xs sm:text-sm text-[#64748B] line-clamp-2 max-w-3xl">
-              {info.subtitle}
-            </p>
-          </div>
-        </div>
-
-        <div className="flex items-center gap-2 self-start md:self-center flex-shrink-0">
-          <span className="text-xs font-black px-3 py-1.5 rounded-xl bg-white text-slate-800 border border-slate-200 shadow-2xs">
-            {courses.length} {courses.length === 1 ? "Course" : "Courses"}
-            {courses.length < totalLevelCount && ` (filtered from ${totalLevelCount})`}
-          </span>
-
-          {!isIsolated ? (
-            <button
-              onClick={() => onSelectLevel(info.id)}
-              className="text-xs font-bold text-[#173B70] hover:text-[#12316B] hover:bg-slate-100/90 px-3 py-1.5 rounded-xl border border-slate-200 transition-colors cursor-pointer flex items-center gap-1.5 shadow-2xs bg-white"
-            >
-              <span>View Only L{info.levelNumber}</span>
-              <ArrowRight size={13} />
-            </button>
-          ) : (
-            <button
-              onClick={onResetToAll}
-              className="text-xs font-bold text-slate-600 hover:text-slate-900 hover:bg-slate-100/90 px-3 py-1.5 rounded-xl border border-slate-200 transition-colors cursor-pointer flex items-center gap-1.5 shadow-2xs bg-white"
-            >
-              <span>View All Levels &times;</span>
-            </button>
-          )}
-        </div>
-      </div>
-
       {/* Course Grid for this Level */}
       <CourseGrid courses={courses} onOpenQuickRead={onOpenQuickRead} />
     </section>
@@ -472,42 +410,16 @@ export default function ExploreCoursesView() {
         counts={levelCounts}
       />
 
-      {/* ── Active Level Filter Pill Banner (when single level isolated) ── */}
-      {selectedLevel !== "all" && (
-        <div className="flex items-center justify-between p-3.5 px-4 rounded-xl bg-blue-50/80 border border-blue-200/90 text-xs font-semibold text-[#12316B] shadow-2xs">
-          <div className="flex items-center gap-2">
-            <span>
-              Filtering by{" "}
-              <strong className="font-extrabold text-[#12316B]">
-                {COURSE_LEVELS[selectedLevel].name}
-              </strong>{" "}
-              ({activeDisplayedCoursesCount} courses available)
-            </span>
-          </div>
-          <button
-            onClick={() => handleSelectLevel("all")}
-            className="text-xs font-bold text-[#173B70] hover:text-[#12316B] hover:underline flex items-center gap-1 cursor-pointer"
-          >
-            <RotateCcw size={12} />
-            <span>Show All 3 Levels</span>
-          </button>
-        </div>
-      )}
-
       {/* ── D. Divided Course Catalog ── */}
       {activeDisplayedCoursesCount > 0 ? (
-        <div className="space-y-10">
+        <div className="space-y-8">
           {/* Level 1: Basic Section */}
           {(selectedLevel === "all" || selectedLevel === "basic") &&
             level1Courses.length > 0 && (
               <CourseLevelSection
                 info={COURSE_LEVELS.basic}
                 courses={level1Courses}
-                totalLevelCount={levelCounts.basic}
-                isIsolated={selectedLevel === "basic"}
                 onOpenQuickRead={handleOpenQuickRead}
-                onSelectLevel={handleSelectLevel}
-                onResetToAll={() => handleSelectLevel("all")}
               />
             )}
 
@@ -517,11 +429,7 @@ export default function ExploreCoursesView() {
               <CourseLevelSection
                 info={COURSE_LEVELS.intermediate}
                 courses={level2Courses}
-                totalLevelCount={levelCounts.intermediate}
-                isIsolated={selectedLevel === "intermediate"}
                 onOpenQuickRead={handleOpenQuickRead}
-                onSelectLevel={handleSelectLevel}
-                onResetToAll={() => handleSelectLevel("all")}
               />
             )}
 
@@ -531,11 +439,7 @@ export default function ExploreCoursesView() {
               <CourseLevelSection
                 info={COURSE_LEVELS.pro}
                 courses={level3Courses}
-                totalLevelCount={levelCounts.pro}
-                isIsolated={selectedLevel === "pro"}
                 onOpenQuickRead={handleOpenQuickRead}
-                onSelectLevel={handleSelectLevel}
-                onResetToAll={() => handleSelectLevel("all")}
               />
             )}
         </div>

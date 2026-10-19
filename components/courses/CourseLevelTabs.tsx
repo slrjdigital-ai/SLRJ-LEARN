@@ -87,14 +87,6 @@ export default function CourseLevelTabs({
             Step-by-step from zero to industry pro
           </span>
         </div>
-        {selectedLevel !== "all" && (
-          <button
-            onClick={() => onSelectLevel("all")}
-            className="text-[11px] font-bold text-[#173B70] hover:underline cursor-pointer"
-          >
-            Reset to All Levels &times;
-          </button>
-        )}
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5 sm:gap-3">
@@ -105,7 +97,7 @@ export default function CourseLevelTabs({
           return (
             <button
               key={tab.id}
-              onClick={() => onSelectLevel(isActive ? "all" : tab.id)}
+              onClick={() => onSelectLevel(tab.id)}
               className={`p-3.5 sm:p-4 rounded-2xl border text-left transition-all duration-200 flex flex-col justify-between gap-3 cursor-pointer group shadow-2xs relative overflow-hidden ${
                 isActive
                   ? `${tab.activeBg} ${tab.activeBorder} ${tab.activeText} shadow-md`
