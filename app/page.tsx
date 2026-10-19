@@ -29,29 +29,29 @@ export default function HomePage() {
       <PersonalizedLearningOverview />
       <ContinueLearningCard />
 
-      {/* ─── 3. Learning Benefits (5 Pillars of SLRJ Learn) ─── */}
-      <LearningBenefitsSection />
-
-      {/* ─── 4. Learning Paths & Role Roadmaps (8 Career Tracks) ─── */}
+      {/* ─── 3. Learning Paths & Role Roadmaps (8 Career Tracks) ─── */}
       <LearningPathDashboard />
 
-      {/* ─── 5. How It Works (Discover -> Enrol -> Study -> Pass Assessment -> Certificate) ─── */}
+      {/* ─── 4. How It Works (Discover -> Enrol -> Study -> Pass Assessment -> Certificate) ─── */}
       <HowItWorksSection />
 
-      {/* ─── 6. Real Certificate Preview & Authentic QR Verification ─── */}
+      {/* ─── 5. Real Certificate Preview & Authentic QR Verification ─── */}
       <CertificatePreviewSection />
 
-      {/* ─── 7. Daily Learning Hub (Interactive SoloLearn-Style Challenges) ─── */}
+      {/* ─── 6. Daily Learning Hub (Interactive SoloLearn-Style Challenges) ─── */}
       <DailyLearningHub />
 
-      {/* ─── 8. Build Something Real (8 Practical Projects) ─── */}
+      {/* ─── 7. Build Something Real (8 Practical Projects) ─── */}
       <BuildSomethingReal />
 
-      {/* ─── 9. Peer Discussion Community ─── */}
+      {/* ─── 8. Peer Discussion Community ─── */}
       <HomeCommunityPreview />
 
-      {/* ─── 10. Frequently Asked Questions Accordion ─── */}
+      {/* ─── 9. Frequently Asked Questions Accordion ─── */}
       <FaqSection />
+
+      {/* ─── 10. Why Learn With SLRJ Learn (Platform Benefits & Pillars) ─── */}
+      <LearningBenefitsSection />
     </div>
   );
 }
