@@ -100,15 +100,6 @@ export default function AppSidebar({
           badgeColor: "bg-cyan-50 text-[#12316B] border border-cyan-200",
         },
         {
-          name: "Role Roadmaps",
-          href: "/roadmap",
-          icon: Compass,
-          iconColor: "text-[#12316B]",
-          exact: false,
-          badge: "8 Paths",
-          badgeColor: "bg-blue-50 text-[#12316B] border border-blue-200",
-        },
-        {
           name: "Practical Projects",
           href: "/projects",
           icon: FolderGit2,
