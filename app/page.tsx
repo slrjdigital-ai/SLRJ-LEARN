@@ -1,7 +1,6 @@
 import { Metadata } from "next";
 import PublicHeroSection from "@/components/home/PublicHeroSection";
 import LearningBenefitsSection from "@/components/home/LearningBenefitsSection";
-import FeaturedCoursesSection from "@/components/home/FeaturedCoursesSection";
 import HowItWorksSection from "@/components/home/HowItWorksSection";
 import CertificatePreviewSection from "@/components/home/CertificatePreviewSection";
 import HomeWelcomeBanner from "@/components/home/HomeWelcomeBanner";
@@ -33,28 +32,25 @@ export default function HomePage() {
       {/* ─── 3. Learning Benefits (5 Pillars of SLRJ Learn) ─── */}
       <LearningBenefitsSection />
 
-      {/* ─── 4. Featured Courses (Catalog Showcase) ─── */}
-      <FeaturedCoursesSection />
-
-      {/* ─── 5. Learning Paths & Role Roadmaps (8 Career Tracks) ─── */}
+      {/* ─── 4. Learning Paths & Role Roadmaps (8 Career Tracks) ─── */}
       <LearningPathDashboard />
 
-      {/* ─── 6. How It Works (Discover -> Enrol -> Study -> Pass Assessment -> Certificate) ─── */}
+      {/* ─── 5. How It Works (Discover -> Enrol -> Study -> Pass Assessment -> Certificate) ─── */}
       <HowItWorksSection />
 
-      {/* ─── 7. Real Certificate Preview & Authentic QR Verification ─── */}
+      {/* ─── 6. Real Certificate Preview & Authentic QR Verification ─── */}
       <CertificatePreviewSection />
 
-      {/* ─── 8. Daily Learning Hub (Interactive SoloLearn-Style Challenges) ─── */}
+      {/* ─── 7. Daily Learning Hub (Interactive SoloLearn-Style Challenges) ─── */}
       <DailyLearningHub />
 
-      {/* ─── 9. Build Something Real (8 Practical Projects) ─── */}
+      {/* ─── 8. Build Something Real (8 Practical Projects) ─── */}
       <BuildSomethingReal />
 
-      {/* ─── 10. Peer Discussion Community ─── */}
+      {/* ─── 9. Peer Discussion Community ─── */}
       <HomeCommunityPreview />
 
-      {/* ─── 11. Frequently Asked Questions Accordion ─── */}
+      {/* ─── 10. Frequently Asked Questions Accordion ─── */}
       <FaqSection />
     </div>
   );
