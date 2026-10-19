@@ -43,6 +43,7 @@ const nextConfig: NextConfig = {
       { source: "/blog/pdfs", destination: "/pdfs", permanent: true },
       { source: "/blog/pdfs/:slug", destination: "/pdfs", permanent: true },
       { source: "/blog/:slug", destination: "/notes/:slug", permanent: true },
+      { source: "/learn/:path*", destination: "/courses", permanent: false },
     ];
   },
 };

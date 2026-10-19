@@ -351,14 +351,13 @@ export default function CourseDetailsView({ course }: CourseDetailsViewProps) {
                     {isOpen && (
                       <div className="px-4 pb-3 divide-y divide-slate-100 bg-white">
                         {mod.lessons.map((lesson) => (
-                          <Link
+                          <div
                             key={lesson.id}
-                            href={`/learn/${course.id}/${lesson.id}`}
-                            className="py-3 flex items-center justify-between text-xs hover:text-[#173B70] group transition-colors"
+                            className="py-3 flex items-center justify-between text-xs text-slate-700"
                           >
                             <div className="flex items-center gap-3">
-                              <BookOpen size={14} className="text-slate-400 group-hover:text-[#173B70]" />
-                              <span className="font-semibold text-[#182230] group-hover:text-[#173B70]">
+                              <BookOpen size={14} className="text-slate-400" />
+                              <span className="font-semibold text-[#182230]">
                                 {lesson.title}
                               </span>
                             </div>
@@ -366,7 +365,7 @@ export default function CourseDetailsView({ course }: CourseDetailsViewProps) {
                               <span>{lesson.duration}</span>
                               <span className="text-[10px] font-bold text-[#18B6D2]">+{lesson.xpReward} XP</span>
                             </div>
-                          </Link>
+                          </div>
                         ))}
                       </div>
                     )}
