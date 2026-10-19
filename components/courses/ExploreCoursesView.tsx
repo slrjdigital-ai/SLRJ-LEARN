@@ -11,7 +11,7 @@ import {
   getCourseLevel,
 } from "@/data/courses";
 import ExploreCoursesHeader, { SortOption } from "./ExploreCoursesHeader";
-import CourseCategoryTabs, { CourseCategoryFilter } from "./CourseCategoryTabs";
+import { CourseCategoryFilter } from "./CourseCategoryTabs";
 import CourseLevelTabs, { CourseLevelFilter } from "./CourseLevelTabs";
 import CourseFilterPanel, {
   DifficultyFilter,
@@ -169,15 +169,6 @@ export default function ExploreCoursesView() {
       intermediate,
       pro,
     };
-  }, [allCourses]);
-
-  // Category counts computation
-  const categoryCounts = useMemo(() => {
-    const counts: Record<string, number> = { All: allCourses.length };
-    for (const c of allCourses) {
-      counts[c.category] = (counts[c.category] || 0) + 1;
-    }
-    return counts;
   }, [allCourses]);
 
   // Active filter count
@@ -476,14 +467,7 @@ export default function ExploreCoursesView() {
         activeFilterCount={activeFilterCount}
       />
 
-      {/* ── C. Category Filter Chips ── */}
-      <CourseCategoryTabs
-        selectedCategory={selectedCategory}
-        onSelectCategory={setSelectedCategory}
-        categoryCounts={categoryCounts}
-      />
-
-      {/* ── C2. Level Tabs (Level 1: Basic, Level 2: Intermediate, Level 3: Pro) ── */}
+      {/* ── Level Tabs (Level 1: Basic, Level 2: Intermediate, Level 3: Pro) ── */}
       <CourseLevelTabs
         selectedLevel={selectedLevel}
         onSelectLevel={handleSelectLevel}
