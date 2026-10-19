@@ -21,7 +21,6 @@ import {
   Bot,
   ChevronDown,
   ChevronRight,
-  Flame,
   Sparkles,
   Code2,
   GraduationCap,
@@ -454,39 +453,6 @@ export default function AppSidebar({
             ))
           )}
         </div>
-
-        {/* ── Elaborate Bottom Widget: Academy Student Passport ── */}
-        {!collapsed && (
-          <div className="p-3 border-t border-slate-200 flex-shrink-0 bg-slate-50/50">
-            <div className="p-3.5 rounded-2xl bg-gradient-to-br from-[#12316B] via-[#163a7d] to-[#1c4794] text-white shadow-lg shadow-[#12316B]/15 border border-white/10 relative overflow-hidden">
-              <div className="flex items-center justify-between mb-2">
-                <div className="flex items-center gap-1.5 text-xs font-bold text-white">
-                  <Flame size={15} className="text-orange-400 fill-orange-400 animate-pulse" />
-                  <span>Growth Passport</span>
-                </div>
-                <span className="text-[10px] font-black px-2 py-0.5 rounded-full bg-[#18B6D2] text-[#12316B] uppercase tracking-wider">
-                  Level 1
-                </span>
-              </div>
-              <div className="space-y-1 mb-2.5">
-                <div className="flex items-center justify-between text-[11px] text-blue-200">
-                  <span>Curriculum Mastery</span>
-                  <span className="font-bold text-white font-mono">14%</span>
-                </div>
-                <div className="w-full h-1.5 bg-white/20 rounded-full overflow-hidden">
-                  <div className="h-full bg-gradient-to-r from-[#18B6D2] to-cyan-300 rounded-full w-[14%]" />
-                </div>
-              </div>
-              <Link
-                href="/dashboard"
-                className="w-full py-1.5 px-3 rounded-xl bg-white/10 hover:bg-white/20 border border-white/20 text-white text-[11px] font-bold flex items-center justify-between transition-colors cursor-pointer group"
-              >
-                <span>Open Student Dashboard</span>
-                <ChevronRight size={13} className="group-hover:translate-x-0.5 transition-transform" />
-              </Link>
-            </div>
-          </div>
-        )}
       </aside>
     </>
   );
