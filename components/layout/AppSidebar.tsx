@@ -18,6 +18,7 @@ import {
   Users,
   X,
   Award,
+  Bot,
 } from "lucide-react";
 
 interface AppSidebarProps {
@@ -115,6 +116,22 @@ export default function AppSidebar({
           href: "/community",
           icon: Users,
           exact: false,
+        },
+      ],
+    },
+    {
+      label: "Tools & Support",
+      items: [
+        {
+          name: "Samy AI Assistant",
+          action: () => {
+            if (typeof window !== "undefined") {
+              window.dispatchEvent(new CustomEvent("open-lumio"));
+            }
+          },
+          icon: Bot,
+          badge: "24/7 AI",
+          badgeColor: "bg-purple-50 text-purple-700 border border-purple-200",
         },
       ],
     },
