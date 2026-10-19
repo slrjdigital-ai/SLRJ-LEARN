@@ -18,7 +18,6 @@ import {
   Trophy,
   Menu,
   LayoutDashboard,
-  Bot,
   User,
   LogOut,
 } from "lucide-react";
@@ -205,23 +204,6 @@ export default function AppTopBar({ onMobileMenuToggle }: AppTopBarProps) {
           )}
         </div>
 
-        {/* Samy AI Assistant Button */}
-        <button
-          onClick={() => {
-            if (typeof window !== "undefined") {
-              window.dispatchEvent(new CustomEvent("open-lumio"));
-            }
-          }}
-          className="flex items-center gap-2 px-3 sm:px-3.5 py-2 rounded-xl bg-purple-50 hover:bg-purple-100 text-purple-700 border border-purple-200 text-sm font-bold transition-all shadow-2xs hover:shadow-xs cursor-pointer group"
-          title="Open Samy AI Assistant"
-        >
-          <Bot size={17} className="text-purple-600 group-hover:rotate-12 transition-transform" />
-          <span className="hidden md:inline">Samy AI</span>
-          <span className="text-[10px] font-black px-1.5 py-0.5 rounded-md bg-purple-200/70 text-purple-800 uppercase tracking-wide">
-            24/7 AI
-          </span>
-        </button>
-
         {/* Student Dashboard Button on Right Side Top Corner */}
         <Link
           href="/dashboard"
@@ -284,24 +266,6 @@ export default function AppTopBar({ onMobileMenuToggle }: AppTopBarProps) {
                   <User size={16} className="text-[#12316B]" />
                   <span>Student Profile</span>
                 </Link>
-
-                <button
-                  onClick={() => {
-                    setProfileMenuOpen(false);
-                    if (typeof window !== "undefined") {
-                      window.dispatchEvent(new CustomEvent("open-lumio"));
-                    }
-                  }}
-                  className="w-full flex items-center justify-between px-3 py-2 rounded-xl text-slate-700 hover:text-slate-950 hover:bg-slate-100 font-medium transition-colors text-left cursor-pointer"
-                >
-                  <div className="flex items-center gap-2.5">
-                    <Bot size={16} className="text-purple-600" />
-                    <span>Samy AI Assistant</span>
-                  </div>
-                  <span className="text-[10px] font-bold px-1.5 py-0.5 rounded bg-purple-100 text-purple-700">
-                    24/7 AI
-                  </span>
-                </button>
               </div>
 
               {/* Divider & Sign Out */}
