@@ -142,7 +142,7 @@ export const DSA_AND_TOOLS_COURSES: Course[] = [
     shortDescription: "Master Git version control, branching, merge conflict resolution, GitHub pull requests, and CI/CD workflows.",
     thumbnailUrl: "/course-web-dev.jpg",
     category: "Tools & Developer Workflow",
-    difficulty: "Intermediate",
+    difficulty: "Advanced",
     estimatedDuration: "14 Hours",
     estimatedDurationMinutes: 840,
     totalLessons: 10,

@@ -336,14 +336,68 @@ export default function ExploreCoursesView() {
     }
     return list;
   }, [filteredAndSortedCourses, sortBy]);
-  const level2Courses = useMemo(
-    () => filteredAndSortedCourses.filter((c) => getCourseLevel(c).id === "intermediate"),
-    [filteredAndSortedCourses]
-  );
-  const level3Courses = useMemo(
-    () => filteredAndSortedCourses.filter((c) => getCourseLevel(c).id === "pro"),
-    [filteredAndSortedCourses]
-  );
+
+  // Level 2: Intermediate ordered strictly as: 1. Java, 2. JavaScript, 3. Node.js, 4. React & Next.js
+  const level2Courses = useMemo(() => {
+    const list = filteredAndSortedCourses.filter((c) => getCourseLevel(c).id === "intermediate");
+    if (sortBy === "recommended") {
+      const intermediateOrderMap: Record<string, number> = {
+        "java-programming": 1,
+        "course-java-programming": 1,
+        "javascript-typescript": 2,
+        "course-javascript-typescript": 2,
+        "nodejs-express": 3,
+        "course-nodejs-express": 3,
+        "react-nextjs": 4,
+        "course-react-nextjs": 4,
+      };
+      return [...list].sort((a, b) => {
+        const orderA = intermediateOrderMap[a.slug] || intermediateOrderMap[a.id] || (a.displayOrder ?? 99);
+        const orderB = intermediateOrderMap[b.slug] || intermediateOrderMap[b.id] || (b.displayOrder ?? 99);
+        return orderA - orderB;
+      });
+    }
+    return list;
+  }, [filteredAndSortedCourses, sortBy]);
+
+  // Level 3: Pro contains all remaining courses
+  const level3Courses = useMemo(() => {
+    const list = filteredAndSortedCourses.filter((c) => getCourseLevel(c).id === "pro");
+    if (sortBy === "recommended") {
+      const proOrderMap: Record<string, number> = {
+        "sql-mongodb": 1,
+        "course-sql-mongodb": 1,
+        "git-github": 2,
+        "course-git-github": 2,
+        "cybersecurity-fundamentals": 3,
+        "course-cybersecurity-fundamentals": 3,
+        "cloud-native-serverless": 4,
+        "course-cloud-native-serverless": 4,
+        "ai-data-analytics-bi": 5,
+        "course-ai-data-analytics-bi": 5,
+        "generative-ai-llms": 6,
+        "course-generative-ai-llms": 6,
+        "ai-machine-learning": 7,
+        "course-ai-machine-learning": 7,
+        "ai-agents-automation": 8,
+        "course-ai-agents-automation": 8,
+        "ai-agents-agentic-ai": 9,
+        "course-ai-agents-agentic-ai": 9,
+        "generative-ai-llm-app-dev": 10,
+        "course-generative-ai-llm-app-dev": 10,
+        "ai-assisted-coding-dev-tools": 11,
+        "course-ai-assisted-coding-dev-tools": 11,
+        "ai-chatbots-voice-ai": 12,
+        "course-ai-chatbots-voice-ai": 12,
+      };
+      return [...list].sort((a, b) => {
+        const orderA = proOrderMap[a.slug] || proOrderMap[a.id] || (a.displayOrder ?? 99);
+        const orderB = proOrderMap[b.slug] || proOrderMap[b.id] || (b.displayOrder ?? 99);
+        return orderA - orderB;
+      });
+    }
+    return list;
+  }, [filteredAndSortedCourses, sortBy]);
 
   // Total matching courses considering selected level
   const activeDisplayedCoursesCount = useMemo(() => {
