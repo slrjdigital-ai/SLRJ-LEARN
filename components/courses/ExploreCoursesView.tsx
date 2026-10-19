@@ -112,26 +112,26 @@ export default function ExploreCoursesView() {
   const searchParams = useSearchParams();
   const allCourses = useMemo(() => getAllCourses(), []);
 
-  // Sync Level with URL query (?level=basic | intermediate | pro)
+  // Sync Level with URL query (?level=basic | intermediate | pro | all)
   const levelQuery = searchParams ? searchParams.get("level") : null;
   const initialLevel: CourseLevelFilter = useMemo(() => {
-    if (levelQuery === "basic" || levelQuery === "1") return "basic";
     if (levelQuery === "intermediate" || levelQuery === "2") return "intermediate";
     if (levelQuery === "pro" || levelQuery === "3") return "pro";
-    return "all";
+    if (levelQuery === "all") return "all";
+    return "basic"; // Default to Level 1 (Basic) when opening explore courses
   }, [levelQuery]);
 
   const [selectedLevel, setSelectedLevel] = useState<CourseLevelFilter>(initialLevel);
 
   useEffect(() => {
-    if (levelQuery === "basic" || levelQuery === "1") {
-      setSelectedLevel("basic");
-    } else if (levelQuery === "intermediate" || levelQuery === "2") {
+    if (levelQuery === "intermediate" || levelQuery === "2") {
       setSelectedLevel("intermediate");
     } else if (levelQuery === "pro" || levelQuery === "3") {
       setSelectedLevel("pro");
-    } else if (!levelQuery) {
+    } else if (levelQuery === "all") {
       setSelectedLevel("all");
+    } else {
+      setSelectedLevel("basic"); // Default to Level 1
     }
   }, [levelQuery]);
 
@@ -188,8 +188,8 @@ export default function ExploreCoursesView() {
     (level: CourseLevelFilter) => {
       setSelectedLevel(level);
       const params = new URLSearchParams(searchParams ? searchParams.toString() : "");
-      if (level === "all") {
-        params.delete("level");
+      if (level === "basic") {
+        params.delete("level"); // /courses naturally opens Level 1
       } else {
         params.set("level", level);
       }
@@ -207,7 +207,7 @@ export default function ExploreCoursesView() {
     setSelectedStatus("All");
     setSelectedAccess("All");
     setSelectedDuration("All");
-    handleSelectLevel("all");
+    handleSelectLevel("basic");
   }, [handleSelectLevel]);
 
   // Multi-faceted filtering & sorting logic
