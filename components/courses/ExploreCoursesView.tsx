@@ -13,8 +13,6 @@ import {
 import ExploreCoursesHeader, { SortOption } from "./ExploreCoursesHeader";
 import CourseCategoryTabs, { CourseCategoryFilter } from "./CourseCategoryTabs";
 import CourseLevelTabs, { CourseLevelFilter } from "./CourseLevelTabs";
-import FeaturedCourseCard from "./FeaturedCourseCard";
-import ContinueLearningSection from "./ContinueLearningSection";
 import CourseFilterPanel, {
   DifficultyFilter,
   AccessFilter,
@@ -175,11 +173,6 @@ export default function ExploreCoursesView() {
       counts[c.category] = (counts[c.category] || 0) + 1;
     }
     return counts;
-  }, [allCourses]);
-
-  // Featured Course
-  const featuredCourse = useMemo(() => {
-    return allCourses.find((c) => c.isFeatured) || allCourses[0];
   }, [allCourses]);
 
   // Active filter count
@@ -390,15 +383,6 @@ export default function ExploreCoursesView() {
         onResetFilters={handleResetFilters}
         activeFilterCount={activeFilterCount}
       />
-
-      {/* ── H. Continue Learning Section (My Learning) ── */}
-      <ContinueLearningSection />
-
-      {/* ── B. Featured Courses Section ── */}
-      {!searchQuery &&
-        selectedCategory === "All Courses" &&
-        selectedLevel === "all" &&
-        featuredCourse && <FeaturedCourseCard course={featuredCourse} />}
 
       {/* ── C. Category Filter Chips ── */}
       <CourseCategoryTabs
