@@ -28,6 +28,10 @@ export default function CourseCard({ course, onOpenQuickRead }: CourseCardProps)
   const isPaid = course.isPaid || course.accessType === "Premium";
   const priceLabel = isPaid ? (course.price ? `$${course.price}` : "Paid") : "Free";
 
+  const firstLessonId = course.modules?.[0]?.lessons?.[0]?.id || "intro";
+  const targetLessonId = hasStarted && progress?.currentLessonId ? progress.currentLessonId : firstLessonId;
+  const startLearningHref = `/learn/${course.slug}/${targetLessonId}`;
+
   return (
     <div className="flex flex-col justify-between overflow-hidden bg-white rounded-2xl border border-slate-200/80 shadow-2xs hover:shadow-xl hover:border-slate-300/90 hover:-translate-y-1.5 transition-all duration-300 ease-out group cursor-pointer relative">
       {/* ── Top Level Accent Gradient Stripe ── */}
@@ -139,7 +143,7 @@ export default function CourseCard({ course, onOpenQuickRead }: CourseCardProps)
       {/* Bottom Action Footer */}
       <div className="p-4 bg-slate-50/70 border-t border-slate-100">
         <Link
-          href={`/courses/${course.slug}`}
+          href={startLearningHref}
           className="w-full py-2.5 px-4 rounded-xl bg-gradient-to-r from-[#173B70] to-[#12316B] hover:from-[#12316B] hover:to-[#0b69ff] text-white text-xs font-black transition-all duration-200 text-center flex items-center justify-center gap-2 group/btn cursor-pointer shadow-xs hover:shadow-md active:scale-95"
         >
           <span>
