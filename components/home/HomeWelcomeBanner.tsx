@@ -37,91 +37,91 @@ export default function HomeWelcomeBanner() {
   };
 
   return (
-    <div className="relative overflow-hidden rounded-3xl bg-white border border-slate-200/90 shadow-sm p-6 sm:p-8 lg:p-10 transition-all">
+    <div className="relative overflow-hidden rounded-2xl bg-white border border-slate-200/90 shadow-sm p-4 sm:p-5 lg:p-6 transition-all">
       {/* Soft gradient accent decoration */}
-      <div className="absolute top-0 right-0 w-96 h-96 bg-gradient-to-br from-blue-100/40 via-indigo-50/20 to-transparent rounded-full blur-3xl pointer-events-none -mr-20 -mt-20" />
+      <div className="absolute top-0 right-0 w-80 h-80 bg-gradient-to-br from-blue-100/40 via-indigo-50/20 to-transparent rounded-full blur-3xl pointer-events-none -mr-16 -mt-16" />
 
-      <div className="relative z-10 flex flex-col lg:flex-row lg:items-center justify-between gap-8">
+      <div className="relative z-10 flex flex-col lg:flex-row lg:items-center justify-between gap-5 lg:gap-6">
         {/* Left Column: Greeting, Subtitle, Highlights */}
-        <div className="space-y-4 max-w-2xl">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 text-[#0b69ff] border border-blue-200/70 text-xs font-bold uppercase tracking-wider">
-            <Sparkles size={13} className="text-[#0b69ff]" />
+        <div className="space-y-3 max-w-xl">
+          <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-blue-50 text-[#0b69ff] border border-blue-200/70 text-[10px] sm:text-[11px] font-bold uppercase tracking-wider">
+            <Sparkles size={12} className="text-[#0b69ff]" />
             <span>SLRJ 4.0 Transformation Program</span>
           </div>
 
           <div>
-            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 font-brand tracking-tight">
+            <h1 className="text-xl sm:text-2xl lg:text-3xl font-extrabold text-slate-900 font-brand tracking-tight">
               Welcome, {studentName}!
             </h1>
-            <p className="text-slate-600 text-base sm:text-lg mt-2.5 leading-relaxed max-w-xl">
+            <p className="text-slate-600 text-xs sm:text-sm mt-1.5 leading-relaxed max-w-lg">
               Ready to begin your coding journey? Master modern full-stack software development from the ground up and build real projects.
             </p>
           </div>
 
           {/* Quick Metrics Bar */}
-          <div className="flex flex-wrap items-center gap-3 pt-1 text-xs sm:text-sm">
-            <div className="flex items-center gap-2 px-3.5 py-2 rounded-xl bg-slate-50 border border-slate-200 text-slate-700 font-semibold">
-              <Compass size={16} className="text-[#0b69ff]" />
+          <div className="flex flex-wrap items-center gap-2 pt-0.5 text-xs">
+            <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-50 border border-slate-200 text-slate-700 font-medium">
+              <Compass size={14} className="text-[#0b69ff]" />
               <span className="text-slate-500">Track:</span>
               <span className="text-slate-900 font-bold">{currentTrack}</span>
             </div>
 
-            <div className="flex items-center gap-2 px-3.5 py-2 rounded-xl bg-amber-50 border border-amber-200 text-amber-800 font-semibold">
-              <Flame size={16} className="text-orange-500 fill-orange-500" />
+            <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-amber-50 border border-amber-200 text-amber-800 font-medium">
+              <Flame size={14} className="text-orange-500 fill-orange-500" />
               <span suppressHydrationWarning>{streakDays} Day Streak</span>
             </div>
 
-            <div className="flex items-center gap-2 px-3.5 py-2 rounded-xl bg-blue-50 border border-blue-200 text-[#0b69ff] font-semibold">
-              <Target size={16} className="text-[#0b69ff]" />
+            <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-blue-50 border border-blue-200 text-[#0b69ff] font-medium">
+              <Target size={14} className="text-[#0b69ff]" />
               <span suppressHydrationWarning>Today&apos;s Goal: {todayGoalDone}/{todayGoalTarget} Completed</span>
             </div>
           </div>
         </div>
 
         {/* Right Column: Next Lesson Highlight & Quick Actions */}
-        <div className="flex flex-col sm:flex-row lg:flex-col gap-3 min-w-[300px]">
+        <div className="flex flex-col sm:flex-row lg:flex-col gap-2.5 min-w-[280px] lg:w-72 flex-shrink-0">
           {/* Next Lesson Snapshot Card */}
-          <div className="p-4 sm:p-5 rounded-2xl bg-slate-50/90 border border-slate-200/90 space-y-2.5">
-            <div className="flex items-center justify-between text-xs font-bold text-slate-500 uppercase tracking-wider">
+          <div className="p-3.5 sm:p-4 rounded-xl bg-slate-50/90 border border-slate-200/90 space-y-1.5">
+            <div className="flex items-center justify-between text-[10px] sm:text-[11px] font-bold text-slate-500 uppercase tracking-wider">
               <span>First Lesson</span>
-              <span className="flex items-center gap-1.5 text-[#0b69ff]">
-                <Clock size={13} />
+              <span className="flex items-center gap-1 text-[#0b69ff]">
+                <Clock size={12} />
                 <span>{nextRecommendedLesson.duration}</span>
               </span>
             </div>
-            <div className="text-sm sm:text-base font-bold text-slate-900 line-clamp-1">
+            <div className="text-xs sm:text-sm font-bold text-slate-900 line-clamp-2 leading-snug">
               {nextRecommendedLesson.title}
             </div>
-            <div className="text-xs sm:text-sm text-slate-500">
+            <div className="text-[11px] sm:text-xs text-slate-500">
               {nextRecommendedLesson.stage}
             </div>
           </div>
 
           {/* Action Buttons */}
-          <div className="flex flex-col gap-2">
+          <div className="flex flex-col gap-1.5">
             <Link
               href={nextRecommendedLesson.link}
-              className="w-full px-5 py-3 rounded-xl bg-[#0b69ff] hover:bg-blue-600 text-white font-extrabold text-sm transition-all shadow-md shadow-blue-500/20 flex items-center justify-center gap-2 group cursor-pointer"
+              className="w-full px-4 py-2.5 rounded-xl bg-[#0b69ff] hover:bg-blue-600 text-white font-bold text-xs sm:text-sm transition-all shadow-md shadow-blue-500/20 flex items-center justify-center gap-2 group cursor-pointer"
             >
-              <PlayCircle size={16} />
+              <PlayCircle size={15} />
               <span>Start Learning Now</span>
-              <ChevronRight size={16} className="group-hover:translate-x-1 transition-transform" />
+              <ChevronRight size={15} className="group-hover:translate-x-1 transition-transform" />
             </Link>
 
-            <div className="grid grid-cols-2 gap-2">
+            <div className="grid grid-cols-2 gap-1.5">
               <Link
                 href="/roadmap"
-                className="px-3 py-2 rounded-xl bg-white hover:bg-slate-50 text-slate-700 border border-slate-200 text-xs font-bold transition-all text-center flex items-center justify-center gap-1 shadow-xs"
+                className="px-2.5 py-1.5 rounded-lg bg-white hover:bg-slate-50 text-slate-700 border border-slate-200 text-xs font-semibold transition-all text-center flex items-center justify-center gap-1 shadow-xs"
               >
-                <Compass size={13} className="text-[#0b69ff]" />
+                <Compass size={12} className="text-[#0b69ff]" />
                 <span>Roadmaps</span>
               </Link>
 
               <Link
                 href="/practice"
-                className="px-3 py-2 rounded-xl bg-white hover:bg-slate-50 text-slate-700 border border-slate-200 text-xs font-bold transition-all text-center flex items-center justify-center gap-1 shadow-xs"
+                className="px-2.5 py-1.5 rounded-lg bg-white hover:bg-slate-50 text-slate-700 border border-slate-200 text-xs font-semibold transition-all text-center flex items-center justify-center gap-1 shadow-xs"
               >
-                <Terminal size={13} className="text-emerald-600" />
+                <Terminal size={12} className="text-emerald-600" />
                 <span>Playground</span>
               </Link>
             </div>

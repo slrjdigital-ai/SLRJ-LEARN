@@ -5,7 +5,6 @@ import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { getAllCourses } from "@/data/courses";
-import { useAuth } from "@/context/AuthContext";
 import {
   Home,
   BookOpen,
@@ -27,7 +26,6 @@ import {
   GraduationCap,
   Layers,
   User,
-  LogOut,
 } from "lucide-react";
 
 interface AppSidebarProps {
@@ -67,10 +65,8 @@ export default function AppSidebar({
   mobileOpen = false,
   onMobileClose,
 }: AppSidebarProps) {
-  const { user, logout } = useAuth();
   const pathname = usePathname();
   const [searchQuery, setSearchQuery] = useState("");
-  const [profileMenuOpen, setProfileMenuOpen] = useState(false);
   const [expandedItems, setExpandedItems] = useState<Record<string, boolean>>({
     "Role Roadmaps": false,
   });
@@ -439,156 +435,6 @@ export default function AppSidebar({
                 })}
               </div>
             ))
-          )}
-        </div>
-
-        {/* ── User Profile Section at bottom of sidebar ── */}
-        <div className="p-3 border-t border-slate-200 bg-slate-50/50 flex-shrink-0 relative">
-          {!collapsed ? (
-            <div className="relative">
-              <button
-                type="button"
-                onClick={() => setProfileMenuOpen(!profileMenuOpen)}
-                className="w-full flex items-center justify-between p-2 rounded-2xl hover:bg-slate-100 transition-all cursor-pointer group text-left"
-              >
-                <div className="flex items-center gap-3 min-w-0">
-                  <div className="relative flex-shrink-0">
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img
-                      src={user?.avatar || "/icon.jpg"}
-                      alt={user?.name || "Student"}
-                      className="w-10 h-10 rounded-full object-cover border-2 border-slate-200 shadow-xs"
-                    />
-                    <span className="absolute bottom-0 right-0 w-3 h-3 rounded-full bg-emerald-500 ring-2 ring-white" />
-                  </div>
-                  <div className="min-w-0 flex-1">
-                    <div className="font-bold text-sm text-slate-900 truncate">
-                      {user?.name || "Shahid"}
-                    </div>
-                    <div className="text-xs text-slate-500 truncate">
-                      {user?.email || "shahid@slrjlearn.in"}
-                    </div>
-                  </div>
-                </div>
-                <ChevronDown
-                  size={16}
-                  className={`text-slate-400 group-hover:text-slate-700 transition-transform duration-200 flex-shrink-0 ${
-                    profileMenuOpen ? "rotate-180" : ""
-                  }`}
-                />
-              </button>
-
-              {profileMenuOpen && (
-                <>
-                  <div
-                    className="fixed inset-0 z-40"
-                    onClick={() => setProfileMenuOpen(false)}
-                  />
-                  <div className="absolute bottom-full left-0 mb-2 w-full p-2 bg-white rounded-2xl border border-slate-200 shadow-xl text-sm z-50 animate-in fade-in slide-in-from-bottom-2 duration-150 space-y-1">
-                    <div className="p-2 border-b border-slate-100 mb-1">
-                      <div className="font-bold text-slate-900 truncate">{user?.name || "Shahid"}</div>
-                      <div className="text-xs text-slate-500 truncate">{user?.level || "Beginner"} • Learner</div>
-                    </div>
-                    <Link
-                      href="/dashboard"
-                      onClick={() => {
-                        setProfileMenuOpen(false);
-                        onMobileClose?.();
-                      }}
-                      className="flex items-center gap-2.5 px-3 py-2 rounded-xl text-slate-700 hover:text-slate-950 hover:bg-slate-100 font-medium transition-colors"
-                    >
-                      <User size={16} className="text-[#12316B]" />
-                      <span>Student Profile</span>
-                    </Link>
-                    <Link
-                      href="/certificates"
-                      onClick={() => {
-                        setProfileMenuOpen(false);
-                        onMobileClose?.();
-                      }}
-                      className="flex items-center gap-2.5 px-3 py-2 rounded-xl text-slate-700 hover:text-slate-950 hover:bg-slate-100 font-medium transition-colors"
-                    >
-                      <Award size={16} className="text-teal-600" />
-                      <span>My Certificates</span>
-                    </Link>
-                    <div className="border-t border-slate-100 pt-1 my-1">
-                      <button
-                        type="button"
-                        onClick={() => {
-                          setProfileMenuOpen(false);
-                          logout();
-                        }}
-                        className="w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-rose-600 hover:bg-rose-50 font-semibold transition-colors text-left cursor-pointer"
-                      >
-                        <LogOut size={16} />
-                        <span>Sign Out</span>
-                      </button>
-                    </div>
-                  </div>
-                </>
-              )}
-            </div>
-          ) : (
-            <div className="relative flex justify-center">
-              <button
-                type="button"
-                onClick={() => setProfileMenuOpen(!profileMenuOpen)}
-                className="relative p-1 rounded-full hover:ring-2 hover:ring-[#12316B] transition-all cursor-pointer"
-                title="Profile & Settings"
-              >
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src={user?.avatar || "/icon.jpg"}
-                  alt={user?.name || "Student"}
-                  className="w-10 h-10 rounded-full object-cover border-2 border-slate-200 shadow-xs"
-                />
-                <span className="absolute bottom-0 right-0 w-3 h-3 rounded-full bg-emerald-500 ring-2 ring-white" />
-              </button>
-
-              {profileMenuOpen && (
-                <>
-                  <div
-                    className="fixed inset-0 z-40"
-                    onClick={() => setProfileMenuOpen(false)}
-                  />
-                  <div className="absolute bottom-full left-12 mb-2 w-56 p-2 bg-white rounded-2xl border border-slate-200 shadow-xl text-sm z-50 animate-in fade-in slide-in-from-bottom-2 duration-150 space-y-1">
-                    <div className="p-2 border-b border-slate-100 mb-1">
-                      <div className="font-bold text-slate-900 truncate">{user?.name || "Shahid"}</div>
-                      <div className="text-xs text-slate-500 truncate">{user?.level || "Beginner"} Learner</div>
-                    </div>
-                    <Link
-                      href="/dashboard"
-                      onClick={() => setProfileMenuOpen(false)}
-                      className="flex items-center gap-2.5 px-3 py-2 rounded-xl text-slate-700 hover:text-slate-950 hover:bg-slate-100 font-medium transition-colors"
-                    >
-                      <User size={16} className="text-[#12316B]" />
-                      <span>Student Profile</span>
-                    </Link>
-                    <Link
-                      href="/certificates"
-                      onClick={() => setProfileMenuOpen(false)}
-                      className="flex items-center gap-2.5 px-3 py-2 rounded-xl text-slate-700 hover:text-slate-950 hover:bg-slate-100 font-medium transition-colors"
-                    >
-                      <Award size={16} className="text-teal-600" />
-                      <span>My Certificates</span>
-                    </Link>
-                    <div className="border-t border-slate-100 pt-1 my-1">
-                      <button
-                        type="button"
-                        onClick={() => {
-                          setProfileMenuOpen(false);
-                          logout();
-                        }}
-                        className="w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-rose-600 hover:bg-rose-50 font-semibold transition-colors text-left cursor-pointer"
-                      >
-                        <LogOut size={16} />
-                        <span>Sign Out</span>
-                      </button>
-                    </div>
-                  </div>
-                </>
-              )}
-            </div>
           )}
         </div>
       </aside>

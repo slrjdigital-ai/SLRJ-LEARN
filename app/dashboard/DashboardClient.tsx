@@ -34,6 +34,8 @@ import {
   Lock,
   Unlock,
   FolderGit2,
+  Clock,
+  TrendingUp,
 } from "lucide-react";
 
 export default function DashboardClient() {
@@ -51,11 +53,10 @@ export default function DashboardClient() {
     );
   }, [allProgress]);
 
-  const activeCourseProgress: LearnerCourseProgress | null =
-    enrolledList.length > 0 ? enrolledList[0] : null;
-
   const [submittedProjects, setSubmittedProjects] = useState<Record<string, string>>({});
   const [projectRecords, setProjectRecords] = useState<Record<string, any>>({});
+  const [dashboardTab, setDashboardTab] = useState<"all" | "roadmap" | "courses" | "activity">("all");
+  const [selectedStageTab, setSelectedStageTab] = useState<number>(0);
 
   useEffect(() => {
     try {
@@ -81,6 +82,8 @@ export default function DashboardClient() {
       (p: any) => p?.status === "Submitted" || p?.status === "Completed"
     ).length;
   }, [projectRecords]);
+
+  const activeCourseProgress = enrolledList[0] ?? null;
 
   if (!user) {
     return (
@@ -190,6 +193,118 @@ export default function DashboardClient() {
         </div>
       </div>
 
+      {/* ── Segmented Navigation Tabs (Modern Attractive Pill Controls) ── */}
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+        <div className="flex items-center gap-1.5 p-1.5 rounded-2xl bg-slate-100/90 backdrop-blur-xs border border-slate-200/90 shadow-inner w-full sm:w-fit overflow-x-auto no-scrollbar">
+          <button
+            type="button"
+            onClick={() => setDashboardTab("all")}
+            className={`group relative flex items-center gap-2.5 px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all duration-200 cursor-pointer whitespace-nowrap ${
+              dashboardTab === "all"
+                ? "bg-gradient-to-r from-[#12316B] via-[#173B70] to-[#12316B] text-white shadow-md shadow-[#12316B]/25 ring-1 ring-white/10 font-extrabold"
+                : "text-slate-600 hover:text-slate-900 hover:bg-white hover:shadow-2xs"
+            }`}
+          >
+            <span
+              className={`p-1 rounded-lg transition-colors ${
+                dashboardTab === "all"
+                  ? "bg-white/15 text-cyan-300"
+                  : "bg-slate-200/70 text-slate-500 group-hover:bg-blue-50 group-hover:text-[#0b69ff]"
+              }`}
+            >
+              <Layers size={14} />
+            </span>
+            <span>All Overview</span>
+          </button>
+
+          <button
+            type="button"
+            onClick={() => setDashboardTab("roadmap")}
+            className={`group relative flex items-center gap-2.5 px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all duration-200 cursor-pointer whitespace-nowrap ${
+              dashboardTab === "roadmap"
+                ? "bg-gradient-to-r from-[#12316B] via-[#173B70] to-[#12316B] text-white shadow-md shadow-[#12316B]/25 ring-1 ring-white/10 font-extrabold"
+                : "text-slate-600 hover:text-slate-900 hover:bg-white hover:shadow-2xs"
+            }`}
+          >
+            <span
+              className={`p-1 rounded-lg transition-colors ${
+                dashboardTab === "roadmap"
+                  ? "bg-white/15 text-cyan-300"
+                  : "bg-slate-200/70 text-slate-500 group-hover:bg-blue-50 group-hover:text-[#0b69ff]"
+              }`}
+            >
+              <Compass size={14} />
+            </span>
+            <span>Roadmap Pathway</span>
+            <span
+              className={`text-[10px] px-2 py-0.5 rounded-full font-mono font-bold transition-all ${
+                dashboardTab === "roadmap"
+                  ? "bg-[#18B6D2] text-[#12316B] shadow-2xs"
+                  : "bg-blue-50 text-[#0b69ff] border border-blue-200/60"
+              }`}
+            >
+              {roadmapPct}%
+            </span>
+          </button>
+
+          <button
+            type="button"
+            onClick={() => setDashboardTab("courses")}
+            className={`group relative flex items-center gap-2.5 px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all duration-200 cursor-pointer whitespace-nowrap ${
+              dashboardTab === "courses"
+                ? "bg-gradient-to-r from-[#12316B] via-[#173B70] to-[#12316B] text-white shadow-md shadow-[#12316B]/25 ring-1 ring-white/10 font-extrabold"
+                : "text-slate-600 hover:text-slate-900 hover:bg-white hover:shadow-2xs"
+            }`}
+          >
+            <span
+              className={`p-1 rounded-lg transition-colors ${
+                dashboardTab === "courses"
+                  ? "bg-white/15 text-cyan-300"
+                  : "bg-slate-200/70 text-slate-500 group-hover:bg-blue-50 group-hover:text-[#0b69ff]"
+              }`}
+            >
+              <BookOpen size={14} />
+            </span>
+            <span>Enrolled Courses</span>
+            <span
+              className={`text-[10px] px-2 py-0.5 rounded-full font-mono font-bold transition-all ${
+                dashboardTab === "courses"
+                  ? "bg-white/20 text-cyan-200 ring-1 ring-white/20"
+                  : "bg-slate-200/80 text-slate-700"
+              }`}
+            >
+              {enrolledList.length}
+            </span>
+          </button>
+
+          <button
+            type="button"
+            onClick={() => setDashboardTab("activity")}
+            className={`group relative flex items-center gap-2.5 px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all duration-200 cursor-pointer whitespace-nowrap ${
+              dashboardTab === "activity"
+                ? "bg-gradient-to-r from-[#12316B] via-[#173B70] to-[#12316B] text-white shadow-md shadow-[#12316B]/25 ring-1 ring-white/10 font-extrabold"
+                : "text-slate-600 hover:text-slate-900 hover:bg-white hover:shadow-2xs"
+            }`}
+          >
+            <span
+              className={`p-1 rounded-lg transition-colors ${
+                dashboardTab === "activity"
+                  ? "bg-white/15 text-cyan-300"
+                  : "bg-slate-200/70 text-slate-500 group-hover:bg-blue-50 group-hover:text-[#0b69ff]"
+              }`}
+            >
+              <BarChart3 size={14} />
+            </span>
+            <span>Weekly Activity</span>
+          </button>
+        </div>
+
+        <div className="hidden sm:flex items-center gap-2 text-xs font-semibold text-slate-500">
+          <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+          <span>Real-time learning analytics</span>
+        </div>
+      </div>
+
       {/* ── Metric Stats Overview Cards ── */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
         {/* Total XP Points */}
@@ -272,6 +387,7 @@ export default function DashboardClient() {
       </div>
 
       {/* ── Structured Learning Roadmap Progression Banner ── */}
+      {(dashboardTab === "all" || dashboardTab === "roadmap") && (
       <div className="p-6 rounded-3xl bg-gradient-to-br from-[#12316B] via-[#173B70] to-[#1F4A8A] text-white shadow-md space-y-5">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div className="space-y-1">
@@ -364,8 +480,94 @@ export default function DashboardClient() {
           })}
         </div>
       </div>
+      )}
 
-      {/* ── Continue Learning & Activity Chart ── */}
+      {/* ── Roadmap Detailed Milestones (Only in Roadmap Tab) ── */}
+      {dashboardTab === "roadmap" && (
+        <div className="p-6 rounded-2xl bg-white border border-slate-200/90 shadow-sm space-y-5">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-slate-100">
+            <div>
+              <h3 className="text-base font-bold text-slate-900 font-brand flex items-center gap-2">
+                <Compass size={17} className="text-[#0b69ff]" />
+                <span>Curriculum Milestone Stages</span>
+              </h3>
+              <p className="text-xs text-slate-500 mt-0.5">
+                Detailed stage progression for your enrolled track: <span className="font-semibold text-slate-700">{user.track || "Full-Stack Developer"}</span>
+              </p>
+            </div>
+            <Link
+              href="/roadmap"
+              className="text-xs font-bold text-[#0b69ff] hover:underline flex items-center gap-1 self-start sm:self-auto"
+            >
+              <span>Interactive Roadmap Graph</span>
+              <ArrowRight size={13} />
+            </Link>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            {/* Level 1 Card */}
+            <div className="p-4 rounded-xl bg-slate-50/70 border border-slate-200 space-y-3">
+              <div className="flex items-center justify-between">
+                <span className="text-[10px] font-bold uppercase tracking-wider text-slate-500">Stage 01</span>
+                <span className={`text-[10px] font-extrabold px-2 py-0.5 rounded-full ${
+                  levelStats.level1.progressPercentage >= 80 ? "bg-emerald-100 text-emerald-800" : "bg-blue-100 text-[#0b69ff]"
+                }`}>
+                  {levelStats.level1.progressPercentage}%
+                </span>
+              </div>
+              <div>
+                <h4 className="font-bold text-sm text-slate-900">Foundations &amp; Syntax</h4>
+                <p className="text-xs text-slate-500 mt-0.5">Core computer science principles &amp; programming constructs.</p>
+              </div>
+              <div className="text-[11px] font-semibold text-slate-600 flex items-center justify-between pt-2 border-t border-slate-200/60">
+                <span>{levelStats.level1.completedCount} of {levelStats.level1.totalCourses} Passed</span>
+                <Link href="/courses" className="text-[#0b69ff] hover:underline font-bold">Review</Link>
+              </div>
+            </div>
+
+            {/* Level 2 Card */}
+            <div className="p-4 rounded-xl bg-slate-50/70 border border-slate-200 space-y-3">
+              <div className="flex items-center justify-between">
+                <span className="text-[10px] font-bold uppercase tracking-wider text-slate-500">Stage 02</span>
+                <span className={`text-[10px] font-extrabold px-2 py-0.5 rounded-full ${
+                  levelStats.level2.progressPercentage >= 80 ? "bg-emerald-100 text-emerald-800" : levelStats.level2.isUnlocked ? "bg-blue-100 text-[#0b69ff]" : "bg-slate-200 text-slate-600"
+                }`}>
+                  {levelStats.level2.isUnlocked ? `${levelStats.level2.progressPercentage}%` : "Locked"}
+                </span>
+              </div>
+              <div>
+                <h4 className="font-bold text-sm text-slate-900">Intermediate Engineering</h4>
+                <p className="text-xs text-slate-500 mt-0.5">Frameworks, relational persistence, and full-stack APIs.</p>
+              </div>
+              <div className="text-[11px] font-semibold text-slate-600 flex items-center justify-between pt-2 border-t border-slate-200/60">
+                <span>{levelStats.level2.completedCount} of {levelStats.level2.totalCourses} Courses</span>
+                <Link href="/courses" className="text-[#0b69ff] hover:underline font-bold">Explore</Link>
+              </div>
+            </div>
+
+            {/* Level 3 & Projects Card */}
+            <div className="p-4 rounded-xl bg-slate-50/70 border border-slate-200 space-y-3">
+              <div className="flex items-center justify-between">
+                <span className="text-[10px] font-bold uppercase tracking-wider text-slate-500">Stage 03 &amp; Projects</span>
+                <span className="text-[10px] font-extrabold px-2 py-0.5 rounded-full bg-slate-200 text-slate-600">
+                  {completedProjectsCount}/6 Projects
+                </span>
+              </div>
+              <div>
+                <h4 className="font-bold text-sm text-slate-900">Portfolio &amp; Defense</h4>
+                <p className="text-xs text-slate-500 mt-0.5">Real-world production builds and senior capstone review.</p>
+              </div>
+              <div className="text-[11px] font-semibold text-slate-600 flex items-center justify-between pt-2 border-t border-slate-200/60">
+                <span>Projects Portfolio</span>
+                <Link href="/projects" className="text-[#0b69ff] hover:underline font-bold">Projects Hub</Link>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* ── Continue Learning & Activity Chart (Overview Tab) ── */}
+      {dashboardTab === "all" && (
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
         <div className="lg:col-span-7 p-6 rounded-2xl bg-white border border-slate-200/90 shadow-sm flex flex-col justify-between">
           <div>
@@ -452,9 +654,134 @@ export default function DashboardClient() {
           </div>
         </div>
       </div>
+      )}
+
+      {/* ── Active Hero Card (Courses Tab) ── */}
+      {dashboardTab === "courses" && (
+        <div className="p-6 rounded-2xl bg-white border border-slate-200/90 shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-6">
+          <div className="space-y-2 max-w-xl">
+            <span className="text-xs font-bold text-[#173B70] uppercase tracking-wider flex items-center gap-1.5">
+              <BookOpen size={14} />
+              <span>Currently In Progress</span>
+            </span>
+            <h3 className="text-lg font-bold text-slate-900 font-brand">
+              {activeCourseProgress
+                ? activeCourseProgress.courseTitle
+                : "Python Programming: Fundamentals to Applied Problem Solving"}
+            </h3>
+            <p className="text-xs text-slate-500 leading-relaxed">
+              {activeCourseProgress
+                ? `Next Up: ${activeCourseProgress.currentLessonTitle || "Next lesson in curriculum"}`
+                : "Begin with Python variables, syntax, data types, and core algorithmic thinking."}
+            </p>
+            <div className="space-y-1.5 pt-1">
+              <div className="flex justify-between text-xs text-slate-600 font-semibold">
+                <span>Course Completion</span>
+                <span className="text-[#173B70]">
+                  {activeCourseProgress ? activeCourseProgress.progressPercentage : 0}%
+                </span>
+              </div>
+              <div className="w-full h-2 bg-slate-100 rounded-full overflow-hidden">
+                <div
+                  className="h-full bg-gradient-to-r from-[#18B6D2] to-[#173B70] rounded-full transition-all"
+                  style={{
+                    width: `${activeCourseProgress ? activeCourseProgress.progressPercentage : 0}%`,
+                  }}
+                />
+              </div>
+            </div>
+          </div>
+          <Link
+            href={
+              activeCourseProgress
+                ? `/courses/${activeCourseProgress.courseSlug}`
+                : "/courses/python-programming"
+            }
+            className="px-6 py-3 rounded-xl bg-[#173B70] hover:bg-[#12316B] text-white font-bold text-xs text-center transition-all shadow-sm flex items-center justify-center gap-2 cursor-pointer whitespace-nowrap self-start md:self-auto"
+          >
+            <span>{activeCourseProgress ? "Continue Lesson" : "Start Course"}</span>
+            <ArrowRight size={14} />
+          </Link>
+        </div>
+      )}
+
+      {/* ── Expanded Weekly Activity Analytics (Activity Tab) ── */}
+      {dashboardTab === "activity" && (
+        <div className="space-y-6">
+          <div className="p-6 sm:p-8 rounded-2xl bg-white border border-slate-200/90 shadow-sm space-y-6">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+              <div>
+                <span className="text-xs font-bold text-[#173B70] uppercase tracking-wider flex items-center gap-1.5">
+                  <BarChart3 size={15} />
+                  <span>Weekly Study Analytics</span>
+                </span>
+                <h3 className="text-xl font-bold text-slate-900 font-brand mt-1">
+                  Learning Velocity &amp; Focus Time
+                </h3>
+                <p className="text-xs text-slate-500 mt-0.5">
+                  Track daily study habits, active days, and stay on track toward your target milestones.
+                </p>
+              </div>
+              <div className="flex items-center gap-3">
+                <div className="px-3.5 py-1.5 rounded-xl bg-blue-50 border border-blue-200 text-[#0b69ff] text-xs font-bold flex items-center gap-1.5">
+                  <Clock size={13} />
+                  <span>Weekly Total: 0.0 hrs</span>
+                </div>
+                <div className="px-3.5 py-1.5 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-700 text-xs font-bold flex items-center gap-1.5">
+                  <TrendingUp size={13} />
+                  <span>Target: 5.25 hrs/wk</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Expanded 7-Day Visual Bars */}
+            <div className="p-6 rounded-2xl bg-slate-50/70 border border-slate-200/80">
+              <div className="flex items-end justify-between gap-3 sm:gap-6 h-48 pt-4">
+                {weeklyActivity.map((item, idx) => {
+                  const heightPct = Math.round((item.mins / maxMins) * 100);
+                  return (
+                    <div key={idx} className="flex-1 flex flex-col items-center gap-2 h-full justify-end">
+                      <span className="text-[10px] font-mono text-slate-400 font-semibold">{item.mins}m</span>
+                      <div className="w-full max-w-[42px] bg-slate-200/80 rounded-t-lg h-full flex items-end overflow-hidden shadow-inner">
+                        <div
+                          className="w-full bg-gradient-to-t from-[#12316B] to-[#18B6D2] rounded-t-lg transition-all duration-300"
+                          style={{ height: `${Math.max(heightPct, 6)}%` }}
+                        />
+                      </div>
+                      <span className="text-xs font-bold text-slate-600">{item.day}</span>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+
+            {/* 3 Activity Metrics Cards */}
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2">
+              <div className="p-4 rounded-xl bg-white border border-slate-200/80 shadow-2xs">
+                <div className="text-xs font-semibold text-slate-500 mb-1">Consistency Score</div>
+                <div className="text-xl font-black text-slate-900 font-brand">0% This Week</div>
+                <p className="text-[11px] text-slate-500 mt-1">Study 15 minutes today to trigger your streak!</p>
+              </div>
+              <div className="p-4 rounded-xl bg-white border border-slate-200/80 shadow-2xs">
+                <div className="text-xs font-semibold text-slate-500 mb-1">Current Study Streak</div>
+                <div className="text-xl font-black text-emerald-600 font-brand flex items-center gap-1.5">
+                  <Flame size={18} className="text-rose-500" />
+                  <span>{userStreak} Consecutive Days</span>
+                </div>
+                <p className="text-[11px] text-slate-500 mt-1">Keep learning daily to earn Streak Badges.</p>
+              </div>
+              <div className="p-4 rounded-xl bg-white border border-slate-200/80 shadow-2xs">
+                <div className="text-xs font-semibold text-slate-500 mb-1">Daily Commitment</div>
+                <div className="text-xl font-black text-[#173B70] font-brand">45 mins / day</div>
+                <p className="text-[11px] text-slate-500 mt-1">Recommended pacing for optimal concept retention.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* ── Enrolled Courses Section ── */}
-      {enrolledList.length > 0 && (
+      {(dashboardTab === "all" || dashboardTab === "courses") && enrolledList.length > 0 && (
         <div className="space-y-4">
           <div className="flex items-center justify-between">
             <h2 className="text-lg font-bold text-slate-900 font-brand flex items-center gap-2">
@@ -522,7 +849,30 @@ export default function DashboardClient() {
         </div>
       )}
 
+      {/* ── Empty State if No Enrolled Courses (Courses Tab) ── */}
+      {dashboardTab === "courses" && enrolledList.length === 0 && (
+        <div className="p-8 sm:p-10 rounded-2xl bg-white border border-slate-200/90 text-center space-y-4 shadow-sm">
+          <div className="w-14 h-14 rounded-2xl bg-blue-50 text-[#0b69ff] flex items-center justify-center mx-auto">
+            <BookOpen size={26} />
+          </div>
+          <div className="space-y-1">
+            <h3 className="text-lg font-bold text-slate-900 font-brand">No Enrolled Courses Yet</h3>
+            <p className="text-xs text-slate-500 max-w-md mx-auto">
+              You haven&apos;t enrolled in any courses yet. Choose a recommended course below or explore our full curriculum to begin.
+            </p>
+          </div>
+          <Link
+            href="/courses"
+            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-xs font-bold text-white bg-[#0b69ff] hover:bg-blue-600 transition-all shadow-sm"
+          >
+            <span>Explore All Courses</span>
+            <ArrowRight size={13} />
+          </Link>
+        </div>
+      )}
+
       {/* ── Recommended Next Courses ── */}
+      {(dashboardTab === "all" || dashboardTab === "courses") && (
       <div className="space-y-4">
         <div className="flex items-center justify-between">
           <h2 className="text-lg font-bold text-slate-900 font-brand flex items-center gap-2">
@@ -578,8 +928,10 @@ export default function DashboardClient() {
           ))}
         </div>
       </div>
+      )}
 
       {/* ── Assessments & Certificates Hub Banner ── */}
+      {(dashboardTab === "all" || dashboardTab === "roadmap" || dashboardTab === "courses") && (
       <div className="p-6 rounded-2xl bg-gradient-to-r from-[#12316B] to-[#1F4A8A] text-white flex flex-col sm:flex-row sm:items-center justify-between gap-6 shadow-md">
         <div className="space-y-1">
           <div className="flex items-center gap-2">
@@ -602,6 +954,7 @@ export default function DashboardClient() {
           </Link>
         </div>
       </div>
+      )}
     </div>
   );
 }
