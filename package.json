@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "clean": "node -e \"fs.rmSync('.next', { recursive: true, force: true })\"",
+    "clean:dev": "npm run clean && npm run dev"
   },
   "dependencies": {
     "framer-motion": "^13.4.5",
