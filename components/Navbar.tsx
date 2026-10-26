@@ -16,7 +16,6 @@ import {
   BookOpen,
   Compass,
   Code,
-  FolderGit2,
   Bot,
   Users,
   Search,
@@ -28,6 +27,7 @@ import {
   Flame,
   Trophy,
   Zap,
+  User as UserIcon,
 } from "lucide-react";
 import { motion, useScroll, useMotionValueEvent, AnimatePresence } from "framer-motion";
 import GlobalSearchModal from "./GlobalSearchModal";
@@ -44,12 +44,11 @@ interface NavItem {
 
 const NAV_ITEMS: NavItem[] = [
   { name: "Home", href: "/", exact: true, icon: Home },
-  { name: "Learning Paths", href: "/roadmap", exact: false, icon: Compass },
-  { name: "Topics", href: "/topics", exact: false, icon: BookOpen },
+  { name: "Learn", href: "/courses", exact: false, icon: BookOpen },
+  { name: "Roadmaps", href: "/roadmap", exact: false, icon: Compass },
   { name: "Practice", href: "/practice", exact: false, icon: Code },
-  { name: "Challenges", href: "/gamification", exact: false, icon: Trophy, badge: "XP" },
-  { name: "Projects", href: "/projects", exact: false, icon: FolderGit2 },
-  { name: "Community", href: "/community", exact: false, icon: Users },
+  { name: "Events", href: "/events", exact: false, icon: Trophy, badge: "Soon" },
+  { name: "Certificates", href: "/certificates", exact: false, icon: Award },
 ];
 
 export default function Navbar() {
@@ -106,39 +105,28 @@ export default function Navbar() {
 
         <div className="max-w-[1780px] w-full mx-auto px-4 sm:px-8 lg:px-12">
           <div className="flex items-center justify-between h-[84px] sm:h-[88px]">
-            {/* ─── Bigger & Glowing Logo ─── */}
-            <div className="flex-shrink-0 flex items-center gap-3">
+            {/* ─── Main Brand Logo ─── */}
+            <div className="flex-shrink-0 flex items-center">
               <Link
                 href="/"
                 onClick={handleHomeClick}
-                className="flex items-center gap-3.5 group cursor-pointer"
+                className="flex items-center group cursor-pointer py-1"
+                title="SLRJ Learn"
               >
-                <div className="relative p-1.5 rounded-2xl bg-gradient-to-br from-[#0B1528] to-[#040814] border border-cyan-500/35 shadow-[0_0_24px_rgba(6,182,212,0.35)] ring-1 ring-cyan-400/20 group-hover:border-cyan-400/70 group-hover:shadow-[0_0_32px_rgba(6,182,212,0.55)] transition-all duration-300">
+                <div className="relative">
                   <Image
-                    src="/logo.png"
-                    alt="SLRJ Learn Logo"
-                    width={42}
-                    height={42}
-                    className="w-10 h-10 object-contain rounded-xl drop-shadow-[0_0_12px_rgba(6,182,212,0.5)] group-hover:scale-105 transition-transform duration-300"
+                    src="/logo-white.png"
+                    alt="SLRJ Learn"
+                    width={180}
+                    height={52}
+                    className="h-10 sm:h-11 w-auto object-contain drop-shadow-[0_0_16px_rgba(6,182,212,0.4)] group-hover:scale-105 transition-all duration-300"
                     priority
                   />
                   {/* Subtle live radar ping */}
-                  <span className="absolute -top-1 -right-1 flex h-2.5 w-2.5">
+                  <span className="absolute -top-1 -right-2 flex h-2 w-2">
                     <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75" />
-                    <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-cyan-500" />
+                    <span className="relative inline-flex rounded-full h-2 w-2 bg-cyan-500" />
                   </span>
-                </div>
-
-                <div className="flex flex-col">
-                  <span className="text-xl sm:text-2xl font-black tracking-tight text-white group-hover:text-cyan-300 transition-colors font-brand flex items-center gap-1.5 leading-none">
-                    SLRJ <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-teal-300 to-emerald-400 drop-shadow-[0_0_15px_rgba(6,182,212,0.3)]">LEARN</span>
-                  </span>
-                  <div className="flex items-center gap-1.5 mt-1">
-                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 shadow-[0_0_6px_#34d399] animate-pulse" />
-                    <span className="text-[11px] font-mono tracking-widest text-cyan-300/80 uppercase font-bold">
-                      Code • Build • Excel
-                    </span>
-                  </div>
                 </div>
               </Link>
             </div>
@@ -171,6 +159,8 @@ export default function Navbar() {
                         className={`text-[9px] font-mono font-black px-2 py-0.5 rounded-full uppercase tracking-wider ${
                           item.badge === "Free"
                             ? "bg-emerald-500/25 text-emerald-300 border border-emerald-400/40 shadow-sm shadow-emerald-500/20"
+                            : item.badge === "Soon"
+                            ? "bg-amber-500/25 text-amber-300 border border-amber-400/40 shadow-sm shadow-amber-500/20"
                             : "bg-purple-500/25 text-purple-300 border border-purple-400/40 shadow-sm shadow-purple-500/20"
                         }`}
                       >
@@ -303,12 +293,28 @@ export default function Navbar() {
                         <div className="text-slate-400 truncate text-[11px]">{user.email}</div>
                       </div>
                       <Link
+                        href="/profile"
+                        onClick={() => setUserMenuOpen(false)}
+                        className="flex items-center gap-2.5 px-3 py-2.5 rounded-xl text-slate-300 hover:text-white hover:bg-white/5 transition-colors font-medium"
+                      >
+                        <UserIcon size={15} className="text-cyan-400" />
+                        <span>Student Profile</span>
+                      </Link>
+                      <Link
                         href="/dashboard"
                         onClick={() => setUserMenuOpen(false)}
                         className="flex items-center gap-2.5 px-3 py-2.5 rounded-xl text-slate-300 hover:text-white hover:bg-white/5 transition-colors font-medium"
                       >
-                        <LayoutDashboard size={15} className="text-cyan-400" />
-                        <span>Student Dashboard</span>
+                        <LayoutDashboard size={15} className="text-blue-400" />
+                        <span>Learning Dashboard</span>
+                      </Link>
+                      <Link
+                        href="/certificates"
+                        onClick={() => setUserMenuOpen(false)}
+                        className="flex items-center gap-2.5 px-3 py-2.5 rounded-xl text-slate-300 hover:text-white hover:bg-white/5 transition-colors font-medium"
+                      >
+                        <Award size={15} className="text-amber-400" />
+                        <span>My Certificates</span>
                       </Link>
                       <Link
                         href="/roadmap"
@@ -433,6 +439,41 @@ export default function Navbar() {
                   Online
                 </span>
               </button>
+
+              {user && (
+                <div className="pt-3 border-t border-white/10 space-y-2">
+                  <div className="flex items-center gap-3 p-2 bg-white/5 rounded-2xl">
+                    <Image
+                      src={user.avatar || "/icon.jpg"}
+                      alt={user.name}
+                      width={36}
+                      height={36}
+                      unoptimized
+                      className="w-9 h-9 rounded-full object-cover ring-2 ring-cyan-400/50"
+                    />
+                    <div className="min-w-0 flex-1">
+                      <div className="font-bold text-white text-xs truncate">{user.name}</div>
+                      <div className="text-[10px] text-cyan-300 font-mono truncate">{user.email}</div>
+                    </div>
+                  </div>
+                  <div className="grid grid-cols-2 gap-2 text-xs font-semibold">
+                    <Link
+                      href="/profile"
+                      onClick={() => setIsOpen(false)}
+                      className="py-2.5 px-3 rounded-xl bg-cyan-500/10 border border-cyan-500/20 text-cyan-300 text-center"
+                    >
+                      My Profile
+                    </Link>
+                    <Link
+                      href="/dashboard"
+                      onClick={() => setIsOpen(false)}
+                      className="py-2.5 px-3 rounded-xl bg-white/5 border border-white/10 text-white text-center"
+                    >
+                      Dashboard
+                    </Link>
+                  </div>
+                </div>
+              )}
 
               {!user && (
                 <div className="pt-4 border-t border-white/10 grid grid-cols-2 gap-3">

@@ -36,19 +36,19 @@ export default function FaqSection() {
   return (
     <section className="space-y-6">
       <div className="text-center max-w-2xl mx-auto">
-        <span className="text-xs font-bold text-[#18B6D2] tracking-wider uppercase flex items-center justify-center gap-1.5">
-          <HelpCircle size={14} className="text-[#18B6D2]" />
+        <span className="text-xs sm:text-sm font-bold text-[#18B6D2] tracking-wider uppercase flex items-center justify-center gap-1.5">
+          <HelpCircle size={15} className="text-[#18B6D2]" />
           Common Questions
         </span>
-        <h2 className="text-2xl sm:text-3xl font-black font-brand text-[#182230] tracking-tight mt-1">
+        <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black font-brand text-[#182230] tracking-tight mt-1.5">
           Frequently Asked Questions
         </h2>
-        <p className="text-sm text-[#64748B] mt-1">
+        <p className="text-base sm:text-lg text-slate-600 mt-2 leading-relaxed">
           Everything you need to know about SLRJ Learn courses, assessments, and certifications.
         </p>
       </div>
 
-      <div className="max-w-3xl mx-auto space-y-3">
+      <div className="max-w-3xl mx-auto space-y-3.5">
         {faqs.map((faq, idx) => {
           const isOpen = openIndex === idx;
           return (
@@ -57,14 +57,16 @@ export default function FaqSection() {
               className="clean-card overflow-hidden transition-all duration-200"
             >
               <button
+                type="button"
+                suppressHydrationWarning
                 onClick={() => setOpenIndex(isOpen ? null : idx)}
-                className="w-full p-5 text-left flex items-center justify-between gap-4 cursor-pointer"
+                className="w-full p-5 sm:p-6 text-left flex items-center justify-between gap-4 cursor-pointer"
               >
-                <span className="font-bold text-sm text-[#182230]">
+                <span className="font-extrabold text-base sm:text-lg text-[#182230]">
                   {faq.q}
                 </span>
                 <ChevronDown
-                  size={18}
+                  size={20}
                   className={`text-[#64748B] flex-shrink-0 transition-transform duration-200 ${
                     isOpen ? "rotate-180 text-[#12316B]" : ""
                   }`}
@@ -72,7 +74,7 @@ export default function FaqSection() {
               </button>
 
               {isOpen && (
-                <div className="px-5 pb-5 pt-1 text-xs sm:text-sm text-[#64748B] leading-relaxed border-t border-slate-100">
+                <div className="px-5 sm:px-6 pb-6 pt-2 text-sm sm:text-base text-slate-600 leading-relaxed border-t border-slate-100">
                   {faq.a}
                 </div>
               )}

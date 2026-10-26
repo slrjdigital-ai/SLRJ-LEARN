@@ -2163,8 +2163,151 @@ print("Inspect raw packet headers and detect anomalies.")`
     demoOutputPreview: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=800&auto=format&fit=crop&q=80",
     sampleGithubUrl: "https://github.com/slrjdigital-ai/SLRJ-LEARN",
     isPublished: true
+  },
+  // ── LEVEL 2 INTERMEDIATE PRACTICAL PROJECT: QUIZ APPLICATION ──
+  {
+    id: "proj-quiz-app",
+    slug: "interactive-quiz-application",
+    title: "Interactive Quiz Application",
+    tagline: "Build a timed multi-category quiz app with dynamic scoring, instant explanations, question shuffling, and local progress analytics.",
+    category: "Web Development",
+    difficulty: "Intermediate",
+    estimatedTime: "4.5 Hours",
+    estimatedEffortMinutes: 270,
+    xpReward: 350,
+    skillsRequired: [
+      "JavaScript ES6+ / TypeScript",
+      "React.js Components & State",
+      "Timer Lifecycles & Interval Hooks",
+      "JSON Question Bank Handling",
+      "Local Storage Persistence"
+    ],
+    tools: ["VS Code", "React 19 / Next.js", "Tailwind CSS"],
+    prerequisites: ["JavaScript Fundamentals", "React Components & State"],
+    learningObjectives: [
+      "Design structured state machines for quiz phases (Start, In-Progress, Review, Results)",
+      "Implement countdown timers with warning animations and automatic submission",
+      "Provide instantaneous feedback with explanatory solutions and code syntax highlights",
+      "Persist quiz attempts and high scores using Web Storage"
+    ],
+    deliverables: [
+      "Functional interactive quiz application with at least 3 categories",
+      "Clean responsive UI with progress bar and countdown timer",
+      "GitHub repository with clear README instructions",
+      "Live deployed URL on Vercel or GitHub Pages"
+    ],
+    description: "Construct an interactive, timed multi-category quiz application. Learners choose topics, answer multiple-choice questions against a live countdown clock, view explanations upon answer submission, and analyze detailed score breakdowns.",
+    problemStatement: {
+      goal: "Develop a robust quiz app helping students test their programming fundamentals with immediate feedback.",
+      targetUsers: "Students and bootcamp learners looking to test their knowledge with timed challenges.",
+      functionalRequirements: [
+        "Category and difficulty level selection",
+        "Timed question mode with visual countdown indicator",
+        "Instant answer feedback with comprehensive explanations",
+        "Final results score card with percentage and badge",
+        "Retake quiz option with question order randomized"
+      ],
+      acceptanceCriteria: [
+        "Timer stops cleanly on completion",
+        "Score calculation accounts for correct answers accurately",
+        "State persists on soft refresh"
+      ],
+      expectedResult: "A polished, responsive quiz application."
+    },
+    features: [
+      "Dynamic question loading from JSON",
+      "Countdown timer with urgency styling",
+      "Detailed review mode with correct answer explanations",
+      "Shareable achievement card"
+    ],
+    roadmapIds: ["frontend", "fullstack"],
+    roadmapStageIds: [3, 5],
+    relatedCourseIds: ["course-javascript-fundamentals", "course-react-fundamentals"],
+    starterTemplateId: "react",
+    starterFiles: [
+      {
+        filename: "App.jsx",
+        language: "javascript",
+        content: `import React, { useState, useEffect } from 'react';
+
+export default function QuizApp() {
+  const [currentQuestion, setCurrentQuestion] = useState(0);
+  const [score, setScore] = useState(0);
+  const [showScore, setShowScore] = useState(false);
+
+  return (
+    <div className="quiz-container">
+      <h1>SLRJ Learn Interactive Quiz</h1>
+      {showScore ? (
+        <div className="score-section">You scored {score}!</div>
+      ) : (
+        <div className="question-section">
+          <h2>Question {currentQuestion + 1}</h2>
+        </div>
+      )}
+    </div>
+  );
+}`
+      }
+    ],
+    milestones: [
+      {
+        id: "m1",
+        projectId: "proj-quiz-app",
+        title: "Milestone 1: Quiz UI & State Engine",
+        description: "Build question rendering and option selection state.",
+        displayOrder: 1,
+        tasks: [
+          {
+            id: "t1",
+            milestoneId: "m1",
+            title: "Build question card",
+            instructions: "Create options grid with click handlers.",
+            acceptanceCriteria: "Options trigger selected state.",
+            estimatedMinutes: 60,
+            displayOrder: 1
+          }
+        ]
+      }
+    ],
+    steps: [
+      {
+        stepNumber: 1,
+        title: "Setup React Project & Question Data",
+        description: "Initialize state for questions, active index, timer, and score."
+      },
+      {
+        stepNumber: 2,
+        title: "Implement Timer & Scoring Logic",
+        description: "Add 30-second question countdown with automatic next-question transitions."
+      },
+      {
+        stepNumber: 3,
+        title: "Build Results & Review Dashboard",
+        description: "Display final score breakdown with percentage and correct answer reviews."
+      }
+    ],
+    demoOutputPreview: "https://images.unsplash.com/photo-1606326608606-aa0b62935f2b?w=800&auto=format&fit=crop&q=80",
+    sampleGithubUrl: "https://github.com/slrjdigital-ai/SLRJ-LEARN",
+    isPublished: true
   }
 ];
+
+// ── LEVEL 2 INTERMEDIATE REQUIRED PRACTICAL PROJECTS ──
+export const LEVEL_2_REQUIRED_PROJECT_IDS = [
+  "proj-portfolio",      // 1. Personal portfolio website
+  "proj-fe-landing",     // 2. Responsive business website
+  "proj-quiz-app",       // 3. Quiz application
+  "proj-be-auth",        // 4. Authentication-based application
+  "proj-task-manager",   // 5. CRUD application with a database
+  "proj-fs-lms",         // 6. Full-stack project with frontend, backend, and database
+];
+
+export function getLevel2PracticalProjects(): PracticalProject[] {
+  return LEVEL_2_REQUIRED_PROJECT_IDS.map((id) => getPracticalProjectById(id)).filter(
+    (p): p is PracticalProject => Boolean(p)
+  );
+}
 
 export function getAllPracticalProjects(): PracticalProject[] {
   return PRACTICAL_PROJECTS;

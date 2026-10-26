@@ -1,17 +1,17 @@
 import { Metadata } from "next";
-import RoleRoadmapsView from "@/components/roadmap/RoleRoadmapsView";
+import MyLearningRoadmapHub from "@/components/roadmap/MyLearningRoadmapHub";
 
 export const metadata: Metadata = {
-  title: "Role Roadmaps | SLRJ Learn Academy",
+  title: "My Learning Roadmap | SLRJ Learn",
   description:
-    "Choose your career path. Follow your roadmap. Build job-ready skills with structured PDF courses, practical projects, and verifiable milestones.",
+    "Learn. Build. Grow. Structured learning roadmap for programming, computer science, and AI. Follow sequenced levels, check prerequisites, and complete practical projects.",
   openGraph: {
-    title: "Role Roadmaps — Career Development Paths | SLRJ Learn",
+    title: "My Learning Roadmap — Sequenced Career Pathways | SLRJ Learn",
     description:
-      "Explore 8 in-demand software and tech career roadmaps with integrated learning resources, curriculum stages, and portfolio projects.",
+      "Structured learning progression from fundamentals to real-world projects and advanced specializations.",
   },
 };
 
 export default function RoadmapPage() {
-  return <RoleRoadmapsView />;
+  return <MyLearningRoadmapHub />;
 }

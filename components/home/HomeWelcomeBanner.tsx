@@ -53,46 +53,46 @@ export default function HomeWelcomeBanner() {
             <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 font-brand tracking-tight">
               Welcome, {studentName}!
             </h1>
-            <p className="text-slate-600 text-sm sm:text-base mt-2 leading-relaxed">
+            <p className="text-slate-600 text-base sm:text-lg mt-2.5 leading-relaxed max-w-xl">
               Ready to begin your coding journey? Master modern full-stack software development from the ground up and build real projects.
             </p>
           </div>
 
           {/* Quick Metrics Bar */}
-          <div className="flex flex-wrap items-center gap-3 pt-1 text-xs">
-            <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-700 font-semibold">
-              <Compass size={14} className="text-[#0b69ff]" />
+          <div className="flex flex-wrap items-center gap-3 pt-1 text-xs sm:text-sm">
+            <div className="flex items-center gap-2 px-3.5 py-2 rounded-xl bg-slate-50 border border-slate-200 text-slate-700 font-semibold">
+              <Compass size={16} className="text-[#0b69ff]" />
               <span className="text-slate-500">Track:</span>
               <span className="text-slate-900 font-bold">{currentTrack}</span>
             </div>
 
-            <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-amber-50 border border-amber-200 text-amber-800 font-semibold">
-              <Flame size={14} className="text-orange-500 fill-orange-500" />
+            <div className="flex items-center gap-2 px-3.5 py-2 rounded-xl bg-amber-50 border border-amber-200 text-amber-800 font-semibold">
+              <Flame size={16} className="text-orange-500 fill-orange-500" />
               <span suppressHydrationWarning>{streakDays} Day Streak</span>
             </div>
 
-            <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-blue-50 border border-blue-200 text-[#0b69ff] font-semibold">
-              <Target size={14} className="text-[#0b69ff]" />
+            <div className="flex items-center gap-2 px-3.5 py-2 rounded-xl bg-blue-50 border border-blue-200 text-[#0b69ff] font-semibold">
+              <Target size={16} className="text-[#0b69ff]" />
               <span suppressHydrationWarning>Today&apos;s Goal: {todayGoalDone}/{todayGoalTarget} Completed</span>
             </div>
           </div>
         </div>
 
         {/* Right Column: Next Lesson Highlight & Quick Actions */}
-        <div className="flex flex-col sm:flex-row lg:flex-col gap-3 min-w-[280px]">
+        <div className="flex flex-col sm:flex-row lg:flex-col gap-3 min-w-[300px]">
           {/* Next Lesson Snapshot Card */}
-          <div className="p-4 rounded-2xl bg-slate-50/80 border border-slate-200/80 space-y-2">
-            <div className="flex items-center justify-between text-[11px] font-bold text-slate-500 uppercase tracking-wider">
+          <div className="p-4 sm:p-5 rounded-2xl bg-slate-50/90 border border-slate-200/90 space-y-2.5">
+            <div className="flex items-center justify-between text-xs font-bold text-slate-500 uppercase tracking-wider">
               <span>First Lesson</span>
-              <span className="flex items-center gap-1 text-[#0b69ff]">
-                <Clock size={12} />
+              <span className="flex items-center gap-1.5 text-[#0b69ff]">
+                <Clock size={13} />
                 <span>{nextRecommendedLesson.duration}</span>
               </span>
             </div>
-            <div className="text-sm font-bold text-slate-900 line-clamp-1">
+            <div className="text-sm sm:text-base font-bold text-slate-900 line-clamp-1">
               {nextRecommendedLesson.title}
             </div>
-            <div className="text-xs text-slate-500">
+            <div className="text-xs sm:text-sm text-slate-500">
               {nextRecommendedLesson.stage}
             </div>
           </div>

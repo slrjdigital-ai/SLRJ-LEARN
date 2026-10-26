@@ -74,7 +74,6 @@ export default function Footer() {
       links: [
         { name: "All Courses", href: "/courses" },
         { name: "Career Roadmaps (8 Tracks)", href: "/roadmap" },
-        { name: "Practical Projects", href: "/projects" },
         { name: "Coding Playground", href: "/practice" },
       ],
     },
@@ -85,7 +84,6 @@ export default function Footer() {
         { name: "Verified Certificates", href: "/certificates" },
         { name: "Certificate Verification", href: "/verify-certificate/demo" },
         { name: "Student Dashboard", href: "/dashboard" },
-        { name: "Learner Community", href: "/community" },
       ],
     },
     {
@@ -139,7 +137,7 @@ export default function Footer() {
               <h3 className="text-2xl sm:text-3xl font-black text-[#182230] font-brand tracking-tight">
                 Learn Skills. Build Projects. Grow Your Future.
               </h3>
-              <p className="text-[#64748B] text-sm mt-1.5 leading-relaxed">
+              <p className="text-slate-600 text-base mt-2 leading-relaxed">
                 Receive curated computer science notes, practical project walkthroughs, and updates on new verified certification courses directly in your inbox.
               </p>
             </div>
@@ -215,32 +213,23 @@ export default function Footer() {
           <div className="lg:col-span-5 flex flex-col items-start">
             <Link
               href="/"
-              className="flex items-center gap-3 mb-4 group"
+              className="inline-block mb-4 group"
+              title="SLRJ Learn"
             >
-              <div className="w-11 h-11 rounded-xl overflow-hidden bg-white border border-[#E2E8F0] shadow-xs flex items-center justify-center p-0.5 group-hover:scale-105 transition-transform">
-                <Image
-                  src="/logo.png"
-                  alt="SLRJ Learn Logo"
-                  width={44}
-                  height={44}
-                  className="w-full h-full object-contain"
-                />
-              </div>
-              <div className="flex flex-col">
-                <span className="font-extrabold text-base text-[#12316B] leading-none tracking-tight group-hover:text-[#2456A6] transition-colors">
-                  SLRJ LEARN
-                </span>
-                <span className="text-[10px] font-bold text-[#18B6D2] tracking-widest uppercase mt-0.5">
-                  SLRJ DIGITAL ACADEMY
-                </span>
-              </div>
+              <Image
+                src="/logo.png"
+                alt="SLRJ Learn"
+                width={170}
+                height={50}
+                className="h-10 w-auto object-contain group-hover:scale-105 transition-transform"
+              />
             </Link>
 
             <p className="text-[#12316B] font-bold text-xs tracking-wider uppercase mb-2">
               Learn Skills. Build Projects. Grow Your Future.
             </p>
 
-            <p className="text-[#64748B] text-sm leading-relaxed mb-6 max-w-sm">
+            <p className="text-slate-600 text-[15px] sm:text-base leading-relaxed mb-6 max-w-md">
               SLRJ Learn is an online learning platform providing PDF-based courses, digital handwritten notes, structured career roadmaps, hands-on programming challenges, and verifiable completion certificates.
             </p>
 

@@ -111,38 +111,38 @@ export default function PersonalizedLearningOverview() {
             href={card.href}
             className={`group p-5 rounded-2xl bg-white border ${card.borderColor} shadow-xs hover:shadow-md transition-all relative overflow-hidden flex flex-col justify-between`}
           >
-            <div className="flex items-start justify-between gap-3 mb-3">
+            <div className="flex items-start justify-between gap-3 mb-3.5">
               <div className={`p-2.5 rounded-xl ${card.bgColor} border ${card.borderColor}`}>
-                <Icon size={20} className={card.iconColor} />
+                <Icon size={22} className={card.iconColor} />
               </div>
-              <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${card.badgeColor}`}>
+              <span className={`text-xs font-bold px-2.5 py-1 rounded-full ${card.badgeColor}`}>
                 {card.badgeText}
               </span>
             </div>
 
-            <div className="space-y-1 mb-4">
-              <span className="text-xs font-semibold text-slate-500 uppercase tracking-wider block">
+            <div className="space-y-1.5 mb-4">
+              <span className="text-xs font-bold text-slate-500 uppercase tracking-wider block">
                 {card.title}
               </span>
-              <div suppressHydrationWarning className="text-2xl font-black text-slate-900 font-brand tracking-tight">
+              <div suppressHydrationWarning className="text-2xl sm:text-3xl font-black text-slate-900 font-brand tracking-tight">
                 {card.value}
               </div>
-              <p className="text-xs text-slate-500 line-clamp-1">
+              <p className="text-sm text-slate-600 line-clamp-1 leading-snug">
                 {card.subtext}
               </p>
             </div>
 
             {/* Micro Progress Bar */}
-            <div className="space-y-1.5 pt-2 border-t border-slate-100">
-              <div className="w-full h-1.5 bg-slate-100 rounded-full overflow-hidden">
+            <div className="space-y-2 pt-2.5 border-t border-slate-100">
+              <div className="w-full h-2 bg-slate-100 rounded-full overflow-hidden">
                 <div
                   className={`h-full ${card.progressBarColor} rounded-full transition-all duration-500`}
                   style={{ width: `${card.progress}%` }}
                 />
               </div>
-              <div className="flex items-center justify-between text-[11px] text-slate-400 group-hover:text-slate-700 transition-colors">
+              <div className="flex items-center justify-between text-xs text-slate-500 group-hover:text-slate-800 transition-colors font-medium">
                 <span>View Details</span>
-                <ChevronRight size={13} className="group-hover:translate-x-1 transition-transform" />
+                <ChevronRight size={14} className="group-hover:translate-x-1 transition-transform" />
               </div>
             </div>
           </Link>

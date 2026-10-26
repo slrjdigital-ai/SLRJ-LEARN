@@ -146,13 +146,13 @@ export default function CertificateVerificationView({
 
           {/* Certificate Header */}
           <div className="relative z-10 flex flex-col items-center text-center space-y-4">
-            <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl overflow-hidden bg-white border border-[#E2E8F0] shadow-xs p-1 flex items-center justify-center">
+            <div className="h-16 px-4 sm:h-20 sm:px-6 rounded-2xl overflow-hidden bg-white border border-[#E2E8F0] shadow-xs flex items-center justify-center">
               <Image
                 src="/logo.png"
                 alt="SLRJ Learn Logo"
-                width={70}
-                height={70}
-                className="w-full h-full object-contain"
+                width={160}
+                height={60}
+                className="h-12 sm:h-14 w-auto object-contain"
                 priority
               />
             </div>

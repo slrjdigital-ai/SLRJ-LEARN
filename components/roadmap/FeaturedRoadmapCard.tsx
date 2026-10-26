@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { RoadmapTrack, RoadmapStep } from "@/data/roadmap";
 import { LearnerRoadmapProgress } from "@/lib/roadmapProgress";
+import { useRoadmapDetailedProgress } from "@/lib/courseProgressMetrics";
 import {
   Sparkles,
   ArrowRight,
@@ -29,10 +30,16 @@ export default function FeaturedRoadmapCard({
   progress,
   onToggleSave,
 }: FeaturedRoadmapCardProps) {
-  const isStarted = !!progress && (progress.completedStageIds.length > 0 || progress.status === "in_progress");
-  const completedCount = progress?.completedStageIds.length || 0;
-  const percent = track.totalStages > 0 ? Math.round((completedCount / track.totalStages) * 100) : 0;
+  const detailedProgress = useRoadmapDetailedProgress(track.id);
+  const isStarted = !!progress && (progress.completedStageIds.length > 0 || progress.status === "in_progress" || detailedProgress.hasStarted);
+  const percent = detailedProgress.overallPercentage;
   const isSaved = progress?.isSaved ?? false;
+
+  // Circular progress calculations
+  const radius = 16;
+  const circumference = 2 * Math.PI * radius; // ~100.53
+  const strokeDashoffset =
+    circumference - (circumference * Math.min(100, Math.max(0, percent))) / 100;
 
   return (
     <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-slate-900 via-[#173B70] to-[#0f2444] text-white p-6 sm:p-8 shadow-md">
@@ -149,21 +156,68 @@ export default function FeaturedRoadmapCard({
           </div>
         </div>
 
-        {/* Right Column: Visual Preview of Roadmap Stages */}
-        <div className="w-full lg:w-96 rounded-xl bg-white/5 border border-white/10 p-4 sm:p-5 backdrop-blur-xs flex flex-col justify-between">
-          <div className="flex items-center justify-between pb-3 border-b border-white/10">
-            <div className="flex items-center gap-2">
-              <span className="w-2 h-2 rounded-full bg-blue-400 animate-pulse" />
-              <span className="text-xs font-bold text-white uppercase tracking-wider">
-                Roadmap Progression
-              </span>
+        {/* Right Column: Visual Preview of Roadmap Stages & Circular Meter */}
+        <div className="w-full lg:w-96 rounded-2xl bg-white/10 border border-white/15 p-4 sm:p-5 backdrop-blur-md flex flex-col justify-between shadow-lg">
+          <div className="flex items-center justify-between pb-3 border-b border-white/15">
+            <div className="flex items-center gap-3">
+              {/* Circular Progress Ring */}
+              <div className="relative w-10 h-10 flex items-center justify-center shrink-0">
+                <svg className="w-10 h-10 transform -rotate-90" viewBox="0 0 36 36">
+                  <circle
+                    cx="18"
+                    cy="18"
+                    r={radius}
+                    strokeWidth="3"
+                    fill="transparent"
+                    className="stroke-white/20"
+                  />
+                  <circle
+                    cx="18"
+                    cy="18"
+                    r={radius}
+                    strokeWidth="3"
+                    strokeDasharray={circumference}
+                    strokeDashoffset={strokeDashoffset}
+                    strokeLinecap="round"
+                    fill="transparent"
+                    className={`transition-all duration-500 ease-out ${
+                      detailedProgress.isCompleted
+                        ? "stroke-emerald-400"
+                        : percent > 0
+                        ? "stroke-cyan-400"
+                        : "stroke-white/30"
+                    }`}
+                  />
+                </svg>
+                <div className="absolute inset-0 flex items-center justify-center">
+                  {detailedProgress.isCompleted ? (
+                    <Check className="w-3.5 h-3.5 text-emerald-400 stroke-[3]" />
+                  ) : (
+                    <span className="text-[10px] font-black font-mono text-white">
+                      {percent}%
+                    </span>
+                  )}
+                </div>
+              </div>
+
+              <div>
+                <span className="text-xs font-black text-white uppercase tracking-wider block">
+                  Roadmap Progress
+                </span>
+                <span className="text-[11px] text-blue-200">
+                  {detailedProgress.completedTopics}/{detailedProgress.totalTopics} inside topics
+                </span>
+              </div>
             </div>
-            <span className="text-xs text-slate-400">8 Steps</span>
+
+            <span className="text-xs font-mono font-bold px-2 py-0.5 rounded bg-white/10 text-cyan-300">
+              {steps.length} Stages
+            </span>
           </div>
 
           {/* Compact Stages Timeline Flow */}
           <div className="space-y-2 py-3">
-            {(steps.length > 0 ? steps.slice(0, 6) : []).map((step, idx) => {
+            {(steps.length > 0 ? steps.slice(0, 5) : []).map((step, idx) => {
               const isStageDone = progress?.completedStageIds.some(
                 (id) => String(id) === String(step.id)
               );
@@ -190,28 +244,34 @@ export default function FeaturedRoadmapCard({
                 </div>
               );
             })}
-            {steps.length > 6 && (
-              <div className="text-center pt-1 text-xs text-blue-300 font-medium">
-                + {steps.length - 6} more stages to reach job-readiness
+            {steps.length > 5 && (
+              <div className="text-center pt-1 text-xs text-blue-200 font-medium">
+                + {steps.length - 5} more stages to reach job-readiness
               </div>
             )}
           </div>
 
-          {/* Progress Indicator if Started */}
-          {isStarted && (
-            <div className="pt-3 border-t border-white/10 space-y-1">
-              <div className="flex items-center justify-between text-xs">
-                <span className="text-slate-300">Your Progress</span>
-                <span className="font-bold text-emerald-400">{percent}%</span>
-              </div>
-              <div className="w-full h-1.5 rounded-full bg-white/10 overflow-hidden">
-                <div
-                  className="h-full bg-emerald-400 rounded-full transition-all"
-                  style={{ width: `${percent}%` }}
-                />
-              </div>
+          {/* Real-time Inside Topics Breakdown */}
+          <div className="pt-3 border-t border-white/15 grid grid-cols-3 gap-1.5 text-center text-xs">
+            <div className="p-1.5 rounded-lg bg-white/5">
+              <span className="text-[10px] text-slate-300 uppercase block">Notes</span>
+              <span className="font-mono font-bold text-white text-xs">
+                {detailedProgress.completedNotes}/{detailedProgress.totalNotes}
+              </span>
             </div>
-          )}
+            <div className="p-1.5 rounded-lg bg-white/5">
+              <span className="text-[10px] text-slate-300 uppercase block">Quizzes</span>
+              <span className="font-mono font-bold text-white text-xs">
+                {detailedProgress.completedQuizzes}/{detailedProgress.totalQuizzes}
+              </span>
+            </div>
+            <div className="p-1.5 rounded-lg bg-white/5">
+              <span className="text-[10px] text-slate-300 uppercase block">Coding</span>
+              <span className="font-mono font-bold text-white text-xs">
+                {detailedProgress.completedCode}/{detailedProgress.totalCode}
+              </span>
+            </div>
+          </div>
         </div>
       </div>
     </div>

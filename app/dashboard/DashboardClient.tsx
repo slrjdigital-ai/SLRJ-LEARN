@@ -9,8 +9,10 @@ import { useGamification } from "@/context/GamificationContext";
 import { getAllNotes } from "@/data/notes";
 import { getAllCourses } from "@/data/courses";
 import { ROADMAP_STAGES } from "@/data/roadmap";
-import { PRACTICAL_PROJECTS } from "@/data/projectsData";
+import { PRACTICAL_PROJECTS, getLevel2PracticalProjects } from "@/data/projectsData";
 import { useCourseProgress, LearnerCourseProgress } from "@/lib/courseProgress";
+import { getLevelProgressionStats, getRecommendedNextCourse } from "@/lib/courseDependencies";
+import { getStoredProjectRecords } from "@/lib/projectProgress";
 import {
   User as UserIcon,
   BookOpen,
@@ -29,6 +31,9 @@ import {
   ChevronRight,
   Layers,
   FileText,
+  Lock,
+  Unlock,
+  FolderGit2,
 } from "lucide-react";
 
 export default function DashboardClient() {
@@ -50,15 +55,32 @@ export default function DashboardClient() {
     enrolledList.length > 0 ? enrolledList[0] : null;
 
   const [submittedProjects, setSubmittedProjects] = useState<Record<string, string>>({});
+  const [projectRecords, setProjectRecords] = useState<Record<string, any>>({});
 
   useEffect(() => {
     try {
       const saved = localStorage.getItem("slrj_submitted_projects");
       if (saved) setSubmittedProjects(JSON.parse(saved));
+      setProjectRecords(getStoredProjectRecords());
     } catch (e) {
       console.error(e);
     }
   }, []);
+
+  const levelStats = useMemo(
+    () => getLevelProgressionStats(allCourses, allProgress),
+    [allCourses, allProgress]
+  );
+  const recommendedNextCourse = useMemo(
+    () => getRecommendedNextCourse(allCourses, allProgress),
+    [allCourses, allProgress]
+  );
+  const level2Projects = useMemo(() => getLevel2PracticalProjects(), []);
+  const completedProjectsCount = useMemo(() => {
+    return Object.values(projectRecords).filter(
+      (p: any) => p?.status === "Submitted" || p?.status === "Completed"
+    ).length;
+  }, [projectRecords]);
 
   if (!user) {
     return (
@@ -249,6 +271,100 @@ export default function DashboardClient() {
         </div>
       </div>
 
+      {/* ── Structured Learning Roadmap Progression Banner ── */}
+      <div className="p-6 rounded-3xl bg-gradient-to-br from-[#12316B] via-[#173B70] to-[#1F4A8A] text-white shadow-md space-y-5">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div className="space-y-1">
+            <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-white/10 text-[#18B6D2] text-[10px] font-bold uppercase tracking-wider font-mono">
+              <Compass size={12} className="text-[#18B6D2]" />
+              <span>SLRJ Learn • Structured Roadmap Pathway</span>
+            </div>
+            <h2 className="text-xl sm:text-2xl font-black font-brand">
+              My Learning Roadmap Progression
+            </h2>
+            <p className="text-xs text-blue-100 max-w-xl">
+              Currently progressing through <strong>Level {levelStats.currentLevelNumber}</strong> in the {user.track || "Full-Stack Developer"} curriculum.
+            </p>
+          </div>
+
+          <Link
+            href="/roadmap"
+            className="px-5 py-2.5 rounded-xl bg-[#18B6D2] hover:bg-[#15a2bc] text-[#12316B] font-extrabold text-xs transition-all shadow-sm flex items-center justify-center gap-1.5 self-start sm:self-auto cursor-pointer"
+          >
+            <span>Open Roadmap Hub</span>
+            <ChevronRight size={14} />
+          </Link>
+        </div>
+
+        {/* 5-Step Visual Stepper */}
+        <div className="grid grid-cols-2 sm:grid-cols-5 gap-2 pt-2 border-t border-white/10">
+          {[
+            {
+              label: "1. Foundation",
+              status: levelStats.level1.progressPercentage >= 80 ? "completed" : "current",
+              desc: `${levelStats.level1.completedCount}/${levelStats.level1.totalCourses} Passed`,
+            },
+            {
+              label: "2. Intermediate",
+              status:
+                levelStats.level2.progressPercentage >= 80
+                  ? "completed"
+                  : levelStats.level2.isUnlocked
+                  ? "current"
+                  : "locked",
+              desc: `${levelStats.level2.completedCount}/${levelStats.level2.totalCourses} Courses`,
+            },
+            {
+              label: "3. Professional",
+              status:
+                levelStats.level3.progressPercentage >= 80
+                  ? "completed"
+                  : levelStats.level3.isUnlocked
+                  ? "current"
+                  : "locked",
+              desc: "Specialization",
+            },
+            {
+              label: "4. Practical Projects",
+              status: completedProjectsCount >= 6 ? "completed" : "current",
+              desc: `${completedProjectsCount}/6 Submitted`,
+            },
+            {
+              label: "5. Capstone Defense",
+              status: completedProjectsCount >= 6 && levelStats.level3.completedCount >= 4 ? "current" : "locked",
+              desc: "Certification",
+            },
+          ].map((st, sIdx) => {
+            const isDone = st.status === "completed";
+            const isCurr = st.status === "current";
+            return (
+              <div
+                key={sIdx}
+                className={`p-3 rounded-xl border text-xs transition-all ${
+                  isDone
+                    ? "bg-emerald-500/20 border-emerald-400/30 text-emerald-200"
+                    : isCurr
+                    ? "bg-white/15 border-[#18B6D2] text-white shadow-2xs"
+                    : "bg-white/5 border-white/10 text-white/50"
+                }`}
+              >
+                <div className="flex items-center justify-between text-[11px] font-bold mb-0.5">
+                  <span>{st.label}</span>
+                  {isDone ? (
+                    <CheckCircle2 size={12} className="text-emerald-300" />
+                  ) : isCurr ? (
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#18B6D2] animate-ping" />
+                  ) : (
+                    <Lock size={11} className="text-white/40" />
+                  )}
+                </div>
+                <div className="text-[10px] opacity-75 font-mono">{st.desc}</div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+
       {/* ── Continue Learning & Activity Chart ── */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
         <div className="lg:col-span-7 p-6 rounded-2xl bg-white border border-slate-200/90 shadow-sm flex flex-col justify-between">
@@ -417,7 +533,7 @@ export default function DashboardClient() {
             href="/courses"
             className="text-xs font-bold text-[#173B70] hover:underline flex items-center gap-1"
           >
-            <span>View All 21 Courses</span>
+            <span>View All {allCourses.length} Courses</span>
             <ArrowRight size={13} />
           </Link>
         </div>
@@ -473,7 +589,7 @@ export default function DashboardClient() {
             </h3>
           </div>
           <p className="text-xs text-blue-100 max-w-xl">
-            Validate your skills with rigorous timed evaluations for all 21 courses. Earn cryptographic digital credentials with instant QR verification.
+            Validate your skills with rigorous timed evaluations across our sequenced curriculum. Earn cryptographic digital credentials with instant QR verification.
           </p>
         </div>
         <div className="flex items-center gap-3">

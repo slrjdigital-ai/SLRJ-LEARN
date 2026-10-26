@@ -2,11 +2,12 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { COURSES_DATA } from "@/data/courses";
+import { COURSES_DATA, COURSE_LEVELS } from "@/data/courses";
 import { COURSE_ASSESSMENTS } from "@/data/assessments";
 import { getAllCertificates, revokeCertificate, issueCertificate, CertificateCategory } from "@/data/certificatesStore";
-import { PRACTICAL_PROJECTS } from "@/data/projectsData";
+import { PRACTICAL_PROJECTS, LEVEL_2_REQUIRED_PROJECT_IDS } from "@/data/projectsData";
 import { EVENTS_CATALOG } from "@/data/eventsData";
+import { getStoredProjectRecords, saveStoredProjectRecords, LearnerProjectRecord } from "@/lib/projectProgress";
 import { useAuth } from "@/context/AuthContext";
 import {
   ShieldCheck,
@@ -29,13 +30,39 @@ import {
   FolderGit2,
   Trophy,
   Calendar,
+  Check,
+  RotateCcw,
+  Compass,
 } from "lucide-react";
 
 export default function AdminDashboardPage() {
   const { user } = useAuth();
   const [activeTab, setActiveTab] = useState<
-    "overview" | "courses" | "projects" | "events" | "pdfs" | "assessments" | "certificates" | "learners"
+    "overview" | "roadmap" | "courses" | "projects" | "events" | "pdfs" | "assessments" | "certificates" | "learners"
   >("overview");
+
+  // Project Submissions state
+  const [projectSubmissions, setProjectSubmissions] = useState<Record<string, LearnerProjectRecord>>(() =>
+    getStoredProjectRecords()
+  );
+  const [selectedAdminLevel, setSelectedAdminLevel] = useState<number | "all">(1);
+  const [submissionFeedback, setSubmissionFeedback] = useState<Record<string, string>>({});
+
+  const handleUpdateSubmissionStatus = (
+    projectId: string,
+    status: "Approved" | "Needs Revision" | "Under Review"
+  ) => {
+    const current = getStoredProjectRecords();
+    if (current[projectId] && current[projectId].submission) {
+      current[projectId].submission!.reviewStatus = status;
+      current[projectId].status = status === "Approved" ? "Completed" : "Submitted";
+      if (submissionFeedback[projectId]) {
+        current[projectId].submission!.feedback = submissionFeedback[projectId];
+      }
+      saveStoredProjectRecords(current);
+      setProjectSubmissions({ ...current });
+    }
+  };
 
   // Admin access gate (default demo authorized for platform admins)
   const [adminPasscode, setAdminPasscode] = useState("");
@@ -130,6 +157,7 @@ export default function AdminDashboardPage() {
       <div className="flex flex-wrap items-center gap-2 border-b border-[#E2E8F0] pb-3">
         {[
           { id: "overview", label: "Overview Metrics", icon: TrendingUp },
+          { id: "roadmap", label: "Curriculum Levels & Prerequisites", icon: Layers },
           { id: "courses", label: `Courses (${COURSES_DATA.length})`, icon: BookOpen },
           { id: "projects", label: `Projects (${PRACTICAL_PROJECTS.length})`, icon: FolderGit2 },
           { id: "events", label: `Events (${EVENTS_CATALOG.length})`, icon: Trophy },
@@ -202,6 +230,269 @@ export default function AdminDashboardPage() {
             <p className="text-xs text-[#64748B] leading-relaxed">
               All assessment submissions are scored server-side via <code className="px-1.5 py-0.5 rounded bg-slate-100 font-mono text-[#12316B]">/api/assessments/submit</code>. Certificates are cryptographically tied to verified learner names and course identifiers, preventing arbitrary client-side certificate fabrication.
             </p>
+          </div>
+        </div>
+      )}
+
+      {/* ══════════════════════════════════════════════════════════════
+          CURRICULUM LEVELS, PREREQUISITES & SUBMISSIONS TAB
+         ══════════════════════════════════════════════════════════════ */}
+      {activeTab === "roadmap" && (
+        <div className="space-y-8">
+          {/* Top Level Summary Cards */}
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            <div className="clean-card p-5 space-y-1 border-l-4 border-l-blue-600">
+              <span className="text-[10px] font-bold text-blue-600 uppercase font-mono">Level 1</span>
+              <h4 className="text-sm font-black text-slate-900 font-brand">Foundation (12 Courses)</h4>
+              <p className="text-xs text-slate-500">
+                Core computer fundamentals, logic, C, Python, Java, HTML/CSS, JS, Git, SQL, DSA basics.
+              </p>
+            </div>
+
+            <div className="clean-card p-5 space-y-1 border-l-4 border-l-indigo-600">
+              <span className="text-[10px] font-bold text-indigo-600 uppercase font-mono">Level 2</span>
+              <h4 className="text-sm font-black text-slate-900 font-brand">Intermediate (18 Courses + 6 Projects)</h4>
+              <p className="text-xs text-slate-500">
+                Advanced Python/JS, React, Node, REST APIs, databases, full-stack dev + 6 graduation projects.
+              </p>
+            </div>
+
+            <div className="clean-card p-5 space-y-1 border-l-4 border-l-cyan-600">
+              <span className="text-[10px] font-bold text-cyan-600 uppercase font-mono">Level 3</span>
+              <h4 className="text-sm font-black text-slate-900 font-brand">Professional (6 Tracks, 47 Courses)</h4>
+              <p className="text-xs text-slate-500">
+                AI/ML, Data Science, Mobile, Cloud/DevOps, Cybersecurity, and Modern Dev specializations.
+              </p>
+            </div>
+          </div>
+
+          {/* Learner Project Submissions Review Panel */}
+          <div className="clean-card p-6 space-y-4">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-slate-100">
+              <div>
+                <h3 className="text-base font-black text-slate-900 font-brand flex items-center gap-2">
+                  <FolderGit2 size={18} className="text-[#12316B]" />
+                  <span>Learner Project Submissions Review Queue</span>
+                </h3>
+                <p className="text-xs text-slate-500">
+                  Inspect submitted code repositories and live demos. Approve or request revisions for Level 2 graduation.
+                </p>
+              </div>
+
+              <span className="text-xs font-bold text-[#12316B] bg-blue-50 px-3 py-1 rounded-lg border border-blue-200">
+                {Object.keys(projectSubmissions).length} Submissions Logged
+              </span>
+            </div>
+
+            {Object.keys(projectSubmissions).length === 0 ? (
+              <div className="py-8 text-center text-xs text-slate-400">
+                No learner projects currently pending review. Submissions made from the roadmap will appear here.
+              </div>
+            ) : (
+              <div className="space-y-3">
+                {Object.values(projectSubmissions).map((item) => {
+                  const proj = PRACTICAL_PROJECTS.find((p) => p.id === item.projectId);
+                  const sub = item.submission;
+
+                  return (
+                    <div
+                      key={item.projectId}
+                      className="p-4 rounded-xl bg-slate-50 border border-slate-200 flex flex-col lg:flex-row lg:items-center justify-between gap-4"
+                    >
+                      <div className="space-y-1 min-w-0 max-w-xl">
+                        <div className="flex items-center gap-2 flex-wrap">
+                          <span className="text-xs font-bold text-slate-900">
+                            {proj?.title || item.projectId}
+                          </span>
+                          <span
+                            className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${
+                              sub?.reviewStatus === "Approved"
+                                ? "bg-emerald-100 text-emerald-800"
+                                : sub?.reviewStatus === "Needs Revision"
+                                ? "bg-rose-100 text-rose-800"
+                                : "bg-amber-100 text-amber-800"
+                            }`}
+                          >
+                            {sub?.reviewStatus || item.status}
+                          </span>
+                        </div>
+
+                        {sub?.repositoryUrl && (
+                          <div className="flex items-center gap-2 text-xs">
+                            <span className="text-slate-500">Repo:</span>
+                            <a
+                              href={sub.repositoryUrl}
+                              target="_blank"
+                              rel="noreferrer"
+                              className="font-mono text-[#0b69ff] hover:underline flex items-center gap-1"
+                            >
+                              <span>{sub.repositoryUrl}</span>
+                              <ExternalLink size={11} />
+                            </a>
+                          </div>
+                        )}
+
+                        {sub?.liveDemoUrl && (
+                          <div className="flex items-center gap-2 text-xs">
+                            <span className="text-slate-500">Demo:</span>
+                            <a
+                              href={sub.liveDemoUrl}
+                              target="_blank"
+                              rel="noreferrer"
+                              className="font-mono text-emerald-600 hover:underline flex items-center gap-1"
+                            >
+                              <span>{sub.liveDemoUrl}</span>
+                              <ExternalLink size={11} />
+                            </a>
+                          </div>
+                        )}
+
+                        {sub?.description && (
+                          <p className="text-xs text-slate-600 italic">
+                            &quot;{sub.description}&quot;
+                          </p>
+                        )}
+                      </div>
+
+                      <div className="flex items-center gap-2 flex-wrap sm:flex-nowrap">
+                        <button
+                          type="button"
+                          suppressHydrationWarning
+                          onClick={() => handleUpdateSubmissionStatus(item.projectId, "Approved")}
+                          className="px-3 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold transition-all shadow-2xs flex items-center gap-1 cursor-pointer"
+                        >
+                          <Check size={13} />
+                          <span>Approve</span>
+                        </button>
+
+                        <button
+                          type="button"
+                          suppressHydrationWarning
+                          onClick={() => handleUpdateSubmissionStatus(item.projectId, "Needs Revision")}
+                          className="px-3 py-1.5 rounded-lg bg-rose-50 hover:bg-rose-100 text-rose-700 border border-rose-200 text-xs font-bold transition-all cursor-pointer"
+                        >
+                          <span>Needs Revision</span>
+                        </button>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            )}
+          </div>
+
+          {/* Curriculum Sequenced Table & Prerequisites */}
+          <div className="clean-card overflow-hidden space-y-4">
+            <div className="p-5 border-b border-[#E2E8F0] flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+              <div>
+                <h3 className="font-extrabold text-sm text-[#182230]">
+                  Structured Curriculum Sequence &amp; Prerequisites ({COURSES_DATA.length} Courses)
+                </h3>
+                <p className="text-xs text-[#64748B]">
+                  Verify prerequisite dependency rules and level ordering.
+                </p>
+              </div>
+
+              {/* Level Filter Tabs */}
+              <div className="flex items-center gap-1 bg-slate-100 p-1 rounded-xl">
+                {[
+                  { id: "all", label: "All Levels" },
+                  { id: 1, label: "Level 1" },
+                  { id: 2, label: "Level 2" },
+                  { id: 3, label: "Level 3" },
+                ].map((lvl) => (
+                  <button
+                    key={String(lvl.id)}
+                    type="button"
+                    suppressHydrationWarning
+                    onClick={() => setSelectedAdminLevel(lvl.id as any)}
+                    className={`px-3 py-1 rounded-lg text-xs font-bold transition-all cursor-pointer ${
+                      selectedAdminLevel === lvl.id
+                        ? "bg-[#12316B] text-white shadow-2xs"
+                        : "text-slate-600 hover:text-slate-900"
+                    }`}
+                  >
+                    {lvl.label}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            <div className="overflow-x-auto">
+              <table className="w-full text-left border-collapse text-xs">
+                <thead>
+                  <tr className="bg-[#F7F9FC] border-b border-[#E2E8F0] text-[#64748B] font-bold">
+                    <th className="p-4">Level &amp; Order</th>
+                    <th className="p-4">Course Title</th>
+                    <th className="p-4">Category / Track</th>
+                    <th className="p-4">Prerequisites Dependency</th>
+                    <th className="p-4">Duration</th>
+                    <th className="p-4 text-right">Actions</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-[#E2E8F0]">
+                  {COURSES_DATA.filter(
+                    (c) => selectedAdminLevel === "all" || c.levelNumber === selectedAdminLevel
+                  )
+                    .sort((a, b) => {
+                      const lvlDiff = (a.levelNumber || 1) - (b.levelNumber || 1);
+                      if (lvlDiff !== 0) return lvlDiff;
+                      return (a.levelOrder || 0) - (b.levelOrder || 0);
+                    })
+                    .map((c) => {
+                      const prereqs = c.prerequisiteCourseIds || [];
+                      return (
+                        <tr key={c.id} className="hover:bg-slate-50 transition-colors">
+                          <td className="p-4 font-mono font-bold text-slate-700">
+                            <span className="px-2 py-0.5 rounded bg-slate-100 border border-slate-200">
+                              L{c.levelNumber} • #{c.levelOrder}
+                            </span>
+                          </td>
+                          <td className="p-4 font-bold text-[#182230]">
+                            <div>{c.title}</div>
+                            <div className="text-[11px] font-normal text-slate-400">{c.id}</div>
+                          </td>
+                          <td className="p-4 text-[#64748B]">
+                            <span className="px-2 py-0.5 rounded bg-blue-50 text-[#12316B] font-medium text-[11px]">
+                              {c.trackName || c.category}
+                            </span>
+                          </td>
+                          <td className="p-4 text-slate-600">
+                            {prereqs.length === 0 ? (
+                              <span className="text-emerald-600 font-semibold text-[11px]">
+                                None (Foundation Entry)
+                              </span>
+                            ) : (
+                              <div className="flex flex-wrap items-center gap-1">
+                                {prereqs.map((pId) => (
+                                  <span
+                                    key={pId}
+                                    className="px-1.5 py-0.5 rounded bg-amber-50 text-amber-800 border border-amber-200 text-[10px] font-mono"
+                                  >
+                                    {pId.replace("course-", "").replace("track-", "")}
+                                  </span>
+                                ))}
+                              </div>
+                            )}
+                          </td>
+                          <td className="p-4 text-slate-500 font-medium">
+                            {c.estimatedDuration}
+                          </td>
+                          <td className="p-4 text-right">
+                            <Link
+                              href={`/courses/${c.slug}`}
+                              className="inline-flex items-center gap-1 text-xs font-bold text-[#12316B] hover:underline"
+                            >
+                              <Eye size={13} />
+                              <span>Preview</span>
+                            </Link>
+                          </td>
+                        </tr>
+                      );
+                    })}
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
       )}

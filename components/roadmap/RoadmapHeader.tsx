@@ -37,7 +37,7 @@ export default function RoadmapHeader({
             <Compass className="w-3.5 h-3.5 text-blue-600" />
             <span>Structured Career Guidance</span>
             <span className="w-1 h-1 rounded-full bg-blue-400" />
-            <span>8 Industry Paths</span>
+            <span>10 Industry Paths</span>
           </div>
 
           <h1 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-slate-900 tracking-tight font-brand">

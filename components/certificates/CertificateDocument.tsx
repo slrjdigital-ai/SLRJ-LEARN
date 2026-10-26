@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import Image from "next/image";
 import { CertificateRecord } from "@/data/certificatesStore";
 import { Award, ShieldCheck, CheckCircle2, QrCode } from "lucide-react";
 
@@ -15,6 +16,29 @@ export default function CertificateDocument({
 }: CertificateDocumentProps) {
   const isRevoked = certificate.status === "revoked";
   const verificationPath = `/verify-certificate/${certificate.id}`;
+
+  // If viewing the official sample certificate, render the authentic high-resolution template image
+  if (
+    certificate.id === "SLRJ-LRN-2026-1021-001" ||
+    certificate.id === "SLRJ-SAMPLE-VERIFIED" ||
+    certificate.id.includes("SAMPLE")
+  ) {
+    return (
+      <div
+        id={`cert-doc-${certificate.id}`}
+        className={`relative w-full aspect-[1024/682] rounded-2xl shadow-xl overflow-hidden border-2 border-slate-200 bg-white select-none ${className}`}
+      >
+        <Image
+          src="/sample-certificate.jpg"
+          alt="SLRJ Learn Official Sample Certificate of Completion"
+          fill
+          sizes="(max-width: 1024px) 100vw, 1024px"
+          className="object-contain"
+          priority
+        />
+      </div>
+    );
+  }
 
   return (
     <div

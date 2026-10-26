@@ -40,10 +40,10 @@ export default function ExploreCoursesHeader({
             </span>
           </div>
 
-          <h1 className="text-3xl sm:text-4xl font-black font-brand text-[#182230] tracking-tight">
+          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black font-brand text-[#182230] tracking-tight">
             Explore Courses
           </h1>
-          <p className="text-sm sm:text-base text-[#64748B] leading-relaxed max-w-2xl">
+          <p className="text-base sm:text-lg text-slate-600 leading-relaxed max-w-2xl mt-1">
             Discover new skills, learn at your own pace, and build your future.
           </p>
         </div>

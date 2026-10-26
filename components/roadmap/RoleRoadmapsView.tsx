@@ -13,16 +13,18 @@ import RoadmapFilterPanel, {
 } from "./RoadmapFilterPanel";
 import RoadmapGrid from "./RoadmapGrid";
 
-// The 8 primary career roles requested
+// The 10 primary career roles specified by the SLRJ Learn Structured Roadmap
 export const PRIMARY_ROLE_IDS = [
   "fullstack",
   "frontend",
   "backend",
-  "mobile",
   "ai-ml",
+  "ai-agents",
+  "dsa",
+  "java",
   "data-analyst",
-  "ui-ux",
-  "cybersecurity",
+  "cloud-devops",
+  "python",
 ];
 
 export default function RoleRoadmapsView() {

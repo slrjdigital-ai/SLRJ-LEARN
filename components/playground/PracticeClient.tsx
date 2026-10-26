@@ -3,109 +3,57 @@
 import { Suspense } from "react";
 import Link from "next/link";
 import CodePlayground from "@/components/playground/CodePlayground";
-import { DAILY_CHALLENGES } from "@/data/community";
-import { Sparkles, Terminal, Award, Trophy, BookOpen } from "lucide-react";
+import { Terminal, Trophy, BookOpen, Sparkles, Compass } from "lucide-react";
 
 export default function PracticeClient() {
   return (
-    <div className="space-y-8">
-      {/* Header */}
-      <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 pb-2 border-b border-slate-200/80">
+    <div className="w-full space-y-3 pb-8">
+      {/* ── Streamlined SLRJ Studio Banner ── */}
+      <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-3 pb-2 border-b border-slate-200/70">
         <div>
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 text-[#0b69ff] text-xs font-bold uppercase tracking-wider mb-2">
-            <Terminal size={14} />
-            <span>Browser Code Workspace</span>
+          <div className="inline-flex items-center gap-2 px-2.5 py-0.5 rounded-full bg-blue-50/80 border border-blue-200/60 text-[#173B70] text-[11px] font-bold uppercase tracking-wider mb-1">
+            <Terminal size={13} className="text-[#18B6D2]" />
+            <span>SLRJ Code Workspace</span>
+            <span className="text-slate-400">•</span>
+            <span className="text-cyan-600 font-semibold lowercase">Learn. Build. Grow.</span>
           </div>
-          <h1 className="text-2xl sm:text-3xl font-bold font-brand tracking-tight text-slate-900">
-            Online Code Playground & Practice
+          <h1 className="text-xl sm:text-2xl font-bold font-brand tracking-tight text-slate-900">
+            Interactive Multi-Language Code Playground
           </h1>
+          <p className="text-xs text-slate-500">
+            Real-time compilation and execution for Web, Python 3.12, C17, C++20, Java 17, and SQL with automated test verification and XP assessment.
+          </p>
         </div>
 
-        <div className="flex flex-wrap items-center gap-2.5">
+        <div className="flex flex-wrap items-center gap-2">
           <Link
-            href="/gamification"
-            className="px-3.5 py-1.5 rounded-xl bg-amber-50 hover:bg-amber-100 border border-amber-200 text-amber-700 text-xs font-semibold flex items-center gap-1.5 transition-all shadow-sm"
+            href="/roadmap"
+            className="px-3 py-1.5 rounded-xl bg-slate-50 hover:bg-slate-100 border border-slate-200 text-slate-700 hover:text-[#173B70] text-xs font-semibold flex items-center gap-1.5 transition-all shadow-2xs"
           >
-            <Trophy size={14} />
-            <span>Weekly Challenges</span>
+            <Compass size={14} className="text-amber-500" />
+            <span>Learning Roadmaps</span>
           </Link>
           <Link
-            href="/topics"
-            className="px-3.5 py-1.5 rounded-xl bg-blue-50 hover:bg-blue-100 border border-blue-200 text-[#0b69ff] text-xs font-semibold flex items-center gap-1.5 transition-all shadow-sm"
+            href="/courses"
+            className="px-3 py-1.5 rounded-xl bg-blue-50 hover:bg-blue-100 border border-blue-200 text-[#173B70] text-xs font-semibold flex items-center gap-1.5 transition-all shadow-2xs"
           >
-            <BookOpen size={14} />
-            <span>Explore Topics</span>
+            <BookOpen size={14} className="text-[#18B6D2]" />
+            <span>Explore Courses</span>
           </Link>
         </div>
       </div>
 
-      {/* The Code Playground */}
-      <Suspense fallback={<div className="p-8 text-center text-slate-400">Loading Code Playground...</div>}>
+      {/* ── Full Interactive Code Playground ── */}
+      <Suspense
+        fallback={
+          <div className="h-[75vh] w-full rounded-xl bg-[#12141C] border border-[#252836] flex flex-col items-center justify-center text-slate-400 gap-3">
+            <div className="w-8 h-8 rounded-full border-2 border-cyan-400 border-t-transparent animate-spin" />
+            <span className="text-xs font-mono">Initializing SLRJ Code Studio...</span>
+          </div>
+        }
+      >
         <CodePlayground />
       </Suspense>
-
-      {/* Daily Coding Challenges Section */}
-      <div className="pt-6 border-t border-slate-200">
-        <div className="flex items-center justify-between mb-4">
-          <div>
-            <h2 className="text-xl font-bold font-brand text-slate-900">
-              Daily Practice Quests
-            </h2>
-            <p className="text-xs text-slate-500">
-              Complete daily challenges to maintain your streak!
-            </p>
-          </div>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {DAILY_CHALLENGES.map((challenge) => (
-            <div
-              key={challenge.id}
-              className="p-6 rounded-2xl bg-white border border-slate-200/90 shadow-sm hover:shadow-md hover:border-slate-300 transition-all flex flex-col justify-between"
-            >
-              <div>
-                <div className="flex items-center justify-between mb-3">
-                  <span className="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-slate-100 text-slate-600">
-                    {challenge.category}
-                  </span>
-                  <span className="text-xs font-bold text-amber-600 flex items-center gap-1">
-                    <Award size={13} className="text-amber-500" />
-                    <span>+{challenge.xpReward} XP</span>
-                  </span>
-                </div>
-
-                <h3 className="text-base font-bold text-slate-900 font-brand mb-2">
-                  {challenge.title}
-                </h3>
-                <p className="text-slate-600 text-xs leading-relaxed mb-4">
-                  {challenge.prompt}
-                </p>
-
-                <div className="rounded-xl bg-slate-50 border border-slate-200 p-3 mb-4">
-                  <span className="text-[10px] text-slate-400 font-bold block mb-1">Example:</span>
-                  <code className="text-xs font-mono text-emerald-700 block">
-                    Input: {challenge.testCases[0]?.input} &rarr; Expected: {challenge.testCases[0]?.expected}
-                  </code>
-                </div>
-              </div>
-
-              <div className="pt-3 border-t border-slate-100 flex items-center justify-between">
-                <span className="text-xs text-slate-500">
-                  Difficulty: <strong className="text-slate-800">{challenge.difficulty}</strong>
-                </span>
-                <button
-                  onClick={() => {
-                    window.scrollTo({ top: 120, behavior: "smooth" });
-                  }}
-                  className="px-4 py-2 rounded-xl text-xs font-bold text-white bg-[#0b69ff] hover:bg-blue-600 transition-all cursor-pointer shadow-sm"
-                >
-                  Solve in Playground
-                </button>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
     </div>
   );
 }

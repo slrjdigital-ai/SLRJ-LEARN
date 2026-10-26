@@ -30,7 +30,7 @@ export interface RoadmapTrack {
   name: string;
   badge: string;
   level: "Beginner" | "Intermediate" | "Advanced";
-  category: "Web Development" | "Mobile Development" | "AI & Data" | "Design" | "Cybersecurity" | string;
+  category: "Web Development" | "AI & Data Science" | "Systems & Software Engineering" | "Cloud & Cybersecurity" | "Programming & Scripting" | string;
   description: string;
   totalStages: number;
   totalLessons: number;
@@ -48,2250 +48,3195 @@ export interface RoadmapTrack {
 }
 
 export const ROADMAP_TRACKS: RoadmapTrack[] = [
-  // 1. Full-Stack Developer (Featured)
   {
-    id: "fullstack",
-    slug: "fullstack",
-    name: "Full-Stack Developer",
-    badge: "Featured • High Demand",
-    level: "Intermediate",
-    category: "Web Development",
-    description: "Become a complete engineer. Master both frontend interfaces and robust backend APIs, databases, authentication, testing, Git workflows, and cloud deployment.",
-    totalStages: 8,
-    totalLessons: 48,
-    duration: "6 - 8 Months (Estimated)",
-    icon: "Layers",
-    isFeatured: true,
-    skills: ["HTML5 & CSS3", "JavaScript & TypeScript", "React 19 & Next.js", "Node.js & Express", "PostgreSQL & SQL", "RESTful APIs", "Git & CI/CD", "Docker & Deployment"],
-    prerequisites: ["Basic computer literacy", "Problem-solving mindset"],
-    gradient: "from-blue-600 via-indigo-600 to-purple-600",
-    accentColor: "text-indigo-500",
-    finalProject: {
-      title: "Full-Stack Task & Productivity SaaS Application",
-      description: "Develop a complete production web application with user authentication, database CRUD operations, responsive UI, and cloud container deployment."
-    }
-  },
-  // 2. Frontend Developer
-  {
-    id: "frontend",
-    slug: "frontend",
-    name: "Frontend Developer",
-    badge: "Most Popular",
-    level: "Beginner",
-    category: "Web Development",
-    description: "Master modern user interfaces from Internet fundamentals and semantic HTML5 to advanced CSS layouts, responsive design, JavaScript ES6+, React, and web deployment.",
-    totalStages: 8,
-    totalLessons: 42,
-    duration: "4 - 6 Months (Estimated)",
-    icon: "Globe",
-    skills: ["HTML5 Semantics", "CSS3 Flexbox & Grid", "Responsive Design", "JavaScript (ES6+)", "React 19", "Web APIs & Fetch", "Git & GitHub", "Performance & A11y"],
-    prerequisites: ["No prior programming experience required"],
-    gradient: "from-cyan-500 via-teal-500 to-emerald-500",
-    accentColor: "text-cyan-500",
-    finalProject: {
-      title: "Interactive Developer Portfolio & Web Platform",
-      description: "Build, optimize, and deploy a responsive web application with dark mode, interactive API data fetching, and lighthouse score > 95."
-    }
-  },
-  // 3. Backend Developer
-  {
-    id: "backend",
-    slug: "backend",
-    name: "Backend Developer",
-    badge: "Core Engineering",
-    level: "Intermediate",
-    category: "Web Development",
-    description: "Architect scalable backend systems: programming fundamentals, REST APIs, relational databases, user authentication, caching, automated testing, and cloud deployment.",
-    totalStages: 8,
-    totalLessons: 44,
-    duration: "5 - 7 Months (Estimated)",
-    icon: "Terminal",
-    skills: ["Python / Node.js", "RESTful API Design", "PostgreSQL & SQL", "JWT & OAuth2", "Redis Caching", "Docker & Containers", "Unit Testing", "System Architecture"],
-    prerequisites: ["Basic familiarity with programming logic"],
-    gradient: "from-slate-700 via-slate-800 to-zinc-900",
-    accentColor: "text-slate-600",
-    finalProject: {
-      title: "Enterprise REST API & Database Service",
-      description: "Engineer a high-throughput backend microservice with authenticated endpoints, database pooling, Redis caching, and automated integration tests."
-    }
-  },
-  // 4. Mobile App Developer
-  {
-    id: "mobile",
-    slug: "mobile",
-    name: "Mobile App Developer",
-    badge: "Cross-Platform",
-    level: "Intermediate",
-    category: "Mobile Development",
-    description: "Build and publish cross-platform iOS and Android mobile apps using React Native, native device APIs, local storage, state management, and app store deployment.",
-    totalStages: 8,
-    totalLessons: 40,
-    duration: "4 - 6 Months (Estimated)",
-    icon: "Smartphone",
-    skills: ["React Native", "Expo SDK", "Mobile UI/UX", "Component Navigation", "Native Device APIs", "Offline Storage", "Push Notifications", "App Store Publishing"],
-    prerequisites: ["Knowledge of JavaScript and basic React principles"],
-    gradient: "from-sky-500 via-blue-500 to-indigo-500",
-    accentColor: "text-sky-500",
-    finalProject: {
-      title: "Cross-Platform Personal Finance Mobile App",
-      description: "Architect, test, and package a production-ready mobile app with offline synchronization, camera/GPS access, and app store build bundles."
-    }
-  },
-  // 5. AI / Machine Learning Engineer
-  {
-    id: "ai-ml",
-    slug: "ai-ml",
-    name: "AI / Machine Learning Engineer",
-    badge: "Cutting-Edge",
-    level: "Advanced",
-    category: "AI & Data",
-    description: "Master modern AI and machine learning engineering: Python, linear algebra, NumPy/Pandas data handling, Scikit-Learn models, deep learning, RAG pipelines, and model deployment.",
-    totalStages: 8,
-    totalLessons: 48,
-    duration: "6 - 9 Months (Estimated)",
-    icon: "Sparkles",
-    skills: ["Python for AI", "NumPy & Pandas", "Mathematics & Statistics", "Scikit-Learn", "Neural Networks", "RAG & Vector DBs", "Model Evaluation", "Model Serving"],
-    prerequisites: ["Python fundamentals and basic linear algebra"],
-    gradient: "from-purple-600 via-pink-600 to-rose-500",
-    accentColor: "text-purple-500",
-    finalProject: {
-      title: "RAG-Powered AI Knowledge & Prediction System",
-      description: "Train, evaluate, and deploy an ML model combined with modern generative AI vector embeddings and LLM orchestration."
-    }
-  },
-  // 6. Data Analyst
-  {
-    id: "data-analyst",
-    slug: "data-analyst",
-    name: "Data Analyst",
-    badge: "High Growth",
-    level: "Beginner",
-    category: "AI & Data",
-    description: "Transform raw data into strategic business insights: Excel spreadsheets, SQL queries, relational schemas, statistical analysis, interactive dashboards, and Python data visualization.",
-    totalStages: 8,
-    totalLessons: 38,
-    duration: "3 - 5 Months (Estimated)",
-    icon: "BarChart3",
-    skills: ["Advanced Excel", "SQL & Database Queries", "Python & Pandas", "Data Cleaning", "Statistical Modeling", "Power BI / Tableau", "Exploratory Data Analysis", "KPI Storytelling"],
-    prerequisites: ["Basic arithmetic and curiosity for data-driven decisions"],
-    gradient: "from-teal-500 via-emerald-500 to-cyan-500",
-    accentColor: "text-teal-500",
-    finalProject: {
-      title: "Executive Business Analytics Dashboard",
-      description: "Ingest messy business data, clean and model with SQL/Python, and deliver a live interactive executive KPI dashboard with automated reporting."
-    }
-  },
-  // 7. UI/UX Designer
-  {
-    id: "ui-ux",
-    slug: "ui-ux",
-    name: "UI/UX Designer",
-    badge: "Creative Tech",
-    level: "Beginner",
-    category: "Design",
-    description: "Design intuitive digital products: design principles, user research, wireframing, high-fidelity Figma prototyping, usability testing, design systems, and portfolio case studies.",
-    totalStages: 8,
-    totalLessons: 36,
-    duration: "3 - 5 Months (Estimated)",
-    icon: "Palette",
-    skills: ["Design Principles", "User Research", "Wireframing", "Figma Prototyping", "Usability Testing", "Design Systems & Tokens", "WCAG Accessibility", "Case Study Storytelling"],
-    prerequisites: ["Eye for visual aesthetics and empathy for users"],
-    gradient: "from-amber-500 via-orange-500 to-rose-500",
-    accentColor: "text-amber-500",
-    finalProject: {
-      title: "End-to-End Mobile & Web Design Case Study",
-      description: "Conduct comprehensive user research, build design tokens, produce clickable Figma prototypes, and document an end-to-end UX case study."
-    }
-  },
-  // 8. Cybersecurity Analyst
-  {
-    id: "cybersecurity",
-    slug: "cybersecurity",
-    name: "Cybersecurity Analyst",
-    badge: "Security Core",
-    level: "Intermediate",
-    category: "Cybersecurity",
-    description: "Defend modern networks and systems: networking fundamentals, Linux administration, threat modeling, security scripting, defensive operations, and security monitoring.",
-    totalStages: 8,
-    totalLessons: 42,
-    duration: "5 - 8 Months (Estimated)",
-    icon: "ShieldCheck",
-    skills: ["Networking Protocols", "Linux Administration", "Threat Modeling", "Bash / Python Scripting", "Defensive Security", "Security Monitoring & SIEM", "OWASP Top 10", "Incident Response"],
-    prerequisites: ["Understanding of basic operating systems and networking"],
-    gradient: "from-rose-600 via-red-600 to-orange-500",
-    accentColor: "text-rose-500",
-    finalProject: {
-      title: "Defensive Security & Threat Monitoring Lab",
-      description: "Configure network monitoring, simulate vulnerability assessments, implement firewall/iptables rules, and document an incident mitigation report."
-    }
-  },
-  // ── Supplementary Specialized Paths ──
-  {
-    id: "python",
-    slug: "python",
-    name: "Python Developer",
-    badge: "Beginner Friendly",
-    level: "Beginner",
-    category: "Web Development",
-    description: "Learn Python from the ground up: syntax, data structures, object-oriented programming, automated scripting, APIs, and databases.",
-    totalStages: 14,
-    totalLessons: 45,
-    duration: "3 - 5 Months (Estimated)",
-    icon: "Code2",
-    skills: ["Python 3", "Data Structures", "OOP Architecture", "File I/O", "FastAPI / Flask", "SQLite & PostgreSQL", "PyTest"],
-    gradient: "from-emerald-500 via-teal-500 to-cyan-500",
-    accentColor: "text-emerald-400",
-    finalProject: {
-      title: "Practical Python Backend & Automation Tool",
-      description: "Build an automated web scraping, API processing, and database persistence tool with unit tests."
+    "id": "fullstack",
+    "slug": "fullstack",
+    "name": "Full-Stack Web Developer",
+    "badge": "Featured • Most In-Demand",
+    "level": "Intermediate",
+    "category": "Web Development",
+    "description": "Master complete end-to-end web engineering. Build responsive client interfaces, robust backend APIs, relational & document databases, cloud serverless systems, and AI-accelerated workflows.",
+    "totalStages": 8,
+    "totalLessons": 48,
+    "duration": "6 - 8 Months (Estimated)",
+    "icon": "Layers",
+    "skills": [
+      "HTML5 & CSS3",
+      "JavaScript & TypeScript",
+      "React 19 & Next.js",
+      "Node.js & Express",
+      "PostgreSQL & MongoDB",
+      "Docker & Cloud",
+      "AI Developer Tools"
+    ],
+    "prerequisites": [
+      "Basic computer literacy",
+      "Logical thinking"
+    ],
+    "gradient": "from-blue-600 via-indigo-600 to-purple-600",
+    "accentColor": "text-indigo-500",
+    "isFeatured": true,
+    "finalProject": {
+      "title": "Production Full-Stack SaaS Platform",
+      "description": "Develop a complete production web platform featuring user authentication, PostgreSQL relational database, Next.js Server Components, Docker containerization, and automated CI/CD release."
     }
   },
   {
-    id: "java",
-    slug: "java",
-    name: "Java Developer",
-    badge: "Enterprise Standard",
-    level: "Intermediate",
-    category: "Web Development",
-    description: "Master enterprise Java programming: object-oriented patterns, Collections, Generics, Streams, JDBC database connectivity, and JUnit.",
-    totalStages: 14,
-    totalLessons: 48,
-    duration: "4 - 6 Months (Estimated)",
-    icon: "Coffee",
-    skills: ["Core Java 21", "OOP & Design Patterns", "Collections Framework", "Java Streams", "JDBC & MySQL", "JUnit 5", "Maven"],
-    gradient: "from-amber-500 via-orange-500 to-red-500",
-    accentColor: "text-amber-400",
-    finalProject: {
-      title: "Enterprise Java Management Application",
-      description: "Build a robust Java application with relational database persistence via JDBC and unit tests."
+    "id": "frontend",
+    "slug": "frontend",
+    "name": "Frontend Developer",
+    "badge": "High Demand • Interactive UX",
+    "level": "Beginner",
+    "category": "Web Development",
+    "description": "Craft modern, accessible, high-performance web applications. Master semantic HTML5, advanced CSS layouts (Flexbox/Grid), modern TypeScript, React 19, Next.js, and version control.",
+    "totalStages": 5,
+    "totalLessons": 30,
+    "duration": "4 - 5 Months (Estimated)",
+    "icon": "Globe",
+    "skills": [
+      "Semantic HTML5",
+      "Modern CSS & Flexbox/Grid",
+      "JavaScript (ES2024)",
+      "TypeScript",
+      "React 19",
+      "Next.js App Router",
+      "Lighthouse Optimization"
+    ],
+    "prerequisites": [
+      "Curiosity for web design and user interfaces"
+    ],
+    "gradient": "from-cyan-500 via-teal-500 to-emerald-500",
+    "accentColor": "text-cyan-500",
+    "isFeatured": false,
+    "finalProject": {
+      "title": "Interactive Web Platform & Component System",
+      "description": "Build an accessible, high-performance web application with custom component library, state management, dynamic API integration, and 95+ Lighthouse score."
     }
   },
   {
-    id: "dsa",
-    slug: "dsa",
-    name: "Data Structures and Algorithms",
-    badge: "Core Engineering",
-    level: "Intermediate",
-    category: "AI & Data",
-    description: "Master algorithmic problem solving: Big-O analysis, arrays, strings, trees, graphs, dynamic programming, and interview strategies.",
-    totalStages: 14,
-    totalLessons: 48,
-    duration: "3 - 5 Months (Estimated)",
-    icon: "Code2",
-    skills: ["Big-O Complexity", "Arrays & Strings", "Hash Maps & Sets", "Recursion", "Trees & BSTs", "Graphs & BFS/DFS", "Dynamic Programming"],
-    gradient: "from-blue-600 via-indigo-600 to-cyan-500",
-    accentColor: "text-blue-500",
-    finalProject: {
-      title: "Interactive Algorithm Visualizer",
-      description: "Engineer an interactive browser visualizer illustrating pathfinding and sorting algorithms."
+    "id": "backend",
+    "slug": "backend",
+    "name": "Backend Developer",
+    "badge": "Core Engineering • Scalable Systems",
+    "level": "Intermediate",
+    "category": "Web Development",
+    "description": "Architect scalable backend services, high-throughput REST APIs, relational and NoSQL databases, authentication security, containerization, and system resilience.",
+    "totalStages": 6,
+    "totalLessons": 36,
+    "duration": "5 - 7 Months (Estimated)",
+    "icon": "Terminal",
+    "skills": [
+      "TypeScript",
+      "Node.js & Express",
+      "PostgreSQL & MongoDB",
+      "RESTful API Design",
+      "Docker & Cloud",
+      "OWASP Security",
+      "JWT Authentication"
+    ],
+    "prerequisites": [
+      "Basic programming familiarity"
+    ],
+    "gradient": "from-slate-700 via-slate-800 to-zinc-900",
+    "accentColor": "text-slate-600",
+    "isFeatured": false,
+    "finalProject": {
+      "title": "Enterprise Distributed REST API & Microservice",
+      "description": "Engineer an authenticated backend service with database connection pooling, Redis caching, role-based authorization, and automated security vulnerability tests."
+    }
+  },
+  {
+    "id": "ai-ml",
+    "slug": "ai-ml",
+    "name": "AI & Machine Learning Engineer",
+    "badge": "Cutting-Edge • Top Industry Value",
+    "level": "Advanced",
+    "category": "AI & Data Science",
+    "description": "From Python programming and algorithmic optimization to data analytics, supervised learning, neural networks, vector databases, and production RAG pipelines.",
+    "totalStages": 6,
+    "totalLessons": 36,
+    "duration": "6 - 8 Months (Estimated)",
+    "icon": "Sparkles",
+    "skills": [
+      "Python 3",
+      "NumPy & Pandas",
+      "Scikit-Learn",
+      "Machine Learning",
+      "Transformers & LLMs",
+      "RAG Pipelines",
+      "Vector Databases"
+    ],
+    "prerequisites": [
+      "High school mathematics",
+      "Basic programming curiosity"
+    ],
+    "gradient": "from-purple-600 via-pink-600 to-rose-500",
+    "accentColor": "text-purple-500",
+    "isFeatured": false,
+    "finalProject": {
+      "title": "End-to-End Predictive & Generative AI System",
+      "description": "Train and evaluate an ML model, generate vector embeddings in a vector database, and build a production RAG inference pipeline served via FastAPI."
+    }
+  },
+  {
+    "id": "ai-agents",
+    "slug": "ai-agents",
+    "name": "Generative AI & Autonomous Agent Architect",
+    "badge": "Next-Gen Frontier • Agentic Systems",
+    "level": "Advanced",
+    "category": "AI & Data Science",
+    "description": "Specialize in the frontier of AI: prompt engineering, RAG pipelines, autonomous agents, tool use, Model Context Protocol (MCP), multi-agent systems, and real-time voice AI.",
+    "totalStages": 6,
+    "totalLessons": 36,
+    "duration": "5 - 7 Months (Estimated)",
+    "icon": "Sparkles",
+    "skills": [
+      "Generative AI",
+      "LLM APIs",
+      "RAG Pipelines",
+      "Autonomous Agents",
+      "Model Context Protocol",
+      "Multi-Agent Systems",
+      "Voice AI"
+    ],
+    "prerequisites": [
+      "Python fundamentals"
+    ],
+    "gradient": "from-violet-600 via-purple-600 to-fuchsia-600",
+    "accentColor": "text-violet-500",
+    "isFeatured": false,
+    "finalProject": {
+      "title": "Autonomous Multi-Agent Team Orchestration",
+      "description": "Deploy an autonomous collaborative multi-agent software engineering team coordinating via Model Context Protocol (MCP) with real-time conversational voice interaction."
+    }
+  },
+  {
+    "id": "dsa",
+    "slug": "dsa",
+    "name": "Core Software Engineer (Systems & Algorithms)",
+    "badge": "Foundations & Performance",
+    "level": "Intermediate",
+    "category": "Systems & Software Engineering",
+    "description": "Build deep low-level system understanding and algorithmic excellence. Master explicit pointer control in C, modern C++ (STL & RAII), advanced data structures, and database engines.",
+    "totalStages": 5,
+    "totalLessons": 30,
+    "duration": "5 - 7 Months (Estimated)",
+    "icon": "Code2",
+    "skills": [
+      "C Programming",
+      "Modern C++ (C++20)",
+      "Pointers & Memory",
+      "Data Structures",
+      "Algorithms",
+      "Git & GitHub",
+      "SQL Relational Design"
+    ],
+    "prerequisites": [
+      "Basic logic and problem solving"
+    ],
+    "gradient": "from-blue-600 via-indigo-600 to-cyan-500",
+    "accentColor": "text-blue-500",
+    "isFeatured": false,
+    "finalProject": {
+      "title": "High-Performance Data Engine & Algorithm Suite",
+      "description": "Build a multithreaded data indexing and algorithmic graph engine in C++ with custom memory management and zero memory leaks."
+    }
+  },
+  {
+    "id": "java",
+    "slug": "java",
+    "name": "Enterprise Java Developer",
+    "badge": "Enterprise Standard",
+    "level": "Intermediate",
+    "category": "Systems & Software Engineering",
+    "description": "Master modern Java enterprise systems: JVM internals, object-oriented design patterns, Collections framework, algorithmic efficiency, relational SQL databases, and cloud deployment.",
+    "totalStages": 5,
+    "totalLessons": 30,
+    "duration": "5 - 7 Months (Estimated)",
+    "icon": "Layers",
+    "skills": [
+      "Java 21",
+      "JVM Internals",
+      "Collections Framework",
+      "Streams & Lambdas",
+      "JDBC & SQL",
+      "JUnit 5",
+      "Docker Deployment"
+    ],
+    "prerequisites": [
+      "Basic programming familiarity"
+    ],
+    "gradient": "from-amber-500 via-orange-500 to-red-500",
+    "accentColor": "text-amber-500",
+    "isFeatured": false,
+    "finalProject": {
+      "title": "Enterprise Multi-Tier Java Service",
+      "description": "Architect a robust enterprise service with relational database persistence via JDBC, unit testing via JUnit 5, and containerized deployment."
+    }
+  },
+  {
+    "id": "data-analyst",
+    "slug": "data-analyst",
+    "name": "AI Data Analyst & BI Specialist",
+    "badge": "High Business Value",
+    "level": "Beginner",
+    "category": "AI & Data Science",
+    "description": "Turn raw data into strategic business value: Python Pandas dataframes, advanced SQL queries and window functions, executive BI dashboards, and predictive machine learning models.",
+    "totalStages": 5,
+    "totalLessons": 30,
+    "duration": "4 - 5 Months (Estimated)",
+    "icon": "BarChart3",
+    "skills": [
+      "Python",
+      "Pandas & NumPy",
+      "SQL Window Functions",
+      "Exploratory Data Analysis",
+      "Dashboards & BI",
+      "Machine Learning"
+    ],
+    "prerequisites": [
+      "Curiosity for data and numbers"
+    ],
+    "gradient": "from-teal-500 via-emerald-500 to-cyan-500",
+    "accentColor": "text-teal-500",
+    "isFeatured": false,
+    "finalProject": {
+      "title": "Executive Business Intelligence Dashboard",
+      "description": "Clean and transform complex multi-table datasets, execute advanced SQL analytics, and build an interactive executive KPI dashboard with predictive trend models."
+    }
+  },
+  {
+    "id": "cloud-devops",
+    "slug": "cloud-devops",
+    "name": "Cloud, DevOps & Cybersecurity Engineer",
+    "badge": "Infrastructure Defense & Scale",
+    "level": "Intermediate",
+    "category": "Cloud & Cybersecurity",
+    "description": "Protect and automate modern cloud infrastructure: Git collaboration, database administration, defensive cybersecurity (OWASP Top 10), Docker containerization, CI/CD, and AI developer tooling.",
+    "totalStages": 5,
+    "totalLessons": 30,
+    "duration": "5 - 7 Months (Estimated)",
+    "icon": "ShieldCheck",
+    "skills": [
+      "Git & CI/CD",
+      "Docker Containers",
+      "Kubernetes Basics",
+      "OWASP Web Security",
+      "Linux Hardening",
+      "Cloud Deployment",
+      "AI Developer Tools"
+    ],
+    "prerequisites": [
+      "Basic command-line and operating systems knowledge"
+    ],
+    "gradient": "from-sky-600 via-indigo-600 to-cyan-500",
+    "accentColor": "text-sky-500",
+    "isFeatured": false,
+    "finalProject": {
+      "title": "Automated Cloud Deployment Pipeline & Security Audit",
+      "description": "Containerize microservices with Docker Compose, build automated GitHub Actions CI/CD release pipelines, and execute comprehensive OWASP security audits."
+    }
+  },
+  {
+    "id": "python",
+    "slug": "python",
+    "name": "Python & Systems Automation Developer",
+    "badge": "Beginner Friendly • Versatile",
+    "level": "Beginner",
+    "category": "Programming & Scripting",
+    "description": "Learn Python from the ground up to enterprise capability: OOP design, data structures, relational and document databases, version control, and AI-assisted software acceleration.",
+    "totalStages": 5,
+    "totalLessons": 30,
+    "duration": "3 - 5 Months (Estimated)",
+    "icon": "Code2",
+    "skills": [
+      "Python 3",
+      "OOP Architecture",
+      "Data Structures",
+      "SQL & MongoDB",
+      "Git & GitHub",
+      "AI Coding Tools"
+    ],
+    "prerequisites": [
+      "No prior programming experience required"
+    ],
+    "gradient": "from-emerald-500 via-teal-500 to-cyan-500",
+    "accentColor": "text-emerald-500",
+    "isFeatured": false,
+    "finalProject": {
+      "title": "Python Automation Suite & Database Tool",
+      "description": "Build an automated data collection and persistence pipeline with database integration, unit testing, and structured logging."
+    }
+  },
+  {
+    "id": "cybersecurity",
+    "slug": "cybersecurity",
+    "name": "Cybersecurity Defense Specialist",
+    "badge": "Security Core",
+    "level": "Intermediate",
+    "category": "Cloud & Cybersecurity",
+    "description": "Defend modern networks and web applications: networking fundamentals, cryptography, OWASP Top 10 vulnerabilities, secure system administration, and cloud container hardening.",
+    "totalStages": 5,
+    "totalLessons": 30,
+    "duration": "5 - 7 Months (Estimated)",
+    "icon": "ShieldCheck",
+    "skills": [
+      "Network Security",
+      "Cryptography",
+      "OWASP Top 10",
+      "Linux Hardening",
+      "Container Security",
+      "Vulnerability Remediation"
+    ],
+    "prerequisites": [
+      "Basic networking and command-line familiarity"
+    ],
+    "gradient": "from-rose-600 via-red-600 to-orange-500",
+    "accentColor": "text-rose-500",
+    "isFeatured": false,
+    "finalProject": {
+      "title": "Vulnerability Assessment & Defensive Lab",
+      "description": "Conduct security audits on web systems, remediate SQL injection and XSS vulnerabilities, and configure firewall and container isolation."
     }
   }
 ];
 
 export const ROADMAP_STEPS: RoadmapStep[] = [
-  // ══════════════════════════════════════════════════════════════════
-  // PATH 1: FRONTEND WEB DEVELOPER (14 Stages)
-  // ══════════════════════════════════════════════════════════════════
-  {
-    id: 1,
-    stepNumber: 1,
-    trackId: "frontend",
-    slug: "frontend-internet-web-fundamentals",
-    title: "1. Internet and Web Fundamentals",
-    category: "Foundations",
-    summary: "Understand how the global internet works, how browsers request and render pages, and the roles of DNS, IP addresses, and HTTP/HTTPS.",
-    duration: "1 - 2 Weeks",
-    difficulty: "Beginner",
-    keyTopics: ["How the Internet Works (TCP/IP & Packets)", "DNS Resolution & IP Addressing", "Client-Server Request-Response Cycle", "HTTP/HTTPS Protocols & Status Codes", "Browser Rendering Engine (DOM & CSSOM Tree)"],
-    practicalMilestone: "Inspect a network request in Chrome DevTools Network tab, trace DNS resolution, and analyze HTTP status codes.",
-    recommendedNotes: [{ title: "How the Internet Works & Web Architecture", slug: "how-the-internet-works" }, { title: "HTTP, HTTPS, Browsers & Web Servers", slug: "http-https-browsers-servers" }]
-  },
-  {
-    id: 2,
-    stepNumber: 2,
-    trackId: "frontend",
-    slug: "frontend-html-fundamentals",
-    title: "2. HTML Fundamentals",
-    category: "Markup",
-    summary: "Master HTML5 document structure, semantic tags, accessible forms, tables, media elements, and SEO metadata.",
-    duration: "1 - 2 Weeks",
-    difficulty: "Beginner",
-    keyTopics: ["Document Structure (<!DOCTYPE html>, <html>, <head>, <body>)", "Semantic Elements (<header>, <nav>, <main>, <article>, <footer>)", "Accessible Web Forms & Input Validation", "Images, Audio, and Video Elements", "Meta Tags & Essential SEO Guidelines"],
-    practicalMilestone: "Build a multi-page semantic portfolio structure with accessible forms, tables, and valid HTML5 syntax without CSS.",
-    recommendedNotes: [{ title: "HTML5 Document Structure & Best Practices", slug: "html-basics-document-structure" }, { title: "Semantic HTML & Accessibility Guide", slug: "semantic-html-complete-guide" }]
-  },
-  {
-    id: 3,
-    stepNumber: 3,
-    trackId: "frontend",
-    slug: "frontend-css-fundamentals",
-    title: "3. CSS Fundamentals",
-    category: "Styling",
-    summary: "Style web pages with CSS3. Master the Box Model, selectors, specificity, colors, typography, and visual hierarchy.",
-    duration: "2 Weeks",
-    difficulty: "Beginner",
-    keyTopics: ["CSS Selectors, Specificity & The Cascade", "The CSS Box Model (Margin, Border, Padding, Content)", "Box-Sizing: border-box Architecture", "Typography, Google Fonts & Color Spaces", "Positioning: Static, Relative, Absolute, Fixed, Sticky"],
-    practicalMilestone: "Style an elegant magazine article card layout with custom typography, clean spacing, and drop shadows.",
-    recommendedNotes: [{ title: "CSS Selectors, Specificity & Box Model", slug: "css-selectors-specificity-box-model" }]
-  },
-  {
-    id: 4,
-    stepNumber: 4,
-    trackId: "frontend",
-    slug: "frontend-responsive-web-design",
-    title: "4. Responsive Web Design",
-    category: "Layouts",
-    summary: "Build flexible, mobile-first websites using CSS Flexbox, CSS Grid, media queries, and fluid layout units.",
-    duration: "2 - 3 Weeks",
-    difficulty: "Beginner",
-    keyTopics: ["Flexbox Architecture (Main Axis, Cross Axis, Alignment)", "CSS Grid Layout (grid-template, auto-fit, minmax)", "Mobile-First Media Queries & Breakpoints", "Fluid Typography & Viewport Units (vw, vh, clamp)", "Responsive Images with <picture> & srcset"],
-    practicalMilestone: "Build a fully responsive e-commerce product landing page with mobile drawer navigation and CSS Grid catalog.",
-    recommendedNotes: [{ title: "Mastering CSS Flexbox & Grid Layouts", slug: "css-flexbox-grid-mastery" }, { title: "Responsive Design, Media Queries & Animations", slug: "responsive-design-media-queries-animations" }]
-  },
-  {
-    id: 5,
-    stepNumber: 5,
-    trackId: "frontend",
-    slug: "frontend-javascript-fundamentals",
-    title: "5. JavaScript Fundamentals",
-    category: "Programming",
-    summary: "Learn the core programming fundamentals of JavaScript: variables, data types, operators, conditionals, and loops.",
-    duration: "2 - 3 Weeks",
-    difficulty: "Beginner",
-    keyTopics: ["Variables (const, let), Primitives & Reference Types", "Type Coercion & Strict Equality (=== vs ==)", "Conditionals (if/else, switch, ternary)", "Loops (for, while, for...of, for...in)", "Functions, Parameters, Return Values & Scope"],
-    practicalMilestone: "Create a browser-based algorithmic quiz game that tracks user score and validates input logic.",
-    recommendedNotes: [{ title: "JavaScript Variables, Data Types & Operators", slug: "javascript-variables-data-types-operators" }, { title: "Functions, Arrays & Object Manipulation in JS", slug: "javascript-functions-arrays-objects" }]
-  },
-  {
-    id: 6,
-    stepNumber: 6,
-    trackId: "frontend",
-    slug: "frontend-dom-manipulation-events",
-    title: "6. DOM Manipulation and Events",
-    category: "Interactivity",
-    summary: "Connect JavaScript to the browser interface. Select elements, modify HTML/CSS dynamically, and handle user events.",
-    duration: "2 Weeks",
-    difficulty: "Intermediate",
-    keyTopics: ["Selecting Elements (querySelector, getElementById)", "Modifying Text, HTML, Attributes, and ClassLists", "Event Listeners, Event Object & Event Delegation", "Form Submit Handling & preventDefault()", "Browser Storage (localStorage & sessionStorage)"],
-    practicalMilestone: "Build a complete interactive Task Manager app with localStorage persistence, drag reordering, and item filtering.",
-    recommendedNotes: [{ title: "DOM Manipulation & Event Handling Guide", slug: "dom-manipulation-events-guide" }]
-  },
-  {
-    id: 7,
-    stepNumber: 7,
-    trackId: "frontend",
-    slug: "frontend-git-and-github",
-    title: "7. Git and GitHub",
-    category: "Developer Tools",
-    summary: "Track project changes, manage branches, handle merge conflicts, and collaborate with teams using Git and GitHub.",
-    duration: "1 Week",
-    difficulty: "Beginner",
-    keyTopics: ["Git Workflow (Working Tree, Staging Area, Local Commit)", "Daily Commands (git status, add, commit, push, pull)", "Branching, Merging & Resolving Merge Conflicts", "GitHub Pull Requests, Issues & Code Reviews", ".gitignore Best Practices for Web Projects"],
-    practicalMilestone: "Create a GitHub repository for your projects, branch features, open a pull request, and merge cleanly.",
-    recommendedNotes: [{ title: "Git, GitHub & Professional Collaboration", slug: "git-github-collaboration-guide" }]
-  },
   {
-    id: 8,
-    stepNumber: 8,
-    trackId: "frontend",
-    slug: "frontend-advanced-javascript",
-    title: "8. Advanced JavaScript",
-    category: "Core JS",
-    summary: "Dive deep into modern JavaScript: closures, prototypes, asynchronous programming, Promises, and the Event Loop.",
-    duration: "3 Weeks",
-    difficulty: "Intermediate",
-    keyTopics: ["Closures, Lexical Environment & Higher-Order Functions", "Object Prototypes & ES6 Classes", "The Event Loop, Microtasks & Call Stack", "Promises, Promise Chaining & Error Handling", "ES6+ Destructuring, Rest/Spread, and Modules"],
-    practicalMilestone: "Implement a custom debounce/throttle utility function and an asynchronous search autocompleter from scratch.",
-    recommendedNotes: [{ title: "JavaScript Promises, Async/Await & Fetching", slug: "javascript-promises-async-await" }]
-  },
-  {
-    id: 9,
-    stepNumber: 9,
-    trackId: "frontend",
-    slug: "frontend-typescript",
-    title: "9. TypeScript",
-    category: "Type Safety",
-    summary: "Add static types to JavaScript to catch bugs early, write self-documenting code, and scale enterprise applications.",
-    duration: "2 Weeks",
-    difficulty: "Intermediate",
-    keyTopics: ["TypeScript Setup & tsconfig.json Configuration", "Basic Types, Union Types & Literal Types", "Interfaces vs Type Aliases", "Generics & Generic Functions", "Type Narrowing, Discriminated Unions & Utility Types"],
-    practicalMilestone: "Refactor a vanilla JavaScript utility library into strictly-typed TypeScript with zero 'any' warnings.",
-    recommendedNotes: [{ title: "Modern JavaScript & TypeScript Fundamentals", slug: "modern-javascript-typescript" }]
-  },
-  {
-    id: 10,
-    stepNumber: 10,
-    trackId: "frontend",
-    slug: "frontend-react",
-    title: "10. React",
-    category: "UI Framework",
-    summary: "Master component-driven frontend development with React 19: JSX, props, state, hooks, and lifecycle management.",
-    duration: "4 Weeks",
-    difficulty: "Intermediate",
-    keyTopics: ["JSX Syntax & Component Decomposition", "Props & State Management with useState", "Side Effects & Lifecycle with useEffect", "Custom Hooks for Reusable Logic", "Component Composition & Context API"],
-    practicalMilestone: "Build a multi-view interactive dashboard with dark mode toggle, global filter state, and custom hooks.",
-    recommendedNotes: [{ title: "React Components, Props & State Mastery", slug: "react-components-props-state" }, { title: "React Hooks Deep Dive: useState, useEffect & Custom Hooks", slug: "react-hooks-deep-dive" }]
-  },
-  {
-    id: 11,
-    stepNumber: 11,
-    trackId: "frontend",
-    slug: "frontend-apis-and-data-fetching",
-    title: "11. APIs and Data Fetching",
-    category: "Data",
-    summary: "Connect frontend applications to live backends: RESTful APIs, fetch, async/await, caching, loading states, and error handling.",
-    duration: "2 Weeks",
-    difficulty: "Intermediate",
-    keyTopics: ["REST API Architecture & HTTP Verbs (GET, POST, PUT, DELETE)", "Fetch API with Async/Await & Try/Catch", "Handling Loading Spinners, Skeletons & Error Boundaries", "URL Query Parameters & Pagination Logic", "TanStack React Query or SWR for Caching"],
-    practicalMilestone: "Build a real-time Crypto & Market Tracker fetching external live APIs with search, pagination, and toast alerts.",
-    recommendedNotes: [{ title: "REST APIs & Backend Integration in Next.js", slug: "rest-apis-crud-handlers" }]
-  },
-  {
-    id: 12,
-    stepNumber: 12,
-    trackId: "frontend",
-    slug: "frontend-web-performance-accessibility",
-    title: "12. Web Performance and Accessibility",
-    category: "Optimization",
-    summary: "Optimize Core Web Vitals (LCP, FID, CLS), asset compression, lazy loading, keyboard navigation, and WCAG accessibility.",
-    duration: "2 Weeks",
-    difficulty: "Intermediate",
-    keyTopics: ["Core Web Vitals & Lighthouse Audit Scoring", "Image Optimization (WebP/AVIF, lazy loading)", "Code Splitting & Dynamic Imports", "WCAG 2.1 AA Compliance & Screen Reader Testing", "Keyboard Accessibility & Focus Traps"],
-    practicalMilestone: "Audit and optimize an existing frontend project to achieve a 95+ score on all Google Lighthouse categories.",
-    recommendedNotes: [{ title: "Next.js Metadata, Dynamic SEO & Deployment", slug: "nextjs-metadata-seo-deployment" }]
-  },
-  {
-    id: 13,
-    stepNumber: 13,
-    trackId: "frontend",
-    slug: "frontend-deployment",
-    title: "13. Deployment",
-    category: "DevOps",
-    summary: "Deploy frontend applications to the cloud using Vercel, Netlify, or GitHub Pages with custom domains and SSL.",
-    duration: "1 Week",
-    difficulty: "Beginner",
-    keyTopics: ["Production Build Optimization (npm run build)", "Deploying to Vercel and Netlify", "Configuring Custom Domains & DNS CNAME records", "SSL / HTTPS Setup & Security Headers", "Environment Variables (.env.production)"],
-    practicalMilestone: "Deploy a live production React application with custom domain, continuous deployment, and preview branches.",
-    recommendedNotes: [{ title: "Next.js Metadata, Dynamic SEO & Deployment", slug: "nextjs-metadata-seo-deployment" }]
-  },
-  {
-    id: 14,
-    stepNumber: 14,
-    trackId: "frontend",
-    slug: "frontend-final-project",
-    title: "14. Final Project: Build and Deploy a Professional Website",
-    category: "Capstone",
-    summary: "Synthesize all skills into a flagship production-grade web application to showcase to recruiters and clients.",
-    duration: "3 - 4 Weeks",
-    difficulty: "Advanced",
-    keyTopics: ["Project Scoping, Wireframing & Design Systems", "Responsive React + TypeScript Implementation", "RESTful Data Integration & State Architecture", "Comprehensive Accessibility & Cross-Browser Testing", "Production CI/CD Deployment with Live URL & GitHub Readme"],
-    practicalMilestone: "Deploy a full-fledged showcase website with responsive layouts, dark/light theme, interactive APIs, and custom domain.",
-    recommendedNotes: [{ title: "Next.js App Router, Server Components & Layouts", slug: "nextjs-app-router-layouts" }]
-  },
-
-  // ══════════════════════════════════════════════════════════════════
-  // PATH 2: FULL-STACK DEVELOPER (14 Stages)
-  // ══════════════════════════════════════════════════════════════════
-  {
-    id: 21,
-    stepNumber: 1,
-    trackId: "fullstack",
-    slug: "fullstack-html-and-css",
-    title: "1. HTML and CSS",
-    category: "Frontend Basics",
-    summary: "Establish strong foundations in semantic HTML5 markup, modern CSS3 layouts, Flexbox, and CSS Grid.",
-    duration: "2 Weeks",
-    difficulty: "Beginner",
-    keyTopics: ["Semantic HTML5 Structure", "CSS Box Model & Specificity", "Flexbox & CSS Grid Systems", "Responsive Mobile-First Design", "Modern CSS Variables"],
-    practicalMilestone: "Build a responsive dashboard landing page with responsive navigation and grid cards.",
-    recommendedNotes: [{ title: "Semantic HTML & Accessibility Guide", slug: "semantic-html-complete-guide" }]
-  },
-  {
-    id: 22,
-    stepNumber: 2,
-    trackId: "fullstack",
-    slug: "fullstack-javascript",
-    title: "2. JavaScript",
-    category: "Language Core",
-    summary: "Master modern ECMAScript: variables, functions, closures, DOM manipulation, Promises, and asynchronous programming.",
-    duration: "3 Weeks",
-    difficulty: "Beginner",
-    keyTopics: ["ES6+ Syntax & Array Methods", "Asynchronous JavaScript & Promises", "Async/Await & Error Handling", "DOM Events & Local Storage", "Modular Code Organization"],
-    practicalMilestone: "Build a client-side note taking application with tags, search, and browser persistence.",
-    recommendedNotes: [{ title: "JavaScript Promises, Async/Await & Fetching", slug: "javascript-promises-async-await" }]
-  },
-  {
-    id: 23,
-    stepNumber: 3,
-    trackId: "fullstack",
-    slug: "fullstack-typescript",
-    title: "3. TypeScript",
-    category: "Type Safety",
-    summary: "Implement static typing across both frontend and backend for robust, self-documenting codebases.",
-    duration: "2 Weeks",
-    difficulty: "Intermediate",
-    keyTopics: ["Types, Interfaces & Generics", "Strict TypeScript Compiler Configuration", "Sharing Types Across Frontend & Backend", "Utility Types & Discriminated Unions"],
-    practicalMilestone: "Create shared TypeScript data contracts and DTO schemas for a REST API client.",
-    recommendedNotes: [{ title: "Modern JavaScript & TypeScript Fundamentals", slug: "modern-javascript-typescript" }]
-  },
-  {
-    id: 24,
-    stepNumber: 4,
-    trackId: "fullstack",
-    slug: "fullstack-git-and-github",
-    title: "4. Git and GitHub",
-    category: "Collaboration",
-    summary: "Work like professional software engineering teams: branching models, code reviews, and Git workflows.",
-    duration: "1 Week",
-    difficulty: "Beginner",
-    keyTopics: ["Feature Branching & Pull Requests", "Merge vs Rebase Strategies", "Resolving Conflicts Cleanly", "GitHub Actions Introduction"],
-    practicalMilestone: "Configure a multi-branch repository with protected main branch and automated PR checks.",
-    recommendedNotes: [{ title: "Git, GitHub & Professional Collaboration", slug: "git-github-collaboration-guide" }]
-  },
-  {
-    id: 25,
-    stepNumber: 5,
-    trackId: "fullstack",
-    slug: "fullstack-react",
-    title: "5. React",
-    category: "Frontend UI",
-    summary: "Build component-driven single-page and server-rendered web applications with React 19.",
-    duration: "3 - 4 Weeks",
-    difficulty: "Intermediate",
-    keyTopics: ["React 19 Components & Hooks", "State Management & Context API", "Form Handling & Validation", "Client-side Routing & Navigation"],
-    practicalMilestone: "Build an interactive e-commerce catalog with search, cart management, and checkout simulation.",
-    recommendedNotes: [{ title: "React Components, Props & State Mastery", slug: "react-components-props-state" }]
-  },
-  {
-    id: 26,
-    stepNumber: 6,
-    trackId: "fullstack",
-    slug: "fullstack-nodejs",
-    title: "6. Node.js",
-    category: "Backend Runtime",
-    summary: "Understand server-side JavaScript with the Node.js runtime: event-driven architecture, file system, streams, and modules.",
-    duration: "2 Weeks",
-    difficulty: "Intermediate",
-    keyTopics: ["Node.js Event Loop & Non-Blocking I/O", "CommonJS vs ES Modules", "Built-in Modules (fs, path, http, crypto)", "Package Management with npm/pnpm"],
-    practicalMilestone: "Build a Node.js CLI tool that parses logs, aggregates statistics, and outputs a JSON report.",
-    recommendedNotes: [{ title: "Frontend vs Backend: Roles & Architecture", slug: "frontend-vs-backend" }]
-  },
-  {
-    id: 27,
-    stepNumber: 7,
-    trackId: "fullstack",
-    slug: "fullstack-expressjs",
-    title: "7. Express.js",
-    category: "Backend Framework",
-    summary: "Create scalable backend web servers and routing architecture with Express.js.",
-    duration: "2 Weeks",
-    difficulty: "Intermediate",
-    keyTopics: ["Express Server Setup & Application Architecture", "Routing & Route Parameters", "Custom & Third-Party Middleware", "Centralized Error Handling Middleware"],
-    practicalMilestone: "Develop a structured Express backend with route controllers, logging middleware, and input sanitization.",
-    recommendedNotes: [{ title: "REST APIs & Backend Integration in Next.js", slug: "rest-apis-crud-handlers" }]
-  },
-  {
-    id: 28,
-    stepNumber: 8,
-    trackId: "fullstack",
-    slug: "fullstack-rest-apis",
-    title: "8. REST APIs",
-    category: "API Design",
-    summary: "Design and implement production RESTful APIs with proper HTTP verbs, status codes, pagination, and filtering.",
-    duration: "2 Weeks",
-    difficulty: "Intermediate",
-    keyTopics: ["REST Principles & Resource Modeling", "HTTP Methods (GET, POST, PUT, PATCH, DELETE)", "Query Parameters, Pagination & Sorting", "API Documentation with Swagger / OpenAPI"],
-    practicalMilestone: "Build and document a full CRUD REST API for a blog or project management system.",
-    recommendedNotes: [{ title: "REST APIs & Backend Integration in Next.js", slug: "rest-apis-crud-handlers" }]
-  },
-  {
-    id: 29,
-    stepNumber: 9,
-    trackId: "fullstack",
-    slug: "fullstack-sql-and-postgresql",
-    title: "9. SQL and PostgreSQL",
-    category: "Databases",
-    summary: "Master relational database modeling, normalization, complex SQL joins, indexing, and ORMs like Prisma.",
-    duration: "3 Weeks",
-    difficulty: "Intermediate",
-    keyTopics: ["Relational Schema Design & Normalization", "SQL Queries (SELECT, INSERT, UPDATE, DELETE)", "JOINs (INNER, LEFT, RIGHT), Aggregations & GROUP BY", "Database Indexes & Performance Tuning", "Prisma ORM for Type-Safe Database Access"],
-    practicalMilestone: "Design a relational database schema for an online marketplace with tables for users, orders, and products.",
-    recommendedNotes: [{ title: "SQL & Relational Databases", slug: "sql-and-relational-databases" }]
-  },
-  {
-    id: 30,
-    stepNumber: 10,
-    trackId: "fullstack",
-    slug: "fullstack-authentication-and-authorization",
-    title: "10. Authentication and Authorization",
-    category: "Security",
-    summary: "Implement secure user authentication with password hashing (bcrypt), JSON Web Tokens (JWT), sessions, and role-based access control.",
-    duration: "2 Weeks",
-    difficulty: "Intermediate",
-    keyTopics: ["Password Hashing with Bcrypt & Salts", "JSON Web Tokens (JWT) vs Cookie Sessions", "Refresh Token Rotation & Security", "Role-Based Access Control (RBAC)", "OAuth2 & Google Social Sign-In"],
-    practicalMilestone: "Build a complete Auth service with user registration, email verification, JWT login, and admin guard middleware.",
-    recommendedNotes: [{ title: "REST APIs & Backend Integration in Next.js", slug: "rest-apis-crud-handlers" }]
-  },
-  {
-    id: 31,
-    stepNumber: 11,
-    trackId: "fullstack",
-    slug: "fullstack-backend-security",
-    title: "11. Backend Security",
-    category: "Security",
-    summary: "Defend your applications against OWASP Top 10 vulnerabilities: SQL injection, XSS, CSRF, rate limiting, and CORS.",
-    duration: "1 - 2 Weeks",
-    difficulty: "Advanced",
-    keyTopics: ["OWASP Top 10 Vulnerabilities Overview", "SQL Injection Prevention & Parameterized Queries", "Cross-Origin Resource Sharing (CORS) Configuration", "Rate Limiting & Helmet Security Headers", "Input Validation & Sanitization with Zod"],
-    practicalMilestone: "Secure an existing Express backend with Helmet headers, strict CORS rules, rate-limiting, and Zod input validation.",
-    recommendedNotes: [{ title: "Frontend vs Backend: Roles & Architecture", slug: "frontend-vs-backend" }]
-  },
-  {
-    id: 32,
-    stepNumber: 12,
-    trackId: "fullstack",
-    slug: "fullstack-testing-and-debugging",
-    title: "12. Testing and Debugging",
-    category: "Quality Assurance",
-    summary: "Write automated tests across the pyramid: Unit tests, Integration tests with Supertest, and End-to-End tests with Playwright.",
-    duration: "2 Weeks",
-    difficulty: "Intermediate",
-    keyTopics: ["Testing Pyramid & Test-Driven Development (TDD)", "Unit Testing with Vitest / Jest", "API Integration Testing with Supertest", "Database Mocking & Test Isolation", "Debugging Techniques with Chrome DevTools & VS Code"],
-    practicalMilestone: "Write a complete test suite for your backend authentication and CRUD routes with > 80% code coverage.",
-    recommendedNotes: [{ title: "Modern JavaScript & TypeScript Fundamentals", slug: "modern-javascript-typescript" }]
-  },
-  {
-    id: 33,
-    stepNumber: 13,
-    trackId: "fullstack",
-    slug: "fullstack-deployment-and-hosting",
-    title: "13. Deployment and Hosting",
-    category: "DevOps",
-    summary: "Package applications in Docker containers, configure environment variables, and deploy to cloud platforms like Render or AWS.",
-    duration: "2 Weeks",
-    difficulty: "Advanced",
-    keyTopics: ["Docker Containerization & Dockerfile Best Practices", "Docker Compose for Multi-Container Apps (App + DB)", "Cloud Hosting (Vercel, Render, Railway, AWS)", "Continuous Integration / Continuous Delivery (CI/CD) with GitHub Actions"],
-    practicalMilestone: "Containerize a React + Node + PostgreSQL application with Docker Compose and deploy to a cloud server.",
-    recommendedNotes: [{ title: "Next.js Metadata, Dynamic SEO & Deployment", slug: "nextjs-metadata-seo-deployment" }]
-  },
-  {
-    id: 34,
-    stepNumber: 14,
-    trackId: "fullstack",
-    slug: "fullstack-final-project",
-    title: "14. Final Project: Build a Complete Full-Stack Application",
-    category: "Capstone",
-    summary: "Build and deploy a full-scale production application with React frontend, Node/Express backend, PostgreSQL database, and auth.",
-    duration: "4 Weeks",
-    difficulty: "Advanced",
-    keyTopics: ["Full-Stack Architecture & System Design", "Interactive React UI with State Management", "Secure REST API with JWT Authentication", "Relational Database with Prisma ORM", "Live Cloud Deployment with Custom Domain"],
-    practicalMilestone: "Deploy a full-stack SaaS platform (e.g. Issue Tracker or Project Workspace) with authentication and live database.",
-    recommendedNotes: [{ title: "Next.js App Router, Server Components & Layouts", slug: "nextjs-app-router-layouts" }]
-  },
-
-  // ══════════════════════════════════════════════════════════════════
-  // PATH 3: PYTHON DEVELOPER (14 Stages)
-  // ══════════════════════════════════════════════════════════════════
-  {
-    id: 41,
-    stepNumber: 1,
-    trackId: "python",
-    slug: "python-installation-and-setup",
-    title: "1. Python Installation and Setup",
-    category: "Getting Started",
-    summary: "Install Python 3, configure virtual environments (venv), learn the interactive REPL, and set up modern VS Code tooling.",
-    duration: "1 Week",
-    difficulty: "Beginner",
-    keyTopics: ["Python 3 Installation on Windows/Mac/Linux", "The Interactive Python REPL & Running Scripts", "Virtual Environments (venv / poetry)", "VS Code Python Extensions, Linting & Black Formatter"],
-    practicalMilestone: "Set up a clean virtual environment and write your first multi-file Python executable script.",
-    recommendedNotes: [{ title: "Python Programming Mastery", slug: "python-programming-mastery" }]
-  },
-  {
-    id: 42,
-    stepNumber: 2,
-    trackId: "python",
-    slug: "python-variables-and-data-types",
-    title: "2. Variables and Data Types",
-    category: "Syntax Basics",
-    summary: "Understand Python dynamic typing: integers, floats, booleans, strings, NoneType, and type conversion.",
-    duration: "1 Week",
-    difficulty: "Beginner",
-    keyTopics: ["Variables & Python Naming Conventions (PEP 8)", "Numeric Types: int, float, complex", "Booleans & Truthy/Falsy Evaluation", "String Basics, Indexing, Slicing & f-strings", "Type Casting (int(), str(), float())"],
-    practicalMilestone: "Build a currency converter and tip calculator that safely accepts and casts user input.",
-    recommendedNotes: [{ title: "Python Programming Mastery", slug: "python-programming-mastery" }]
-  },
-  {
-    id: 43,
-    stepNumber: 3,
-    trackId: "python",
-    slug: "python-operators-and-expressions",
-    title: "3. Operators and Expressions",
-    category: "Core Logic",
-    summary: "Work with arithmetic, assignment, comparison, logical, identity (is), and membership (in) operators.",
-    duration: "1 Week",
-    difficulty: "Beginner",
-    keyTopics: ["Arithmetic Operators (+, -, *, /, //, %, **)", "Comparison Operators (==, !=, >, <, >=, <=)", "Logical Operators (and, or, not)", "Identity Operators (is, is not) vs Equality (==)", "Membership Operators (in, not in)"],
-    practicalMilestone: "Implement an evaluation engine that parses math expressions and validates boundary conditions.",
-    recommendedNotes: [{ title: "Python Programming Mastery", slug: "python-programming-mastery" }]
-  },
-  {
-    id: 44,
-    stepNumber: 4,
-    trackId: "python",
-    slug: "python-conditions-and-loops",
-    title: "4. Conditions and Loops",
-    category: "Control Flow",
-    summary: "Control code execution flow with if/elif/else statements, for loops, while loops, break, and continue.",
-    duration: "1 - 2 Weeks",
-    difficulty: "Beginner",
-    keyTopics: ["if, elif, else Conditional Branching", "for Loops with range() and Enumeration", "while Loops & Sentinel Values", "Loop Control: break, continue, pass", "Nested Loops & Algorithmic Patterns"],
-    practicalMilestone: "Build a command-line Number Guessing Game with difficulty levels, hints, and guess limits.",
-    recommendedNotes: [{ title: "Python Programming Mastery", slug: "python-programming-mastery" }]
-  },
-  {
-    id: 45,
-    stepNumber: 5,
-    trackId: "python",
-    slug: "python-functions",
-    title: "5. Functions",
-    category: "Modularity",
-    summary: "Write clean, reusable functions with positional arguments, keyword arguments, *args, **kwargs, and return statements.",
-    duration: "2 Weeks",
-    difficulty: "Beginner",
-    keyTopics: ["Function Definition & Return Values", "Positional vs Keyword Arguments", "Default Parameters & Mutable Defaults Pitfall", "*args and **kwargs for Variable Arguments", "Docstrings, Type Hints & Lambda Functions"],
-    practicalMilestone: "Create a modular text formatting and validation utility package with type hints and docstrings.",
-    recommendedNotes: [{ title: "Python Programming Mastery", slug: "python-programming-mastery" }]
-  },
-  {
-    id: 46,
-    stepNumber: 6,
-    trackId: "python",
-    slug: "python-strings-and-collections",
-    title: "6. Strings and Collections",
-    category: "Data Structures",
-    summary: "Master Python built-in collections: Lists, Tuples, Sets, and Dictionaries, plus powerful list comprehensions.",
-    duration: "2 Weeks",
-    difficulty: "Intermediate",
-    keyTopics: ["Lists: Methods, Slicing & List Comprehensions", "Tuples: Immutability & Tuple Unpacking", "Sets: Uniqueness & Set Operations (Union, Intersection)", "Dictionaries: Key-Value Mapping & Dict Comprehensions", "collections Module: Counter, defaultdict, namedtuple"],
-    practicalMilestone: "Build an inventory management program that aggregates, filters, and reports stock items using dictionaries.",
-    recommendedNotes: [{ title: "Python Programming Mastery", slug: "python-programming-mastery" }]
-  },
-  {
-    id: 47,
-    stepNumber: 7,
-    trackId: "python",
-    slug: "python-object-oriented-programming",
-    title: "7. Object-Oriented Programming",
-    category: "OOP",
-    summary: "Model real-world entities using Classes, Objects, __init__ constructors, Inheritance, Encapsulation, and Magic Methods.",
-    duration: "2 - 3 Weeks",
-    difficulty: "Intermediate",
-    keyTopics: ["Classes, Instances & the self Keyword", "Constructors (__init__) & Instance Attributes", "Class Attributes vs Instance Attributes", "Inheritance, super() & Method Overriding", "Dunder/Magic Methods (__str__, __repr__, __len__, __eq__)"],
-    practicalMilestone: "Design an Object-Oriented Banking System with accounts, interest rates, transactions, and overdraft limits.",
-    recommendedNotes: [{ title: "Python Programming Mastery", slug: "python-programming-mastery" }]
-  },
-  {
-    id: 48,
-    stepNumber: 8,
-    trackId: "python",
-    slug: "python-file-handling",
-    title: "8. File Handling",
-    category: "I/O",
-    summary: "Read, write, and process text, CSV, and JSON files safely using Python context managers (with open).",
-    duration: "1 Week",
-    difficulty: "Beginner",
-    keyTopics: ["Opening Files: 'r', 'w', 'a' Modes", "Context Managers (with open() as f:)", "Reading & Writing CSV with csv.reader / csv.DictWriter", "JSON Serialization & Deserialization (json.dump / json.load)", "pathlib Module for Cross-Platform File Paths"],
-    practicalMilestone: "Build a CSV-to-JSON reporting tool that reads financial records, calculates totals, and saves output.",
-    recommendedNotes: [{ title: "Python Programming Mastery", slug: "python-programming-mastery" }]
-  },
-  {
-    id: 49,
-    stepNumber: 9,
-    trackId: "python",
-    slug: "python-exceptions-and-debugging",
-    title: "9. Exceptions and Debugging",
-    category: "Reliability",
-    summary: "Handle runtime errors gracefully using try, except, else, finally, and custom exception classes.",
-    duration: "1 Week",
-    difficulty: "Intermediate",
-    keyTopics: ["Built-in Exceptions (ValueError, KeyError, TypeError)", "try, except, else, finally Blocks", "Raising Exceptions with raise", "Defining Custom Exception Classes", "Debugging with pdb & Python Logging Module"],
-    practicalMilestone: "Refactor a file-processing script to gracefully catch corrupted data, log errors, and recover without crashing.",
-    recommendedNotes: [{ title: "Python Programming Mastery", slug: "python-programming-mastery" }]
-  },
-  {
-    id: 50,
-    stepNumber: 10,
-    trackId: "python",
-    slug: "python-modules-and-packages",
-    title: "10. Modules and Packages",
-    category: "Architecture",
-    summary: "Organize large codebases with modules, packages, __init__.py files, imports, and pip dependency management.",
-    duration: "1 Week",
-    difficulty: "Intermediate",
-    keyTopics: ["Creating & Importing Custom Modules", "Packages & Package Structure (__init__.py)", "The Python Standard Library (math, random, datetime, os, sys)", "Pip, requirements.txt & pyproject.toml", "Publishing Reusable Packages"],
-    practicalMilestone: "Package a modular utility library with structured folders, README, and dependency configuration.",
-    recommendedNotes: [{ title: "Python Programming Mastery", slug: "python-programming-mastery" }]
-  },
-  {
-    id: 51,
-    stepNumber: 11,
-    trackId: "python",
-    slug: "python-apis-and-http-requests",
-    title: "11. APIs and HTTP Requests",
-    category: "Networking",
-    summary: "Interact with external web services using the requests library, parse JSON payloads, and handle authentication headers.",
-    duration: "2 Weeks",
-    difficulty: "Intermediate",
-    keyTopics: ["The requests Library (GET, POST, headers, params)", "Parsing Nested JSON Responses", "Handling HTTP Status Codes & Timeouts", "API Key Authentication & Environment Variables (python-dotenv)", "Building Lightweight REST Endpoints with FastAPI"],
-    practicalMilestone: "Build a Weather & News Aggregator CLI that fetches data from 2 external APIs and displays a formatted summary.",
-    recommendedNotes: [{ title: "Python Programming Mastery", slug: "python-programming-mastery" }]
-  },
-  {
-    id: 52,
-    stepNumber: 12,
-    trackId: "python",
-    slug: "python-testing",
-    title: "12. Testing",
-    category: "Quality",
-    summary: "Ensure code correctness and prevent regressions using pytest, test fixtures, assertions, and mocks.",
-    duration: "1 - 2 Weeks",
-    difficulty: "Intermediate",
-    keyTopics: ["Unit Testing Fundamentals & Why Testing Matters", "Writing Test Cases with pytest", "pytest Fixtures for Setup & Teardown", "Mocking External Services with unittest.mock", "Measuring Code Coverage with pytest-cov"],
-    practicalMilestone: "Write a complete pytest test suite with fixtures and mocking for an API client class.",
-    recommendedNotes: [{ title: "Python Programming Mastery", slug: "python-programming-mastery" }]
-  },
-  {
-    id: 53,
-    stepNumber: 13,
-    trackId: "python",
-    slug: "python-database-integration",
-    title: "13. Database Integration",
-    category: "Persistence",
-    summary: "Connect Python to databases: SQLite, PostgreSQL, parameterized SQL execution, and SQLAlchemy ORM.",
-    duration: "2 Weeks",
-    difficulty: "Intermediate",
-    keyTopics: ["SQLite Integration with sqlite3 Module", "Executing SQL Queries & Preventing SQL Injection", "PostgreSQL Connectivity with psycopg2", "SQLAlchemy Core & ORM Models", "Database Migrations with Alembic"],
-    practicalMilestone: "Build a Persistent Contact & CRM manager in Python using SQLite and SQLAlchemy ORM.",
-    recommendedNotes: [{ title: "SQL & Relational Databases", slug: "sql-and-relational-databases" }]
-  },
-  {
-    id: 54,
-    stepNumber: 14,
-    trackId: "python",
-    slug: "python-final-project",
-    title: "14. Final Project: Build a Practical Python Application",
-    category: "Capstone",
-    summary: "Synthesize your Python skills into a complete application (REST API backend, web scraper, or automation suite).",
-    duration: "3 - 4 Weeks",
-    difficulty: "Advanced",
-    keyTopics: ["Application Architecture & Code Organization", "FastAPI / Flask Backend with Database Storage", "Comprehensive Exception Handling & Logging", "Full Test Suite with pytest (> 85% coverage)", "Documentation & Deployment on Cloud"],
-    practicalMilestone: "Build and deploy an automated Task & Web Analytics API with PostgreSQL storage, authentication, and tests.",
-    recommendedNotes: [{ title: "Python Programming Mastery", slug: "python-programming-mastery" }]
-  },
-
-  // ══════════════════════════════════════════════════════════════════
-  // PATH 4: JAVA DEVELOPER (14 Stages)
-  // ══════════════════════════════════════════════════════════════════
-  {
-    id: 61,
-    stepNumber: 1,
-    trackId: "java",
-    slug: "java-setup-and-fundamentals",
-    title: "1. Java Setup and Fundamentals",
-    category: "Foundations",
-    summary: "Install the Java Development Kit (JDK 21), configure environment variables, understand the JVM/JRE, and compile your first class.",
-    duration: "1 Week",
-    difficulty: "Beginner",
-    keyTopics: ["JDK, JRE & JVM Architecture", "Bytecode & the Write Once, Run Anywhere Philosophy", "Compiling & Running (javac & java)", "IntelliJ IDEA / Eclipse IDE Setup", "Structure of a Java Class & public static void main"],
-    practicalMilestone: "Configure JDK 21 and run a multi-class console program demonstrating class structure and compilation.",
-    recommendedNotes: [{ title: "Computer Science Core Fundamentals", slug: "cs-fundamentals-architecture" }]
-  },
-  {
-    id: 62,
-    stepNumber: 2,
-    trackId: "java",
-    slug: "java-variables-and-data-types",
-    title: "2. Variables and Data Types",
-    category: "Syntax Basics",
-    summary: "Master Java's strong, static type system: primitives (int, double, boolean, char), reference types, and type casting.",
-    duration: "1 Week",
-    difficulty: "Beginner",
-    keyTopics: ["Primitive Types (byte, short, int, long, float, double, boolean, char)", "Reference Types vs Primitives & Memory Layout", "Variable Declaration, Initialization & Scope", "Type Casting: Widening (Implicit) vs Narrowing (Explicit)", "Constants with the final Keyword"],
-    practicalMilestone: "Build a financial interest calculator with strict type casting and overflow validation.",
-    recommendedNotes: [{ title: "Computer Science Core Fundamentals", slug: "cs-fundamentals-architecture" }]
-  },
-  {
-    id: 63,
-    stepNumber: 3,
-    trackId: "java",
-    slug: "java-conditions-and-loops",
-    title: "3. Conditions and Loops",
-    category: "Control Flow",
-    summary: "Implement logical decision-making with if/else, switch statements, for, while, and do-while loops.",
-    duration: "1 - 2 Weeks",
-    difficulty: "Beginner",
-    keyTopics: ["if, else if, else Conditional Logic", "Modern switch Expressions & Pattern Matching", "for Loops & Enhanced for-each Loop", "while and do-while Loops", "Control Statements: break, continue, return"],
-    practicalMilestone: "Implement an interactive ATM simulation with menu loops, pin validation, and balance tracking.",
-    recommendedNotes: [{ title: "Data Structures & Algorithms Mastery", slug: "data-structures-and-algorithms" }]
-  },
-  {
-    id: 64,
-    stepNumber: 4,
-    trackId: "java",
-    slug: "java-methods-and-arrays",
-    title: "4. Methods and Arrays",
-    category: "Structure",
-    summary: "Structure clean code with reusable methods, method overloading, 1D and 2D arrays, and varargs.",
-    duration: "2 Weeks",
-    difficulty: "Beginner",
-    keyTopics: ["Method Definition, Return Types & Parameters", "Pass-by-Value Semantics in Java", "Method Overloading (Same name, different signature)", "Single & Multi-Dimensional Arrays", "The java.util.Arrays Utility Class"],
-    practicalMilestone: "Build a Matrix math calculator that performs addition, transposition, and multiplication using 2D arrays.",
-    recommendedNotes: [{ title: "Data Structures & Algorithms Mastery", slug: "data-structures-and-algorithms" }]
-  },
-  {
-    id: 65,
-    stepNumber: 5,
-    trackId: "java",
-    slug: "java-strings",
-    title: "5. Strings",
-    category: "Text Processing",
-    summary: "Understand the Java String Pool, string immutability, StringBuilder, StringBuffer, and regular expressions.",
-    duration: "1 Week",
-    difficulty: "Beginner",
-    keyTopics: ["String Immutability & The String Constant Pool", "String Comparison (equals() vs ==)", "Essential String Methods (substring, split, indexOf, trim)", "StringBuilder vs StringBuffer for High-Performance Manipulation", "Regular Expressions (Regex) in Java"],
-    practicalMilestone: "Create a text analyzer that cleans input, counts frequencies, and validates email/phone regex patterns.",
-    recommendedNotes: [{ title: "Data Structures & Algorithms Mastery", slug: "data-structures-and-algorithms" }]
-  },
-  {
-    id: 66,
-    stepNumber: 6,
-    trackId: "java",
-    slug: "java-object-oriented-programming",
-    title: "6. Object-Oriented Programming",
-    category: "OOP Core",
-    summary: "Master Java OOP: Classes, Objects, Constructors, Encapsulation, getters/setters, and access modifiers.",
-    duration: "2 - 3 Weeks",
-    difficulty: "Intermediate",
-    keyTopics: ["Classes, Instances & the this Keyword", "Constructors & Constructor Chaining", "Access Modifiers: private, default, protected, public", "Encapsulation: Getters, Setters & Validation", "static Fields, static Methods & static Initializers"],
-    practicalMilestone: "Build an Object-Oriented Library Catalog System with Book, Member, and Loan classes.",
-    recommendedNotes: [{ title: "Computer Science Core Fundamentals", slug: "cs-fundamentals-architecture" }]
-  },
-  {
-    id: 67,
-    stepNumber: 7,
-    trackId: "java",
-    slug: "java-inheritance-and-polymorphism",
-    title: "7. Inheritance and Polymorphism",
-    category: "OOP Advanced",
-    summary: "Create extensible hierarchies with class inheritance (extends), interfaces (implements), abstract classes, and polymorphism.",
-    duration: "2 Weeks",
-    difficulty: "Intermediate",
-    keyTopics: ["Class Inheritance with extends & super Keyword", "Method Overriding & the @Override Annotation", "Compile-time vs Runtime Polymorphism", "Abstract Classes vs Interfaces", "Default & Static Methods in Interfaces"],
-    practicalMilestone: "Design an Employee Payroll hierarchy with FullTime, Contractor, and Executive polymorphic classes.",
-    recommendedNotes: [{ title: "Computer Science Core Fundamentals", slug: "cs-fundamentals-architecture" }]
-  },
-  {
-    id: 68,
-    stepNumber: 8,
-    trackId: "java",
-    slug: "java-collections-framework",
-    title: "8. Collections Framework",
-    category: "Data Structures",
-    summary: "Master Java's standard collections: List (ArrayList, LinkedList), Set (HashSet, TreeSet), and Map (HashMap, TreeMap).",
-    duration: "2 - 3 Weeks",
-    difficulty: "Intermediate",
-    keyTopics: ["The Collections Hierarchy & Iterable Interface", "List: ArrayList vs LinkedList", "Set: HashSet vs LinkedHashSet vs TreeSet", "Map: HashMap vs LinkedHashMap vs TreeMap", "Comparable and Comparator Interfaces for Custom Sorting"],
-    practicalMilestone: "Implement an in-memory Student Ranking and GPA Registry using HashMaps, TreeSets, and custom Comparators.",
-    recommendedNotes: [{ title: "Data Structures & Algorithms Mastery", slug: "data-structures-and-algorithms" }]
-  },
-  {
-    id: 69,
-    stepNumber: 9,
-    trackId: "java",
-    slug: "java-exception-handling",
-    title: "9. Exception Handling",
-    category: "Reliability",
-    summary: "Handle runtime faults safely with checked vs unchecked exceptions, try-catch-finally, try-with-resources, and custom exceptions.",
-    duration: "1 Week",
-    difficulty: "Intermediate",
-    keyTopics: ["Throwable Hierarchy: Error vs Exception", "Checked Exceptions vs Unchecked (Runtime) Exceptions", "try, catch, finally Blocks & Multiple Catches", "try-with-resources & AutoCloseable Interface", "Creating Custom Exception Classes"],
-    practicalMilestone: "Build a robust file ingestion engine that validates data and throws domain-specific custom exceptions.",
-    recommendedNotes: [{ title: "Computer Science Core Fundamentals", slug: "cs-fundamentals-architecture" }]
-  },
-  {
-    id: 70,
-    stepNumber: 10,
-    trackId: "java",
-    slug: "java-generics-and-streams",
-    title: "10. Generics and Streams",
-    category: "Modern Java",
-    summary: "Write type-safe generic classes and harness functional programming with the Java 8+ Stream API and Lambda expressions.",
-    duration: "2 Weeks",
-    difficulty: "Intermediate",
-    keyTopics: ["Generic Classes, Methods & Bounded Type Parameters (<T extends Number>)", "Wildcards (? extends T, ? super T)", "Functional Interfaces (@FunctionalInterface, Consumer, Predicate, Function)", "Stream Operations: filter(), map(), reduce(), collect()", "Optional<T> to Eliminate NullPointerExceptions"],
-    practicalMilestone: "Refactor data processing pipelines to use Java Streams, lambdas, and Optionals for concise, bug-free logic.",
-    recommendedNotes: [{ title: "Computer Science Core Fundamentals", slug: "cs-fundamentals-architecture" }]
-  },
-  {
-    id: 71,
-    stepNumber: 11,
-    trackId: "java",
-    slug: "java-file-handling",
-    title: "11. File Handling",
-    category: "I/O",
-    summary: "Read and write data on the filesystem with Java standard I/O and modern NIO.2 (Path, Files, Buffers).",
-    duration: "1 Week",
-    difficulty: "Intermediate",
-    keyTopics: ["Byte Streams vs Character Streams", "BufferedReader and BufferedWriter", "Java NIO.2 (java.nio.file.Path and Files)", "Reading, Writing & Appending Files", "Object Serialization (Serializable Interface)"],
-    practicalMilestone: "Build a transaction log generator that archives and parses daily financial records in CSV and binary formats.",
-    recommendedNotes: [{ title: "Computer Science Core Fundamentals", slug: "cs-fundamentals-architecture" }]
-  },
-  {
-    id: 72,
-    stepNumber: 12,
-    trackId: "java",
-    slug: "java-sql-and-jdbc",
-    title: "12. SQL and JDBC",
-    category: "Database",
-    summary: "Connect Java applications to MySQL or PostgreSQL databases using JDBC, Connection Pools, and PreparedStatements.",
-    duration: "2 Weeks",
-    difficulty: "Intermediate",
-    keyTopics: ["JDBC Architecture & Driver Managers", "Establishing Database Connections", "Executing Queries with PreparedStatement (Preventing SQLi)", "Processing ResultSet Data", "Transaction Management (commit & rollback)"],
-    practicalMilestone: "Develop a Data Access Object (DAO) layer that performs complete CRUD operations against a relational database.",
-    recommendedNotes: [{ title: "SQL & Relational Databases", slug: "sql-and-relational-databases" }]
-  },
-  {
-    id: 73,
-    stepNumber: 13,
-    trackId: "java",
-    slug: "java-unit-testing",
-    title: "13. Unit Testing",
-    category: "Testing",
-    summary: "Write professional automated tests for Java code using JUnit 5 and mock external dependencies with Mockito.",
-    duration: "1 - 2 Weeks",
-    difficulty: "Intermediate",
-    keyTopics: ["JUnit 5 Test Annotations (@Test, @BeforeEach, @AfterEach)", "Assertions & Exception Testing", "Parameterized Tests (@ParameterizedTest)", "Mocking Dependencies with Mockito (@Mock, when/thenReturn)", "Code Coverage Analysis"],
-    practicalMilestone: "Create a comprehensive JUnit 5 and Mockito test suite for your business service classes.",
-    recommendedNotes: [{ title: "Computer Science Core Fundamentals", slug: "cs-fundamentals-architecture" }]
-  },
-  {
-    id: 74,
-    stepNumber: 14,
-    trackId: "java",
-    slug: "java-final-project",
-    title: "14. Final Project: Build a Java Application",
-    category: "Capstone",
-    summary: "Design and implement a complete enterprise-grade Java application with clean architecture, JDBC persistence, and unit tests.",
-    duration: "3 - 4 Weeks",
-    difficulty: "Advanced",
-    keyTopics: ["Layered Enterprise Architecture (Controller, Service, DAO)", "Relational Database Schema & JDBC Connectivity", "Design Patterns (Singleton, Factory, Builder, Repository)", "Comprehensive JUnit 5 Test Suite", "Maven Build Lifecycle & Executable JAR Packaging"],
-    practicalMilestone: "Build and package a complete Hotel Reservation or Inventory Management application with relational database and tests.",
-    recommendedNotes: [{ title: "Computer Science Core Fundamentals", slug: "cs-fundamentals-architecture" }]
-  },
-
-  // ══════════════════════════════════════════════════════════════════
-  // PATH 5: AI AND MACHINE LEARNING (14 Stages)
-  // ══════════════════════════════════════════════════════════════════
-  {
-    id: 81,
-    stepNumber: 1,
-    trackId: "ai-ml",
-    slug: "ai-python-fundamentals",
-    title: "1. Python Fundamentals",
-    category: "Programming",
-    summary: "Master the essential Python language skills required for AI: functions, data structures, comprehensions, and virtual environments.",
-    duration: "2 Weeks",
-    difficulty: "Beginner",
-    keyTopics: ["Python Syntax, Data Types & Collections", "List Comprehensions & Generator Expressions", "Functions, Lambdas & Modular Imports", "Virtual Environments & Jupyter Notebooks Setup"],
-    practicalMilestone: "Set up a clean Jupyter Lab data science environment and write algorithmic data processing scripts.",
-    recommendedNotes: [{ title: "Python Programming Mastery", slug: "python-programming-mastery" }]
-  },
-  {
-    id: 82,
-    stepNumber: 2,
-    trackId: "ai-ml",
-    slug: "ai-mathematics-for-machine-learning",
-    title: "2. Mathematics for Machine Learning",
-    category: "Math Foundations",
-    summary: "Understand the core mathematical pillars: Linear Algebra (vectors, matrices, dot products) and Multivariable Calculus (gradients).",
-    duration: "2 Weeks",
-    difficulty: "Intermediate",
-    keyTopics: ["Vectors, Vector Spaces & Dot Products", "Matrix Operations, Determinants & Inverses", "Eigenvalues, Eigenvectors & Dimensionality", "Calculus: Derivatives, Partial Derivatives & The Chain Rule", "Gradient Descent Optimization Intuition"],
-    practicalMilestone: "Implement basic vector dot products and gradient descent mathematical steps from scratch in Python.",
-    recommendedNotes: [{ title: "Python Programming Mastery", slug: "python-programming-mastery" }]
-  },
-  {
-    id: 83,
-    stepNumber: 3,
-    trackId: "ai-ml",
-    slug: "ai-numpy",
-    title: "3. NumPy",
-    category: "Scientific Computing",
-    summary: "Perform high-performance scientific and numerical computing with multidimensional arrays, vectorization, and broadcasting.",
-    duration: "1 - 2 Weeks",
-    difficulty: "Beginner",
-    keyTopics: ["NumPy ndarray Creation & Data Types", "Array Indexing, Slicing & Boolean Masking", "Vectorized Operations vs Slow Python Loops", "Broadcasting Rules & Reshaping Arrays", "Linear Algebra with np.linalg"],
-    practicalMilestone: "Build a vectorized matrix transformation pipeline and image filter using pure NumPy operations.",
-    recommendedNotes: [{ title: "Python Programming Mastery", slug: "python-programming-mastery" }]
-  },
-  {
-    id: 84,
-    stepNumber: 4,
-    trackId: "ai-ml",
-    slug: "ai-pandas",
-    title: "4. Pandas",
-    category: "Data Wrangling",
-    summary: "Inspect, clean, and manipulate tabular data using Pandas Series, DataFrames, indexing, grouping, and aggregations.",
-    duration: "2 Weeks",
-    difficulty: "Beginner",
-    keyTopics: ["Series and DataFrame Structures", "Loading CSV, Excel, and SQL Data", "Filtering Data with loc and iloc", "Handling Missing Values (fillna, dropna)", "Groupby, Pivot Tables & Aggregations"],
-    practicalMilestone: "Analyze a real-world Kaggle dataset (e.g. Titanic or House Prices) and generate comprehensive summary statistics.",
-    recommendedNotes: [{ title: "Python Programming Mastery", slug: "python-programming-mastery" }]
-  },
-  {
-    id: 85,
-    stepNumber: 5,
-    trackId: "ai-ml",
-    slug: "ai-data-visualization",
-    title: "5. Data Visualization",
-    category: "Visual Analysis",
-    summary: "Communicate insights effectively through charts and graphs using Matplotlib and Seaborn.",
-    duration: "1 Week",
-    difficulty: "Beginner",
-    keyTopics: ["Matplotlib Figure and Axes Anatomy", "Line Charts, Bar Charts & Histograms", "Seaborn Statistical Plots (Scatter, Box, Violin)", "Correlation Heatmaps & Pairplots", "Customizing Colors, Labels, Legends & Titles"],
-    practicalMilestone: "Create an exploratory visual dashboard revealing correlations, distributions, and outliers in a sales dataset.",
-    recommendedNotes: [{ title: "Python Programming Mastery", slug: "python-programming-mastery" }]
-  },
-  {
-    id: 86,
-    stepNumber: 6,
-    trackId: "ai-ml",
-    slug: "ai-statistics-and-probability",
-    title: "6. Statistics and Probability",
-    category: "Statistical Core",
-    summary: "Master the foundation of inference: descriptive statistics, probability distributions, hypothesis testing, and Bayes Theorem.",
-    duration: "2 Weeks",
-    difficulty: "Intermediate",
-    keyTopics: ["Mean, Median, Mode, Variance & Standard Deviation", "Probability Distributions (Normal, Binomial, Poisson)", "Z-Scores, Central Limit Theorem & Confidence Intervals", "Hypothesis Testing (p-values, t-tests, ANOVA)", "Bayes' Theorem & Conditional Probability"],
-    practicalMilestone: "Perform an A/B test hypothesis analysis with p-value calculation to decide if a website feature increased conversions.",
-    recommendedNotes: [{ title: "Python Programming Mastery", slug: "python-programming-mastery" }]
-  },
-  {
-    id: 87,
-    stepNumber: 7,
-    trackId: "ai-ml",
-    slug: "ai-data-cleaning-and-preparation",
-    title: "7. Data Cleaning and Preparation",
-    category: "Feature Engineering",
-    summary: "Prepare messy real-world data for algorithms: imputation, one-hot encoding, feature scaling, and train-test splitting.",
-    duration: "2 Weeks",
-    difficulty: "Intermediate",
-    keyTopics: ["Detecting and Handling Outliers (IQR & Z-score)", "Categorical Encoding (One-Hot, Ordinal, Label)", "Feature Scaling: Normalization vs Standardization", "Feature Selection & Dimensionality Reduction (PCA)", "Train, Validation & Test Splitting (Stratified)"],
-    practicalMilestone: "Build a reusable Scikit-Learn ColumnTransformer pipeline that cleans raw incoming data automatically.",
-    recommendedNotes: [{ title: "Python Programming Mastery", slug: "python-programming-mastery" }]
-  },
-  {
-    id: 88,
-    stepNumber: 8,
-    trackId: "ai-ml",
-    slug: "ai-machine-learning-fundamentals",
-    title: "8. Machine Learning Fundamentals",
-    category: "ML Foundations",
-    summary: "Understand the core concepts of machine learning: how models learn, loss functions, overfitting vs underfitting, and bias-variance tradeoff.",
-    duration: "1 - 2 Weeks",
-    difficulty: "Intermediate",
-    keyTopics: ["Types of ML: Supervised, Unsupervised, Reinforcement", "Features, Labels, Predictions & Loss Functions", "Overfitting vs Underfitting (Bias-Variance Tradeoff)", "Cross-Validation (k-fold Cross Validation)", "Hyperparameter Tuning with GridSearchCV"],
-    practicalMilestone: "Train your first baseline Scikit-Learn predictor and diagnose overfitting using validation curves.",
-    recommendedNotes: [{ title: "Python Programming Mastery", slug: "python-programming-mastery" }]
-  },
-  {
-    id: 89,
-    stepNumber: 9,
-    trackId: "ai-ml",
-    slug: "ai-supervised-learning",
-    title: "9. Supervised Learning",
-    category: "Algorithms",
-    summary: "Master classical predictive algorithms for regression and classification: Linear Regression, Logistic Regression, Decision Trees, and Random Forests.",
-    duration: "3 Weeks",
-    difficulty: "Intermediate",
-    keyTopics: ["Linear & Multiple Regression (Ordinary Least Squares)", "Logistic Regression & Sigmoid Decision Boundaries", "Decision Trees, Entropy & Gini Impurity", "Ensemble Methods: Random Forests & Gradient Boosting (XGBoost)", "Support Vector Machines (SVM) & Kernel Trick"],
-    practicalMilestone: "Build an end-to-end customer churn prediction classifier using Random Forest and XGBoost.",
-    recommendedNotes: [{ title: "Python Programming Mastery", slug: "python-programming-mastery" }]
-  },
-  {
-    id: 90,
-    stepNumber: 10,
-    trackId: "ai-ml",
-    slug: "ai-unsupervised-learning",
-    title: "10. Unsupervised Learning",
-    category: "Pattern Discovery",
-    summary: "Discover hidden patterns in unlabeled data using K-Means clustering, hierarchical clustering, and PCA dimensionality reduction.",
-    duration: "2 Weeks",
-    difficulty: "Intermediate",
-    keyTopics: ["Clustering vs Classification", "K-Means Clustering & The Elbow Method", "Hierarchical Clustering & Dendrograms", "DBSCAN for Density-Based Outlier Detection", "Principal Component Analysis (PCA) for Visualizing High-D Data"],
-    practicalMilestone: "Segment an e-commerce customer base into behavioral purchasing clusters using K-Means and PCA visualization.",
-    recommendedNotes: [{ title: "Python Programming Mastery", slug: "python-programming-mastery" }]
-  },
-  {
-    id: 91,
-    stepNumber: 11,
-    trackId: "ai-ml",
-    slug: "ai-model-evaluation",
-    title: "11. Model Evaluation",
-    category: "Validation",
-    summary: "Evaluate model performance accurately with Confusion Matrices, Precision, Recall, F1-Score, ROC-AUC curves, and MAE/RMSE.",
-    duration: "1 Week",
-    difficulty: "Intermediate",
-    keyTopics: ["Regression Metrics: MAE, MSE, RMSE, R-squared", "Classification Metrics: Accuracy, Precision, Recall, F1", "Confusion Matrix & Type I / Type II Errors", "ROC Curves & Area Under the Curve (AUC)", "Handling Imbalanced Datasets (SMOTE & Class Weights)"],
-    practicalMilestone: "Evaluate a medical diagnosis model where false negatives are critical, optimizing the decision threshold for Recall.",
-    recommendedNotes: [{ title: "Python Programming Mastery", slug: "python-programming-mastery" }]
-  },
-  {
-    id: 92,
-    stepNumber: 12,
-    trackId: "ai-ml",
-    slug: "ai-neural-network-fundamentals",
-    title: "12. Neural Network Fundamentals",
-    category: "Deep Learning",
-    summary: "Understand the biological inspiration and math of artificial neural networks: perceptrons, activation functions, backpropagation, and PyTorch.",
-    duration: "2 - 3 Weeks",
-    difficulty: "Advanced",
-    keyTopics: ["Perceptrons, Weights, Biases & Feedforward Networks", "Activation Functions: ReLU, Sigmoid, Softmax", "Loss Functions: Cross-Entropy & Mean Squared Error", "Backpropagation Algorithm & The Chain Rule", "Building a Multi-Layer Perceptron (MLP) with PyTorch"],
-    practicalMilestone: "Train a PyTorch neural network to classify handwritten digits from the classic MNIST dataset with > 98% accuracy.",
-    recommendedNotes: [{ title: "Python Programming Mastery", slug: "python-programming-mastery" }]
-  },
-  {
-    id: 93,
-    stepNumber: 13,
-    trackId: "ai-ml",
-    slug: "ai-working-with-ai-apis",
-    title: "13. Working with AI APIs",
-    category: "Generative AI",
-    summary: "Leverage state-of-the-art LLMs and AI services: OpenAI, Google Gemini, embeddings, prompt engineering, and function calling.",
-    duration: "2 Weeks",
-    difficulty: "Intermediate",
-    keyTopics: ["LLM Fundamentals & Foundation Models", "Prompt Engineering Techniques (Few-Shot, CoT)", "OpenAI & Google Gemini SDKs in Python", "Vector Embeddings & Semantic Search Basics", "Retrieval-Augmented Generation (RAG) Architecture"],
-    practicalMilestone: "Build an AI Document Q&A assistant that ingests PDF text, generates embeddings, and answers user questions.",
-    recommendedNotes: [{ title: "Python Programming Mastery", slug: "python-programming-mastery" }]
-  },
-  {
-    id: 94,
-    stepNumber: 14,
-    trackId: "ai-ml",
-    slug: "ai-final-project",
-    title: "14. Final Project: Build and Evaluate an AI-Powered Application",
-    category: "Capstone",
-    summary: "Design, train, evaluate, and deploy an intelligent application combining custom ML models or Generative AI with a live web UI.",
-    duration: "4 Weeks",
-    difficulty: "Advanced",
-    keyTopics: ["End-to-End Problem Definition & Data Sourcing", "Data Pipeline, Preprocessing & Feature Engineering", "Model Training, Hyperparameter Tuning & Cross-Validation", "Packaging the Model with FastAPI or Streamlit", "Evaluating Performance & Documenting Results"],
-    practicalMilestone: "Build, evaluate, and launch a complete web-based AI prediction or assistant platform with interactive web UI.",
-    recommendedNotes: [{ title: "Python Programming Mastery", slug: "python-programming-mastery" }]
-  },
-
-  // ══════════════════════════════════════════════════════════════════
-  // PATH 6: DATA ANALYST (13 Stages)
-  // ══════════════════════════════════════════════════════════════════
-  {
-    id: 101,
-    stepNumber: 1,
-    trackId: "data-analyst",
-    slug: "data-excel-fundamentals",
-    title: "1. Excel Fundamentals",
-    category: "Spreadsheets",
-    summary: "Master essential spreadsheet data modeling: formulas, XLOOKUP, INDEX/MATCH, Pivot Tables, conditional formatting, and data validation.",
-    duration: "2 Weeks",
-    difficulty: "Beginner",
-    keyTopics: ["Formulas & Cell Referencing (Relative vs Absolute)", "Lookup Functions: XLOOKUP, VLOOKUP, INDEX/MATCH", "Data Cleaning with TRIM, CONCAT, TEXTSPLIT", "Pivot Tables & Pivot Charts for Data Summarization", "Data Validation & Conditional Formatting Rules"],
-    practicalMilestone: "Create a dynamic sales commission and performance tracking workbook with interactive Pivot Tables.",
-    recommendedNotes: [{ title: "Python Programming Mastery", slug: "python-programming-mastery" }]
-  },
-  {
-    id: 102,
-    stepNumber: 2,
-    trackId: "data-analyst",
-    slug: "data-sql-fundamentals",
-    title: "2. SQL Fundamentals",
-    category: "Database Querying",
-    summary: "Query relational databases with SQL: filtering, sorting, joins, aggregations, subqueries, and window functions.",
-    duration: "3 Weeks",
-    difficulty: "Beginner",
-    keyTopics: ["SELECT, FROM, WHERE, ORDER BY, LIMIT", "Aggregate Functions (SUM, AVG, COUNT, MIN, MAX)", "GROUP BY and HAVING Clauses", "INNER JOIN, LEFT JOIN, FULL OUTER JOIN", "Window Functions (ROW_NUMBER, RANK, DENSE_RANK)"],
-    practicalMilestone: "Query a mock retail database to calculate Monthly Recurring Revenue (MRR) and customer churn rate.",
-    recommendedNotes: [{ title: "SQL & Relational Databases", slug: "sql-and-relational-databases" }]
-  },
-  {
-    id: 103,
-    stepNumber: 3,
-    trackId: "data-analyst",
-    slug: "data-python-for-data-analysis",
-    title: "3. Python for Data Analysis",
-    category: "Programming",
-    summary: "Learn essential Python programming tailored specifically for data analysts: variables, lists, dictionaries, functions, and Jupyter.",
-    duration: "2 Weeks",
-    difficulty: "Beginner",
-    keyTopics: ["Python Data Types & Syntax for Analytics", "Iterating Lists and Dictionaries", "Writing Reusable Transformation Functions", "Jupyter Notebook Workflows & Markdown Documentation"],
-    practicalMilestone: "Write a Python script that reads multiple messy CSV reports, normalizes column headers, and exports a unified table.",
-    recommendedNotes: [{ title: "Python Programming Mastery", slug: "python-programming-mastery" }]
-  },
-  {
-    id: 104,
-    stepNumber: 4,
-    trackId: "data-analyst",
-    slug: "data-numpy-and-pandas",
-    title: "4. NumPy and Pandas",
-    category: "Data Processing",
-    summary: "Load, slice, filter, and transform complex datasets using Pandas Series, DataFrames, and NumPy array operations.",
-    duration: "2 Weeks",
-    difficulty: "Intermediate",
-    keyTopics: ["DataFrames: Creating, Reading, Slicing & Subsetting", "Boolean Indexing and Multi-Condition Filtering", "Vectorized Math with NumPy Functions", "Merging, Concatenating & Joining DataFrames", "Working with Datetime Columns & Time Series"],
-    practicalMilestone: "Import a 50,000-row customer transactions dataset into Pandas and compute rolling 7-day revenue averages.",
-    recommendedNotes: [{ title: "Python Programming Mastery", slug: "python-programming-mastery" }]
-  },
-  {
-    id: 105,
-    stepNumber: 5,
-    trackId: "data-analyst",
-    slug: "data-cleaning",
-    title: "5. Data Cleaning",
-    category: "Data Hygiene",
-    summary: "Identify and resolve missing values, duplicate records, inconsistent naming conventions, and data type errors.",
-    duration: "1 - 2 Weeks",
-    difficulty: "Intermediate",
-    keyTopics: ["Detecting & Imputing Missing Values", "Deduplicating Records with drop_duplicates()", "String Cleansing (regex, whitespace stripping, lowercasing)", "Handling Outliers with Interquartile Range (IQR)", "Data Type Conversion (astype, pd.to_datetime)"],
-    practicalMilestone: "Clean a real-world messy dataset containing typos, missing zip codes, and invalid dates into an analysis-ready table.",
-    recommendedNotes: [{ title: "Python Programming Mastery", slug: "python-programming-mastery" }]
-  },
-  {
-    id: 106,
-    stepNumber: 6,
-    trackId: "data-analyst",
-    slug: "data-statistics",
-    title: "6. Statistics",
-    category: "Core Analytics",
-    summary: "Apply descriptive and inferential statistics to business problems: central tendency, variance, correlation, and confidence intervals.",
-    duration: "2 Weeks",
-    difficulty: "Intermediate",
-    keyTopics: ["Measures of Central Tendency & Spread (Mean, Median, Std Dev)", "Correlation vs Causation & Pearson Coefficient", "Probability Distributions & The Empirical Rule", "Confidence Intervals & Sample Size Estimation", "Hypothesis Testing Principles (p-values & Significance)"],
-    practicalMilestone: "Calculate statistical significance for a marketing campaign test and present confidence intervals to stakeholders.",
-    recommendedNotes: [{ title: "Python Programming Mastery", slug: "python-programming-mastery" }]
-  },
-  {
-    id: 107,
-    stepNumber: 7,
-    trackId: "data-analyst",
-    slug: "data-visualization",
-    title: "7. Data Visualization",
-    category: "Visualization",
-    summary: "Design compelling, easy-to-read charts using Matplotlib, Seaborn, and best practices in visual data storytelling.",
-    duration: "1 Week",
-    difficulty: "Beginner",
-    keyTopics: ["Choosing the Right Chart for the Right Data Type", "Designing with Matplotlib and Seaborn", "Bar Charts, Line Trends, Scatter & Distribution Plots", "Avoiding Misleading Scales and Visual Clutter", "Color Palettes for Accessibility & Emphasis"],
-    practicalMilestone: "Design an executive visual summary chart suite that clearly answers 3 critical business questions.",
-    recommendedNotes: [{ title: "Python Programming Mastery", slug: "python-programming-mastery" }]
-  },
-  {
-    id: 108,
-    stepNumber: 8,
-    trackId: "data-analyst",
-    slug: "data-power-bi-or-tableau",
-    title: "8. Power BI or Tableau",
-    category: "BI Tools",
-    summary: "Connect to live databases, create DAX measures or Calculated Fields, and build interactive corporate BI reports.",
-    duration: "3 Weeks",
-    difficulty: "Intermediate",
-    keyTopics: ["Power BI / Tableau Desktop Workspace Overview", "Data Modeling: Star Schema, Facts & Dimensions", "Calculated Columns vs Measures (DAX / Tableau Formulas)", "Interactive Filters, Slicers & Cross-Filtering", "Publishing & Sharing Reports on Power BI Service / Tableau Cloud"],
-    practicalMilestone: "Build an interactive multi-page sales dashboard in Power BI or Tableau with dynamic date slicers and KPI cards.",
-    recommendedNotes: [{ title: "Python Programming Mastery", slug: "python-programming-mastery" }]
-  },
-  {
-    id: 109,
-    stepNumber: 9,
-    trackId: "data-analyst",
-    slug: "data-exploratory-data-analysis",
-    title: "9. Exploratory Data Analysis",
-    category: "Investigation",
-    summary: "Conduct rigorous EDA on unfamiliar datasets to uncover trends, anomalies, business bottlenecks, and growth opportunities.",
-    duration: "2 Weeks",
-    difficulty: "Intermediate",
-    keyTopics: ["The EDA Framework: Questions, Hypotheses, Evidence", "Univariate, Bivariate & Multivariate Analysis", "Detecting Seasonal Trends & Cyclical Patterns", "Documenting Findings in Executive Notebooks"],
-    practicalMilestone: "Perform an end-to-end EDA on e-commerce customer cohort data, identifying the highest-LTV customer segment.",
-    recommendedNotes: [{ title: "Python Programming Mastery", slug: "python-programming-mastery" }]
-  },
-  {
-    id: 110,
-    stepNumber: 10,
-    trackId: "data-analyst",
-    slug: "data-dashboard-development",
-    title: "10. Dashboard Development",
-    category: "UI & Reporting",
-    summary: "Design intuitive executive dashboards with clear visual hierarchy, drill-down capabilities, and actionable KPI metrics.",
-    duration: "2 Weeks",
-    difficulty: "Intermediate",
-    keyTopics: ["Dashboard UX Design Principles for Busy Executives", "Defining North Star & Supporting Metrics (CAC, LTV, ROAS)", "Interactive Drill-Throughs & Tooltip Cards", "Automated Data Refresh & Gateway Configuration"],
-    practicalMilestone: "Build an Executive SaaS metrics dashboard displaying MRR, Net Retention Rate, and churn cohort breakdowns.",
-    recommendedNotes: [{ title: "Python Programming Mastery", slug: "python-programming-mastery" }]
-  },
-  {
-    id: 111,
-    stepNumber: 11,
-    trackId: "data-analyst",
-    slug: "data-business-problem-solving",
-    title: "11. Business Problem Solving",
-    category: "Strategy",
-    summary: "Frame vague business requests into structured data inquiries: root cause analysis, cohort analysis, and actionable recommendations.",
-    duration: "1 - 2 Weeks",
-    difficulty: "Intermediate",
-    keyTopics: ["Translating Business Questions into Analytical Frameworks", "Root Cause Analysis (5 Whys & Fishbone with Data)", "Customer Lifetime Value (LTV) & Retention Cohorts", "Writing Actionable Executive Summaries & Slide Decks"],
-    practicalMilestone: "Analyze a customer drop-off problem and produce a 5-slide executive presentation with data-backed recommendations.",
-    recommendedNotes: [{ title: "Python Programming Mastery", slug: "python-programming-mastery" }]
-  },
-  {
-    id: 112,
-    stepNumber: 12,
-    trackId: "data-analyst",
-    slug: "data-portfolio-projects",
-    title: "12. Portfolio Projects",
-    category: "Career Prep",
-    summary: "Document analytical projects publicly on GitHub with clear business contexts, methodologies, visualizations, and takeaways.",
-    duration: "2 Weeks",
-    difficulty: "Intermediate",
-    keyTopics: ["Structuring a Professional Data Analyst GitHub Portfolio", "Writing Compelling Project READMEs for Recruiters", "Publishing Live Tableau Public / Power BI Web Links", "Preparing for Technical SQL & Analytics Interviews"],
-    practicalMilestone: "Publish 2 polished end-to-end data projects on GitHub with interactive dashboards and executive summaries.",
-    recommendedNotes: [{ title: "Python Programming Mastery", slug: "python-programming-mastery" }]
-  },
-  {
-    id: 113,
-    stepNumber: 13,
-    trackId: "data-analyst",
-    slug: "data-final-project",
-    title: "13. Final Project: Create an Interactive Business Analytics Dashboard",
-    category: "Capstone",
-    summary: "Build an end-to-end business intelligence project from raw database queries to a published interactive dashboard.",
-    duration: "3 - 4 Weeks",
-    difficulty: "Advanced",
-    keyTopics: ["Raw Data Ingestion & SQL Transformation", "Advanced Cleaning & Statistical Modeling in Python", "Interactive BI Dashboard with Drill-Down Filters", "Executive Video Walkthrough & Strategic Business Recommendations"],
-    practicalMilestone: "Publish a comprehensive business analytics dashboard showcasing SQL queries, Python processing, and live BI charts.",
-    recommendedNotes: [{ title: "Python Programming Mastery", slug: "python-programming-mastery" }]
-  },
-
-  // ══════════════════════════════════════════════════════════════════
-  // PATH 7: MOBILE APP DEVELOPER (14 Stages)
-  // ══════════════════════════════════════════════════════════════════
-  {
-    id: 121,
-    stepNumber: 1,
-    trackId: "mobile",
-    slug: "mobile-programming-fundamentals",
-    title: "1. Programming Fundamentals",
-    category: "Foundations",
-    summary: "Learn modern JavaScript/TypeScript or Dart core programming: variables, data structures, asynchronous promises, and functions.",
-    duration: "2 Weeks",
-    difficulty: "Beginner",
-    keyTopics: ["Variables, Data Types & Scopes", "Object-Oriented & Functional Principles", "Asynchronous Programming (Promises & Async/Await)", "Package Management for Mobile (npm / pub.dev)"],
-    practicalMilestone: "Write algorithmic utility modules and asynchronous data processors in TypeScript/Dart.",
-    recommendedNotes: [{ title: "Modern JavaScript & TypeScript Fundamentals", slug: "modern-javascript-typescript" }]
-  },
-  {
-    id: 122,
-    stepNumber: 2,
-    trackId: "mobile",
-    slug: "mobile-ui-and-ux-fundamentals",
-    title: "2. UI and UX Fundamentals",
-    category: "Design",
-    summary: "Understand mobile touch interactions, Apple Human Interface Guidelines, Google Material Design, and responsive screen scaling.",
-    duration: "1 - 2 Weeks",
-    difficulty: "Beginner",
-    keyTopics: ["Apple Human Interface Guidelines vs Material Design 3", "Touch Targets, Safe Area Insets & Thumb Zones", "Mobile Typography, Contrast & Dark Mode", "Mobile Wireframing & Prototyping in Figma"],
-    practicalMilestone: "Design a 4-screen mobile app prototype in Figma with interactive transitions and component variants.",
-    recommendedNotes: [{ title: "Responsive Design, Media Queries & Animations", slug: "responsive-design-media-queries-animations" }]
-  },
-  {
-    id: 123,
-    stepNumber: 3,
-    trackId: "mobile",
-    slug: "mobile-git-and-github",
-    title: "3. Git and GitHub",
-    category: "Version Control",
-    summary: "Version-control mobile codebases, manage feature branches, and ignore platform build artifacts (.gradle, Pods).",
-    duration: "1 Week",
-    difficulty: "Beginner",
-    keyTopics: ["Git Branching & Pull Request Workflows", ".gitignore for Mobile (Pods, build/, .gradle)", "Tagging Releases & Semantic Versioning", "Managing Mobile Environment Keys Securely"],
-    practicalMilestone: "Set up a clean mobile app repository with branch protection and proper mobile gitignore rules.",
-    recommendedNotes: [{ title: "Git, GitHub & Professional Collaboration", slug: "git-github-collaboration-guide" }]
-  },
-  {
-    id: 124,
-    stepNumber: 4,
-    trackId: "mobile",
-    slug: "mobile-framework-selection",
-    title: "4. Choose a Development Track: React Native or Flutter",
-    category: "Framework",
-    summary: "Set up your cross-platform mobile development environment: React Native (Expo) or Flutter, Android Studio, and iOS Simulator.",
-    duration: "2 Weeks",
-    difficulty: "Intermediate",
-    keyTopics: ["React Native (Expo) vs Flutter Architecture", "Installing Android Studio, Android SDK & Virtual Devices (AVD)", "Configuring Xcode & iOS Simulator (on macOS)", "Project Initialization, Fast Refresh & Dev Menus"],
-    practicalMilestone: "Initialize a cross-platform mobile app and run it simultaneously on an Android emulator and physical device.",
-    recommendedNotes: [{ title: "React Components, Props & State Mastery", slug: "react-components-props-state" }]
-  },
-  {
-    id: 125,
-    stepNumber: 5,
-    trackId: "mobile",
-    slug: "mobile-component-architecture-and-navigation",
-    title: "5. Component Architecture & Navigation",
-    category: "UI Architecture",
-    summary: "Build flexible mobile screens with View/Widget components, Flexbox layouts, Stack/Tab navigation, and modal flows.",
-    duration: "2 - 3 Weeks",
-    difficulty: "Intermediate",
-    keyTopics: ["Core Mobile Components (View, Text, Image, ScrollView, FlatList)", "Flexbox Layout on Mobile (flexDirection, alignItems)", "Stack Navigation (React Navigation / Flutter Navigator)", "Bottom Tab Navigation & Drawer Menus", "Passing Parameters Between Screens"],
-    practicalMilestone: "Build a multi-screen mobile catalog with bottom tabs, nested stack navigation, and detail view modals.",
-    recommendedNotes: [{ title: "React Components, Props & State Mastery", slug: "react-components-props-state" }]
-  },
-  {
-    id: 126,
-    stepNumber: 6,
-    trackId: "mobile",
-    slug: "mobile-state-management",
-    title: "6. State Management",
-    category: "App State",
-    summary: "Manage complex client application state across screens using Zustand, Redux Toolkit, or Riverpod.",
-    duration: "2 Weeks",
-    difficulty: "Intermediate",
-    keyTopics: ["Local Component State vs Global Application State", "State Management Libraries (Zustand / Redux Toolkit / Riverpod)", "Optimistic UI Updates for Instant Mobile Feedback", "Persisting App State Across App Restarts"],
-    practicalMilestone: "Implement an e-commerce shopping cart and user favorites system synchronized across all app screens.",
-    recommendedNotes: [{ title: "React Hooks Deep Dive: useState, useEffect & Custom Hooks", slug: "react-hooks-deep-dive" }]
-  },
-  {
-    id: 127,
-    stepNumber: 7,
-    trackId: "mobile",
-    slug: "mobile-native-device-apis",
-    title: "7. Native Device APIs (Camera, GPS, Storage)",
-    category: "Device Features",
-    summary: "Harness hardware capabilities: Camera, Photo Library, GPS Geolocation, Accelerometer, and Haptic Feedback.",
-    duration: "2 Weeks",
-    difficulty: "Intermediate",
-    keyTopics: ["Requesting and Handling Runtime Permissions", "Accessing Camera & Photo Gallery (Image Picker)", "Geolocation & Interactive Map Views", "Haptics & Device Vibration Feedback", "Local Notifications Scheduling"],
-    practicalMilestone: "Build a Travel Journal app that captures photos with the camera and tags each entry with the user's GPS coordinates.",
-    recommendedNotes: [{ title: "DOM Manipulation & Event Handling Guide", slug: "dom-manipulation-events-guide" }]
-  },
-  {
-    id: 128,
-    stepNumber: 8,
-    trackId: "mobile",
-    slug: "mobile-rest-apis-and-offline-sync",
-    title: "8. REST APIs & Offline Sync",
-    category: "Networking",
-    summary: "Fetch live data over HTTP, handle network dropouts gracefully, and synchronize offline mutations when reconnected.",
-    duration: "2 Weeks",
-    difficulty: "Intermediate",
-    keyTopics: ["Mobile Network Requests with Axios / TanStack Query", "Handling No-Internet States with NetInfo", "Offline Caching with SQLite or MMKV", "Optimistic Mutations & Background Synchronization"],
-    practicalMilestone: "Build an offline-first Task & Habits tracker that queues updates locally and syncs with a cloud backend once online.",
-    recommendedNotes: [{ title: "REST APIs & Backend Integration in Next.js", slug: "rest-apis-crud-handlers" }]
-  },
-  {
-    id: 129,
-    stepNumber: 9,
-    trackId: "mobile",
-    slug: "mobile-authentication-and-secure-storage",
-    title: "9. Authentication & Secure Storage",
-    category: "Security",
-    summary: "Secure mobile credentials with hardware Keychain/Keystore, biometric login (Face ID / Fingerprint), and JWT storage.",
-    duration: "2 Weeks",
-    difficulty: "Intermediate",
-    keyTopics: ["Secure Storage (Expo SecureStore / Flutter Secure Storage)", "Biometric Authentication (LocalAuthentication / Local Auth)", "JWT Auth Flow on Mobile: Access Tokens & Refresh Tokens", "Social Login Integration (Apple Sign In, Google Sign In)"],
-    practicalMilestone: "Implement a biometric Face ID / Fingerprint lock screen for a mobile banking or notes application.",
-    recommendedNotes: [{ title: "Frontend vs Backend: Roles & Architecture", slug: "frontend-vs-backend" }]
-  },
-  {
-    id: 130,
-    stepNumber: 10,
-    trackId: "mobile",
-    slug: "mobile-animations-and-micro-interactions",
-    title: "10. Animations & Micro-Interactions",
-    category: "Animation",
-    summary: "Delight users with 60fps native animations using React Native Reanimated or Flutter AnimationController.",
-    duration: "2 Weeks",
-    difficulty: "Intermediate",
-    keyTopics: ["Declarative vs Imperative Mobile Animations", "React Native Reanimated & Gesture Handler", "Shared Element Transitions Between Screens", "Lottie Vector Animations in Mobile Apps"],
-    practicalMilestone: "Create a fluid swipe-to-dismiss card feed with micro-interaction feedback and bounce physics.",
-    recommendedNotes: [{ title: "Responsive Design, Media Queries & Animations", slug: "responsive-design-media-queries-animations" }]
-  },
-  {
-    id: 131,
-    stepNumber: 11,
-    trackId: "mobile",
-    slug: "mobile-app-testing-and-debugging",
-    title: "11. Mobile App Testing & Debugging",
-    category: "Quality",
-    summary: "Debug mobile apps with React Native Debugger / Flutter DevTools, write unit tests, and component tests with Jest.",
-    duration: "1 - 2 Weeks",
-    difficulty: "Intermediate",
-    keyTopics: ["Flipping Dev Menus, Network Inspecting & Console Logs", "Unit Testing Component Logic with Jest", "React Native Testing Library for Component Interactions", "Catching Native Crashes with Sentry / Crashlytics"],
-    practicalMilestone: "Write unit and component interaction tests for your mobile app's authentication and cart flows.",
-    recommendedNotes: [{ title: "Modern JavaScript & TypeScript Fundamentals", slug: "modern-javascript-typescript" }]
-  },
-  {
-    id: 132,
-    stepNumber: 12,
-    trackId: "mobile",
-    slug: "mobile-performance-and-memory-optimization",
-    title: "12. Performance & Memory Optimization",
-    category: "Optimization",
-    summary: "Eliminate frame drops and memory leaks: FlatList optimization, image caching, bundle size reduction, and Hermes engine.",
-    duration: "1 - 2 Weeks",
-    difficulty: "Advanced",
-    keyTopics: ["Optimizing Long Lists (FlatList getItemLayout, windowSize)", "Image Caching and FastImage Libraries", "Hermes JavaScript Engine & Bytecode Compilation", "Profiling Memory Leaks with Android Profiler / Xcode Instruments"],
-    practicalMilestone: "Profile and optimize an infinite-scrolling feed to maintain a stable 60 FPS under rapid scrolling.",
-    recommendedNotes: [{ title: "Next.js Metadata, Dynamic SEO & Deployment", slug: "nextjs-metadata-seo-deployment" }]
-  },
-  {
-    id: 133,
-    stepNumber: 13,
-    trackId: "mobile",
-    slug: "mobile-app-store-and-google-play-publishing",
-    title: "13. App Store & Google Play Publishing",
-    category: "Publishing",
-    summary: "Package release binaries, configure app icons and splash screens, generate signing certificates, and submit to app stores.",
-    duration: "2 Weeks",
-    difficulty: "Advanced",
-    keyTopics: ["App Icons, Splash Screens & Adaptive Icons", "Android App Bundles (AAB) & Keystore Signing", "Apple Developer Account, Provisioning Profiles & TestFlight", "Google Play Console & App Store Connect Submission Guidelines", "Over-The-Air (OTA) Updates with EAS Update"],
-    practicalMilestone: "Build a signed Android AAB and iOS build bundle and submit to TestFlight and Google Play Internal Testing.",
-    recommendedNotes: [{ title: "Next.js Metadata, Dynamic SEO & Deployment", slug: "nextjs-metadata-seo-deployment" }]
-  },
-  {
-    id: 134,
-    stepNumber: 14,
-    trackId: "mobile",
-    slug: "mobile-final-project",
-    title: "14. Final Project: Build and Publish a Cross-Platform Mobile App",
-    category: "Capstone",
-    summary: "Architect, build, test, and prepare a full-featured cross-platform mobile app for public release.",
-    duration: "4 Weeks",
-    difficulty: "Advanced",
-    keyTopics: ["End-to-End Mobile Product Development", "Intuitive Mobile UX with 60fps Native Animations", "Cloud Backend Integration with Offline Synchronization", "Biometric Authentication & Native Hardware Usage", "Production App Store & Google Play Build Artifacts"],
-    practicalMilestone: "Build and publish a complete cross-platform mobile application (e.g. Fitness Tracker or Community Marketplace).",
-    recommendedNotes: [{ title: "Next.js App Router, Server Components & Layouts", slug: "nextjs-app-router-layouts" }]
-  },
-  // ══════════════════════════════════════════════════════════════════
-  // PATH 8: DATA STRUCTURES AND ALGORITHMS (14 Stages)
-  // ══════════════════════════════════════════════════════════════════
-  {
-    id: 135,
-    stepNumber: 1,
-    trackId: "dsa",
-    slug: "dsa-big-o-complexity-analysis",
-    title: "1. Big-O Complexity & Asymptotic Analysis",
-    category: "Foundations",
-    summary: "Analyze algorithmic runtime and memory space. Master Big-O notation, worst/average/best cases, and logarithmics.",
-    duration: "1 Week",
-    difficulty: "Beginner",
-    keyTopics: ["Time vs Space Complexity", "O(1), O(log n), O(n), O(n log n), O(n²)", "Analyzing Loop Invariants", "Auxiliary Space vs Input Space", "Amortized Analysis"],
-    practicalMilestone: "Profile real operations in JavaScript/Python to verify empirical performance against theoretical Big-O curves.",
-    recommendedNotes: [{ title: "How the Internet Works & Web Architecture", slug: "how-the-internet-works" }]
-  },
-  {
-    id: 136,
-    stepNumber: 2,
-    trackId: "dsa",
-    slug: "dsa-arrays-and-memory-architecture",
-    title: "2. Arrays & Dynamic Arrays",
-    category: "Linear Structures",
-    summary: "Understand contiguous memory allocation, array indexing, amortized resizing, and in-place transformations.",
-    duration: "1 Week",
-    difficulty: "Beginner",
-    keyTopics: ["Fixed-size vs Dynamic Arrays", "Memory Contiguity & Cache Locality", "Amortized O(1) Push Operations", "Array In-Place Rotations & Reversals", "Subarray Prefix Sums"],
-    practicalMilestone: "Implement dynamic array resizing with geometric expansion and test capacity reallocation performance.",
-    recommendedNotes: [{ title: "JavaScript Variables, Data Types & Scopes", slug: "javascript-variables-data-types" }]
-  },
-  {
-    id: 137,
-    stepNumber: 3,
-    trackId: "dsa",
-    slug: "dsa-two-pointers-and-sliding-window",
-    title: "3. Two Pointers & Sliding Window Patterns",
-    category: "Algorithmic Patterns",
-    summary: "Solve linear array and string optimization problems with two pointers and dynamic sliding window frames.",
-    duration: "1 - 2 Weeks",
-    difficulty: "Intermediate",
-    keyTopics: ["Opposite-directional Two Pointers", "Same-directional Fast & Slow Pointers", "Fixed-size Sliding Window", "Dynamic Variable-size Sliding Window", "Monotonic Deques in Windows"],
-    practicalMilestone: "Solve Longest Substring Without Repeating Characters and 3Sum problems in O(n) and O(n²) time.",
-    recommendedNotes: [{ title: "JavaScript Functions & Execution Context", slug: "javascript-functions-execution-context" }]
-  },
-  {
-    id: 138,
-    stepNumber: 4,
-    trackId: "dsa",
-    slug: "dsa-hash-maps-and-sets",
-    title: "4. Hash Maps, Hash Sets & Collisions",
-    category: "Non-Linear Structures",
-    summary: "Master hash functions, collision resolution strategies, and constant time O(1) average lookup patterns.",
-    duration: "1 Week",
-    difficulty: "Beginner",
-    keyTopics: ["Hashing Principles & Hash Functions", "Chaining vs Open Addressing", "Load Factors & Table Rehashing", "Frequency Counting Patterns", "Group Anagrams & Subarray Sum Equals K"],
-    practicalMilestone: "Construct a custom Hash Table class handling collision resolution through separate chaining.",
-    recommendedNotes: [{ title: "JavaScript Objects, Arrays & Methods", slug: "javascript-objects-arrays" }]
-  },
-  {
-    id: 139,
-    stepNumber: 5,
-    trackId: "dsa",
-    slug: "dsa-linked-lists",
-    title: "5. Singly & Doubly Linked Lists",
-    category: "Linear Structures",
-    summary: "Manipulate node pointers, detect cycles with Floyd's Tortoise & Hare, and reverse linked lists in place.",
-    duration: "1 - 2 Weeks",
-    difficulty: "Intermediate",
-    keyTopics: ["Node Pointer Structures", "Sentinel / Dummy Head Nodes", "In-Place List Reversal", "Floyd's Cycle Detection Algorithm", "Merging Two Sorted Lists & LRU Cache Nodes"],
-    practicalMilestone: "Implement an LRU Cache combining a Hash Map with a Doubly Linked List in O(1) get and put.",
-    recommendedNotes: [{ title: "JavaScript Objects, Arrays & Methods", slug: "javascript-objects-arrays" }]
-  },
-  {
-    id: 140,
-    stepNumber: 6,
-    trackId: "dsa",
-    slug: "dsa-stacks-and-queues",
-    title: "6. Stacks, Queues & Monotonic Stacks",
-    category: "Linear Structures",
-    summary: "Implement LIFO and FIFO execution, parentheses validation, and next greater element monotonic patterns.",
-    duration: "1 Week",
-    difficulty: "Intermediate",
-    keyTopics: ["LIFO Stack & FIFO Queue Operations", "Circular Array Queues", "Parentheses Validation & Expression Parsing", "Monotonic Stack Patterns", "Min Stack with O(1) Retrieval"],
-    practicalMilestone: "Build an expression evaluator parsing arithmetic expressions using operand and operator stacks.",
-    recommendedNotes: [{ title: "JavaScript Functions & Execution Context", slug: "javascript-functions-execution-context" }]
-  },
-  {
-    id: 141,
-    stepNumber: 7,
-    trackId: "dsa",
-    slug: "dsa-recursion-and-backtracking",
-    title: "7. Recursion & Backtracking",
-    category: "Algorithmic Patterns",
-    summary: "Deconstruct recursive state trees, call stacks, base cases, and combinatorial search spaces.",
-    duration: "2 Weeks",
-    difficulty: "Intermediate",
-    keyTopics: ["Call Stack Activation Records", "Base Cases vs Recursive Transitions", "Permutations & Combinations", "Subsets & Power Sets", "Sudoku Solver & N-Queens"],
-    practicalMilestone: "Implement an N-Queens solver with state pruning that prints all valid board configurations.",
-    recommendedNotes: [{ title: "JavaScript Functions & Execution Context", slug: "javascript-functions-execution-context" }]
-  },
-  {
-    id: 142,
-    stepNumber: 8,
-    trackId: "dsa",
-    slug: "dsa-binary-trees-and-traversals",
-    title: "8. Binary Trees & Tree Traversals",
-    category: "Hierarchical Structures",
-    summary: "Traverse hierarchical trees with Pre-order, In-order, Post-order DFS and Level-order BFS.",
-    duration: "2 Weeks",
-    difficulty: "Intermediate",
-    keyTopics: ["Binary Tree Terminology & Properties", "Depth-First Traversals (Pre/In/Post)", "Breadth-First Level-Order Traversal", "Maximum Depth & Diameter of Binary Tree", "Lowest Common Ancestor"],
-    practicalMilestone: "Construct a binary tree serializer and deserializer preserving structure across string representations.",
-    recommendedNotes: [{ title: "DOM Manipulation & Event Handling", slug: "javascript-dom-events" }]
-  },
-  {
-    id: 143,
-    stepNumber: 9,
-    trackId: "dsa",
-    slug: "dsa-bst-and-binary-heaps",
-    title: "9. Binary Search Trees & Priority Queues",
-    category: "Hierarchical Structures",
-    summary: "Leverage sorted tree invariants, balanced AVL/Red-Black concepts, and min/max heap priority queues.",
-    duration: "2 Weeks",
-    difficulty: "Intermediate",
-    keyTopics: ["BST Search, Insertion, and Deletion", "Inorder Traversal Sorted Property", "Min-Heap & Max-Heap Array Representation", "Heapify Up & Heapify Down Operations", "Top K Frequent Elements & Median Finding"],
-    practicalMilestone: "Build a real-time Median Finder data structure using two balanced heaps.",
-    recommendedNotes: [{ title: "JavaScript Functions & Execution Context", slug: "javascript-functions-execution-context" }]
-  },
-  {
-    id: 144,
-    stepNumber: 10,
-    trackId: "dsa",
-    slug: "dsa-graphs-bfs-dfs",
-    title: "10. Graphs & BFS/DFS Traversal",
-    category: "Network Structures",
-    summary: "Model complex relational networks with adjacency lists, cycle detection, and connected components.",
-    duration: "2 Weeks",
-    difficulty: "Advanced",
-    keyTopics: ["Adjacency List vs Adjacency Matrix", "Breadth-First Search (Shortest Path)", "Depth-First Search (Exhaustive Path)", "Connected Components & Number of Islands", "Detecting Cycles in Directed/Undirected Graphs"],
-    practicalMilestone: "Solve the Number of Islands and Word Ladder shortest transformation path problems.",
-    recommendedNotes: [{ title: "How the Internet Works & Web Architecture", slug: "how-the-internet-works" }]
-  },
-  {
-    id: 145,
-    stepNumber: 11,
-    trackId: "dsa",
-    slug: "dsa-advanced-graph-algorithms",
-    title: "11. Advanced Graph Algorithms (Dijkstra & TopoSort)",
-    category: "Network Structures",
-    summary: "Find single-source shortest weighted paths and resolve directed acyclic dependency chains.",
-    duration: "2 Weeks",
-    difficulty: "Advanced",
-    keyTopics: ["Dijkstra's Algorithm with Priority Queues", "Bellman-Ford & Negative Cycles", "Topological Sort (Kahn's Algorithm & DFS)", "Course Schedule Dependency Resolution", "Disjoint Set Union (Union-Find)"],
-    practicalMilestone: "Build a dependency package resolver simulating npm package dependency installation using Topological Sort.",
-    recommendedNotes: [{ title: "How the Internet Works & Web Architecture", slug: "how-the-internet-works" }]
-  },
-  {
-    id: 146,
-    stepNumber: 12,
-    trackId: "dsa",
-    slug: "dsa-dynamic-programming-1d",
-    title: "12. Dynamic Programming Fundamentals (1D DP)",
-    category: "Advanced Algorithms",
-    summary: "Transform exponential recursive solutions into polynomial time via memoization and bottom-up tabulation.",
-    duration: "2 Weeks",
-    difficulty: "Advanced",
-    keyTopics: ["Overlapping Subproblems & Optimal Substructure", "Top-Down Memoization vs Bottom-Up Tabulation", "Climbing Stairs & Fibonacci Transitions", "House Robber & Coin Change", "Longest Increasing Subsequence"],
-    practicalMilestone: "Solve Coin Change and Longest Increasing Subsequence using bottom-up DP tables with space optimization.",
-    recommendedNotes: [{ title: "JavaScript Functions & Execution Context", slug: "javascript-functions-execution-context" }]
-  },
-  {
-    id: 147,
-    stepNumber: 13,
-    trackId: "dsa",
-    slug: "dsa-dynamic-programming-2d",
-    title: "13. 2D Dynamic Programming & Knapsack",
-    category: "Advanced Algorithms",
-    summary: "Tackle multi-dimensional optimization: 0/1 Knapsack, Longest Common Subsequence, and Edit Distance.",
-    duration: "2 Weeks",
-    difficulty: "Advanced",
-    keyTopics: ["2D DP Grid Path Problems", "0/1 Knapsack Problem", "Longest Common Subsequence (LCS)", "Edit Distance (Levenshtein Distance)", "State Space Optimization to 1D Row"],
-    practicalMilestone: "Implement an Edit Distance comparison engine computing minimum operations between two code strings.",
-    recommendedNotes: [{ title: "JavaScript Functions & Execution Context", slug: "javascript-functions-execution-context" }]
-  },
-  {
-    id: 148,
-    stepNumber: 14,
-    trackId: "dsa",
-    slug: "dsa-final-project",
-    title: "14. Final Project: Interactive Algorithm Visualizer",
-    category: "Capstone",
-    summary: "Design and build an interactive browser visualizer illustrating pathfinding (Dijkstra/A*), tree traversal, and sorting algorithms.",
-    duration: "4 Weeks",
-    difficulty: "Advanced",
-    keyTopics: ["Interactive Algorithm Animation Pipeline", "Asynchronous State Visualization with Pausing/Step-Over", "Dijkstra & A* Pathfinding Grid Visualizer", "Tree & Graph Memory Representation", "Live Time & Space Complexity Profiler"],
-    practicalMilestone: "Publish a responsive visualizer where learners can construct maze grids, trigger pathfinding algorithms, and inspect real-time steps.",
-    recommendedNotes: [{ title: "Next.js App Router, Server Components & Layouts", slug: "nextjs-app-router-layouts" }]
-  },
-
-  // ══════════════════════════════════════════════════════════════════
-  // PATH: BACKEND DEVELOPER (8 Stages)
-  // ══════════════════════════════════════════════════════════════════
-  {
-    id: 201,
-    stepNumber: 1,
-    trackId: "backend",
-    slug: "backend-programming-fundamentals",
-    title: "1. Programming & Architecture Fundamentals",
-    category: "Core Backend",
-    summary: "Understand server execution models, asynchronous I/O, event loops, memory allocation, and clean modular code design.",
-    duration: "2 - 3 Weeks",
-    difficulty: "Beginner",
-    keyTopics: ["Server-Side Execution Environments", "Asynchronous I/O & Non-Blocking Architecture", "Command Line & Environment Variables", "Exception Handling & Defensive Programming"],
-    practicalMilestone: "Build a modular CLI utility in Node.js or Python with command arguments, file processing, and robust error logging.",
-    learningObjectives: ["Understand how backend processes execute", "Master asynchronous event loops", "Write defensive modular code"],
-    skills: ["Python / Node.js", "CLI Tools", "Event Loop", "Error Logging"],
-    requiredCourseIds: ["course-python-101", "course-js-ts-101"],
-    relatedProjectIds: ["proj-python-automation"]
-  },
-  {
-    id: 202,
-    stepNumber: 2,
-    trackId: "backend",
-    slug: "backend-web-protocols-apis",
-    title: "2. Web Protocols & RESTful API Architecture",
-    category: "APIs",
-    summary: "Master the HTTP/HTTPS protocol, REST design principles, status codes, request-response lifecycles, and API versioning.",
-    duration: "2 Weeks",
-    difficulty: "Beginner",
-    keyTopics: ["HTTP Verbs (GET, POST, PUT, PATCH, DELETE)", "HTTP Status Codes (2xx, 3xx, 4xx, 5xx)", "Headers, Content-Type, & CORS Policies", "Stateless Architecture & JSON Payloads"],
-    practicalMilestone: "Design an OpenAPI/Swagger spec and implement standard REST endpoints with strict JSON schema validation.",
-    learningObjectives: ["Understand HTTP/HTTPS protocol nuances", "Design predictable, standardized RESTful endpoints", "Configure CORS policies"],
-    skills: ["REST APIs", "HTTP Status Codes", "JSON Schemas", "CORS Configuration"],
-    requiredCourseIds: ["course-python-101"],
-    relatedProjectIds: ["proj-weather"]
-  },
-  {
-    id: 203,
-    stepNumber: 3,
-    trackId: "backend",
-    slug: "backend-frameworks-routing",
-    title: "3. Server-Side Frameworks & Middleware",
-    category: "Frameworks",
-    summary: "Build production web services with Express.js or FastAPI. Implement route handlers, middleware pipelines, and input sanitization.",
-    duration: "3 Weeks",
-    difficulty: "Intermediate",
-    keyTopics: ["Express.js / FastAPI Routing Pipelines", "Middleware Architecture (Logging, Rate Limiting, Parsing)", "Input Sanitization & Validation (Zod/Pydantic)", "Centralized Error Handling Middleware"],
-    practicalMilestone: "Develop an authenticated Code Snippet API with middleware for request logging, validation, and error trapping.",
-    learningObjectives: ["Build modular router pipelines", "Create custom middleware for logging and security", "Handle errors gracefully"],
-    skills: ["Express.js", "FastAPI", "Middleware Pipelines", "Zod Validation"],
-    requiredCourseIds: ["course-python-101"],
-    relatedProjectIds: ["proj-snippet-vault"]
-  },
-  {
-    id: 204,
-    stepNumber: 4,
-    trackId: "backend",
-    slug: "backend-databases-sql-modeling",
-    title: "4. Relational Databases & SQL Schema Design",
-    category: "Databases",
-    summary: "Design relational schemas, master PostgreSQL, write complex queries, optimize indexes, and enforce ACID transaction guarantees.",
-    duration: "3 - 4 Weeks",
-    difficulty: "Intermediate",
-    keyTopics: ["Relational Schema Normalization (1NF, 2NF, 3NF)", "Primary, Foreign & Unique Keys", "Complex JOINs, Subqueries & Aggregations", "B-Tree Indexing Strategies & EXPLAIN ANALYZE", "ACID Transactions & Connection Pooling"],
-    practicalMilestone: "Design and normalize a database schema for an e-commerce platform with connection pooling and query optimization.",
-    learningObjectives: ["Normalize database schemas up to 3NF", "Write performant SQL with JOINs and aggregations", "Index columns strategically"],
-    skills: ["PostgreSQL & SQL", "Schema Normalization", "Indexing", "Connection Pooling"],
-    requiredCourseIds: ["course-sql-101"],
-    relatedProjectIds: ["proj-data-analytics"]
-  },
-  {
-    id: 205,
-    stepNumber: 5,
-    trackId: "backend",
-    slug: "backend-auth-security",
-    title: "5. Authentication, Authorization & Security",
-    category: "Security",
-    summary: "Implement secure user registration, password hashing with bcrypt, JSON Web Tokens (JWT), refresh tokens, and role-based access control.",
-    duration: "2 - 3 Weeks",
-    difficulty: "Intermediate",
-    keyTopics: ["Password Hashing with Salt (bcrypt/argon2)", "JWT Creation, Expiration & Verification", "Refresh Token Rotation Strategies", "Role-Based Access Control (RBAC)", "Protecting Against SQL Injection & XSS"],
-    practicalMilestone: "Implement an authentication microservice with secure login, signup, JWT access/refresh tokens, and protected routes.",
-    learningObjectives: ["Hash passwords securely with bcrypt", "Implement stateless JWT authentication", "Enforce role-based access control"],
-    skills: ["JWT Authentication", "Password Hashing (bcrypt)", "RBAC Permissions", "OWASP Security"],
-    requiredCourseIds: ["course-cybersecurity-101"],
-    relatedProjectIds: ["proj-task-manager"]
-  },
-  {
-    id: 206,
-    stepNumber: 6,
-    trackId: "backend",
-    slug: "backend-caching-redis-performance",
-    title: "6. Caching, Redis & Background Queues",
-    category: "Performance",
-    summary: "Accelerate API performance using in-memory Redis caching, mitigate database query bottlenecks, and offload asynchronous background tasks.",
-    duration: "2 Weeks",
-    difficulty: "Intermediate",
-    keyTopics: ["In-Memory Data Structures with Redis", "Cache Invalidation Strategies (TTL, Write-Through, Write-Back)", "API Rate Limiting with Redis Tokens", "Background Task Queues (BullMQ / Celery)"],
-    practicalMilestone: "Add Redis caching to hot database queries and implement rate limiting on public API endpoints.",
-    learningObjectives: ["Accelerate high-frequency endpoints with Redis", "Implement token bucket rate limiting", "Offload long-running tasks to queues"],
-    skills: ["Redis Caching", "Rate Limiting", "Cache Invalidation", "Background Queues"],
-    requiredCourseIds: ["course-sql-101"],
-    relatedProjectIds: ["proj-task-manager"]
-  },
-  {
-    id: 207,
-    stepNumber: 7,
-    trackId: "backend",
-    slug: "backend-testing-ci-cd",
-    title: "7. Automated Testing, CI/CD & Code Quality",
-    category: "Quality",
-    summary: "Write unit and integration tests using Jest or PyTest, mock external services, and automate test execution with GitHub Actions.",
-    duration: "2 Weeks",
-    difficulty: "Intermediate",
-    keyTopics: ["Unit Testing vs Integration Testing", "Test Fixtures, Mocks & Stubs", "Database Transaction Rollbacks in Tests", "GitHub Actions CI Pipeline Automation"],
-    practicalMilestone: "Build a comprehensive test suite achieving > 85% code coverage with automated GitHub Actions testing on pull requests.",
-    learningObjectives: ["Write isolated unit tests with mocks", "Test database queries using integration fixtures", "Automate CI with GitHub Actions"],
-    skills: ["Unit Testing (Jest/PyTest)", "Integration Tests", "GitHub Actions CI", "Code Coverage"],
-    requiredCourseIds: ["course-python-101"],
-    relatedProjectIds: ["proj-python-automation"]
-  },
-  {
-    id: 208,
-    stepNumber: 8,
-    trackId: "backend",
-    slug: "backend-deployment-docker",
-    title: "8. Docker Containerization & Cloud Deployment",
-    category: "DevOps",
-    summary: "Containerize web services with Docker, manage multi-container apps with Docker Compose, and deploy to cloud production infrastructure.",
-    duration: "3 Weeks",
-    difficulty: "Advanced",
-    keyTopics: ["Dockerfile Multi-Stage Builds", "Docker Compose for App + Database + Redis", "Environment Secrets & Config Management", "Cloud Container Deployment & Health Checks"],
-    practicalMilestone: "Containerize a full backend service with database and cache, write a Dockerfile, and deploy live with zero-downtime restarts.",
-    learningObjectives: ["Create optimized multi-stage Docker images", "Orchestrate local services with Docker Compose", "Deploy production backend containers"],
-    skills: ["Docker Containerization", "Docker Compose", "Cloud Deployment", "Health Checks"],
-    requiredCourseIds: ["course-devops-career-101"],
-    relatedProjectIds: ["proj-snippet-vault"]
-  },
-
-  // ══════════════════════════════════════════════════════════════════
-  // PATH: UI/UX DESIGNER (8 Stages)
-  // ══════════════════════════════════════════════════════════════════
-  {
-    id: 221,
-    stepNumber: 1,
-    trackId: "ui-ux",
-    slug: "ui-ux-design-principles",
-    title: "1. Design Principles & Visual Hierarchy",
-    category: "Foundations",
-    summary: "Master typography scales, color theory, contrast ratios, spacing systems, and Gestalt principles that guide human perception.",
-    duration: "2 Weeks",
-    difficulty: "Beginner",
-    keyTopics: ["Gestalt Psychology in UI Design", "Typographic Hierarchy & Modular Scales", "Color Harmonies & 60-30-10 Rule", "8pt Spacing Grids & Visual Balance"],
-    practicalMilestone: "Design a high-contrast landing page hero section applying standard 8pt spacing and modular typography scales.",
-    learningObjectives: ["Understand human visual perception", "Construct modular typographic scales", "Apply consistent 8pt spacing grids"],
-    skills: ["Typography Scales", "Color Harmony", "Gestalt Principles", "Spacing Grids"],
-    requiredCourseIds: ["course-uiux-101"],
-    relatedProjectIds: ["proj-portfolio"]
-  },
-  {
-    id: 222,
-    stepNumber: 2,
-    trackId: "ui-ux",
-    slug: "ui-ux-user-research",
-    title: "2. User Research & Empathy Mapping",
-    category: "Research",
-    summary: "Discover real user pain points through qualitative interviews, surveys, empathy maps, and data-driven persona creation.",
-    duration: "2 Weeks",
-    difficulty: "Beginner",
-    keyTopics: ["User Interview Methodologies", "Empathy Maps & Persona Synthesis", "Problem Statements & 'How Might We' Questions", "Competitive Analysis & UX Benchmarking"],
-    practicalMilestone: "Conduct user interviews for a personal finance app and create two verified user personas with empathy maps.",
-    learningObjectives: ["Interview target users effectively", "Synthesize qualitative data into personas", "Identify core problem statements"],
-    skills: ["User Interviews", "Personas", "Empathy Maps", "Competitive Audits"],
-    requiredCourseIds: ["course-uiux-101"],
-    relatedProjectIds: ["proj-portfolio"]
-  },
-  {
-    id: 223,
-    stepNumber: 3,
-    trackId: "ui-ux",
-    slug: "ui-ux-information-architecture",
-    title: "3. Information Architecture & Wireframing",
-    category: "Architecture",
-    summary: "Organize digital information intuitively: user flows, sitemaps, low-fidelity paper sketches, and rapid digital wireframes.",
-    duration: "2 - 3 Weeks",
-    difficulty: "Beginner",
-    keyTopics: ["Sitemaps & Content Hierarchies", "User Flow Diagrams & Decision Trees", "Low-Fidelity Wireframing in Figma", "Card Sorting for Navigation Organization"],
-    practicalMilestone: "Map out the complete user flow and wireframe a multi-step checkout experience in Figma.",
-    learningObjectives: ["Structure navigation logic logically", "Map complete end-to-end user journeys", "Produce clear low-fidelity wireframes"],
-    skills: ["Information Architecture", "Sitemaps", "Wireframing", "User Flows"],
-    requiredCourseIds: ["course-uiux-101"],
-    relatedProjectIds: ["proj-task-manager"]
-  },
-  {
-    id: 224,
-    stepNumber: 4,
-    trackId: "ui-ux",
-    slug: "ui-ux-figma-prototyping",
-    title: "4. Interactive Prototyping in Figma",
-    category: "Prototyping",
-    summary: "Build high-fidelity clickable prototypes in Figma using Auto-Layout, component variants, smart animations, and interactive overlays.",
-    duration: "3 Weeks",
-    difficulty: "Intermediate",
-    keyTopics: ["Figma Auto-Layout & Responsive Constraints", "Components, Variants & Component Properties", "Interactive Clickable Prototyping", "Smart Animate Transitions & Modal Overlays"],
-    practicalMilestone: "Build an interactive, clickable mobile app prototype in Figma with tab navigation, modal sheets, and smart animations.",
-    learningObjectives: ["Master Figma auto-layout and constraints", "Build re-usable component variants", "Create realistic interactive prototypes"],
-    skills: ["Figma Auto-Layout", "Component Variants", "Smart Animate", "Interactive Overlays"],
-    requiredCourseIds: ["course-uiux-101"],
-    relatedProjectIds: ["proj-weather"]
-  },
-  {
-    id: 225,
-    stepNumber: 5,
-    trackId: "ui-ux",
-    slug: "ui-ux-design-systems-tokens",
-    title: "5. Design Systems & Semantic Tokens",
-    category: "Systems",
-    summary: "Architect scalable design systems: design tokens for colors, spacing, typography, and stateful atomic component libraries.",
-    duration: "3 Weeks",
-    difficulty: "Intermediate",
-    keyTopics: ["Atomic Design Methodology (Atoms to Templates)", "Semantic Design Tokens (Global vs Alias Tokens)", "Creating Component Libraries & Documentation", "Designing for Dark Mode and Multi-Brand Themes"],
-    practicalMilestone: "Construct a comprehensive design system UI kit in Figma with tokens, button states, inputs, and badges.",
-    learningObjectives: ["Structure design tokens semantically", "Build scalable component libraries", "Document design systems clearly"],
-    skills: ["Design Tokens", "Design Systems", "Atomic Design", "Theme Architecture"],
-    requiredCourseIds: ["course-uiux-101"],
-    relatedProjectIds: ["proj-portfolio"]
-  },
-  {
-    id: 226,
-    stepNumber: 6,
-    trackId: "ui-ux",
-    slug: "ui-ux-usability-testing-accessibility",
-    title: "6. Usability Testing & Accessibility (WCAG AAA)",
-    category: "Evaluation",
-    summary: "Validate prototypes with real users, measure completion rates, identify friction, and audit color contrast according to WCAG AAA standards.",
-    duration: "2 Weeks",
-    difficulty: "Intermediate",
-    keyTopics: ["Moderated & Unmoderated Usability Testing", "System Usability Scale (SUS) & Task Metrics", "WCAG 2.2 Color Contrast & Focus Indicators", "Designing for Screen Readers and Keyboard Accessibility"],
-    practicalMilestone: "Run usability tests with 5 participants, record feedback, and document an accessibility audit with contrast fixes.",
-    learningObjectives: ["Conduct effective usability testing sessions", "Measure task completion and friction points", "Ensure full WCAG AA/AAA compliance"],
-    skills: ["Usability Testing", "Heuristic Evaluation", "WCAG AAA Accessibility", "Accessibility Auditing"],
-    requiredCourseIds: ["course-uiux-101"],
-    relatedProjectIds: ["proj-calculator"]
-  },
-  {
-    id: 227,
-    stepNumber: 7,
-    trackId: "ui-ux",
-    slug: "ui-ux-developer-handoff",
-    title: "7. Micro-interactions & Developer Handoff",
-    category: "Handoff",
-    summary: "Design fluid micro-interactions, define animation timing curves, document responsive breakpoints, and collaborate smoothly with developers.",
-    duration: "2 Weeks",
-    difficulty: "Intermediate",
-    keyTopics: ["Micro-interaction Physics & Easing Curves", "Figma Dev Mode & Spec Handoff", "Exporting SVG Assets & CSS Properties", "Design QA & Verifying Production Builds"],
-    practicalMilestone: "Create a complete developer handoff specification sheet with CSS tokens, animation easings, and responsive breakpoint guides.",
-    learningObjectives: ["Design functional micro-interactions", "Provide accurate CSS and asset specs to engineers", "Perform thorough design QA"],
-    skills: ["Micro-interactions", "Figma Dev Mode", "Handoff Specs", "Design QA"],
-    requiredCourseIds: ["course-uiux-101", "course-web-dev-101"],
-    relatedProjectIds: ["proj-portfolio"]
-  },
-  {
-    id: 228,
-    stepNumber: 8,
-    trackId: "ui-ux",
-    slug: "ui-ux-portfolio-case-study",
-    title: "8. Design Portfolio & Case Study Publication",
-    category: "Portfolio",
-    summary: "Craft impactful UX case studies that articulate the problem, research findings, design iterations, user testing, and measurable outcomes.",
-    duration: "3 - 4 Weeks",
-    difficulty: "Advanced",
-    keyTopics: ["UX Case Study Storytelling Frameworks", "Documenting Problem vs Solution Evolution", "Visualizing Metrics, Impact & Learnings", "Publishing a High-Converting Design Portfolio"],
-    practicalMilestone: "Publish a polished digital UX portfolio website featuring 2 comprehensive case studies and interactive Figma embeds.",
-    learningObjectives: ["Structure compelling UX case studies", "Demonstrate end-to-end design thinking", "Publish a professional design portfolio"],
-    skills: ["Case Study Storytelling", "UX Writing", "Portfolio Presentation", "Impact Metrics"],
-    requiredCourseIds: ["course-uiux-101"],
-    relatedProjectIds: ["proj-portfolio"]
-  },
-
-  // ══════════════════════════════════════════════════════════════════
-  // PATH: CYBERSECURITY ANALYST (8 Stages)
-  // ══════════════════════════════════════════════════════════════════
-  {
-    id: 241,
-    stepNumber: 1,
-    trackId: "cybersecurity",
-    slug: "cybersecurity-networking-fundamentals",
-    title: "1. Computer Networking & Protocol Architecture",
-    category: "Networking",
-    summary: "Understand the OSI and TCP/IP models, packet transmission, IP addressing, DNS, DHCP, routing, and network protocol inspection.",
-    duration: "3 Weeks",
-    difficulty: "Beginner",
-    keyTopics: ["OSI 7-Layer & TCP/IP 4-Layer Models", "IPv4/IPv6 Addressing, Subnets & CIDR Notation", "TCP 3-Way Handshake vs UDP Transmission", "Wireshark Packet Capture & Protocol Inspection"],
-    practicalMilestone: "Capture and analyze network traffic in Wireshark, inspecting TCP handshakes, DNS queries, and HTTP headers.",
-    learningObjectives: ["Understand network layer interactions", "Analyze live packets with Wireshark", "Calculate subnet masks and IP ranges"],
-    skills: ["TCP/IP Protocols", "Subnetting & CIDR", "Wireshark Packet Analysis", "DNS & Routing"],
-    requiredCourseIds: ["course-cybersecurity-101"],
-    relatedProjectIds: ["proj-python-automation"]
-  },
-  {
-    id: 242,
-    stepNumber: 2,
-    trackId: "cybersecurity",
-    slug: "cybersecurity-linux-os-internals",
-    title: "2. Operating Systems Internals & Linux Administration",
-    category: "Systems",
-    summary: "Master Linux terminal commands, user permissions (chmod/chown), process isolation, systemd services, and file system security.",
-    duration: "3 Weeks",
-    difficulty: "Beginner",
-    keyTopics: ["Linux Directory Structure & Essential Commands", "User Accounts, Sudo Privileges & Permissions (rwx/octal)", "Process Management (ps, top, kill, systemctl)", "Cron Jobs, Log Files (/var/log), and Syslog"],
-    practicalMilestone: "Configure a hardened Linux server environment with strict file permissions, disabled root SSH, and scheduled log audits.",
-    learningObjectives: ["Navigate and administer Linux via CLI", "Enforce strict file and user permissions", "Inspect and parse system logs"],
-    skills: ["Linux CLI & Bash", "File Permissions", "Process Management", "Log Inspection"],
-    requiredCourseIds: ["course-cybersecurity-101"],
-    relatedProjectIds: ["proj-python-automation"]
-  },
-  {
-    id: 243,
-    stepNumber: 3,
-    trackId: "cybersecurity",
-    slug: "cybersecurity-security-fundamentals-threat-modeling",
-    title: "3. Information Security Fundamentals & Threat Modeling",
-    category: "Security Core",
-    summary: "Apply the CIA triad (Confidentiality, Integrity, Availability), STRIDE threat modeling, attack surface analysis, and defense-in-depth principles.",
-    duration: "2 Weeks",
-    difficulty: "Beginner",
-    keyTopics: ["The CIA Triad & Non-Repudiation", "STRIDE Threat Modeling Methodology", "Attack Vectors, Surfaces & Threat Actors", "Security Governance, Policies & Compliance"],
-    practicalMilestone: "Perform a STRIDE threat model on a web application architecture and document an actionable risk mitigation plan.",
-    learningObjectives: ["Apply CIA triad to architectural decisions", "Execute STRIDE threat modeling", "Identify and reduce attack surfaces"],
-    skills: ["CIA Triad", "STRIDE Threat Modeling", "Risk Assessment", "Defense-in-Depth"],
-    requiredCourseIds: ["course-cybersecurity-101"],
-    relatedProjectIds: ["proj-python-automation"]
-  },
-  {
-    id: 244,
-    stepNumber: 4,
-    trackId: "cybersecurity",
-    slug: "cybersecurity-scripting-automation",
-    title: "4. Security Scripting & Automation with Python",
-    category: "Automation",
-    summary: "Write Python and Bash automation scripts for security audits, log parsing, automated vulnerability scanning, and incident alerting.",
-    duration: "3 Weeks",
-    difficulty: "Intermediate",
-    keyTopics: ["Python Socket Programming & Port Scanners", "Automated Regex Log Parsing for Anomalies", "Bash Shell Scripts for Server Auditing", "Automated Security Alerts & Webhooks"],
-    practicalMilestone: "Build an automated Python security script that scans local open ports and parses auth logs for brute-force attempts.",
-    learningObjectives: ["Write Python scripts for security workflows", "Parse system logs automatically with regex", "Automate audit checks and alerts"],
-    skills: ["Python Scripting", "Log Parsing", "Socket Programming", "Security Automation"],
-    requiredCourseIds: ["course-python-101", "course-cybersecurity-101"],
-    relatedProjectIds: ["proj-python-automation"]
-  },
-  {
-    id: 245,
-    stepNumber: 5,
-    trackId: "cybersecurity",
-    slug: "cybersecurity-defensive-security-hardening",
-    title: "5. Defensive Security & System Hardening",
-    category: "Defense",
-    summary: "Configure firewalls (UFW/iptables), SSH key authentication, disable unnecessary ports, and implement system hardening benchmarks (CIS).",
-    duration: "3 Weeks",
-    difficulty: "Intermediate",
-    keyTopics: ["Host-Based Firewalls (UFW & iptables)", "SSH Key-Based Authentication & Port Hardening", "Fail2ban for Automated IP Banning", "CIS Security Benchmarks & Kernel Hardening"],
-    practicalMilestone: "Harden a public cloud server: configure UFW firewalls, deploy Fail2ban against SSH attacks, and audit with Lynis.",
-    learningObjectives: ["Configure firewall rules defensively", "Harden SSH and access vectors", "Deploy automated intrusion countermeasures"],
-    skills: ["UFW & Firewalls", "SSH Hardening", "Fail2ban", "System Hardening"],
-    requiredCourseIds: ["course-cybersecurity-101"],
-    relatedProjectIds: ["proj-python-automation"]
-  },
-  {
-    id: 246,
-    stepNumber: 6,
-    trackId: "cybersecurity",
-    slug: "cybersecurity-siem-monitoring",
-    title: "6. Network Security Monitoring & SIEM Analysis",
-    category: "Monitoring",
-    summary: "Collect and analyze security event logs using SIEM tools, write detection rules, and identify anomalous network behaviors.",
-    duration: "3 Weeks",
-    difficulty: "Intermediate",
-    keyTopics: ["Security Information & Event Management (SIEM)", "Centralized Log Aggregation (Elasticsearch / Wazuh)", "Creating Detection Rules for Lateral Movement", "Baseline Traffic Anomaly Detection"],
-    practicalMilestone: "Deploy an open-source monitoring agent (Wazuh or Elastic), ingest server logs, and trigger an alert on unauthorized root escalation.",
-    learningObjectives: ["Understand SIEM architecture and ingestion", "Create alerting rules for security anomalies", "Trace suspicious activities across logs"],
-    skills: ["SIEM Fundamentals", "Log Aggregation", "Detection Rules", "Anomaly Detection"],
-    requiredCourseIds: ["course-cybersecurity-101"],
-    relatedProjectIds: ["proj-data-analytics"]
-  },
-  {
-    id: 247,
-    stepNumber: 7,
-    trackId: "cybersecurity",
-    slug: "cybersecurity-web-app-security-owasp",
-    title: "7. Web Application Security & OWASP Top 10",
-    category: "AppSec",
-    summary: "Understand, identify, and mitigate critical web vulnerabilities including SQL Injection, Cross-Site Scripting (XSS), CSRF, and broken authentication.",
-    duration: "3 Weeks",
-    difficulty: "Advanced",
-    keyTopics: ["OWASP Top 10 Vulnerabilities & Mitigations", "SQL Injection (SQLi) & Parameterized Queries", "Stored & Reflected Cross-Site Scripting (XSS)", "Cross-Site Request Forgery (CSRF) & SameSite Cookies", "Content Security Policy (CSP) & Security Headers"],
-    practicalMilestone: "Audit a vulnerable test web application, exploit vulnerabilities in a safe lab, and document parameterized code fixes.",
-    learningObjectives: ["Understand how attackers exploit web flaws", "Prevent SQLi, XSS, and CSRF vulnerabilities", "Implement defense headers and CSP"],
-    skills: ["OWASP Top 10", "SQLi Remediation", "XSS Prevention", "Security Headers & CSP"],
-    requiredCourseIds: ["course-cybersecurity-101", "course-web-dev-101"],
-    relatedProjectIds: ["proj-task-manager"]
-  },
-  {
-    id: 248,
-    stepNumber: 8,
-    trackId: "cybersecurity",
-    slug: "cybersecurity-incident-response-lab",
-    title: "8. Incident Response & Hands-On Defense Lab",
-    category: "Incident Response",
-    summary: "Execute the incident response lifecycle: preparation, identification, containment, eradication, recovery, and post-incident lessons learned.",
-    duration: "3 - 4 Weeks",
-    difficulty: "Advanced",
-    keyTopics: ["NIST & SANS Incident Response Lifecycles", "Live Memory & Process Forensics", "Network Containment & Evidence Preservation", "Post-Incident Reporting & Root-Cause Remediation"],
-    practicalMilestone: "Participate in a simulated cyber breach defense lab, contain the intrusion, preserve forensic evidence, and write a formal remediation report.",
-    learningObjectives: ["Execute structured incident response steps", "Contain active compromise scenarios", "Produce professional security remediation reports"],
-    skills: ["Incident Response", "Digital Forensics", "Evidence Preservation", "Security Remediation"],
-    requiredCourseIds: ["course-cybersecurity-101"],
-    relatedProjectIds: ["proj-python-automation"]
+    "id": 1,
+    "stepNumber": 1,
+    "slug": "fullstack-html-css",
+    "title": "HTML & CSS: Responsive Architecture & Design Systems",
+    "trackId": "fullstack",
+    "category": "Web Development",
+    "summary": "Master semantic HTML5 architecture, modern CSS layout systems (Flexbox, CSS Grid), responsive design patterns, accessible forms, and CSS variable design systems.",
+    "duration": "3 - 4 Weeks (18 Hours)",
+    "difficulty": "Beginner",
+    "keyTopics": [
+      "Semantic HTML5 & Document Outline",
+      "CSS Box Model, Specificity & The Cascade",
+      "CSS Flexbox 1D & CSS Grid 2D Systems",
+      "Mobile-First Responsive Layouts & Media Queries",
+      "WCAG 2.1 Web Accessibility & Color Contrast"
+    ],
+    "practicalMilestone": "Build a responsive multi-page marketing landing page and accessible contact form scoring 98+ on Lighthouse.",
+    "learningObjectives": [
+      "Semantic HTML5 & Document Outline",
+      "CSS Box Model, Specificity & The Cascade",
+      "CSS Flexbox 1D & CSS Grid 2D Systems",
+      "Mobile-First Responsive Layouts & Media Queries",
+      "WCAG 2.1 Web Accessibility & Color Contrast"
+    ],
+    "skills": [
+      "HTML5 Semantics",
+      "CSS Grid",
+      "Flexbox",
+      "Responsive Design",
+      "Web Accessibility",
+      "Design Systems"
+    ],
+    "requiredCourseIds": [
+      "course-html-css"
+    ],
+    "relatedProjectIds": [
+      "proj-portfolio"
+    ],
+    "recommendedNotes": [
+      {
+        "title": "HTML5 Document Structure & Best Practices",
+        "slug": "html-basics-document-structure"
+      },
+      {
+        "title": "CSS Selectors, Specificity & Box Model",
+        "slug": "css-selectors-specificity-box-model"
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "stepNumber": 2,
+    "slug": "fullstack-javascript-typescript",
+    "title": "JavaScript & Modern TypeScript: Foundations to Full-Stack",
+    "trackId": "fullstack",
+    "category": "Programming Languages",
+    "summary": "From core JavaScript mechanics (Closures, Prototypes, Event Loop, Promises, Async/Await) to enterprise TypeScript static typing, generics, interfaces, and strict type safety.",
+    "duration": "4 - 6 Weeks (24 Hours)",
+    "difficulty": "Intermediate",
+    "keyTopics": [
+      "JavaScript Execution Context, Scopes & Closures",
+      "Asynchronous JS: Event Loop, Microtasks & Promises",
+      "DOM Manipulation, Browser APIs & Local Storage",
+      "TypeScript Type System: Interfaces, Unions & Generics",
+      "Strict Compiler Configuration & Utility Types"
+    ],
+    "practicalMilestone": "Develop an interactive data-driven task and Kanban platform with localStorage sync and zero TypeScript warnings.",
+    "learningObjectives": [
+      "JavaScript Execution Context, Scopes & Closures",
+      "Asynchronous JS: Event Loop, Microtasks & Promises",
+      "DOM Manipulation, Browser APIs & Local Storage",
+      "TypeScript Type System: Interfaces, Unions & Generics",
+      "Strict Compiler Configuration & Utility Types"
+    ],
+    "skills": [
+      "JavaScript (ES2024)",
+      "TypeScript",
+      "Async Programming",
+      "DOM APIs",
+      "Generics",
+      "Type Narrowing"
+    ],
+    "requiredCourseIds": [
+      "course-javascript-typescript"
+    ],
+    "relatedProjectIds": [
+      "proj-task-manager"
+    ],
+    "recommendedNotes": [
+      {
+        "title": "JavaScript Promises, Async/Await & Fetching",
+        "slug": "javascript-promises-async-await"
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "stepNumber": 3,
+    "slug": "fullstack-git-github",
+    "title": "Git & GitHub: Professional Version Control & Collaboration",
+    "trackId": "fullstack",
+    "category": "Data Structures & Developer Tools",
+    "summary": "Master industry version control: Git internal object model (Blobs, Trees, Commits), interactive rebasing, branch management, merge conflict resolution, pull request workflows, and GitHub Actions.",
+    "duration": "2 Weeks (12 Hours)",
+    "difficulty": "Beginner",
+    "keyTopics": [
+      "Git Architecture: Working Tree, Index & Commits",
+      "Branching Strategies, Fast-Forward & Three-Way Merges",
+      "Interactive Rebasing (git rebase -i) & Cherry-Picking",
+      "Resolving Complex Merge Conflicts",
+      "GitHub Pull Requests, Code Reviews & CI Workflows"
+    ],
+    "practicalMilestone": "Initialize a multi-branch repository, execute feature development with interactive rebasing, and open a clean PR with CI checks.",
+    "learningObjectives": [
+      "Git Architecture: Working Tree, Index & Commits",
+      "Branching Strategies, Fast-Forward & Three-Way Merges",
+      "Interactive Rebasing (git rebase -i) & Cherry-Picking",
+      "Resolving Complex Merge Conflicts",
+      "GitHub Pull Requests, Code Reviews & CI Workflows"
+    ],
+    "skills": [
+      "Git CLI",
+      "GitHub",
+      "Branch Management",
+      "Rebase & Cherry-Pick",
+      "Code Review",
+      "CI/CD Workflows"
+    ],
+    "requiredCourseIds": [
+      "course-git-github"
+    ],
+    "relatedProjectIds": [
+      "proj-portfolio"
+    ],
+    "recommendedNotes": [
+      {
+        "title": "Git, GitHub & Professional Collaboration",
+        "slug": "git-fundamentals-commands-guide"
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "stepNumber": 4,
+    "slug": "fullstack-react-nextjs",
+    "title": "React & Next.js: Full-Stack Enterprise Architecture",
+    "trackId": "fullstack",
+    "category": "Web Development",
+    "summary": "Build full-stack web applications with React 19 and Next.js App Router: Server Components, Server Actions, state management, streaming Suspense, dynamic routing, and caching layers.",
+    "duration": "6 - 8 Weeks (30 Hours)",
+    "difficulty": "Intermediate",
+    "keyTopics": [
+      "React 19 Core: Virtual DOM, State, Hooks & Custom Hooks",
+      "Next.js App Router: Server vs Client Components",
+      "Server Actions, Mutations & Optimistic UI Updates",
+      "Streaming with Suspense & Partial Prerendering",
+      "SEO Metadata, Open Graph & Image Optimization"
+    ],
+    "practicalMilestone": "Architect an end-to-end full-stack portal with dynamic server-rendered pages, server actions for data persistence, and optimistic state.",
+    "learningObjectives": [
+      "React 19 Core: Virtual DOM, State, Hooks & Custom Hooks",
+      "Next.js App Router: Server vs Client Components",
+      "Server Actions, Mutations & Optimistic UI Updates",
+      "Streaming with Suspense & Partial Prerendering",
+      "SEO Metadata, Open Graph & Image Optimization"
+    ],
+    "skills": [
+      "React 19",
+      "Next.js App Router",
+      "Server Components",
+      "Server Actions",
+      "Streaming SSR",
+      "State Management"
+    ],
+    "requiredCourseIds": [
+      "course-react-nextjs"
+    ],
+    "relatedProjectIds": [
+      "proj-task-manager"
+    ],
+    "recommendedNotes": [
+      {
+        "title": "React Components, Props & State Architecture",
+        "slug": "react-components-props-state"
+      },
+      {
+        "title": "Next.js App Router, Server Components & Layouts",
+        "slug": "nextjs-app-router-layouts"
+      }
+    ]
+  },
+  {
+    "id": 5,
+    "stepNumber": 5,
+    "slug": "fullstack-nodejs-express",
+    "title": "Node.js & Express: Scalable Backend Services & APIs",
+    "trackId": "fullstack",
+    "category": "Web Development",
+    "summary": "Design scalable RESTful APIs and backend microservices: Node.js V8 runtime, non-blocking I/O, middleware pipelines, JWT/OAuth2 authentication, error handling, rate limiting, and database connectivity.",
+    "duration": "4 - 6 Weeks (22 Hours)",
+    "difficulty": "Intermediate",
+    "keyTopics": [
+      "Node.js Event Loop, Streams, Buffers & File System",
+      "Express.js Routing, Middleware Pipeline & Controllers",
+      "RESTful API Design & HTTP Status Architecture",
+      "User Authentication with JWT & Bcrypt Password Hashing",
+      "Input Validation, CORS, Rate Limiting & Security Headers"
+    ],
+    "practicalMilestone": "Build a production-ready REST API with authenticated endpoints, role-based access control, input validation, and automated error logging.",
+    "learningObjectives": [
+      "Node.js Event Loop, Streams, Buffers & File System",
+      "Express.js Routing, Middleware Pipeline & Controllers",
+      "RESTful API Design & HTTP Status Architecture",
+      "User Authentication with JWT & Bcrypt Password Hashing",
+      "Input Validation, CORS, Rate Limiting & Security Headers"
+    ],
+    "skills": [
+      "Node.js",
+      "Express.js",
+      "REST APIs",
+      "JWT Authentication",
+      "Middleware",
+      "API Security"
+    ],
+    "requiredCourseIds": [
+      "course-nodejs-express"
+    ],
+    "relatedProjectIds": [
+      "proj-snippet-vault"
+    ],
+    "recommendedNotes": [
+      {
+        "title": "RESTful API Design, Express & Microservices",
+        "slug": "rest-apis-design-architecture"
+      }
+    ]
+  },
+  {
+    "id": 6,
+    "stepNumber": 6,
+    "slug": "fullstack-sql-mongodb",
+    "title": "SQL & MongoDB: Relational & Document Data Architecture",
+    "trackId": "fullstack",
+    "category": "Databases & Infrastructure",
+    "summary": "Master both relational and NoSQL database paradigms: PostgreSQL/MySQL complex joins, indexes, transactions, schema normalization, and MongoDB aggregation pipelines and flexible document models.",
+    "duration": "4 - 5 Weeks (20 Hours)",
+    "difficulty": "Intermediate",
+    "keyTopics": [
+      "Relational Schema Design & Normalization (1NF to 3NF)",
+      "SQL Complex Queries: INNER/LEFT Joins, Group By & Subqueries",
+      "B-Tree Indexing, Query Optimization & EXPLAIN Plans",
+      "ACID Transactions, Isolation Levels & Concurrency",
+      "MongoDB Document Modeling & Aggregation Pipelines"
+    ],
+    "practicalMilestone": "Design a dual-database schema for an e-commerce platform using PostgreSQL for financial transactions and MongoDB for catalog data.",
+    "learningObjectives": [
+      "Relational Schema Design & Normalization (1NF to 3NF)",
+      "SQL Complex Queries: INNER/LEFT Joins, Group By & Subqueries",
+      "B-Tree Indexing, Query Optimization & EXPLAIN Plans",
+      "ACID Transactions, Isolation Levels & Concurrency",
+      "MongoDB Document Modeling & Aggregation Pipelines"
+    ],
+    "skills": [
+      "PostgreSQL",
+      "MySQL",
+      "MongoDB",
+      "SQL Joins",
+      "Indexing",
+      "Aggregation Pipelines",
+      "ACID Transactions"
+    ],
+    "requiredCourseIds": [
+      "course-sql-mongodb"
+    ],
+    "relatedProjectIds": [
+      "proj-data-analytics"
+    ],
+    "recommendedNotes": [
+      {
+        "title": "DBMS, SQL Queries & Relational Database Design",
+        "slug": "dbms-sql-relational-design"
+      }
+    ]
+  },
+  {
+    "id": 7,
+    "stepNumber": 7,
+    "slug": "fullstack-cloud-native-serverless",
+    "title": "Cloud-Native & Serverless Development: Scalable Distributed Systems",
+    "trackId": "fullstack",
+    "category": "Databases & Infrastructure",
+    "summary": "Containerize applications and deploy resilient cloud services: Docker multi-stage builds, Kubernetes orchestration concepts, serverless functions, CI/CD automated release pipelines, and cloud monitoring.",
+    "duration": "4 - 6 Weeks (20 Hours)",
+    "difficulty": "Advanced",
+    "keyTopics": [
+      "Docker Multi-Stage Builds & Container Optimization",
+      "Docker Compose for Multi-Container Environments",
+      "Cloud Architectures (AWS/GCP), Serverless & Edge Compute",
+      "Kubernetes Pods, Services, Deployments & Ingress",
+      "CI/CD Pipelines with GitHub Actions & Cloud Deployment"
+    ],
+    "practicalMilestone": "Containerize a full-stack web application with Docker Compose, configure automated GitHub Actions CI/CD, and deploy to cloud hosting.",
+    "learningObjectives": [
+      "Docker Multi-Stage Builds & Container Optimization",
+      "Docker Compose for Multi-Container Environments",
+      "Cloud Architectures (AWS/GCP), Serverless & Edge Compute",
+      "Kubernetes Pods, Services, Deployments & Ingress",
+      "CI/CD Pipelines with GitHub Actions & Cloud Deployment"
+    ],
+    "skills": [
+      "Docker",
+      "Kubernetes",
+      "Serverless",
+      "CI/CD",
+      "AWS/Cloud",
+      "Containerization"
+    ],
+    "requiredCourseIds": [
+      "course-cloud-native-serverless"
+    ],
+    "relatedProjectIds": [
+      "proj-ecommerce"
+    ],
+    "recommendedNotes": [
+      {
+        "title": "Cloud Computing, Docker & Containerization",
+        "slug": "cloud-docker-containerization"
+      }
+    ]
+  },
+  {
+    "id": 8,
+    "stepNumber": 8,
+    "slug": "fullstack-ai-assisted-coding",
+    "title": "AI-Assisted Coding & Developer Tools: Accelerated Software Engineering",
+    "trackId": "fullstack",
+    "category": "Data Structures & Developer Tools",
+    "summary": "10x your software engineering velocity: leverage modern AI coding assistants (Claude Code, GitHub Copilot, Cursor), prompt engineering for code generation, test synthesis, automated refactoring, and AI code review.",
+    "duration": "2 - 3 Weeks (12 Hours)",
+    "difficulty": "Beginner",
+    "keyTopics": [
+      "AI Coding Assistant Mechanics & Context Windows",
+      "Effective Prompt Engineering for Code Generation",
+      "Automated Test Generation (Unit & Integration)",
+      "AI-Assisted Code Refactoring & Security Auditing",
+      "Multi-Agent Coding Workflows & Terminal Integration"
+    ],
+    "practicalMilestone": "Build a feature module end-to-end using AI coding assistants for architecture planning, test writing, implementation, and documentation.",
+    "learningObjectives": [
+      "AI Coding Assistant Mechanics & Context Windows",
+      "Effective Prompt Engineering for Code Generation",
+      "Automated Test Generation (Unit & Integration)",
+      "AI-Assisted Code Refactoring & Security Auditing",
+      "Multi-Agent Coding Workflows & Terminal Integration"
+    ],
+    "skills": [
+      "AI Developer Tools",
+      "Code Prompting",
+      "Automated Testing",
+      "Code Refactoring",
+      "Developer Velocity"
+    ],
+    "requiredCourseIds": [
+      "course-ai-assisted-coding"
+    ],
+    "relatedProjectIds": [
+      "proj-task-manager"
+    ],
+    "recommendedNotes": [
+      {
+        "title": "Modern JavaScript & TypeScript Fundamentals",
+        "slug": "javascript-promises-async-await"
+      }
+    ]
+  },
+  {
+    "id": 9,
+    "stepNumber": 1,
+    "slug": "frontend-html-css",
+    "title": "HTML & CSS: Responsive Architecture & Design Systems",
+    "trackId": "frontend",
+    "category": "Web Development",
+    "summary": "Master semantic HTML5 architecture, modern CSS layout systems (Flexbox, CSS Grid), responsive design patterns, accessible forms, and CSS variable design systems.",
+    "duration": "3 - 4 Weeks (18 Hours)",
+    "difficulty": "Beginner",
+    "keyTopics": [
+      "Semantic HTML5 & Document Outline",
+      "CSS Box Model, Specificity & The Cascade",
+      "CSS Flexbox 1D & CSS Grid 2D Systems",
+      "Mobile-First Responsive Layouts & Media Queries",
+      "WCAG 2.1 Web Accessibility & Color Contrast"
+    ],
+    "practicalMilestone": "Build a responsive multi-page marketing landing page and accessible contact form scoring 98+ on Lighthouse.",
+    "learningObjectives": [
+      "Semantic HTML5 & Document Outline",
+      "CSS Box Model, Specificity & The Cascade",
+      "CSS Flexbox 1D & CSS Grid 2D Systems",
+      "Mobile-First Responsive Layouts & Media Queries",
+      "WCAG 2.1 Web Accessibility & Color Contrast"
+    ],
+    "skills": [
+      "HTML5 Semantics",
+      "CSS Grid",
+      "Flexbox",
+      "Responsive Design",
+      "Web Accessibility",
+      "Design Systems"
+    ],
+    "requiredCourseIds": [
+      "course-html-css"
+    ],
+    "relatedProjectIds": [
+      "proj-portfolio"
+    ],
+    "recommendedNotes": [
+      {
+        "title": "HTML5 Document Structure & Best Practices",
+        "slug": "html-basics-document-structure"
+      },
+      {
+        "title": "CSS Selectors, Specificity & Box Model",
+        "slug": "css-selectors-specificity-box-model"
+      }
+    ]
+  },
+  {
+    "id": 10,
+    "stepNumber": 2,
+    "slug": "frontend-javascript-typescript",
+    "title": "JavaScript & Modern TypeScript: Foundations to Full-Stack",
+    "trackId": "frontend",
+    "category": "Programming Languages",
+    "summary": "From core JavaScript mechanics (Closures, Prototypes, Event Loop, Promises, Async/Await) to enterprise TypeScript static typing, generics, interfaces, and strict type safety.",
+    "duration": "4 - 6 Weeks (24 Hours)",
+    "difficulty": "Intermediate",
+    "keyTopics": [
+      "JavaScript Execution Context, Scopes & Closures",
+      "Asynchronous JS: Event Loop, Microtasks & Promises",
+      "DOM Manipulation, Browser APIs & Local Storage",
+      "TypeScript Type System: Interfaces, Unions & Generics",
+      "Strict Compiler Configuration & Utility Types"
+    ],
+    "practicalMilestone": "Develop an interactive data-driven task and Kanban platform with localStorage sync and zero TypeScript warnings.",
+    "learningObjectives": [
+      "JavaScript Execution Context, Scopes & Closures",
+      "Asynchronous JS: Event Loop, Microtasks & Promises",
+      "DOM Manipulation, Browser APIs & Local Storage",
+      "TypeScript Type System: Interfaces, Unions & Generics",
+      "Strict Compiler Configuration & Utility Types"
+    ],
+    "skills": [
+      "JavaScript (ES2024)",
+      "TypeScript",
+      "Async Programming",
+      "DOM APIs",
+      "Generics",
+      "Type Narrowing"
+    ],
+    "requiredCourseIds": [
+      "course-javascript-typescript"
+    ],
+    "relatedProjectIds": [
+      "proj-task-manager"
+    ],
+    "recommendedNotes": [
+      {
+        "title": "JavaScript Promises, Async/Await & Fetching",
+        "slug": "javascript-promises-async-await"
+      }
+    ]
+  },
+  {
+    "id": 11,
+    "stepNumber": 3,
+    "slug": "frontend-git-github",
+    "title": "Git & GitHub: Professional Version Control & Collaboration",
+    "trackId": "frontend",
+    "category": "Data Structures & Developer Tools",
+    "summary": "Master industry version control: Git internal object model (Blobs, Trees, Commits), interactive rebasing, branch management, merge conflict resolution, pull request workflows, and GitHub Actions.",
+    "duration": "2 Weeks (12 Hours)",
+    "difficulty": "Beginner",
+    "keyTopics": [
+      "Git Architecture: Working Tree, Index & Commits",
+      "Branching Strategies, Fast-Forward & Three-Way Merges",
+      "Interactive Rebasing (git rebase -i) & Cherry-Picking",
+      "Resolving Complex Merge Conflicts",
+      "GitHub Pull Requests, Code Reviews & CI Workflows"
+    ],
+    "practicalMilestone": "Initialize a multi-branch repository, execute feature development with interactive rebasing, and open a clean PR with CI checks.",
+    "learningObjectives": [
+      "Git Architecture: Working Tree, Index & Commits",
+      "Branching Strategies, Fast-Forward & Three-Way Merges",
+      "Interactive Rebasing (git rebase -i) & Cherry-Picking",
+      "Resolving Complex Merge Conflicts",
+      "GitHub Pull Requests, Code Reviews & CI Workflows"
+    ],
+    "skills": [
+      "Git CLI",
+      "GitHub",
+      "Branch Management",
+      "Rebase & Cherry-Pick",
+      "Code Review",
+      "CI/CD Workflows"
+    ],
+    "requiredCourseIds": [
+      "course-git-github"
+    ],
+    "relatedProjectIds": [
+      "proj-portfolio"
+    ],
+    "recommendedNotes": [
+      {
+        "title": "Git, GitHub & Professional Collaboration",
+        "slug": "git-fundamentals-commands-guide"
+      }
+    ]
+  },
+  {
+    "id": 12,
+    "stepNumber": 4,
+    "slug": "frontend-react-nextjs",
+    "title": "React & Next.js: Full-Stack Enterprise Architecture",
+    "trackId": "frontend",
+    "category": "Web Development",
+    "summary": "Build full-stack web applications with React 19 and Next.js App Router: Server Components, Server Actions, state management, streaming Suspense, dynamic routing, and caching layers.",
+    "duration": "6 - 8 Weeks (30 Hours)",
+    "difficulty": "Intermediate",
+    "keyTopics": [
+      "React 19 Core: Virtual DOM, State, Hooks & Custom Hooks",
+      "Next.js App Router: Server vs Client Components",
+      "Server Actions, Mutations & Optimistic UI Updates",
+      "Streaming with Suspense & Partial Prerendering",
+      "SEO Metadata, Open Graph & Image Optimization"
+    ],
+    "practicalMilestone": "Architect an end-to-end full-stack portal with dynamic server-rendered pages, server actions for data persistence, and optimistic state.",
+    "learningObjectives": [
+      "React 19 Core: Virtual DOM, State, Hooks & Custom Hooks",
+      "Next.js App Router: Server vs Client Components",
+      "Server Actions, Mutations & Optimistic UI Updates",
+      "Streaming with Suspense & Partial Prerendering",
+      "SEO Metadata, Open Graph & Image Optimization"
+    ],
+    "skills": [
+      "React 19",
+      "Next.js App Router",
+      "Server Components",
+      "Server Actions",
+      "Streaming SSR",
+      "State Management"
+    ],
+    "requiredCourseIds": [
+      "course-react-nextjs"
+    ],
+    "relatedProjectIds": [
+      "proj-task-manager"
+    ],
+    "recommendedNotes": [
+      {
+        "title": "React Components, Props & State Architecture",
+        "slug": "react-components-props-state"
+      },
+      {
+        "title": "Next.js App Router, Server Components & Layouts",
+        "slug": "nextjs-app-router-layouts"
+      }
+    ]
+  },
+  {
+    "id": 13,
+    "stepNumber": 5,
+    "slug": "frontend-ai-assisted-coding",
+    "title": "AI-Assisted Coding & Developer Tools: Accelerated Software Engineering",
+    "trackId": "frontend",
+    "category": "Data Structures & Developer Tools",
+    "summary": "10x your software engineering velocity: leverage modern AI coding assistants (Claude Code, GitHub Copilot, Cursor), prompt engineering for code generation, test synthesis, automated refactoring, and AI code review.",
+    "duration": "2 - 3 Weeks (12 Hours)",
+    "difficulty": "Beginner",
+    "keyTopics": [
+      "AI Coding Assistant Mechanics & Context Windows",
+      "Effective Prompt Engineering for Code Generation",
+      "Automated Test Generation (Unit & Integration)",
+      "AI-Assisted Code Refactoring & Security Auditing",
+      "Multi-Agent Coding Workflows & Terminal Integration"
+    ],
+    "practicalMilestone": "Build a feature module end-to-end using AI coding assistants for architecture planning, test writing, implementation, and documentation.",
+    "learningObjectives": [
+      "AI Coding Assistant Mechanics & Context Windows",
+      "Effective Prompt Engineering for Code Generation",
+      "Automated Test Generation (Unit & Integration)",
+      "AI-Assisted Code Refactoring & Security Auditing",
+      "Multi-Agent Coding Workflows & Terminal Integration"
+    ],
+    "skills": [
+      "AI Developer Tools",
+      "Code Prompting",
+      "Automated Testing",
+      "Code Refactoring",
+      "Developer Velocity"
+    ],
+    "requiredCourseIds": [
+      "course-ai-assisted-coding"
+    ],
+    "relatedProjectIds": [
+      "proj-task-manager"
+    ],
+    "recommendedNotes": [
+      {
+        "title": "Modern JavaScript & TypeScript Fundamentals",
+        "slug": "javascript-promises-async-await"
+      }
+    ]
+  },
+  {
+    "id": 14,
+    "stepNumber": 1,
+    "slug": "backend-javascript-typescript",
+    "title": "JavaScript & Modern TypeScript: Foundations to Full-Stack",
+    "trackId": "backend",
+    "category": "Programming Languages",
+    "summary": "From core JavaScript mechanics (Closures, Prototypes, Event Loop, Promises, Async/Await) to enterprise TypeScript static typing, generics, interfaces, and strict type safety.",
+    "duration": "4 - 6 Weeks (24 Hours)",
+    "difficulty": "Intermediate",
+    "keyTopics": [
+      "JavaScript Execution Context, Scopes & Closures",
+      "Asynchronous JS: Event Loop, Microtasks & Promises",
+      "DOM Manipulation, Browser APIs & Local Storage",
+      "TypeScript Type System: Interfaces, Unions & Generics",
+      "Strict Compiler Configuration & Utility Types"
+    ],
+    "practicalMilestone": "Develop an interactive data-driven task and Kanban platform with localStorage sync and zero TypeScript warnings.",
+    "learningObjectives": [
+      "JavaScript Execution Context, Scopes & Closures",
+      "Asynchronous JS: Event Loop, Microtasks & Promises",
+      "DOM Manipulation, Browser APIs & Local Storage",
+      "TypeScript Type System: Interfaces, Unions & Generics",
+      "Strict Compiler Configuration & Utility Types"
+    ],
+    "skills": [
+      "JavaScript (ES2024)",
+      "TypeScript",
+      "Async Programming",
+      "DOM APIs",
+      "Generics",
+      "Type Narrowing"
+    ],
+    "requiredCourseIds": [
+      "course-javascript-typescript"
+    ],
+    "relatedProjectIds": [
+      "proj-task-manager"
+    ],
+    "recommendedNotes": [
+      {
+        "title": "JavaScript Promises, Async/Await & Fetching",
+        "slug": "javascript-promises-async-await"
+      }
+    ]
+  },
+  {
+    "id": 15,
+    "stepNumber": 2,
+    "slug": "backend-nodejs-express",
+    "title": "Node.js & Express: Scalable Backend Services & APIs",
+    "trackId": "backend",
+    "category": "Web Development",
+    "summary": "Design scalable RESTful APIs and backend microservices: Node.js V8 runtime, non-blocking I/O, middleware pipelines, JWT/OAuth2 authentication, error handling, rate limiting, and database connectivity.",
+    "duration": "4 - 6 Weeks (22 Hours)",
+    "difficulty": "Intermediate",
+    "keyTopics": [
+      "Node.js Event Loop, Streams, Buffers & File System",
+      "Express.js Routing, Middleware Pipeline & Controllers",
+      "RESTful API Design & HTTP Status Architecture",
+      "User Authentication with JWT & Bcrypt Password Hashing",
+      "Input Validation, CORS, Rate Limiting & Security Headers"
+    ],
+    "practicalMilestone": "Build a production-ready REST API with authenticated endpoints, role-based access control, input validation, and automated error logging.",
+    "learningObjectives": [
+      "Node.js Event Loop, Streams, Buffers & File System",
+      "Express.js Routing, Middleware Pipeline & Controllers",
+      "RESTful API Design & HTTP Status Architecture",
+      "User Authentication with JWT & Bcrypt Password Hashing",
+      "Input Validation, CORS, Rate Limiting & Security Headers"
+    ],
+    "skills": [
+      "Node.js",
+      "Express.js",
+      "REST APIs",
+      "JWT Authentication",
+      "Middleware",
+      "API Security"
+    ],
+    "requiredCourseIds": [
+      "course-nodejs-express"
+    ],
+    "relatedProjectIds": [
+      "proj-snippet-vault"
+    ],
+    "recommendedNotes": [
+      {
+        "title": "RESTful API Design, Express & Microservices",
+        "slug": "rest-apis-design-architecture"
+      }
+    ]
+  },
+  {
+    "id": 16,
+    "stepNumber": 3,
+    "slug": "backend-sql-mongodb",
+    "title": "SQL & MongoDB: Relational & Document Data Architecture",
+    "trackId": "backend",
+    "category": "Databases & Infrastructure",
+    "summary": "Master both relational and NoSQL database paradigms: PostgreSQL/MySQL complex joins, indexes, transactions, schema normalization, and MongoDB aggregation pipelines and flexible document models.",
+    "duration": "4 - 5 Weeks (20 Hours)",
+    "difficulty": "Intermediate",
+    "keyTopics": [
+      "Relational Schema Design & Normalization (1NF to 3NF)",
+      "SQL Complex Queries: INNER/LEFT Joins, Group By & Subqueries",
+      "B-Tree Indexing, Query Optimization & EXPLAIN Plans",
+      "ACID Transactions, Isolation Levels & Concurrency",
+      "MongoDB Document Modeling & Aggregation Pipelines"
+    ],
+    "practicalMilestone": "Design a dual-database schema for an e-commerce platform using PostgreSQL for financial transactions and MongoDB for catalog data.",
+    "learningObjectives": [
+      "Relational Schema Design & Normalization (1NF to 3NF)",
+      "SQL Complex Queries: INNER/LEFT Joins, Group By & Subqueries",
+      "B-Tree Indexing, Query Optimization & EXPLAIN Plans",
+      "ACID Transactions, Isolation Levels & Concurrency",
+      "MongoDB Document Modeling & Aggregation Pipelines"
+    ],
+    "skills": [
+      "PostgreSQL",
+      "MySQL",
+      "MongoDB",
+      "SQL Joins",
+      "Indexing",
+      "Aggregation Pipelines",
+      "ACID Transactions"
+    ],
+    "requiredCourseIds": [
+      "course-sql-mongodb"
+    ],
+    "relatedProjectIds": [
+      "proj-data-analytics"
+    ],
+    "recommendedNotes": [
+      {
+        "title": "DBMS, SQL Queries & Relational Database Design",
+        "slug": "dbms-sql-relational-design"
+      }
+    ]
+  },
+  {
+    "id": 17,
+    "stepNumber": 4,
+    "slug": "backend-git-github",
+    "title": "Git & GitHub: Professional Version Control & Collaboration",
+    "trackId": "backend",
+    "category": "Data Structures & Developer Tools",
+    "summary": "Master industry version control: Git internal object model (Blobs, Trees, Commits), interactive rebasing, branch management, merge conflict resolution, pull request workflows, and GitHub Actions.",
+    "duration": "2 Weeks (12 Hours)",
+    "difficulty": "Beginner",
+    "keyTopics": [
+      "Git Architecture: Working Tree, Index & Commits",
+      "Branching Strategies, Fast-Forward & Three-Way Merges",
+      "Interactive Rebasing (git rebase -i) & Cherry-Picking",
+      "Resolving Complex Merge Conflicts",
+      "GitHub Pull Requests, Code Reviews & CI Workflows"
+    ],
+    "practicalMilestone": "Initialize a multi-branch repository, execute feature development with interactive rebasing, and open a clean PR with CI checks.",
+    "learningObjectives": [
+      "Git Architecture: Working Tree, Index & Commits",
+      "Branching Strategies, Fast-Forward & Three-Way Merges",
+      "Interactive Rebasing (git rebase -i) & Cherry-Picking",
+      "Resolving Complex Merge Conflicts",
+      "GitHub Pull Requests, Code Reviews & CI Workflows"
+    ],
+    "skills": [
+      "Git CLI",
+      "GitHub",
+      "Branch Management",
+      "Rebase & Cherry-Pick",
+      "Code Review",
+      "CI/CD Workflows"
+    ],
+    "requiredCourseIds": [
+      "course-git-github"
+    ],
+    "relatedProjectIds": [
+      "proj-portfolio"
+    ],
+    "recommendedNotes": [
+      {
+        "title": "Git, GitHub & Professional Collaboration",
+        "slug": "git-fundamentals-commands-guide"
+      }
+    ]
+  },
+  {
+    "id": 18,
+    "stepNumber": 5,
+    "slug": "backend-cloud-native-serverless",
+    "title": "Cloud-Native & Serverless Development: Scalable Distributed Systems",
+    "trackId": "backend",
+    "category": "Databases & Infrastructure",
+    "summary": "Containerize applications and deploy resilient cloud services: Docker multi-stage builds, Kubernetes orchestration concepts, serverless functions, CI/CD automated release pipelines, and cloud monitoring.",
+    "duration": "4 - 6 Weeks (20 Hours)",
+    "difficulty": "Advanced",
+    "keyTopics": [
+      "Docker Multi-Stage Builds & Container Optimization",
+      "Docker Compose for Multi-Container Environments",
+      "Cloud Architectures (AWS/GCP), Serverless & Edge Compute",
+      "Kubernetes Pods, Services, Deployments & Ingress",
+      "CI/CD Pipelines with GitHub Actions & Cloud Deployment"
+    ],
+    "practicalMilestone": "Containerize a full-stack web application with Docker Compose, configure automated GitHub Actions CI/CD, and deploy to cloud hosting.",
+    "learningObjectives": [
+      "Docker Multi-Stage Builds & Container Optimization",
+      "Docker Compose for Multi-Container Environments",
+      "Cloud Architectures (AWS/GCP), Serverless & Edge Compute",
+      "Kubernetes Pods, Services, Deployments & Ingress",
+      "CI/CD Pipelines with GitHub Actions & Cloud Deployment"
+    ],
+    "skills": [
+      "Docker",
+      "Kubernetes",
+      "Serverless",
+      "CI/CD",
+      "AWS/Cloud",
+      "Containerization"
+    ],
+    "requiredCourseIds": [
+      "course-cloud-native-serverless"
+    ],
+    "relatedProjectIds": [
+      "proj-ecommerce"
+    ],
+    "recommendedNotes": [
+      {
+        "title": "Cloud Computing, Docker & Containerization",
+        "slug": "cloud-docker-containerization"
+      }
+    ]
+  },
+  {
+    "id": 19,
+    "stepNumber": 6,
+    "slug": "backend-cybersecurity-fundamentals",
+    "title": "Cybersecurity Fundamentals: Network Defense & Secure Systems",
+    "trackId": "backend",
+    "category": "Databases & Infrastructure",
+    "summary": "Defend systems against real-world attacks: networking fundamentals (TCP/IP, DNS, TLS), Linux security hardening, OWASP Top 10 vulnerabilities (SQLi, XSS, CSRF, SSRF), cryptography, and defensive posture.",
+    "duration": "4 - 6 Weeks (20 Hours)",
+    "difficulty": "Intermediate",
+    "keyTopics": [
+      "Computer Networking: TCP/IP Stack, Subnets & Firewalls",
+      "Cryptographic Primitives: Symmetric/Asymmetric, Hashing & TLS",
+      "OWASP Top 10 Web Security Vulnerabilities & Remediation",
+      "Linux System Hardening, File Permissions & SSH Keys",
+      "Security Auditing, Vulnerability Scanning & Defense in Depth"
+    ],
+    "practicalMilestone": "Perform a security audit of a web application, remediate OWASP Top 10 vulnerabilities, and configure firewall protection.",
+    "learningObjectives": [
+      "Computer Networking: TCP/IP Stack, Subnets & Firewalls",
+      "Cryptographic Primitives: Symmetric/Asymmetric, Hashing & TLS",
+      "OWASP Top 10 Web Security Vulnerabilities & Remediation",
+      "Linux System Hardening, File Permissions & SSH Keys",
+      "Security Auditing, Vulnerability Scanning & Defense in Depth"
+    ],
+    "skills": [
+      "Network Security",
+      "Cryptography",
+      "OWASP Top 10",
+      "Linux Hardening",
+      "Penetration Testing Basics",
+      "Defense in Depth"
+    ],
+    "requiredCourseIds": [
+      "course-cybersecurity-fundamentals"
+    ],
+    "relatedProjectIds": [
+      "proj-python-automation"
+    ],
+    "recommendedNotes": [
+      {
+        "title": "Operating Systems: Process, Threads & Concurrency",
+        "slug": "operating-systems-process-threads"
+      }
+    ]
+  },
+  {
+    "id": 20,
+    "stepNumber": 1,
+    "slug": "ai-ml-python-programming",
+    "title": "Python Programming: Fundamentals to Enterprise Applications",
+    "trackId": "ai-ml",
+    "category": "Programming Languages",
+    "summary": "Master Python programming from syntax, data structures, and object-oriented programming to file I/O, error handling, package management, automated scripting, and modern Python type hinting.",
+    "duration": "4 - 6 Weeks (22 Hours)",
+    "difficulty": "Beginner",
+    "keyTopics": [
+      "Python 3 Syntax, Dynamic Typing & Control Structures",
+      "Data Structures: Lists, Tuples, Dictionaries & Sets",
+      "Object-Oriented Programming (Classes, Inheritance, Polymorphism)",
+      "File Operations, JSON Parsing & Exception Handling",
+      "Virtual Environments, Pip, PyTest & Code Modularization"
+    ],
+    "practicalMilestone": "Build an automated command-line data processing tool that ingests JSON/CSV datasets, validates integrity, and generates structured summaries.",
+    "learningObjectives": [
+      "Python 3 Syntax, Dynamic Typing & Control Structures",
+      "Data Structures: Lists, Tuples, Dictionaries & Sets",
+      "Object-Oriented Programming (Classes, Inheritance, Polymorphism)",
+      "File Operations, JSON Parsing & Exception Handling",
+      "Virtual Environments, Pip, PyTest & Code Modularization"
+    ],
+    "skills": [
+      "Python 3",
+      "OOP",
+      "Data Structures",
+      "Scripting",
+      "PyTest",
+      "File I/O"
+    ],
+    "requiredCourseIds": [
+      "course-python-programming"
+    ],
+    "relatedProjectIds": [
+      "proj-python-automation"
+    ],
+    "recommendedNotes": [
+      {
+        "title": "Python Programming & Object-Oriented Principles",
+        "slug": "python-fundamentals-oop"
+      }
+    ]
+  },
+  {
+    "id": 21,
+    "stepNumber": 2,
+    "slug": "ai-ml-dsa-algorithms",
+    "title": "Data Structures & Algorithms in Production",
+    "trackId": "ai-ml",
+    "category": "Data Structures & Developer Tools",
+    "summary": "Master computer science algorithmic problem-solving: Big-O asymptotic analysis, dynamic arrays, linked lists, hash tables, trees, binary search trees, graph traversals (BFS/DFS), and dynamic programming.",
+    "duration": "6 - 8 Weeks (28 Hours)",
+    "difficulty": "Intermediate",
+    "keyTopics": [
+      "Asymptotic Analysis: Big-O, Time & Space Complexity",
+      "Linear Data Structures: Dynamic Arrays, Stacks & Queues",
+      "Hash Tables: Collision Resolution & Amortized O(1)",
+      "Trees & Graphs: BSTs, BFS, DFS & Topological Sort",
+      "Dynamic Programming, Memoization & Divide-and-Conquer"
+    ],
+    "practicalMilestone": "Implement an algorithmic pathfinding and network routing visualizer with optimized graph search algorithms.",
+    "learningObjectives": [
+      "Asymptotic Analysis: Big-O, Time & Space Complexity",
+      "Linear Data Structures: Dynamic Arrays, Stacks & Queues",
+      "Hash Tables: Collision Resolution & Amortized O(1)",
+      "Trees & Graphs: BSTs, BFS, DFS & Topological Sort",
+      "Dynamic Programming, Memoization & Divide-and-Conquer"
+    ],
+    "skills": [
+      "Big-O Complexity",
+      "Data Structures",
+      "Graph Algorithms",
+      "Dynamic Programming",
+      "Algorithm Optimization"
+    ],
+    "requiredCourseIds": [
+      "course-dsa-algorithms"
+    ],
+    "relatedProjectIds": [
+      "proj-calculator"
+    ],
+    "recommendedNotes": [
+      {
+        "title": "Data Structures: Arrays, Linked Lists & Time Complexity",
+        "slug": "dsa-arrays-time-complexity"
+      },
+      {
+        "title": "Trees, Graphs & Dynamic Programming",
+        "slug": "dsa-trees-graphs-algorithms"
+      }
+    ]
+  },
+  {
+    "id": 22,
+    "stepNumber": 3,
+    "slug": "ai-ml-ai-data-analytics-bi",
+    "title": "AI Data Analytics & Business Intelligence: Dashboards to Predictive Insights",
+    "trackId": "ai-ml",
+    "category": "Databases & Infrastructure",
+    "summary": "Transform raw data into executive insights: Python Pandas dataframes, NumPy vectorization, SQL window functions, exploratory data analysis (EDA), interactive visualization (Matplotlib/Seaborn), and AI-assisted BI.",
+    "duration": "4 - 5 Weeks (18 Hours)",
+    "difficulty": "Intermediate",
+    "keyTopics": [
+      "Data Cleaning & Feature Engineering with Pandas",
+      "NumPy Array Operations & Mathematical Computing",
+      "Advanced SQL for Analytics: Window Functions & CTEs",
+      "Exploratory Data Analysis & Statistical Hypothesis Testing",
+      "Interactive KPI Dashboard Design & Data Storytelling"
+    ],
+    "practicalMilestone": "Ingest a multi-thousand row real-world sales dataset, perform comprehensive EDA, and build an interactive executive KPI dashboard.",
+    "learningObjectives": [
+      "Data Cleaning & Feature Engineering with Pandas",
+      "NumPy Array Operations & Mathematical Computing",
+      "Advanced SQL for Analytics: Window Functions & CTEs",
+      "Exploratory Data Analysis & Statistical Hypothesis Testing",
+      "Interactive KPI Dashboard Design & Data Storytelling"
+    ],
+    "skills": [
+      "Pandas",
+      "NumPy",
+      "SQL Analytics",
+      "Data Visualization",
+      "EDA",
+      "Business Intelligence"
+    ],
+    "requiredCourseIds": [
+      "course-ai-data-analytics-bi"
+    ],
+    "relatedProjectIds": [
+      "proj-data-analytics"
+    ],
+    "recommendedNotes": [
+      {
+        "title": "Python for AI, Data Science & Machine Learning",
+        "slug": "ai-data-science-machine-learning"
+      }
+    ]
+  },
+  {
+    "id": 23,
+    "stepNumber": 4,
+    "slug": "ai-ml-ai-machine-learning",
+    "title": "AI & Machine Learning: From Mathematics to Production Models",
+    "trackId": "ai-ml",
+    "category": "AI & Machine Learning",
+    "summary": "From machine learning theory to production models: linear algebra, gradient descent, supervised algorithms (Regression, Decision Trees, Random Forests), unsupervised clustering (K-Means), and neural network foundations.",
+    "duration": "6 - 8 Weeks (26 Hours)",
+    "difficulty": "Advanced",
+    "keyTopics": [
+      "Machine Learning Mathematics: Linear Algebra & Gradient Descent",
+      "Supervised Learning: Linear/Logistic Regression & Random Forests",
+      "Model Evaluation: Precision, Recall, F1, ROC-AUC & Cross-Validation",
+      "Unsupervised Learning: K-Means Clustering & PCA Dimensionality Reduction",
+      "Neural Network Foundations, Backpropagation & PyTorch Basics"
+    ],
+    "practicalMilestone": "Train, tune hyperparameters, cross-validate, and deploy a predictive machine learning model with a RESTful inference endpoint.",
+    "learningObjectives": [
+      "Machine Learning Mathematics: Linear Algebra & Gradient Descent",
+      "Supervised Learning: Linear/Logistic Regression & Random Forests",
+      "Model Evaluation: Precision, Recall, F1, ROC-AUC & Cross-Validation",
+      "Unsupervised Learning: K-Means Clustering & PCA Dimensionality Reduction",
+      "Neural Network Foundations, Backpropagation & PyTorch Basics"
+    ],
+    "skills": [
+      "Scikit-Learn",
+      "Machine Learning",
+      "Model Evaluation",
+      "PyTorch Basics",
+      "Gradient Descent",
+      "Supervised Learning"
+    ],
+    "requiredCourseIds": [
+      "course-ai-machine-learning"
+    ],
+    "relatedProjectIds": [
+      "proj-ai-study-assistant"
+    ],
+    "recommendedNotes": [
+      {
+        "title": "Python for AI, Data Science & Machine Learning",
+        "slug": "ai-data-science-machine-learning"
+      }
+    ]
+  },
+  {
+    "id": 24,
+    "stepNumber": 5,
+    "slug": "ai-ml-generative-ai-llms",
+    "title": "Generative AI & Large Language Models (LLMs): Enterprise Architectures",
+    "trackId": "ai-ml",
+    "category": "AI & Machine Learning",
+    "summary": "Understand generative AI under the hood: Transformer architecture, self-attention mechanisms, tokenization, vector embeddings, high-dimensional cosine similarity, fine-tuning, and modern frontier models.",
+    "duration": "5 - 7 Weeks (24 Hours)",
+    "difficulty": "Advanced",
+    "keyTopics": [
+      "Transformer Architecture: Encoder-Decoder & Self-Attention Mechanisms",
+      "Tokenization, Context Windows & High-Dimensional Embeddings",
+      "Vector Similarity Metrics (Cosine, Dot Product & Euclidean)",
+      "Prompt Engineering Strategies (Few-Shot, Chain-of-Thought)",
+      "Model Fine-Tuning Paradigms (LoRA, QLoRA) vs In-Context Learning"
+    ],
+    "practicalMilestone": "Build a semantic document search engine comparing multiple embedding models and evaluating retrieval accuracy.",
+    "learningObjectives": [
+      "Transformer Architecture: Encoder-Decoder & Self-Attention Mechanisms",
+      "Tokenization, Context Windows & High-Dimensional Embeddings",
+      "Vector Similarity Metrics (Cosine, Dot Product & Euclidean)",
+      "Prompt Engineering Strategies (Few-Shot, Chain-of-Thought)",
+      "Model Fine-Tuning Paradigms (LoRA, QLoRA) vs In-Context Learning"
+    ],
+    "skills": [
+      "Generative AI",
+      "LLMs",
+      "Transformers",
+      "Self-Attention",
+      "Vector Embeddings",
+      "Prompt Engineering"
+    ],
+    "requiredCourseIds": [
+      "course-generative-ai-llms"
+    ],
+    "relatedProjectIds": [
+      "proj-ai-study-assistant"
+    ],
+    "recommendedNotes": [
+      {
+        "title": "Python for AI, Data Science & Machine Learning",
+        "slug": "ai-data-science-machine-learning"
+      }
+    ]
+  },
+  {
+    "id": 25,
+    "stepNumber": 6,
+    "slug": "ai-ml-genai-llm-application-development",
+    "title": "Generative AI & LLM Application Development: Production Systems",
+    "trackId": "ai-ml",
+    "category": "AI & Machine Learning",
+    "summary": "Engineer production LLM applications: Retrieval-Augmented Generation (RAG) pipelines, vector databases (Pinecone, ChromaDB, pgvector), structured JSON outputs, chunking strategies, and LangChain orchestration.",
+    "duration": "5 - 7 Weeks (24 Hours)",
+    "difficulty": "Advanced",
+    "keyTopics": [
+      "Production RAG Architecture: Ingestion, Chunking & Retrieval",
+      "Vector Database Indexing & Hybrid Keyword-Vector Search",
+      "Structured Outputs, Function Calling & JSON Schema Enforcement",
+      "LangChain / LlamaIndex Pipeline Orchestration",
+      "RAG Evaluation (Context Precision, Recall) & Guardrails"
+    ],
+    "practicalMilestone": "Develop an enterprise knowledge-base RAG application with document upload, vector storage, and hallucination guardrails.",
+    "learningObjectives": [
+      "Production RAG Architecture: Ingestion, Chunking & Retrieval",
+      "Vector Database Indexing & Hybrid Keyword-Vector Search",
+      "Structured Outputs, Function Calling & JSON Schema Enforcement",
+      "LangChain / LlamaIndex Pipeline Orchestration",
+      "RAG Evaluation (Context Precision, Recall) & Guardrails"
+    ],
+    "skills": [
+      "RAG Pipelines",
+      "Vector Databases",
+      "LangChain",
+      "Structured Outputs",
+      "Hybrid Search",
+      "AI Engineering"
+    ],
+    "requiredCourseIds": [
+      "course-genai-llm-application-development"
+    ],
+    "relatedProjectIds": [
+      "proj-ai-study-assistant"
+    ],
+    "recommendedNotes": [
+      {
+        "title": "Python for AI, Data Science & Machine Learning",
+        "slug": "ai-data-science-machine-learning"
+      }
+    ]
+  },
+  {
+    "id": 26,
+    "stepNumber": 1,
+    "slug": "ai-agents-python-programming",
+    "title": "Python Programming: Fundamentals to Enterprise Applications",
+    "trackId": "ai-agents",
+    "category": "Programming Languages",
+    "summary": "Master Python programming from syntax, data structures, and object-oriented programming to file I/O, error handling, package management, automated scripting, and modern Python type hinting.",
+    "duration": "4 - 6 Weeks (22 Hours)",
+    "difficulty": "Beginner",
+    "keyTopics": [
+      "Python 3 Syntax, Dynamic Typing & Control Structures",
+      "Data Structures: Lists, Tuples, Dictionaries & Sets",
+      "Object-Oriented Programming (Classes, Inheritance, Polymorphism)",
+      "File Operations, JSON Parsing & Exception Handling",
+      "Virtual Environments, Pip, PyTest & Code Modularization"
+    ],
+    "practicalMilestone": "Build an automated command-line data processing tool that ingests JSON/CSV datasets, validates integrity, and generates structured summaries.",
+    "learningObjectives": [
+      "Python 3 Syntax, Dynamic Typing & Control Structures",
+      "Data Structures: Lists, Tuples, Dictionaries & Sets",
+      "Object-Oriented Programming (Classes, Inheritance, Polymorphism)",
+      "File Operations, JSON Parsing & Exception Handling",
+      "Virtual Environments, Pip, PyTest & Code Modularization"
+    ],
+    "skills": [
+      "Python 3",
+      "OOP",
+      "Data Structures",
+      "Scripting",
+      "PyTest",
+      "File I/O"
+    ],
+    "requiredCourseIds": [
+      "course-python-programming"
+    ],
+    "relatedProjectIds": [
+      "proj-python-automation"
+    ],
+    "recommendedNotes": [
+      {
+        "title": "Python Programming & Object-Oriented Principles",
+        "slug": "python-fundamentals-oop"
+      }
+    ]
+  },
+  {
+    "id": 27,
+    "stepNumber": 2,
+    "slug": "ai-agents-generative-ai-llms",
+    "title": "Generative AI & Large Language Models (LLMs): Enterprise Architectures",
+    "trackId": "ai-agents",
+    "category": "AI & Machine Learning",
+    "summary": "Understand generative AI under the hood: Transformer architecture, self-attention mechanisms, tokenization, vector embeddings, high-dimensional cosine similarity, fine-tuning, and modern frontier models.",
+    "duration": "5 - 7 Weeks (24 Hours)",
+    "difficulty": "Advanced",
+    "keyTopics": [
+      "Transformer Architecture: Encoder-Decoder & Self-Attention Mechanisms",
+      "Tokenization, Context Windows & High-Dimensional Embeddings",
+      "Vector Similarity Metrics (Cosine, Dot Product & Euclidean)",
+      "Prompt Engineering Strategies (Few-Shot, Chain-of-Thought)",
+      "Model Fine-Tuning Paradigms (LoRA, QLoRA) vs In-Context Learning"
+    ],
+    "practicalMilestone": "Build a semantic document search engine comparing multiple embedding models and evaluating retrieval accuracy.",
+    "learningObjectives": [
+      "Transformer Architecture: Encoder-Decoder & Self-Attention Mechanisms",
+      "Tokenization, Context Windows & High-Dimensional Embeddings",
+      "Vector Similarity Metrics (Cosine, Dot Product & Euclidean)",
+      "Prompt Engineering Strategies (Few-Shot, Chain-of-Thought)",
+      "Model Fine-Tuning Paradigms (LoRA, QLoRA) vs In-Context Learning"
+    ],
+    "skills": [
+      "Generative AI",
+      "LLMs",
+      "Transformers",
+      "Self-Attention",
+      "Vector Embeddings",
+      "Prompt Engineering"
+    ],
+    "requiredCourseIds": [
+      "course-generative-ai-llms"
+    ],
+    "relatedProjectIds": [
+      "proj-ai-study-assistant"
+    ],
+    "recommendedNotes": [
+      {
+        "title": "Python for AI, Data Science & Machine Learning",
+        "slug": "ai-data-science-machine-learning"
+      }
+    ]
+  },
+  {
+    "id": 28,
+    "stepNumber": 3,
+    "slug": "ai-agents-genai-llm-application-development",
+    "title": "Generative AI & LLM Application Development: Production Systems",
+    "trackId": "ai-agents",
+    "category": "AI & Machine Learning",
+    "summary": "Engineer production LLM applications: Retrieval-Augmented Generation (RAG) pipelines, vector databases (Pinecone, ChromaDB, pgvector), structured JSON outputs, chunking strategies, and LangChain orchestration.",
+    "duration": "5 - 7 Weeks (24 Hours)",
+    "difficulty": "Advanced",
+    "keyTopics": [
+      "Production RAG Architecture: Ingestion, Chunking & Retrieval",
+      "Vector Database Indexing & Hybrid Keyword-Vector Search",
+      "Structured Outputs, Function Calling & JSON Schema Enforcement",
+      "LangChain / LlamaIndex Pipeline Orchestration",
+      "RAG Evaluation (Context Precision, Recall) & Guardrails"
+    ],
+    "practicalMilestone": "Develop an enterprise knowledge-base RAG application with document upload, vector storage, and hallucination guardrails.",
+    "learningObjectives": [
+      "Production RAG Architecture: Ingestion, Chunking & Retrieval",
+      "Vector Database Indexing & Hybrid Keyword-Vector Search",
+      "Structured Outputs, Function Calling & JSON Schema Enforcement",
+      "LangChain / LlamaIndex Pipeline Orchestration",
+      "RAG Evaluation (Context Precision, Recall) & Guardrails"
+    ],
+    "skills": [
+      "RAG Pipelines",
+      "Vector Databases",
+      "LangChain",
+      "Structured Outputs",
+      "Hybrid Search",
+      "AI Engineering"
+    ],
+    "requiredCourseIds": [
+      "course-genai-llm-application-development"
+    ],
+    "relatedProjectIds": [
+      "proj-ai-study-assistant"
+    ],
+    "recommendedNotes": [
+      {
+        "title": "Python for AI, Data Science & Machine Learning",
+        "slug": "ai-data-science-machine-learning"
+      }
+    ]
+  },
+  {
+    "id": 29,
+    "stepNumber": 4,
+    "slug": "ai-agents-ai-agents-automation",
+    "title": "AI Agents & Automation: Workflow Orchestration & MCP",
+    "trackId": "ai-agents",
+    "category": "AI & Machine Learning",
+    "summary": "Build autonomous AI agents: ReAct reasoning patterns, dynamic tool calling, Model Context Protocol (MCP) integrations, stateful memory persistence, and automated business workflow execution.",
+    "duration": "5 - 6 Weeks (22 Hours)",
+    "difficulty": "Advanced",
+    "keyTopics": [
+      "AI Agent Fundamentals: Perception, Reasoning & Action Loops",
+      "ReAct Pattern: Thought, Action, Observation & Reflection",
+      "Dynamic Tool Execution & API Integration Schemas",
+      "Model Context Protocol (MCP): Architecture & Tool Server Setup",
+      "Stateful Workflows with LangGraph & Autonomous Recovery"
+    ],
+    "practicalMilestone": "Create an autonomous research agent that searches the web, queries a database via MCP, and compiles verified analysis reports.",
+    "learningObjectives": [
+      "AI Agent Fundamentals: Perception, Reasoning & Action Loops",
+      "ReAct Pattern: Thought, Action, Observation & Reflection",
+      "Dynamic Tool Execution & API Integration Schemas",
+      "Model Context Protocol (MCP): Architecture & Tool Server Setup",
+      "Stateful Workflows with LangGraph & Autonomous Recovery"
+    ],
+    "skills": [
+      "AI Agents",
+      "Tool Calling",
+      "ReAct Pattern",
+      "Model Context Protocol (MCP)",
+      "LangGraph",
+      "Workflow Automation"
+    ],
+    "requiredCourseIds": [
+      "course-ai-agents-automation"
+    ],
+    "relatedProjectIds": [
+      "proj-ai-study-assistant"
+    ],
+    "recommendedNotes": [
+      {
+        "title": "Python for AI, Data Science & Machine Learning",
+        "slug": "ai-data-science-machine-learning"
+      }
+    ]
+  },
+  {
+    "id": 30,
+    "stepNumber": 5,
+    "slug": "ai-agents-agentic-ai-autonomous-systems",
+    "title": "AI Agents & Agentic AI: Autonomous Workflows & Multi-Agent Systems",
+    "trackId": "ai-agents",
+    "category": "AI & Machine Learning",
+    "summary": "Design collaborative multi-agent architectures: agent role specialization, inter-agent communication protocols, task decomposition, supervisor-worker hierarchies, and human-in-the-loop governance.",
+    "duration": "5 - 7 Weeks (24 Hours)",
+    "difficulty": "Advanced",
+    "keyTopics": [
+      "Multi-Agent Architectures: Hierarchical, Sequential & Broadcast",
+      "Task Decomposition, Subgoal Planning & Delegation",
+      "Inter-Agent Consensus, Negotiation & Conflict Resolution",
+      "Human-in-the-Loop Verification & Safety Boundaries",
+      "Autonomous Multi-Agent Software Development Simulation"
+    ],
+    "practicalMilestone": "Architect a multi-agent software engineering team (Product Manager, Coder, Reviewer, Tester) that collaboratively builds and tests software.",
+    "learningObjectives": [
+      "Multi-Agent Architectures: Hierarchical, Sequential & Broadcast",
+      "Task Decomposition, Subgoal Planning & Delegation",
+      "Inter-Agent Consensus, Negotiation & Conflict Resolution",
+      "Human-in-the-Loop Verification & Safety Boundaries",
+      "Autonomous Multi-Agent Software Development Simulation"
+    ],
+    "skills": [
+      "Agentic AI",
+      "Multi-Agent Systems",
+      "Task Decomposition",
+      "LangGraph Multi-Agent",
+      "Consensus Protocols",
+      "AI Safety"
+    ],
+    "requiredCourseIds": [
+      "course-agentic-ai-autonomous-systems"
+    ],
+    "relatedProjectIds": [
+      "proj-ai-study-assistant"
+    ],
+    "recommendedNotes": [
+      {
+        "title": "Python for AI, Data Science & Machine Learning",
+        "slug": "ai-data-science-machine-learning"
+      }
+    ]
+  },
+  {
+    "id": 31,
+    "stepNumber": 6,
+    "slug": "ai-agents-ai-chatbots-voice-ai",
+    "title": "AI Chatbots & Voice AI: Conversational Intelligence & Real-Time Audio",
+    "trackId": "ai-agents",
+    "category": "AI & Machine Learning",
+    "summary": "Build state-of-the-art conversational and voice AI: real-time streaming speech-to-text (STT), low-latency neural text-to-speech (TTS), WebSockets audio pipelines, conversational memory, and multimodal interfaces.",
+    "duration": "4 - 6 Weeks (20 Hours)",
+    "difficulty": "Advanced",
+    "keyTopics": [
+      "Conversational Flow Design & Multi-Turn Context Memory",
+      "Real-Time Speech-to-Text (STT) Streaming Pipelines",
+      "Neural Text-to-Speech (TTS) & Low-Latency Voice Generation",
+      "Full-Duplex WebSockets Voice Pipelines & Interruption Handling",
+      "Multimodal Voice & Text Assistant Deployment"
+    ],
+    "practicalMilestone": "Deploy a real-time conversational voice assistant with sub-second audio response latency and contextual dialogue memory.",
+    "learningObjectives": [
+      "Conversational Flow Design & Multi-Turn Context Memory",
+      "Real-Time Speech-to-Text (STT) Streaming Pipelines",
+      "Neural Text-to-Speech (TTS) & Low-Latency Voice Generation",
+      "Full-Duplex WebSockets Voice Pipelines & Interruption Handling",
+      "Multimodal Voice & Text Assistant Deployment"
+    ],
+    "skills": [
+      "Voice AI",
+      "Speech-to-Text (STT)",
+      "Text-to-Speech (TTS)",
+      "WebSockets Audio",
+      "Conversational AI",
+      "Streaming AI"
+    ],
+    "requiredCourseIds": [
+      "course-ai-chatbots-voice-ai"
+    ],
+    "relatedProjectIds": [
+      "proj-ai-study-assistant"
+    ],
+    "recommendedNotes": [
+      {
+        "title": "Python for AI, Data Science & Machine Learning",
+        "slug": "ai-data-science-machine-learning"
+      }
+    ]
+  },
+  {
+    "id": 32,
+    "stepNumber": 1,
+    "slug": "dsa-c-programming",
+    "title": "C Programming: Fundamentals to System Architecture",
+    "trackId": "dsa",
+    "category": "Programming Languages",
+    "summary": "Understand hardware-to-software execution: GCC compilation pipeline, explicit memory management with pointers, heap vs stack memory, structs, bitwise operations, and low-level system programming.",
+    "duration": "4 - 6 Weeks (20 Hours)",
+    "difficulty": "Beginner",
+    "keyTopics": [
+      "The C Compilation Model (Preprocessor, Compiler, Assembler, Linker)",
+      "Pointers, Pointer Arithmetic & Direct Memory Access",
+      "Dynamic Memory Management with malloc, calloc & free",
+      "Structs, Unions, Typedef & Memory Alignment",
+      "Low-Level Bitwise Operations & File I/O Streams"
+    ],
+    "practicalMilestone": "Implement a dynamic memory-allocated generic data structure library (Vector and Hash Map) in pure C with zero memory leaks.",
+    "learningObjectives": [
+      "The C Compilation Model (Preprocessor, Compiler, Assembler, Linker)",
+      "Pointers, Pointer Arithmetic & Direct Memory Access",
+      "Dynamic Memory Management with malloc, calloc & free",
+      "Structs, Unions, Typedef & Memory Alignment",
+      "Low-Level Bitwise Operations & File I/O Streams"
+    ],
+    "skills": [
+      "C Programming",
+      "Pointers",
+      "Memory Management",
+      "Data Structures in C",
+      "Systems Programming"
+    ],
+    "requiredCourseIds": [
+      "course-c-programming"
+    ],
+    "relatedProjectIds": [
+      "proj-calculator"
+    ],
+    "recommendedNotes": [
+      {
+        "title": "Operating Systems: Process, Threads & Concurrency",
+        "slug": "operating-systems-process-threads"
+      }
+    ]
+  },
+  {
+    "id": 33,
+    "stepNumber": 2,
+    "slug": "dsa-cpp-programming",
+    "title": "C++ Programming & Problem Solving: STL to Modern Standards",
+    "trackId": "dsa",
+    "category": "Programming Languages",
+    "summary": "Modern C++ (C++20): RAII memory management, smart pointers (unique_ptr, shared_ptr), Standard Template Library (STL vectors, maps, sets), templates, operator overloading, and high-performance system design.",
+    "duration": "5 - 7 Weeks (24 Hours)",
+    "difficulty": "Intermediate",
+    "keyTopics": [
+      "Modern C++20 Syntax, References & RAII Principle",
+      "Smart Pointers (unique_ptr, shared_ptr) & Zero-Leak Memory",
+      "Object-Oriented C++: Inheritance, Virtual Functions & Polymorphism",
+      "Templates, Generic Programming & Metaprogramming",
+      "STL Containers, Iterators & Algorithm Functions"
+    ],
+    "practicalMilestone": "Build a high-performance multithreaded financial order book simulation using modern C++ and STL algorithms.",
+    "learningObjectives": [
+      "Modern C++20 Syntax, References & RAII Principle",
+      "Smart Pointers (unique_ptr, shared_ptr) & Zero-Leak Memory",
+      "Object-Oriented C++: Inheritance, Virtual Functions & Polymorphism",
+      "Templates, Generic Programming & Metaprogramming",
+      "STL Containers, Iterators & Algorithm Functions"
+    ],
+    "skills": [
+      "Modern C++",
+      "RAII",
+      "Smart Pointers",
+      "STL Containers",
+      "Templates",
+      "High-Performance Computing"
+    ],
+    "requiredCourseIds": [
+      "course-cpp-programming"
+    ],
+    "relatedProjectIds": [
+      "proj-calculator"
+    ],
+    "recommendedNotes": [
+      {
+        "title": "Operating Systems: Process, Threads & Concurrency",
+        "slug": "operating-systems-process-threads"
+      }
+    ]
+  },
+  {
+    "id": 34,
+    "stepNumber": 3,
+    "slug": "dsa-dsa-algorithms",
+    "title": "Data Structures & Algorithms in Production",
+    "trackId": "dsa",
+    "category": "Data Structures & Developer Tools",
+    "summary": "Master computer science algorithmic problem-solving: Big-O asymptotic analysis, dynamic arrays, linked lists, hash tables, trees, binary search trees, graph traversals (BFS/DFS), and dynamic programming.",
+    "duration": "6 - 8 Weeks (28 Hours)",
+    "difficulty": "Intermediate",
+    "keyTopics": [
+      "Asymptotic Analysis: Big-O, Time & Space Complexity",
+      "Linear Data Structures: Dynamic Arrays, Stacks & Queues",
+      "Hash Tables: Collision Resolution & Amortized O(1)",
+      "Trees & Graphs: BSTs, BFS, DFS & Topological Sort",
+      "Dynamic Programming, Memoization & Divide-and-Conquer"
+    ],
+    "practicalMilestone": "Implement an algorithmic pathfinding and network routing visualizer with optimized graph search algorithms.",
+    "learningObjectives": [
+      "Asymptotic Analysis: Big-O, Time & Space Complexity",
+      "Linear Data Structures: Dynamic Arrays, Stacks & Queues",
+      "Hash Tables: Collision Resolution & Amortized O(1)",
+      "Trees & Graphs: BSTs, BFS, DFS & Topological Sort",
+      "Dynamic Programming, Memoization & Divide-and-Conquer"
+    ],
+    "skills": [
+      "Big-O Complexity",
+      "Data Structures",
+      "Graph Algorithms",
+      "Dynamic Programming",
+      "Algorithm Optimization"
+    ],
+    "requiredCourseIds": [
+      "course-dsa-algorithms"
+    ],
+    "relatedProjectIds": [
+      "proj-calculator"
+    ],
+    "recommendedNotes": [
+      {
+        "title": "Data Structures: Arrays, Linked Lists & Time Complexity",
+        "slug": "dsa-arrays-time-complexity"
+      },
+      {
+        "title": "Trees, Graphs & Dynamic Programming",
+        "slug": "dsa-trees-graphs-algorithms"
+      }
+    ]
+  },
+  {
+    "id": 35,
+    "stepNumber": 4,
+    "slug": "dsa-git-github",
+    "title": "Git & GitHub: Professional Version Control & Collaboration",
+    "trackId": "dsa",
+    "category": "Data Structures & Developer Tools",
+    "summary": "Master industry version control: Git internal object model (Blobs, Trees, Commits), interactive rebasing, branch management, merge conflict resolution, pull request workflows, and GitHub Actions.",
+    "duration": "2 Weeks (12 Hours)",
+    "difficulty": "Beginner",
+    "keyTopics": [
+      "Git Architecture: Working Tree, Index & Commits",
+      "Branching Strategies, Fast-Forward & Three-Way Merges",
+      "Interactive Rebasing (git rebase -i) & Cherry-Picking",
+      "Resolving Complex Merge Conflicts",
+      "GitHub Pull Requests, Code Reviews & CI Workflows"
+    ],
+    "practicalMilestone": "Initialize a multi-branch repository, execute feature development with interactive rebasing, and open a clean PR with CI checks.",
+    "learningObjectives": [
+      "Git Architecture: Working Tree, Index & Commits",
+      "Branching Strategies, Fast-Forward & Three-Way Merges",
+      "Interactive Rebasing (git rebase -i) & Cherry-Picking",
+      "Resolving Complex Merge Conflicts",
+      "GitHub Pull Requests, Code Reviews & CI Workflows"
+    ],
+    "skills": [
+      "Git CLI",
+      "GitHub",
+      "Branch Management",
+      "Rebase & Cherry-Pick",
+      "Code Review",
+      "CI/CD Workflows"
+    ],
+    "requiredCourseIds": [
+      "course-git-github"
+    ],
+    "relatedProjectIds": [
+      "proj-portfolio"
+    ],
+    "recommendedNotes": [
+      {
+        "title": "Git, GitHub & Professional Collaboration",
+        "slug": "git-fundamentals-commands-guide"
+      }
+    ]
+  },
+  {
+    "id": 36,
+    "stepNumber": 5,
+    "slug": "dsa-sql-mongodb",
+    "title": "SQL & MongoDB: Relational & Document Data Architecture",
+    "trackId": "dsa",
+    "category": "Databases & Infrastructure",
+    "summary": "Master both relational and NoSQL database paradigms: PostgreSQL/MySQL complex joins, indexes, transactions, schema normalization, and MongoDB aggregation pipelines and flexible document models.",
+    "duration": "4 - 5 Weeks (20 Hours)",
+    "difficulty": "Intermediate",
+    "keyTopics": [
+      "Relational Schema Design & Normalization (1NF to 3NF)",
+      "SQL Complex Queries: INNER/LEFT Joins, Group By & Subqueries",
+      "B-Tree Indexing, Query Optimization & EXPLAIN Plans",
+      "ACID Transactions, Isolation Levels & Concurrency",
+      "MongoDB Document Modeling & Aggregation Pipelines"
+    ],
+    "practicalMilestone": "Design a dual-database schema for an e-commerce platform using PostgreSQL for financial transactions and MongoDB for catalog data.",
+    "learningObjectives": [
+      "Relational Schema Design & Normalization (1NF to 3NF)",
+      "SQL Complex Queries: INNER/LEFT Joins, Group By & Subqueries",
+      "B-Tree Indexing, Query Optimization & EXPLAIN Plans",
+      "ACID Transactions, Isolation Levels & Concurrency",
+      "MongoDB Document Modeling & Aggregation Pipelines"
+    ],
+    "skills": [
+      "PostgreSQL",
+      "MySQL",
+      "MongoDB",
+      "SQL Joins",
+      "Indexing",
+      "Aggregation Pipelines",
+      "ACID Transactions"
+    ],
+    "requiredCourseIds": [
+      "course-sql-mongodb"
+    ],
+    "relatedProjectIds": [
+      "proj-data-analytics"
+    ],
+    "recommendedNotes": [
+      {
+        "title": "DBMS, SQL Queries & Relational Database Design",
+        "slug": "dbms-sql-relational-design"
+      }
+    ]
+  },
+  {
+    "id": 37,
+    "stepNumber": 1,
+    "slug": "java-java-programming",
+    "title": "Java Programming & Enterprise Systems: Core to Advanced",
+    "trackId": "java",
+    "category": "Programming Languages",
+    "summary": "Enterprise Java: JVM internals, Garbage Collection, robust OOP architecture, Collections Framework (List, Set, Map), Java Streams API, Lambdas, JDBC database connectivity, and JUnit 5 unit testing.",
+    "duration": "5 - 7 Weeks (24 Hours)",
+    "difficulty": "Intermediate",
+    "keyTopics": [
+      "JVM Architecture, Bytecode Execution & Garbage Collection",
+      "Enterprise OOP: Encapsulation, Abstract Classes & Interfaces",
+      "Java Collections Framework: ArrayList, HashMap & TreeSet",
+      "Functional Java: Lambdas, Streams & Optional API",
+      "JDBC Database Persistence & JUnit 5 Automated Testing"
+    ],
+    "practicalMilestone": "Architect a multi-tier enterprise transaction service with relational persistence via JDBC and 90%+ JUnit 5 test coverage.",
+    "learningObjectives": [
+      "JVM Architecture, Bytecode Execution & Garbage Collection",
+      "Enterprise OOP: Encapsulation, Abstract Classes & Interfaces",
+      "Java Collections Framework: ArrayList, HashMap & TreeSet",
+      "Functional Java: Lambdas, Streams & Optional API",
+      "JDBC Database Persistence & JUnit 5 Automated Testing"
+    ],
+    "skills": [
+      "Java 21",
+      "JVM Internals",
+      "Collections Framework",
+      "Streams API",
+      "JDBC",
+      "JUnit 5"
+    ],
+    "requiredCourseIds": [
+      "course-java-programming"
+    ],
+    "relatedProjectIds": [
+      "proj-snippet-vault"
+    ],
+    "recommendedNotes": [
+      {
+        "title": "DBMS, SQL Queries & Relational Database Design",
+        "slug": "dbms-sql-relational-design"
+      }
+    ]
+  },
+  {
+    "id": 38,
+    "stepNumber": 2,
+    "slug": "java-dsa-algorithms",
+    "title": "Data Structures & Algorithms in Production",
+    "trackId": "java",
+    "category": "Data Structures & Developer Tools",
+    "summary": "Master computer science algorithmic problem-solving: Big-O asymptotic analysis, dynamic arrays, linked lists, hash tables, trees, binary search trees, graph traversals (BFS/DFS), and dynamic programming.",
+    "duration": "6 - 8 Weeks (28 Hours)",
+    "difficulty": "Intermediate",
+    "keyTopics": [
+      "Asymptotic Analysis: Big-O, Time & Space Complexity",
+      "Linear Data Structures: Dynamic Arrays, Stacks & Queues",
+      "Hash Tables: Collision Resolution & Amortized O(1)",
+      "Trees & Graphs: BSTs, BFS, DFS & Topological Sort",
+      "Dynamic Programming, Memoization & Divide-and-Conquer"
+    ],
+    "practicalMilestone": "Implement an algorithmic pathfinding and network routing visualizer with optimized graph search algorithms.",
+    "learningObjectives": [
+      "Asymptotic Analysis: Big-O, Time & Space Complexity",
+      "Linear Data Structures: Dynamic Arrays, Stacks & Queues",
+      "Hash Tables: Collision Resolution & Amortized O(1)",
+      "Trees & Graphs: BSTs, BFS, DFS & Topological Sort",
+      "Dynamic Programming, Memoization & Divide-and-Conquer"
+    ],
+    "skills": [
+      "Big-O Complexity",
+      "Data Structures",
+      "Graph Algorithms",
+      "Dynamic Programming",
+      "Algorithm Optimization"
+    ],
+    "requiredCourseIds": [
+      "course-dsa-algorithms"
+    ],
+    "relatedProjectIds": [
+      "proj-calculator"
+    ],
+    "recommendedNotes": [
+      {
+        "title": "Data Structures: Arrays, Linked Lists & Time Complexity",
+        "slug": "dsa-arrays-time-complexity"
+      },
+      {
+        "title": "Trees, Graphs & Dynamic Programming",
+        "slug": "dsa-trees-graphs-algorithms"
+      }
+    ]
+  },
+  {
+    "id": 39,
+    "stepNumber": 3,
+    "slug": "java-sql-mongodb",
+    "title": "SQL & MongoDB: Relational & Document Data Architecture",
+    "trackId": "java",
+    "category": "Databases & Infrastructure",
+    "summary": "Master both relational and NoSQL database paradigms: PostgreSQL/MySQL complex joins, indexes, transactions, schema normalization, and MongoDB aggregation pipelines and flexible document models.",
+    "duration": "4 - 5 Weeks (20 Hours)",
+    "difficulty": "Intermediate",
+    "keyTopics": [
+      "Relational Schema Design & Normalization (1NF to 3NF)",
+      "SQL Complex Queries: INNER/LEFT Joins, Group By & Subqueries",
+      "B-Tree Indexing, Query Optimization & EXPLAIN Plans",
+      "ACID Transactions, Isolation Levels & Concurrency",
+      "MongoDB Document Modeling & Aggregation Pipelines"
+    ],
+    "practicalMilestone": "Design a dual-database schema for an e-commerce platform using PostgreSQL for financial transactions and MongoDB for catalog data.",
+    "learningObjectives": [
+      "Relational Schema Design & Normalization (1NF to 3NF)",
+      "SQL Complex Queries: INNER/LEFT Joins, Group By & Subqueries",
+      "B-Tree Indexing, Query Optimization & EXPLAIN Plans",
+      "ACID Transactions, Isolation Levels & Concurrency",
+      "MongoDB Document Modeling & Aggregation Pipelines"
+    ],
+    "skills": [
+      "PostgreSQL",
+      "MySQL",
+      "MongoDB",
+      "SQL Joins",
+      "Indexing",
+      "Aggregation Pipelines",
+      "ACID Transactions"
+    ],
+    "requiredCourseIds": [
+      "course-sql-mongodb"
+    ],
+    "relatedProjectIds": [
+      "proj-data-analytics"
+    ],
+    "recommendedNotes": [
+      {
+        "title": "DBMS, SQL Queries & Relational Database Design",
+        "slug": "dbms-sql-relational-design"
+      }
+    ]
+  },
+  {
+    "id": 40,
+    "stepNumber": 4,
+    "slug": "java-git-github",
+    "title": "Git & GitHub: Professional Version Control & Collaboration",
+    "trackId": "java",
+    "category": "Data Structures & Developer Tools",
+    "summary": "Master industry version control: Git internal object model (Blobs, Trees, Commits), interactive rebasing, branch management, merge conflict resolution, pull request workflows, and GitHub Actions.",
+    "duration": "2 Weeks (12 Hours)",
+    "difficulty": "Beginner",
+    "keyTopics": [
+      "Git Architecture: Working Tree, Index & Commits",
+      "Branching Strategies, Fast-Forward & Three-Way Merges",
+      "Interactive Rebasing (git rebase -i) & Cherry-Picking",
+      "Resolving Complex Merge Conflicts",
+      "GitHub Pull Requests, Code Reviews & CI Workflows"
+    ],
+    "practicalMilestone": "Initialize a multi-branch repository, execute feature development with interactive rebasing, and open a clean PR with CI checks.",
+    "learningObjectives": [
+      "Git Architecture: Working Tree, Index & Commits",
+      "Branching Strategies, Fast-Forward & Three-Way Merges",
+      "Interactive Rebasing (git rebase -i) & Cherry-Picking",
+      "Resolving Complex Merge Conflicts",
+      "GitHub Pull Requests, Code Reviews & CI Workflows"
+    ],
+    "skills": [
+      "Git CLI",
+      "GitHub",
+      "Branch Management",
+      "Rebase & Cherry-Pick",
+      "Code Review",
+      "CI/CD Workflows"
+    ],
+    "requiredCourseIds": [
+      "course-git-github"
+    ],
+    "relatedProjectIds": [
+      "proj-portfolio"
+    ],
+    "recommendedNotes": [
+      {
+        "title": "Git, GitHub & Professional Collaboration",
+        "slug": "git-fundamentals-commands-guide"
+      }
+    ]
+  },
+  {
+    "id": 41,
+    "stepNumber": 5,
+    "slug": "java-cloud-native-serverless",
+    "title": "Cloud-Native & Serverless Development: Scalable Distributed Systems",
+    "trackId": "java",
+    "category": "Databases & Infrastructure",
+    "summary": "Containerize applications and deploy resilient cloud services: Docker multi-stage builds, Kubernetes orchestration concepts, serverless functions, CI/CD automated release pipelines, and cloud monitoring.",
+    "duration": "4 - 6 Weeks (20 Hours)",
+    "difficulty": "Advanced",
+    "keyTopics": [
+      "Docker Multi-Stage Builds & Container Optimization",
+      "Docker Compose for Multi-Container Environments",
+      "Cloud Architectures (AWS/GCP), Serverless & Edge Compute",
+      "Kubernetes Pods, Services, Deployments & Ingress",
+      "CI/CD Pipelines with GitHub Actions & Cloud Deployment"
+    ],
+    "practicalMilestone": "Containerize a full-stack web application with Docker Compose, configure automated GitHub Actions CI/CD, and deploy to cloud hosting.",
+    "learningObjectives": [
+      "Docker Multi-Stage Builds & Container Optimization",
+      "Docker Compose for Multi-Container Environments",
+      "Cloud Architectures (AWS/GCP), Serverless & Edge Compute",
+      "Kubernetes Pods, Services, Deployments & Ingress",
+      "CI/CD Pipelines with GitHub Actions & Cloud Deployment"
+    ],
+    "skills": [
+      "Docker",
+      "Kubernetes",
+      "Serverless",
+      "CI/CD",
+      "AWS/Cloud",
+      "Containerization"
+    ],
+    "requiredCourseIds": [
+      "course-cloud-native-serverless"
+    ],
+    "relatedProjectIds": [
+      "proj-ecommerce"
+    ],
+    "recommendedNotes": [
+      {
+        "title": "Cloud Computing, Docker & Containerization",
+        "slug": "cloud-docker-containerization"
+      }
+    ]
+  },
+  {
+    "id": 42,
+    "stepNumber": 1,
+    "slug": "data-analyst-python-programming",
+    "title": "Python Programming: Fundamentals to Enterprise Applications",
+    "trackId": "data-analyst",
+    "category": "Programming Languages",
+    "summary": "Master Python programming from syntax, data structures, and object-oriented programming to file I/O, error handling, package management, automated scripting, and modern Python type hinting.",
+    "duration": "4 - 6 Weeks (22 Hours)",
+    "difficulty": "Beginner",
+    "keyTopics": [
+      "Python 3 Syntax, Dynamic Typing & Control Structures",
+      "Data Structures: Lists, Tuples, Dictionaries & Sets",
+      "Object-Oriented Programming (Classes, Inheritance, Polymorphism)",
+      "File Operations, JSON Parsing & Exception Handling",
+      "Virtual Environments, Pip, PyTest & Code Modularization"
+    ],
+    "practicalMilestone": "Build an automated command-line data processing tool that ingests JSON/CSV datasets, validates integrity, and generates structured summaries.",
+    "learningObjectives": [
+      "Python 3 Syntax, Dynamic Typing & Control Structures",
+      "Data Structures: Lists, Tuples, Dictionaries & Sets",
+      "Object-Oriented Programming (Classes, Inheritance, Polymorphism)",
+      "File Operations, JSON Parsing & Exception Handling",
+      "Virtual Environments, Pip, PyTest & Code Modularization"
+    ],
+    "skills": [
+      "Python 3",
+      "OOP",
+      "Data Structures",
+      "Scripting",
+      "PyTest",
+      "File I/O"
+    ],
+    "requiredCourseIds": [
+      "course-python-programming"
+    ],
+    "relatedProjectIds": [
+      "proj-python-automation"
+    ],
+    "recommendedNotes": [
+      {
+        "title": "Python Programming & Object-Oriented Principles",
+        "slug": "python-fundamentals-oop"
+      }
+    ]
+  },
+  {
+    "id": 43,
+    "stepNumber": 2,
+    "slug": "data-analyst-sql-mongodb",
+    "title": "SQL & MongoDB: Relational & Document Data Architecture",
+    "trackId": "data-analyst",
+    "category": "Databases & Infrastructure",
+    "summary": "Master both relational and NoSQL database paradigms: PostgreSQL/MySQL complex joins, indexes, transactions, schema normalization, and MongoDB aggregation pipelines and flexible document models.",
+    "duration": "4 - 5 Weeks (20 Hours)",
+    "difficulty": "Intermediate",
+    "keyTopics": [
+      "Relational Schema Design & Normalization (1NF to 3NF)",
+      "SQL Complex Queries: INNER/LEFT Joins, Group By & Subqueries",
+      "B-Tree Indexing, Query Optimization & EXPLAIN Plans",
+      "ACID Transactions, Isolation Levels & Concurrency",
+      "MongoDB Document Modeling & Aggregation Pipelines"
+    ],
+    "practicalMilestone": "Design a dual-database schema for an e-commerce platform using PostgreSQL for financial transactions and MongoDB for catalog data.",
+    "learningObjectives": [
+      "Relational Schema Design & Normalization (1NF to 3NF)",
+      "SQL Complex Queries: INNER/LEFT Joins, Group By & Subqueries",
+      "B-Tree Indexing, Query Optimization & EXPLAIN Plans",
+      "ACID Transactions, Isolation Levels & Concurrency",
+      "MongoDB Document Modeling & Aggregation Pipelines"
+    ],
+    "skills": [
+      "PostgreSQL",
+      "MySQL",
+      "MongoDB",
+      "SQL Joins",
+      "Indexing",
+      "Aggregation Pipelines",
+      "ACID Transactions"
+    ],
+    "requiredCourseIds": [
+      "course-sql-mongodb"
+    ],
+    "relatedProjectIds": [
+      "proj-data-analytics"
+    ],
+    "recommendedNotes": [
+      {
+        "title": "DBMS, SQL Queries & Relational Database Design",
+        "slug": "dbms-sql-relational-design"
+      }
+    ]
+  },
+  {
+    "id": 44,
+    "stepNumber": 3,
+    "slug": "data-analyst-ai-data-analytics-bi",
+    "title": "AI Data Analytics & Business Intelligence: Dashboards to Predictive Insights",
+    "trackId": "data-analyst",
+    "category": "Databases & Infrastructure",
+    "summary": "Transform raw data into executive insights: Python Pandas dataframes, NumPy vectorization, SQL window functions, exploratory data analysis (EDA), interactive visualization (Matplotlib/Seaborn), and AI-assisted BI.",
+    "duration": "4 - 5 Weeks (18 Hours)",
+    "difficulty": "Intermediate",
+    "keyTopics": [
+      "Data Cleaning & Feature Engineering with Pandas",
+      "NumPy Array Operations & Mathematical Computing",
+      "Advanced SQL for Analytics: Window Functions & CTEs",
+      "Exploratory Data Analysis & Statistical Hypothesis Testing",
+      "Interactive KPI Dashboard Design & Data Storytelling"
+    ],
+    "practicalMilestone": "Ingest a multi-thousand row real-world sales dataset, perform comprehensive EDA, and build an interactive executive KPI dashboard.",
+    "learningObjectives": [
+      "Data Cleaning & Feature Engineering with Pandas",
+      "NumPy Array Operations & Mathematical Computing",
+      "Advanced SQL for Analytics: Window Functions & CTEs",
+      "Exploratory Data Analysis & Statistical Hypothesis Testing",
+      "Interactive KPI Dashboard Design & Data Storytelling"
+    ],
+    "skills": [
+      "Pandas",
+      "NumPy",
+      "SQL Analytics",
+      "Data Visualization",
+      "EDA",
+      "Business Intelligence"
+    ],
+    "requiredCourseIds": [
+      "course-ai-data-analytics-bi"
+    ],
+    "relatedProjectIds": [
+      "proj-data-analytics"
+    ],
+    "recommendedNotes": [
+      {
+        "title": "Python for AI, Data Science & Machine Learning",
+        "slug": "ai-data-science-machine-learning"
+      }
+    ]
+  },
+  {
+    "id": 45,
+    "stepNumber": 4,
+    "slug": "data-analyst-git-github",
+    "title": "Git & GitHub: Professional Version Control & Collaboration",
+    "trackId": "data-analyst",
+    "category": "Data Structures & Developer Tools",
+    "summary": "Master industry version control: Git internal object model (Blobs, Trees, Commits), interactive rebasing, branch management, merge conflict resolution, pull request workflows, and GitHub Actions.",
+    "duration": "2 Weeks (12 Hours)",
+    "difficulty": "Beginner",
+    "keyTopics": [
+      "Git Architecture: Working Tree, Index & Commits",
+      "Branching Strategies, Fast-Forward & Three-Way Merges",
+      "Interactive Rebasing (git rebase -i) & Cherry-Picking",
+      "Resolving Complex Merge Conflicts",
+      "GitHub Pull Requests, Code Reviews & CI Workflows"
+    ],
+    "practicalMilestone": "Initialize a multi-branch repository, execute feature development with interactive rebasing, and open a clean PR with CI checks.",
+    "learningObjectives": [
+      "Git Architecture: Working Tree, Index & Commits",
+      "Branching Strategies, Fast-Forward & Three-Way Merges",
+      "Interactive Rebasing (git rebase -i) & Cherry-Picking",
+      "Resolving Complex Merge Conflicts",
+      "GitHub Pull Requests, Code Reviews & CI Workflows"
+    ],
+    "skills": [
+      "Git CLI",
+      "GitHub",
+      "Branch Management",
+      "Rebase & Cherry-Pick",
+      "Code Review",
+      "CI/CD Workflows"
+    ],
+    "requiredCourseIds": [
+      "course-git-github"
+    ],
+    "relatedProjectIds": [
+      "proj-portfolio"
+    ],
+    "recommendedNotes": [
+      {
+        "title": "Git, GitHub & Professional Collaboration",
+        "slug": "git-fundamentals-commands-guide"
+      }
+    ]
+  },
+  {
+    "id": 46,
+    "stepNumber": 5,
+    "slug": "data-analyst-ai-machine-learning",
+    "title": "AI & Machine Learning: From Mathematics to Production Models",
+    "trackId": "data-analyst",
+    "category": "AI & Machine Learning",
+    "summary": "From machine learning theory to production models: linear algebra, gradient descent, supervised algorithms (Regression, Decision Trees, Random Forests), unsupervised clustering (K-Means), and neural network foundations.",
+    "duration": "6 - 8 Weeks (26 Hours)",
+    "difficulty": "Advanced",
+    "keyTopics": [
+      "Machine Learning Mathematics: Linear Algebra & Gradient Descent",
+      "Supervised Learning: Linear/Logistic Regression & Random Forests",
+      "Model Evaluation: Precision, Recall, F1, ROC-AUC & Cross-Validation",
+      "Unsupervised Learning: K-Means Clustering & PCA Dimensionality Reduction",
+      "Neural Network Foundations, Backpropagation & PyTorch Basics"
+    ],
+    "practicalMilestone": "Train, tune hyperparameters, cross-validate, and deploy a predictive machine learning model with a RESTful inference endpoint.",
+    "learningObjectives": [
+      "Machine Learning Mathematics: Linear Algebra & Gradient Descent",
+      "Supervised Learning: Linear/Logistic Regression & Random Forests",
+      "Model Evaluation: Precision, Recall, F1, ROC-AUC & Cross-Validation",
+      "Unsupervised Learning: K-Means Clustering & PCA Dimensionality Reduction",
+      "Neural Network Foundations, Backpropagation & PyTorch Basics"
+    ],
+    "skills": [
+      "Scikit-Learn",
+      "Machine Learning",
+      "Model Evaluation",
+      "PyTorch Basics",
+      "Gradient Descent",
+      "Supervised Learning"
+    ],
+    "requiredCourseIds": [
+      "course-ai-machine-learning"
+    ],
+    "relatedProjectIds": [
+      "proj-ai-study-assistant"
+    ],
+    "recommendedNotes": [
+      {
+        "title": "Python for AI, Data Science & Machine Learning",
+        "slug": "ai-data-science-machine-learning"
+      }
+    ]
+  },
+  {
+    "id": 47,
+    "stepNumber": 1,
+    "slug": "cloud-devops-git-github",
+    "title": "Git & GitHub: Professional Version Control & Collaboration",
+    "trackId": "cloud-devops",
+    "category": "Data Structures & Developer Tools",
+    "summary": "Master industry version control: Git internal object model (Blobs, Trees, Commits), interactive rebasing, branch management, merge conflict resolution, pull request workflows, and GitHub Actions.",
+    "duration": "2 Weeks (12 Hours)",
+    "difficulty": "Beginner",
+    "keyTopics": [
+      "Git Architecture: Working Tree, Index & Commits",
+      "Branching Strategies, Fast-Forward & Three-Way Merges",
+      "Interactive Rebasing (git rebase -i) & Cherry-Picking",
+      "Resolving Complex Merge Conflicts",
+      "GitHub Pull Requests, Code Reviews & CI Workflows"
+    ],
+    "practicalMilestone": "Initialize a multi-branch repository, execute feature development with interactive rebasing, and open a clean PR with CI checks.",
+    "learningObjectives": [
+      "Git Architecture: Working Tree, Index & Commits",
+      "Branching Strategies, Fast-Forward & Three-Way Merges",
+      "Interactive Rebasing (git rebase -i) & Cherry-Picking",
+      "Resolving Complex Merge Conflicts",
+      "GitHub Pull Requests, Code Reviews & CI Workflows"
+    ],
+    "skills": [
+      "Git CLI",
+      "GitHub",
+      "Branch Management",
+      "Rebase & Cherry-Pick",
+      "Code Review",
+      "CI/CD Workflows"
+    ],
+    "requiredCourseIds": [
+      "course-git-github"
+    ],
+    "relatedProjectIds": [
+      "proj-portfolio"
+    ],
+    "recommendedNotes": [
+      {
+        "title": "Git, GitHub & Professional Collaboration",
+        "slug": "git-fundamentals-commands-guide"
+      }
+    ]
+  },
+  {
+    "id": 48,
+    "stepNumber": 2,
+    "slug": "cloud-devops-sql-mongodb",
+    "title": "SQL & MongoDB: Relational & Document Data Architecture",
+    "trackId": "cloud-devops",
+    "category": "Databases & Infrastructure",
+    "summary": "Master both relational and NoSQL database paradigms: PostgreSQL/MySQL complex joins, indexes, transactions, schema normalization, and MongoDB aggregation pipelines and flexible document models.",
+    "duration": "4 - 5 Weeks (20 Hours)",
+    "difficulty": "Intermediate",
+    "keyTopics": [
+      "Relational Schema Design & Normalization (1NF to 3NF)",
+      "SQL Complex Queries: INNER/LEFT Joins, Group By & Subqueries",
+      "B-Tree Indexing, Query Optimization & EXPLAIN Plans",
+      "ACID Transactions, Isolation Levels & Concurrency",
+      "MongoDB Document Modeling & Aggregation Pipelines"
+    ],
+    "practicalMilestone": "Design a dual-database schema for an e-commerce platform using PostgreSQL for financial transactions and MongoDB for catalog data.",
+    "learningObjectives": [
+      "Relational Schema Design & Normalization (1NF to 3NF)",
+      "SQL Complex Queries: INNER/LEFT Joins, Group By & Subqueries",
+      "B-Tree Indexing, Query Optimization & EXPLAIN Plans",
+      "ACID Transactions, Isolation Levels & Concurrency",
+      "MongoDB Document Modeling & Aggregation Pipelines"
+    ],
+    "skills": [
+      "PostgreSQL",
+      "MySQL",
+      "MongoDB",
+      "SQL Joins",
+      "Indexing",
+      "Aggregation Pipelines",
+      "ACID Transactions"
+    ],
+    "requiredCourseIds": [
+      "course-sql-mongodb"
+    ],
+    "relatedProjectIds": [
+      "proj-data-analytics"
+    ],
+    "recommendedNotes": [
+      {
+        "title": "DBMS, SQL Queries & Relational Database Design",
+        "slug": "dbms-sql-relational-design"
+      }
+    ]
+  },
+  {
+    "id": 49,
+    "stepNumber": 3,
+    "slug": "cloud-devops-cybersecurity-fundamentals",
+    "title": "Cybersecurity Fundamentals: Network Defense & Secure Systems",
+    "trackId": "cloud-devops",
+    "category": "Databases & Infrastructure",
+    "summary": "Defend systems against real-world attacks: networking fundamentals (TCP/IP, DNS, TLS), Linux security hardening, OWASP Top 10 vulnerabilities (SQLi, XSS, CSRF, SSRF), cryptography, and defensive posture.",
+    "duration": "4 - 6 Weeks (20 Hours)",
+    "difficulty": "Intermediate",
+    "keyTopics": [
+      "Computer Networking: TCP/IP Stack, Subnets & Firewalls",
+      "Cryptographic Primitives: Symmetric/Asymmetric, Hashing & TLS",
+      "OWASP Top 10 Web Security Vulnerabilities & Remediation",
+      "Linux System Hardening, File Permissions & SSH Keys",
+      "Security Auditing, Vulnerability Scanning & Defense in Depth"
+    ],
+    "practicalMilestone": "Perform a security audit of a web application, remediate OWASP Top 10 vulnerabilities, and configure firewall protection.",
+    "learningObjectives": [
+      "Computer Networking: TCP/IP Stack, Subnets & Firewalls",
+      "Cryptographic Primitives: Symmetric/Asymmetric, Hashing & TLS",
+      "OWASP Top 10 Web Security Vulnerabilities & Remediation",
+      "Linux System Hardening, File Permissions & SSH Keys",
+      "Security Auditing, Vulnerability Scanning & Defense in Depth"
+    ],
+    "skills": [
+      "Network Security",
+      "Cryptography",
+      "OWASP Top 10",
+      "Linux Hardening",
+      "Penetration Testing Basics",
+      "Defense in Depth"
+    ],
+    "requiredCourseIds": [
+      "course-cybersecurity-fundamentals"
+    ],
+    "relatedProjectIds": [
+      "proj-python-automation"
+    ],
+    "recommendedNotes": [
+      {
+        "title": "Operating Systems: Process, Threads & Concurrency",
+        "slug": "operating-systems-process-threads"
+      }
+    ]
+  },
+  {
+    "id": 50,
+    "stepNumber": 4,
+    "slug": "cloud-devops-cloud-native-serverless",
+    "title": "Cloud-Native & Serverless Development: Scalable Distributed Systems",
+    "trackId": "cloud-devops",
+    "category": "Databases & Infrastructure",
+    "summary": "Containerize applications and deploy resilient cloud services: Docker multi-stage builds, Kubernetes orchestration concepts, serverless functions, CI/CD automated release pipelines, and cloud monitoring.",
+    "duration": "4 - 6 Weeks (20 Hours)",
+    "difficulty": "Advanced",
+    "keyTopics": [
+      "Docker Multi-Stage Builds & Container Optimization",
+      "Docker Compose for Multi-Container Environments",
+      "Cloud Architectures (AWS/GCP), Serverless & Edge Compute",
+      "Kubernetes Pods, Services, Deployments & Ingress",
+      "CI/CD Pipelines with GitHub Actions & Cloud Deployment"
+    ],
+    "practicalMilestone": "Containerize a full-stack web application with Docker Compose, configure automated GitHub Actions CI/CD, and deploy to cloud hosting.",
+    "learningObjectives": [
+      "Docker Multi-Stage Builds & Container Optimization",
+      "Docker Compose for Multi-Container Environments",
+      "Cloud Architectures (AWS/GCP), Serverless & Edge Compute",
+      "Kubernetes Pods, Services, Deployments & Ingress",
+      "CI/CD Pipelines with GitHub Actions & Cloud Deployment"
+    ],
+    "skills": [
+      "Docker",
+      "Kubernetes",
+      "Serverless",
+      "CI/CD",
+      "AWS/Cloud",
+      "Containerization"
+    ],
+    "requiredCourseIds": [
+      "course-cloud-native-serverless"
+    ],
+    "relatedProjectIds": [
+      "proj-ecommerce"
+    ],
+    "recommendedNotes": [
+      {
+        "title": "Cloud Computing, Docker & Containerization",
+        "slug": "cloud-docker-containerization"
+      }
+    ]
+  },
+  {
+    "id": 51,
+    "stepNumber": 5,
+    "slug": "cloud-devops-ai-assisted-coding",
+    "title": "AI-Assisted Coding & Developer Tools: Accelerated Software Engineering",
+    "trackId": "cloud-devops",
+    "category": "Data Structures & Developer Tools",
+    "summary": "10x your software engineering velocity: leverage modern AI coding assistants (Claude Code, GitHub Copilot, Cursor), prompt engineering for code generation, test synthesis, automated refactoring, and AI code review.",
+    "duration": "2 - 3 Weeks (12 Hours)",
+    "difficulty": "Beginner",
+    "keyTopics": [
+      "AI Coding Assistant Mechanics & Context Windows",
+      "Effective Prompt Engineering for Code Generation",
+      "Automated Test Generation (Unit & Integration)",
+      "AI-Assisted Code Refactoring & Security Auditing",
+      "Multi-Agent Coding Workflows & Terminal Integration"
+    ],
+    "practicalMilestone": "Build a feature module end-to-end using AI coding assistants for architecture planning, test writing, implementation, and documentation.",
+    "learningObjectives": [
+      "AI Coding Assistant Mechanics & Context Windows",
+      "Effective Prompt Engineering for Code Generation",
+      "Automated Test Generation (Unit & Integration)",
+      "AI-Assisted Code Refactoring & Security Auditing",
+      "Multi-Agent Coding Workflows & Terminal Integration"
+    ],
+    "skills": [
+      "AI Developer Tools",
+      "Code Prompting",
+      "Automated Testing",
+      "Code Refactoring",
+      "Developer Velocity"
+    ],
+    "requiredCourseIds": [
+      "course-ai-assisted-coding"
+    ],
+    "relatedProjectIds": [
+      "proj-task-manager"
+    ],
+    "recommendedNotes": [
+      {
+        "title": "Modern JavaScript & TypeScript Fundamentals",
+        "slug": "javascript-promises-async-await"
+      }
+    ]
+  },
+  {
+    "id": 52,
+    "stepNumber": 1,
+    "slug": "python-python-programming",
+    "title": "Python Programming: Fundamentals to Enterprise Applications",
+    "trackId": "python",
+    "category": "Programming Languages",
+    "summary": "Master Python programming from syntax, data structures, and object-oriented programming to file I/O, error handling, package management, automated scripting, and modern Python type hinting.",
+    "duration": "4 - 6 Weeks (22 Hours)",
+    "difficulty": "Beginner",
+    "keyTopics": [
+      "Python 3 Syntax, Dynamic Typing & Control Structures",
+      "Data Structures: Lists, Tuples, Dictionaries & Sets",
+      "Object-Oriented Programming (Classes, Inheritance, Polymorphism)",
+      "File Operations, JSON Parsing & Exception Handling",
+      "Virtual Environments, Pip, PyTest & Code Modularization"
+    ],
+    "practicalMilestone": "Build an automated command-line data processing tool that ingests JSON/CSV datasets, validates integrity, and generates structured summaries.",
+    "learningObjectives": [
+      "Python 3 Syntax, Dynamic Typing & Control Structures",
+      "Data Structures: Lists, Tuples, Dictionaries & Sets",
+      "Object-Oriented Programming (Classes, Inheritance, Polymorphism)",
+      "File Operations, JSON Parsing & Exception Handling",
+      "Virtual Environments, Pip, PyTest & Code Modularization"
+    ],
+    "skills": [
+      "Python 3",
+      "OOP",
+      "Data Structures",
+      "Scripting",
+      "PyTest",
+      "File I/O"
+    ],
+    "requiredCourseIds": [
+      "course-python-programming"
+    ],
+    "relatedProjectIds": [
+      "proj-python-automation"
+    ],
+    "recommendedNotes": [
+      {
+        "title": "Python Programming & Object-Oriented Principles",
+        "slug": "python-fundamentals-oop"
+      }
+    ]
+  },
+  {
+    "id": 53,
+    "stepNumber": 2,
+    "slug": "python-dsa-algorithms",
+    "title": "Data Structures & Algorithms in Production",
+    "trackId": "python",
+    "category": "Data Structures & Developer Tools",
+    "summary": "Master computer science algorithmic problem-solving: Big-O asymptotic analysis, dynamic arrays, linked lists, hash tables, trees, binary search trees, graph traversals (BFS/DFS), and dynamic programming.",
+    "duration": "6 - 8 Weeks (28 Hours)",
+    "difficulty": "Intermediate",
+    "keyTopics": [
+      "Asymptotic Analysis: Big-O, Time & Space Complexity",
+      "Linear Data Structures: Dynamic Arrays, Stacks & Queues",
+      "Hash Tables: Collision Resolution & Amortized O(1)",
+      "Trees & Graphs: BSTs, BFS, DFS & Topological Sort",
+      "Dynamic Programming, Memoization & Divide-and-Conquer"
+    ],
+    "practicalMilestone": "Implement an algorithmic pathfinding and network routing visualizer with optimized graph search algorithms.",
+    "learningObjectives": [
+      "Asymptotic Analysis: Big-O, Time & Space Complexity",
+      "Linear Data Structures: Dynamic Arrays, Stacks & Queues",
+      "Hash Tables: Collision Resolution & Amortized O(1)",
+      "Trees & Graphs: BSTs, BFS, DFS & Topological Sort",
+      "Dynamic Programming, Memoization & Divide-and-Conquer"
+    ],
+    "skills": [
+      "Big-O Complexity",
+      "Data Structures",
+      "Graph Algorithms",
+      "Dynamic Programming",
+      "Algorithm Optimization"
+    ],
+    "requiredCourseIds": [
+      "course-dsa-algorithms"
+    ],
+    "relatedProjectIds": [
+      "proj-calculator"
+    ],
+    "recommendedNotes": [
+      {
+        "title": "Data Structures: Arrays, Linked Lists & Time Complexity",
+        "slug": "dsa-arrays-time-complexity"
+      },
+      {
+        "title": "Trees, Graphs & Dynamic Programming",
+        "slug": "dsa-trees-graphs-algorithms"
+      }
+    ]
+  },
+  {
+    "id": 54,
+    "stepNumber": 3,
+    "slug": "python-sql-mongodb",
+    "title": "SQL & MongoDB: Relational & Document Data Architecture",
+    "trackId": "python",
+    "category": "Databases & Infrastructure",
+    "summary": "Master both relational and NoSQL database paradigms: PostgreSQL/MySQL complex joins, indexes, transactions, schema normalization, and MongoDB aggregation pipelines and flexible document models.",
+    "duration": "4 - 5 Weeks (20 Hours)",
+    "difficulty": "Intermediate",
+    "keyTopics": [
+      "Relational Schema Design & Normalization (1NF to 3NF)",
+      "SQL Complex Queries: INNER/LEFT Joins, Group By & Subqueries",
+      "B-Tree Indexing, Query Optimization & EXPLAIN Plans",
+      "ACID Transactions, Isolation Levels & Concurrency",
+      "MongoDB Document Modeling & Aggregation Pipelines"
+    ],
+    "practicalMilestone": "Design a dual-database schema for an e-commerce platform using PostgreSQL for financial transactions and MongoDB for catalog data.",
+    "learningObjectives": [
+      "Relational Schema Design & Normalization (1NF to 3NF)",
+      "SQL Complex Queries: INNER/LEFT Joins, Group By & Subqueries",
+      "B-Tree Indexing, Query Optimization & EXPLAIN Plans",
+      "ACID Transactions, Isolation Levels & Concurrency",
+      "MongoDB Document Modeling & Aggregation Pipelines"
+    ],
+    "skills": [
+      "PostgreSQL",
+      "MySQL",
+      "MongoDB",
+      "SQL Joins",
+      "Indexing",
+      "Aggregation Pipelines",
+      "ACID Transactions"
+    ],
+    "requiredCourseIds": [
+      "course-sql-mongodb"
+    ],
+    "relatedProjectIds": [
+      "proj-data-analytics"
+    ],
+    "recommendedNotes": [
+      {
+        "title": "DBMS, SQL Queries & Relational Database Design",
+        "slug": "dbms-sql-relational-design"
+      }
+    ]
+  },
+  {
+    "id": 55,
+    "stepNumber": 4,
+    "slug": "python-git-github",
+    "title": "Git & GitHub: Professional Version Control & Collaboration",
+    "trackId": "python",
+    "category": "Data Structures & Developer Tools",
+    "summary": "Master industry version control: Git internal object model (Blobs, Trees, Commits), interactive rebasing, branch management, merge conflict resolution, pull request workflows, and GitHub Actions.",
+    "duration": "2 Weeks (12 Hours)",
+    "difficulty": "Beginner",
+    "keyTopics": [
+      "Git Architecture: Working Tree, Index & Commits",
+      "Branching Strategies, Fast-Forward & Three-Way Merges",
+      "Interactive Rebasing (git rebase -i) & Cherry-Picking",
+      "Resolving Complex Merge Conflicts",
+      "GitHub Pull Requests, Code Reviews & CI Workflows"
+    ],
+    "practicalMilestone": "Initialize a multi-branch repository, execute feature development with interactive rebasing, and open a clean PR with CI checks.",
+    "learningObjectives": [
+      "Git Architecture: Working Tree, Index & Commits",
+      "Branching Strategies, Fast-Forward & Three-Way Merges",
+      "Interactive Rebasing (git rebase -i) & Cherry-Picking",
+      "Resolving Complex Merge Conflicts",
+      "GitHub Pull Requests, Code Reviews & CI Workflows"
+    ],
+    "skills": [
+      "Git CLI",
+      "GitHub",
+      "Branch Management",
+      "Rebase & Cherry-Pick",
+      "Code Review",
+      "CI/CD Workflows"
+    ],
+    "requiredCourseIds": [
+      "course-git-github"
+    ],
+    "relatedProjectIds": [
+      "proj-portfolio"
+    ],
+    "recommendedNotes": [
+      {
+        "title": "Git, GitHub & Professional Collaboration",
+        "slug": "git-fundamentals-commands-guide"
+      }
+    ]
+  },
+  {
+    "id": 56,
+    "stepNumber": 5,
+    "slug": "python-ai-assisted-coding",
+    "title": "AI-Assisted Coding & Developer Tools: Accelerated Software Engineering",
+    "trackId": "python",
+    "category": "Data Structures & Developer Tools",
+    "summary": "10x your software engineering velocity: leverage modern AI coding assistants (Claude Code, GitHub Copilot, Cursor), prompt engineering for code generation, test synthesis, automated refactoring, and AI code review.",
+    "duration": "2 - 3 Weeks (12 Hours)",
+    "difficulty": "Beginner",
+    "keyTopics": [
+      "AI Coding Assistant Mechanics & Context Windows",
+      "Effective Prompt Engineering for Code Generation",
+      "Automated Test Generation (Unit & Integration)",
+      "AI-Assisted Code Refactoring & Security Auditing",
+      "Multi-Agent Coding Workflows & Terminal Integration"
+    ],
+    "practicalMilestone": "Build a feature module end-to-end using AI coding assistants for architecture planning, test writing, implementation, and documentation.",
+    "learningObjectives": [
+      "AI Coding Assistant Mechanics & Context Windows",
+      "Effective Prompt Engineering for Code Generation",
+      "Automated Test Generation (Unit & Integration)",
+      "AI-Assisted Code Refactoring & Security Auditing",
+      "Multi-Agent Coding Workflows & Terminal Integration"
+    ],
+    "skills": [
+      "AI Developer Tools",
+      "Code Prompting",
+      "Automated Testing",
+      "Code Refactoring",
+      "Developer Velocity"
+    ],
+    "requiredCourseIds": [
+      "course-ai-assisted-coding"
+    ],
+    "relatedProjectIds": [
+      "proj-task-manager"
+    ],
+    "recommendedNotes": [
+      {
+        "title": "Modern JavaScript & TypeScript Fundamentals",
+        "slug": "javascript-promises-async-await"
+      }
+    ]
+  },
+  {
+    "id": 57,
+    "stepNumber": 1,
+    "slug": "cybersecurity-git-github",
+    "title": "Git & GitHub: Professional Version Control & Collaboration",
+    "trackId": "cybersecurity",
+    "category": "Data Structures & Developer Tools",
+    "summary": "Master industry version control: Git internal object model (Blobs, Trees, Commits), interactive rebasing, branch management, merge conflict resolution, pull request workflows, and GitHub Actions.",
+    "duration": "2 Weeks (12 Hours)",
+    "difficulty": "Beginner",
+    "keyTopics": [
+      "Git Architecture: Working Tree, Index & Commits",
+      "Branching Strategies, Fast-Forward & Three-Way Merges",
+      "Interactive Rebasing (git rebase -i) & Cherry-Picking",
+      "Resolving Complex Merge Conflicts",
+      "GitHub Pull Requests, Code Reviews & CI Workflows"
+    ],
+    "practicalMilestone": "Initialize a multi-branch repository, execute feature development with interactive rebasing, and open a clean PR with CI checks.",
+    "learningObjectives": [
+      "Git Architecture: Working Tree, Index & Commits",
+      "Branching Strategies, Fast-Forward & Three-Way Merges",
+      "Interactive Rebasing (git rebase -i) & Cherry-Picking",
+      "Resolving Complex Merge Conflicts",
+      "GitHub Pull Requests, Code Reviews & CI Workflows"
+    ],
+    "skills": [
+      "Git CLI",
+      "GitHub",
+      "Branch Management",
+      "Rebase & Cherry-Pick",
+      "Code Review",
+      "CI/CD Workflows"
+    ],
+    "requiredCourseIds": [
+      "course-git-github"
+    ],
+    "relatedProjectIds": [
+      "proj-portfolio"
+    ],
+    "recommendedNotes": [
+      {
+        "title": "Git, GitHub & Professional Collaboration",
+        "slug": "git-fundamentals-commands-guide"
+      }
+    ]
+  },
+  {
+    "id": 58,
+    "stepNumber": 2,
+    "slug": "cybersecurity-sql-mongodb",
+    "title": "SQL & MongoDB: Relational & Document Data Architecture",
+    "trackId": "cybersecurity",
+    "category": "Databases & Infrastructure",
+    "summary": "Master both relational and NoSQL database paradigms: PostgreSQL/MySQL complex joins, indexes, transactions, schema normalization, and MongoDB aggregation pipelines and flexible document models.",
+    "duration": "4 - 5 Weeks (20 Hours)",
+    "difficulty": "Intermediate",
+    "keyTopics": [
+      "Relational Schema Design & Normalization (1NF to 3NF)",
+      "SQL Complex Queries: INNER/LEFT Joins, Group By & Subqueries",
+      "B-Tree Indexing, Query Optimization & EXPLAIN Plans",
+      "ACID Transactions, Isolation Levels & Concurrency",
+      "MongoDB Document Modeling & Aggregation Pipelines"
+    ],
+    "practicalMilestone": "Design a dual-database schema for an e-commerce platform using PostgreSQL for financial transactions and MongoDB for catalog data.",
+    "learningObjectives": [
+      "Relational Schema Design & Normalization (1NF to 3NF)",
+      "SQL Complex Queries: INNER/LEFT Joins, Group By & Subqueries",
+      "B-Tree Indexing, Query Optimization & EXPLAIN Plans",
+      "ACID Transactions, Isolation Levels & Concurrency",
+      "MongoDB Document Modeling & Aggregation Pipelines"
+    ],
+    "skills": [
+      "PostgreSQL",
+      "MySQL",
+      "MongoDB",
+      "SQL Joins",
+      "Indexing",
+      "Aggregation Pipelines",
+      "ACID Transactions"
+    ],
+    "requiredCourseIds": [
+      "course-sql-mongodb"
+    ],
+    "relatedProjectIds": [
+      "proj-data-analytics"
+    ],
+    "recommendedNotes": [
+      {
+        "title": "DBMS, SQL Queries & Relational Database Design",
+        "slug": "dbms-sql-relational-design"
+      }
+    ]
+  },
+  {
+    "id": 59,
+    "stepNumber": 3,
+    "slug": "cybersecurity-cybersecurity-fundamentals",
+    "title": "Cybersecurity Fundamentals: Network Defense & Secure Systems",
+    "trackId": "cybersecurity",
+    "category": "Databases & Infrastructure",
+    "summary": "Defend systems against real-world attacks: networking fundamentals (TCP/IP, DNS, TLS), Linux security hardening, OWASP Top 10 vulnerabilities (SQLi, XSS, CSRF, SSRF), cryptography, and defensive posture.",
+    "duration": "4 - 6 Weeks (20 Hours)",
+    "difficulty": "Intermediate",
+    "keyTopics": [
+      "Computer Networking: TCP/IP Stack, Subnets & Firewalls",
+      "Cryptographic Primitives: Symmetric/Asymmetric, Hashing & TLS",
+      "OWASP Top 10 Web Security Vulnerabilities & Remediation",
+      "Linux System Hardening, File Permissions & SSH Keys",
+      "Security Auditing, Vulnerability Scanning & Defense in Depth"
+    ],
+    "practicalMilestone": "Perform a security audit of a web application, remediate OWASP Top 10 vulnerabilities, and configure firewall protection.",
+    "learningObjectives": [
+      "Computer Networking: TCP/IP Stack, Subnets & Firewalls",
+      "Cryptographic Primitives: Symmetric/Asymmetric, Hashing & TLS",
+      "OWASP Top 10 Web Security Vulnerabilities & Remediation",
+      "Linux System Hardening, File Permissions & SSH Keys",
+      "Security Auditing, Vulnerability Scanning & Defense in Depth"
+    ],
+    "skills": [
+      "Network Security",
+      "Cryptography",
+      "OWASP Top 10",
+      "Linux Hardening",
+      "Penetration Testing Basics",
+      "Defense in Depth"
+    ],
+    "requiredCourseIds": [
+      "course-cybersecurity-fundamentals"
+    ],
+    "relatedProjectIds": [
+      "proj-python-automation"
+    ],
+    "recommendedNotes": [
+      {
+        "title": "Operating Systems: Process, Threads & Concurrency",
+        "slug": "operating-systems-process-threads"
+      }
+    ]
+  },
+  {
+    "id": 60,
+    "stepNumber": 4,
+    "slug": "cybersecurity-cloud-native-serverless",
+    "title": "Cloud-Native & Serverless Development: Scalable Distributed Systems",
+    "trackId": "cybersecurity",
+    "category": "Databases & Infrastructure",
+    "summary": "Containerize applications and deploy resilient cloud services: Docker multi-stage builds, Kubernetes orchestration concepts, serverless functions, CI/CD automated release pipelines, and cloud monitoring.",
+    "duration": "4 - 6 Weeks (20 Hours)",
+    "difficulty": "Advanced",
+    "keyTopics": [
+      "Docker Multi-Stage Builds & Container Optimization",
+      "Docker Compose for Multi-Container Environments",
+      "Cloud Architectures (AWS/GCP), Serverless & Edge Compute",
+      "Kubernetes Pods, Services, Deployments & Ingress",
+      "CI/CD Pipelines with GitHub Actions & Cloud Deployment"
+    ],
+    "practicalMilestone": "Containerize a full-stack web application with Docker Compose, configure automated GitHub Actions CI/CD, and deploy to cloud hosting.",
+    "learningObjectives": [
+      "Docker Multi-Stage Builds & Container Optimization",
+      "Docker Compose for Multi-Container Environments",
+      "Cloud Architectures (AWS/GCP), Serverless & Edge Compute",
+      "Kubernetes Pods, Services, Deployments & Ingress",
+      "CI/CD Pipelines with GitHub Actions & Cloud Deployment"
+    ],
+    "skills": [
+      "Docker",
+      "Kubernetes",
+      "Serverless",
+      "CI/CD",
+      "AWS/Cloud",
+      "Containerization"
+    ],
+    "requiredCourseIds": [
+      "course-cloud-native-serverless"
+    ],
+    "relatedProjectIds": [
+      "proj-ecommerce"
+    ],
+    "recommendedNotes": [
+      {
+        "title": "Cloud Computing, Docker & Containerization",
+        "slug": "cloud-docker-containerization"
+      }
+    ]
+  },
+  {
+    "id": 61,
+    "stepNumber": 5,
+    "slug": "cybersecurity-ai-assisted-coding",
+    "title": "AI-Assisted Coding & Developer Tools: Accelerated Software Engineering",
+    "trackId": "cybersecurity",
+    "category": "Data Structures & Developer Tools",
+    "summary": "10x your software engineering velocity: leverage modern AI coding assistants (Claude Code, GitHub Copilot, Cursor), prompt engineering for code generation, test synthesis, automated refactoring, and AI code review.",
+    "duration": "2 - 3 Weeks (12 Hours)",
+    "difficulty": "Beginner",
+    "keyTopics": [
+      "AI Coding Assistant Mechanics & Context Windows",
+      "Effective Prompt Engineering for Code Generation",
+      "Automated Test Generation (Unit & Integration)",
+      "AI-Assisted Code Refactoring & Security Auditing",
+      "Multi-Agent Coding Workflows & Terminal Integration"
+    ],
+    "practicalMilestone": "Build a feature module end-to-end using AI coding assistants for architecture planning, test writing, implementation, and documentation.",
+    "learningObjectives": [
+      "AI Coding Assistant Mechanics & Context Windows",
+      "Effective Prompt Engineering for Code Generation",
+      "Automated Test Generation (Unit & Integration)",
+      "AI-Assisted Code Refactoring & Security Auditing",
+      "Multi-Agent Coding Workflows & Terminal Integration"
+    ],
+    "skills": [
+      "AI Developer Tools",
+      "Code Prompting",
+      "Automated Testing",
+      "Code Refactoring",
+      "Developer Velocity"
+    ],
+    "requiredCourseIds": [
+      "course-ai-assisted-coding"
+    ],
+    "relatedProjectIds": [
+      "proj-task-manager"
+    ],
+    "recommendedNotes": [
+      {
+        "title": "Modern JavaScript & TypeScript Fundamentals",
+        "slug": "javascript-promises-async-await"
+      }
+    ]
   }
 ];
 
@@ -2304,9 +3249,6 @@ export function getRoadmapStepBySlug(slug: string): RoadmapStep | undefined {
 }
 
 export function getRoadmapStepsByTrack(trackId: string): RoadmapStep[] {
-  if (!trackId || trackId === "frontend" || trackId === "web-dev") {
-    return ROADMAP_STEPS.filter((s) => s.trackId === "frontend" || s.trackId === "web-dev");
-  }
   return ROADMAP_STEPS.filter((s) => s.trackId === trackId);
 }
 
@@ -2322,47 +3264,6 @@ export function getRequiredCoursesForStep(step: RoadmapStep): Course[] {
   if (step.requiredCourseIds && step.requiredCourseIds.length > 0) {
     return step.requiredCourseIds.map((id) => getCourseById(id)).filter(Boolean) as Course[];
   }
-  const text = (step.title + " " + step.summary + " " + step.category).toLowerCase();
-  if (text.includes("html") || text.includes("css") || text.includes("web fundamental") || text.includes("dom")) {
-    const c = getCourseById("course-web-dev-101");
-    if (c) return [c];
-  }
-  if (text.includes("react") || text.includes("next.js") || text.includes("frontend framework")) {
-    const c = getCourseById("course-nextjs-101") || getCourseById("course-web-dev-101");
-    if (c) return [c];
-  }
-  if (text.includes("python") || text.includes("backend") || text.includes("api") || text.includes("fastapi")) {
-    const c = getCourseById("course-python-101");
-    if (c) return [c];
-  }
-  if (text.includes("database") || text.includes("sql") || text.includes("postgres") || text.includes("query")) {
-    const c = getCourseById("course-sql-101");
-    if (c) return [c];
-  }
-  if (text.includes("javascript") || text.includes("typescript")) {
-    const c = getCourseById("course-js-ts-101");
-    if (c) return [c];
-  }
-  if (text.includes("ai") || text.includes("machine learning") || text.includes("neural") || text.includes("rag")) {
-    const c = getCourseById("course-ai-ml-101");
-    if (c) return [c];
-  }
-  if (text.includes("mobile") || text.includes("react native") || text.includes("flutter")) {
-    const c = getCourseById("course-mobile-dev-101");
-    if (c) return [c];
-  }
-  if (text.includes("security") || text.includes("linux") || text.includes("network") || text.includes("hardening")) {
-    const c = getCourseById("course-cybersecurity-101");
-    if (c) return [c];
-  }
-  if (text.includes("design") || text.includes("figma") || text.includes("ux") || text.includes("wireframe") || text.includes("prototype")) {
-    const c = getCourseById("course-uiux-101");
-    if (c) return [c];
-  }
-  if (text.includes("git") || text.includes("docker") || text.includes("deploy") || text.includes("ci/cd")) {
-    const c = getCourseById("course-devops-career-101");
-    if (c) return [c];
-  }
   return [];
 }
 
@@ -2370,45 +3271,7 @@ export function getRelatedProjectsForStep(step: RoadmapStep): PracticalProject[]
   if (step.relatedProjectIds && step.relatedProjectIds.length > 0) {
     return step.relatedProjectIds.map((id) => PRACTICAL_PROJECTS.find((p) => p.id === id)).filter(Boolean) as PracticalProject[];
   }
-  const text = (step.title + " " + step.summary + " " + step.category).toLowerCase();
-  if (text.includes("html") || text.includes("css") || text.includes("portfolio")) {
-    const p = PRACTICAL_PROJECTS.find((p) => p.id === "proj-portfolio");
-    if (p) return [p];
-  }
-  if (text.includes("javascript") || text.includes("dom") || text.includes("api") || text.includes("weather")) {
-    const p = PRACTICAL_PROJECTS.find((p) => p.id === "proj-weather") || PRACTICAL_PROJECTS.find((p) => p.id === "proj-calculator");
-    if (p) return [p];
-  }
-  if (text.includes("react") || text.includes("task") || text.includes("crud") || text.includes("app")) {
-    const p = PRACTICAL_PROJECTS.find((p) => p.id === "proj-task-manager");
-    if (p) return [p];
-  }
-  if (text.includes("database") || text.includes("sql") || text.includes("data") || text.includes("analytics")) {
-    const p = PRACTICAL_PROJECTS.find((p) => p.id === "proj-data-analytics");
-    if (p) return [p];
-  }
-  if (text.includes("mobile") || text.includes("expense") || text.includes("native")) {
-    const p = PRACTICAL_PROJECTS.find((p) => p.id === "proj-expense-tracker");
-    if (p) return [p];
-  }
-  if (text.includes("ai") || text.includes("machine learning") || text.includes("rag")) {
-    const p = PRACTICAL_PROJECTS.find((p) => p.id === "proj-ai-study-assistant");
-    if (p) return [p];
-  }
-  if (text.includes("python") || text.includes("automation") || text.includes("script") || text.includes("security")) {
-    const p = PRACTICAL_PROJECTS.find((p) => p.id === "proj-python-automation");
-    if (p) return [p];
-  }
-  if (text.includes("backend") || text.includes("snippet") || text.includes("service")) {
-    const p = PRACTICAL_PROJECTS.find((p) => p.id === "proj-snippet-vault");
-    if (p) return [p];
-  }
-  if (text.includes("full-stack") || text.includes("ecommerce") || text.includes("deployment")) {
-    const p = PRACTICAL_PROJECTS.find((p) => p.id === "proj-ecommerce") || PRACTICAL_PROJECTS.find((p) => p.id === "proj-task-manager");
-    if (p) return [p];
-  }
   return [];
 }
 
 export const ROADMAP_STAGES = ROADMAP_STEPS;
-

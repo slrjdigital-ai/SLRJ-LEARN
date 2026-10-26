@@ -222,6 +222,8 @@ console.log(1 + -"1" + "2");`,
 
                 return (
                   <button
+                    type="button"
+                    suppressHydrationWarning
                     key={idx}
                     disabled={quizSubmitted}
                     onClick={() => setQuizSelected(idx)}
@@ -243,6 +245,8 @@ console.log(1 + -"1" + "2");`,
 
           {!quizSubmitted ? (
             <button
+              type="button"
+              suppressHydrationWarning
               disabled={quizSelected === null}
               onClick={handleQuizSubmit}
               className="w-full py-2.5 px-4 rounded-xl bg-[#0b69ff] hover:bg-blue-600 disabled:opacity-50 text-white text-xs font-bold transition-all shadow-xs cursor-pointer"
@@ -251,6 +255,8 @@ console.log(1 + -"1" + "2");`,
             </button>
           ) : (
             <button
+              type="button"
+              suppressHydrationWarning
               onClick={() => {
                 setQuizSelected(null);
                 setQuizSubmitted(false);
@@ -297,6 +303,8 @@ console.log(1 + -"1" + "2");`,
 
                 return (
                   <button
+                    type="button"
+                    suppressHydrationWarning
                     key={opt.id}
                     disabled={puzzleSubmitted}
                     onClick={() => setPuzzleSelected(opt.id)}
@@ -317,6 +325,8 @@ console.log(1 + -"1" + "2");`,
 
           {!puzzleSubmitted ? (
             <button
+              type="button"
+              suppressHydrationWarning
               disabled={!puzzleSelected}
               onClick={handlePuzzleSubmit}
               className="w-full py-2.5 px-4 rounded-xl bg-emerald-600 hover:bg-emerald-700 disabled:opacity-50 text-white text-xs font-bold transition-all shadow-xs cursor-pointer"
@@ -325,6 +335,8 @@ console.log(1 + -"1" + "2");`,
             </button>
           ) : (
             <button
+              type="button"
+              suppressHydrationWarning
               onClick={() => {
                 setPuzzleSelected(null);
                 setPuzzleSubmitted(false);

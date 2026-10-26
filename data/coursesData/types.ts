@@ -16,6 +16,11 @@ export interface Lesson {
   duration: string;
   xpReward: number;
   content: string;
+  introduction?: string;
+  learningObjectives?: string[];
+  syntaxRules?: string[];
+  expectedOutput?: string;
+  realWorldUseCase?: string;
   codeExample?: {
     language: string;
     code: string;
@@ -80,6 +85,14 @@ export interface Course {
   skills: string[];
   skillsGained: string[];
   prerequisites: string[];
+  levelNumber?: 1 | 2 | 3;
+  levelOrder?: number;
+  trackId?: string;
+  trackName?: string;
+  prerequisiteCourseIds?: string[];
+  requiredProjectSlug?: string;
+  learningObjectives?: string[];
+  learningOutcomes?: string[];
   accessType: "Free" | "Premium";
   isPaid?: boolean;
   price?: number;

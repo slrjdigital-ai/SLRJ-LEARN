@@ -51,8 +51,8 @@ export interface GrowthCourse {
 
 export default function LearningPathDashboard() {
   const [activeTab, setActiveTab] = useState<
-    "my_learning" | "role_roadmaps" | "recommended" | "completed"
-  >("my_learning");
+    "role_roadmaps" | "recommended" | "completed"
+  >("role_roadmaps");
 
   // Filter & Search states
   const [searchQuery, setSearchQuery] = useState("");
@@ -165,8 +165,6 @@ export default function LearningPathDashboard() {
   // Tab Filtering
   const coursesForCurrentTab = useMemo(() => {
     switch (activeTab) {
-      case "my_learning":
-        return allCourses;
       case "completed":
         return allCourses.filter((c) => c.status === "Completed");
       case "recommended":
@@ -204,24 +202,10 @@ export default function LearningPathDashboard() {
       {/* ─── Top Tabs: Modern Dark Navy Segmented Navigation ─── */}
       <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 pb-2 border-b border-slate-200">
         <div className="p-1.5 bg-[#12316B] border border-[#0d2757] rounded-2xl flex flex-wrap items-center gap-2 sm:gap-2.5 shadow-lg shadow-[#12316B]/15">
-          {/* Tab 1: My Learning */}
+          {/* Tab 1: Role Roadmaps */}
           <button
-            onClick={() => setActiveTab("my_learning")}
-            className={`flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-sm font-bold transition-all cursor-pointer ${
-              activeTab === "my_learning"
-                ? "bg-white text-[#12316B] shadow-md"
-                : "text-blue-100/90 hover:text-white hover:bg-white/10"
-            }`}
-          >
-            <BookOpen
-              size={17}
-              className={activeTab === "my_learning" ? "text-[#18B6D2]" : "text-blue-300"}
-            />
-            <span>My Learning</span>
-          </button>
-
-          {/* Tab 2: Role Roadmaps */}
-          <button
+            type="button"
+            suppressHydrationWarning
             onClick={() => setActiveTab("role_roadmaps")}
             className={`flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-sm font-bold transition-all cursor-pointer ${
               activeTab === "role_roadmaps"
@@ -245,6 +229,8 @@ export default function LearningPathDashboard() {
 
           {/* Tab 3: Recommended Courses */}
           <button
+            type="button"
+            suppressHydrationWarning
             onClick={() => setActiveTab("recommended")}
             className={`flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-sm font-bold transition-all cursor-pointer ${
               activeTab === "recommended"
@@ -261,6 +247,8 @@ export default function LearningPathDashboard() {
 
           {/* Tab 4: Completed Courses */}
           <button
+            type="button"
+            suppressHydrationWarning
             onClick={() => setActiveTab("completed")}
             className={`flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-sm font-bold transition-all cursor-pointer ${
               activeTab === "completed"
@@ -419,26 +407,26 @@ export default function LearningPathDashboard() {
                   </div>
 
                   {/* Category Label */}
-                  <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest block mb-1">
+                  <span className="text-xs font-bold text-slate-400 uppercase tracking-widest block mb-1">
                     {course.category}
                   </span>
 
                   {/* Course Title */}
-                  <h3 className="text-base font-bold text-slate-900 mb-2 leading-snug group-hover:text-[#0b69ff] transition-colors">
+                  <h3 className="text-base sm:text-lg font-bold text-slate-900 mb-2 leading-snug group-hover:text-[#0b69ff] transition-colors">
                     {course.title}
                   </h3>
 
-                  {/* Description */}
-                  <p className="text-xs text-slate-500 leading-relaxed mb-4 line-clamp-2">
+                  {/* Description - legible and clear */}
+                  <p className="text-sm text-slate-600 leading-relaxed mb-4 line-clamp-2">
                     {course.description}
                   </p>
 
                   {/* Modules & Topics Info */}
-                  <div className="flex items-center justify-between text-xs font-semibold text-slate-600 mb-3">
+                  <div className="flex items-center justify-between text-xs sm:text-sm font-semibold text-slate-600 mb-3">
                     <span>{course.modulesCount} Modules • {course.lessonsCount} Lessons</span>
                     {course.estimatedRemaining && (
-                      <span className="text-slate-400 text-[11px] flex items-center gap-1">
-                        <Clock size={11} />
+                      <span className="text-slate-500 text-xs flex items-center gap-1">
+                        <Clock size={12} />
                         {course.estimatedRemaining}
                       </span>
                     )}
@@ -449,7 +437,7 @@ export default function LearningPathDashboard() {
                     {course.tags.map((tag, idx) => (
                       <span
                         key={idx}
-                        className="px-2 py-0.5 rounded-lg bg-[#e8f1fd] text-[#0b69ff] text-[10px] font-bold tracking-wider uppercase font-mono"
+                        className="px-2.5 py-1 rounded-lg bg-[#e8f1fd] text-[#0b69ff] text-xs font-bold tracking-wider uppercase font-mono"
                       >
                         {tag}
                       </span>
@@ -514,12 +502,12 @@ export default function LearningPathDashboard() {
                   <span className="text-xs font-semibold text-slate-500">{track.level}</span>
                 </div>
 
-                <h3 className="text-lg font-bold text-slate-900 mb-2">{track.name}</h3>
-                <p className="text-xs text-slate-500 leading-relaxed mb-4 line-clamp-2">
+                <h3 className="text-lg sm:text-xl font-bold text-slate-900 mb-2">{track.name}</h3>
+                <p className="text-sm text-slate-600 leading-relaxed mb-4 line-clamp-2">
                   {track.description}
                 </p>
 
-                <div className="flex items-center justify-between text-xs font-semibold text-slate-600 mb-4">
+                <div className="flex items-center justify-between text-xs sm:text-sm font-semibold text-slate-600 mb-4">
                   <span>{track.totalStages} Stages</span>
                   <span>{track.duration}</span>
                 </div>
@@ -528,7 +516,7 @@ export default function LearningPathDashboard() {
                   {(track.skills || []).slice(0, 4).map((s: string, idx: number) => (
                     <span
                       key={idx}
-                      className="px-2 py-0.5 rounded-md bg-slate-100 text-slate-700 text-[10px] font-mono"
+                      className="px-2.5 py-1 rounded-md bg-slate-100 text-slate-700 text-xs font-mono"
                     >
                       {s}
                     </span>
@@ -539,7 +527,7 @@ export default function LearningPathDashboard() {
               <div className="pt-3 border-t border-slate-100 flex items-center justify-between gap-2">
                 <Link
                   href={`/roadmap/${track.id}`}
-                  className="w-full py-2.5 rounded-xl bg-[#0b69ff] hover:bg-blue-600 text-white text-xs font-bold font-mono text-center transition-all shadow-sm shadow-blue-500/20"
+                  className="w-full py-3 rounded-xl bg-[#0b69ff] hover:bg-blue-600 text-white text-xs sm:text-sm font-bold font-mono text-center transition-all shadow-sm shadow-blue-500/20"
                 >
                   Explore Roadmap
                 </Link>

@@ -41,61 +41,61 @@ export default function ContinueLearningCard() {
       {/* Background soft highlight */}
       <div className="absolute top-0 right-0 w-80 h-full bg-gradient-to-l from-blue-50/60 to-transparent pointer-events-none" />
 
-      <div className="flex items-center justify-between gap-4 mb-4 pb-3 border-b border-slate-100">
-        <div className="flex items-center gap-2">
+      <div className="flex items-center justify-between gap-4 mb-5 pb-3.5 border-b border-slate-100">
+        <div className="flex items-center gap-2.5">
           <span className="w-2.5 h-2.5 rounded-full bg-[#0b69ff]" />
-          <h2 className="text-sm font-bold text-slate-900 uppercase tracking-wider font-brand">
+          <h2 className="text-sm sm:text-base font-bold text-slate-900 uppercase tracking-wider font-brand">
             {completedStages > 0 ? "Continue Learning" : "Start Your First Course"}
           </h2>
         </div>
-        <div className="flex items-center gap-2 text-xs text-slate-500">
-          <Clock size={13} className="text-slate-400" />
+        <div className="flex items-center gap-2 text-xs sm:text-sm text-slate-500">
+          <Clock size={14} className="text-slate-400" />
           <span>Status: <strong className="text-slate-700 font-semibold">{activeCourse.lastActivity}</strong></span>
         </div>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
         {/* Left 8 Cols: Course title, module, next lesson & progress */}
-        <div className="lg:col-span-8 space-y-3">
-          <div className="flex flex-wrap items-center gap-2">
-            <span className="text-[10px] font-bold px-2 py-0.5 rounded-md bg-blue-50 text-[#0b69ff] border border-blue-200 uppercase tracking-wider">
+        <div className="lg:col-span-8 space-y-3.5">
+          <div className="flex flex-wrap items-center gap-2.5">
+            <span className="text-xs font-bold px-2.5 py-1 rounded-md bg-blue-50 text-[#0b69ff] border border-blue-200 uppercase tracking-wider">
               {activeCourse.category}
             </span>
-            <span className="text-xs text-slate-400">•</span>
-            <span className="text-xs font-semibold text-slate-500">
+            <span className="text-sm text-slate-400">•</span>
+            <span className="text-sm font-semibold text-slate-600">
               {activeCourse.currentModule}
             </span>
           </div>
 
-          <h3 className="text-xl sm:text-2xl font-black text-slate-900 font-brand tracking-tight">
+          <h3 className="text-2xl sm:text-3xl font-black text-slate-900 font-brand tracking-tight">
             {activeCourse.title}
           </h3>
 
-          <div className="p-3.5 rounded-2xl bg-slate-50 border border-slate-200/80 flex items-start gap-3">
-            <div className="p-1.5 rounded-lg bg-blue-100/70 text-[#0b69ff] mt-0.5">
-              <BookOpen size={16} />
+          <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200/80 flex items-start gap-3.5">
+            <div className="p-2 rounded-xl bg-blue-100/70 text-[#0b69ff] mt-0.5">
+              <BookOpen size={18} />
             </div>
             <div>
-              <span className="text-[11px] font-bold text-[#0b69ff] uppercase tracking-wider block">
+              <span className="text-xs font-bold text-[#0b69ff] uppercase tracking-wider block">
                 Next Up:
               </span>
-              <p className="text-xs sm:text-sm font-bold text-slate-800 leading-snug">
+              <p className="text-sm sm:text-base font-bold text-slate-900 leading-snug mt-0.5">
                 {activeCourse.nextLesson}
               </p>
             </div>
           </div>
 
           {/* Progress bar with percentage */}
-          <div className="space-y-1.5 pt-1">
-            <div className="flex items-center justify-between text-xs">
-              <span className="text-slate-500 font-medium">
+          <div className="space-y-2 pt-1">
+            <div className="flex items-center justify-between text-xs sm:text-sm">
+              <span className="text-slate-600 font-medium">
                 Overall Course Progress ({activeCourse.completedStages} of {activeCourse.totalStages} stages completed)
               </span>
-              <span className="font-mono font-bold text-[#0b69ff] text-sm">
+              <span className="font-mono font-bold text-[#0b69ff] text-base">
                 {activeCourse.progressPercent}%
               </span>
             </div>
-            <div className="w-full h-2.5 bg-slate-100 rounded-full overflow-hidden border border-slate-200/70">
+            <div className="w-full h-3 bg-slate-100 rounded-full overflow-hidden border border-slate-200/70">
               <div
                 className="h-full bg-gradient-to-r from-[#0b69ff] via-blue-500 to-indigo-600 rounded-full transition-all duration-500"
                 style={{ width: `${activeCourse.progressPercent}%` }}

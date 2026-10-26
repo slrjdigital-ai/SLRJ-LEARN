@@ -4,6 +4,8 @@ import { useState, useMemo } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
+import { getAllCourses } from "@/data/courses";
+import { useAuth } from "@/context/AuthContext";
 import {
   Home,
   BookOpen,
@@ -14,7 +16,6 @@ import {
   PanelLeftClose,
   PanelLeft,
   ExternalLink,
-  FolderGit2,
   Users,
   X,
   Award,
@@ -25,6 +26,8 @@ import {
   Code2,
   GraduationCap,
   Layers,
+  User,
+  LogOut,
 } from "lucide-react";
 
 interface AppSidebarProps {
@@ -64,8 +67,10 @@ export default function AppSidebar({
   mobileOpen = false,
   onMobileClose,
 }: AppSidebarProps) {
+  const { user, logout } = useAuth();
   const pathname = usePathname();
   const [searchQuery, setSearchQuery] = useState("");
+  const [profileMenuOpen, setProfileMenuOpen] = useState(false);
   const [expandedItems, setExpandedItems] = useState<Record<string, boolean>>({
     "Role Roadmaps": false,
   });
@@ -91,39 +96,25 @@ export default function AppSidebar({
           exact: true,
         },
         {
-          name: "Explore Courses",
+          name: "Learn",
           href: "/courses",
           icon: BookOpen,
           iconColor: "text-[#18B6D2]",
           exact: false,
-          badge: "21 Courses",
+          badge: `${getAllCourses().length} Courses`,
           badgeColor: "bg-cyan-50 text-[#12316B] border border-cyan-200",
         },
         {
-          name: "Role Roadmaps",
+          name: "Roadmaps",
           href: "/roadmap",
           icon: Compass,
           iconColor: "text-[#12316B]",
           exact: false,
-          badge: "8 Paths",
+          badge: "10 Paths",
           badgeColor: "bg-blue-50 text-[#12316B] border border-blue-200",
         },
         {
-          name: "Practical Projects",
-          href: "/projects",
-          icon: FolderGit2,
-          iconColor: "text-indigo-600",
-          exact: false,
-          badge: "Build",
-          badgeColor: "bg-indigo-50 text-indigo-700 border border-indigo-200",
-        },
-      ],
-    },
-    {
-      label: "Practice & Progress",
-      items: [
-        {
-          name: "Coding Playground",
+          name: "Practice",
           href: "/practice",
           icon: Terminal,
           iconColor: "text-emerald-600",
@@ -132,16 +123,16 @@ export default function AppSidebar({
           badgeColor: "bg-emerald-50 text-emerald-800 border border-emerald-200",
         },
         {
-          name: "Events & Challenges",
+          name: "Events",
           href: "/events",
           icon: Trophy,
-          iconColor: "text-amber-600",
+          iconColor: "text-amber-500",
           exact: false,
-          badge: "XP Rank",
+          badge: "Soon",
           badgeColor: "bg-amber-50 text-amber-800 border border-amber-200",
         },
         {
-          name: "My Certificates",
+          name: "Certificates",
           href: "/certificates",
           icon: Award,
           iconColor: "text-teal-600",
@@ -150,11 +141,13 @@ export default function AppSidebar({
           badgeColor: "bg-teal-50 text-teal-800 border border-teal-200",
         },
         {
-          name: "Learner Community",
-          href: "/community",
-          icon: Users,
-          iconColor: "text-sky-600",
+          name: "Profile",
+          href: "/dashboard",
+          icon: User,
+          iconColor: "text-indigo-600",
           exact: false,
+          badge: "Account",
+          badgeColor: "bg-indigo-50 text-indigo-700 border border-indigo-200",
         },
       ],
     },
@@ -214,49 +207,34 @@ export default function AppSidebar({
         {/* ── Top Header & Official SLRJ Logo (h-20 aligned with top bar) ── */}
         <div className="h-20 px-4 flex items-center justify-between border-b border-slate-200 flex-shrink-0 bg-white">
           {!collapsed ? (
-            <Link href="/" className="flex items-center gap-3 group">
-              <div className="w-11 h-11 rounded-xl overflow-hidden bg-white border border-slate-200 shadow-xs flex items-center justify-center p-1 group-hover:scale-105 transition-transform">
-                <Image
-                  src="/logo.png"
-                  alt="SLRJ Learn Logo"
-                  width={44}
-                  height={44}
-                  className="w-full h-full object-contain"
-                  priority
-                />
-              </div>
-              <div className="flex flex-col min-w-0">
-                <div className="flex items-center gap-1.5">
-                  <span className="font-extrabold text-[15px] text-[#12316B] leading-none tracking-tight group-hover:text-[#2456A6] transition-colors">
-                    SLRJ LEARN
-                  </span>
-                  <span className="text-[9px] font-black px-1.5 py-0.2 rounded bg-blue-100 text-[#12316B]">
-                    PRO
-                  </span>
-                </div>
-                <span className="text-xs font-bold text-[#18B6D2] tracking-wider uppercase mt-1">
-                  ACADEMY
-                </span>
-              </div>
+            <Link href="/" className="flex items-center group py-1" title="SLRJ Learn">
+              <Image
+                src="/logo.png"
+                alt="SLRJ Learn"
+                width={150}
+                height={44}
+                className="h-9 w-auto object-contain group-hover:scale-105 transition-transform"
+                priority
+              />
             </Link>
           ) : (
-            <Link href="/" className="mx-auto group" title="SLRJ Learn">
-              <div className="w-11 h-11 rounded-xl overflow-hidden bg-white border border-slate-200 shadow-xs flex items-center justify-center p-1 group-hover:scale-105 transition-transform">
-                <Image
-                  src="/logo.png"
-                  alt="SLRJ Learn Logo"
-                  width={44}
-                  height={44}
-                  className="w-full h-full object-contain"
-                  priority
-                />
-              </div>
+            <Link href="/" className="mx-auto group py-1" title="SLRJ Learn">
+              <Image
+                src="/logo.png"
+                alt="SLRJ Learn"
+                width={48}
+                height={32}
+                className="h-6 w-auto object-contain group-hover:scale-105 transition-transform"
+                priority
+              />
             </Link>
           )}
 
           <div className="flex items-center gap-1">
             {/* Desktop Collapse Toggle */}
             <button
+              type="button"
+              suppressHydrationWarning
               onClick={onToggle}
               className="hidden md:flex p-2 rounded-lg text-slate-500 hover:text-slate-900 hover:bg-slate-100 transition-all cursor-pointer"
               title={collapsed ? "Expand sidebar" : "Collapse sidebar"}
@@ -266,6 +244,8 @@ export default function AppSidebar({
 
             {/* Mobile Close Button */}
             <button
+              type="button"
+              suppressHydrationWarning
               onClick={onMobileClose}
               className="md:hidden p-2 rounded-lg text-slate-500 hover:text-slate-900 hover:bg-slate-100 transition-all cursor-pointer"
               title="Close drawer"
@@ -459,6 +439,156 @@ export default function AppSidebar({
                 })}
               </div>
             ))
+          )}
+        </div>
+
+        {/* ── User Profile Section at bottom of sidebar ── */}
+        <div className="p-3 border-t border-slate-200 bg-slate-50/50 flex-shrink-0 relative">
+          {!collapsed ? (
+            <div className="relative">
+              <button
+                type="button"
+                onClick={() => setProfileMenuOpen(!profileMenuOpen)}
+                className="w-full flex items-center justify-between p-2 rounded-2xl hover:bg-slate-100 transition-all cursor-pointer group text-left"
+              >
+                <div className="flex items-center gap-3 min-w-0">
+                  <div className="relative flex-shrink-0">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={user?.avatar || "/icon.jpg"}
+                      alt={user?.name || "Student"}
+                      className="w-10 h-10 rounded-full object-cover border-2 border-slate-200 shadow-xs"
+                    />
+                    <span className="absolute bottom-0 right-0 w-3 h-3 rounded-full bg-emerald-500 ring-2 ring-white" />
+                  </div>
+                  <div className="min-w-0 flex-1">
+                    <div className="font-bold text-sm text-slate-900 truncate">
+                      {user?.name || "Shahid"}
+                    </div>
+                    <div className="text-xs text-slate-500 truncate">
+                      {user?.email || "shahid@slrjlearn.in"}
+                    </div>
+                  </div>
+                </div>
+                <ChevronDown
+                  size={16}
+                  className={`text-slate-400 group-hover:text-slate-700 transition-transform duration-200 flex-shrink-0 ${
+                    profileMenuOpen ? "rotate-180" : ""
+                  }`}
+                />
+              </button>
+
+              {profileMenuOpen && (
+                <>
+                  <div
+                    className="fixed inset-0 z-40"
+                    onClick={() => setProfileMenuOpen(false)}
+                  />
+                  <div className="absolute bottom-full left-0 mb-2 w-full p-2 bg-white rounded-2xl border border-slate-200 shadow-xl text-sm z-50 animate-in fade-in slide-in-from-bottom-2 duration-150 space-y-1">
+                    <div className="p-2 border-b border-slate-100 mb-1">
+                      <div className="font-bold text-slate-900 truncate">{user?.name || "Shahid"}</div>
+                      <div className="text-xs text-slate-500 truncate">{user?.level || "Beginner"} • Learner</div>
+                    </div>
+                    <Link
+                      href="/dashboard"
+                      onClick={() => {
+                        setProfileMenuOpen(false);
+                        onMobileClose?.();
+                      }}
+                      className="flex items-center gap-2.5 px-3 py-2 rounded-xl text-slate-700 hover:text-slate-950 hover:bg-slate-100 font-medium transition-colors"
+                    >
+                      <User size={16} className="text-[#12316B]" />
+                      <span>Student Profile</span>
+                    </Link>
+                    <Link
+                      href="/certificates"
+                      onClick={() => {
+                        setProfileMenuOpen(false);
+                        onMobileClose?.();
+                      }}
+                      className="flex items-center gap-2.5 px-3 py-2 rounded-xl text-slate-700 hover:text-slate-950 hover:bg-slate-100 font-medium transition-colors"
+                    >
+                      <Award size={16} className="text-teal-600" />
+                      <span>My Certificates</span>
+                    </Link>
+                    <div className="border-t border-slate-100 pt-1 my-1">
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setProfileMenuOpen(false);
+                          logout();
+                        }}
+                        className="w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-rose-600 hover:bg-rose-50 font-semibold transition-colors text-left cursor-pointer"
+                      >
+                        <LogOut size={16} />
+                        <span>Sign Out</span>
+                      </button>
+                    </div>
+                  </div>
+                </>
+              )}
+            </div>
+          ) : (
+            <div className="relative flex justify-center">
+              <button
+                type="button"
+                onClick={() => setProfileMenuOpen(!profileMenuOpen)}
+                className="relative p-1 rounded-full hover:ring-2 hover:ring-[#12316B] transition-all cursor-pointer"
+                title="Profile & Settings"
+              >
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={user?.avatar || "/icon.jpg"}
+                  alt={user?.name || "Student"}
+                  className="w-10 h-10 rounded-full object-cover border-2 border-slate-200 shadow-xs"
+                />
+                <span className="absolute bottom-0 right-0 w-3 h-3 rounded-full bg-emerald-500 ring-2 ring-white" />
+              </button>
+
+              {profileMenuOpen && (
+                <>
+                  <div
+                    className="fixed inset-0 z-40"
+                    onClick={() => setProfileMenuOpen(false)}
+                  />
+                  <div className="absolute bottom-full left-12 mb-2 w-56 p-2 bg-white rounded-2xl border border-slate-200 shadow-xl text-sm z-50 animate-in fade-in slide-in-from-bottom-2 duration-150 space-y-1">
+                    <div className="p-2 border-b border-slate-100 mb-1">
+                      <div className="font-bold text-slate-900 truncate">{user?.name || "Shahid"}</div>
+                      <div className="text-xs text-slate-500 truncate">{user?.level || "Beginner"} Learner</div>
+                    </div>
+                    <Link
+                      href="/dashboard"
+                      onClick={() => setProfileMenuOpen(false)}
+                      className="flex items-center gap-2.5 px-3 py-2 rounded-xl text-slate-700 hover:text-slate-950 hover:bg-slate-100 font-medium transition-colors"
+                    >
+                      <User size={16} className="text-[#12316B]" />
+                      <span>Student Profile</span>
+                    </Link>
+                    <Link
+                      href="/certificates"
+                      onClick={() => setProfileMenuOpen(false)}
+                      className="flex items-center gap-2.5 px-3 py-2 rounded-xl text-slate-700 hover:text-slate-950 hover:bg-slate-100 font-medium transition-colors"
+                    >
+                      <Award size={16} className="text-teal-600" />
+                      <span>My Certificates</span>
+                    </Link>
+                    <div className="border-t border-slate-100 pt-1 my-1">
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setProfileMenuOpen(false);
+                          logout();
+                        }}
+                        className="w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-rose-600 hover:bg-rose-50 font-semibold transition-colors text-left cursor-pointer"
+                      >
+                        <LogOut size={16} />
+                        <span>Sign Out</span>
+                      </button>
+                    </div>
+                  </div>
+                </>
+              )}
+            </div>
           )}
         </div>
       </aside>

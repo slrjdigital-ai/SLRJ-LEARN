@@ -5,10 +5,10 @@ import { X, RotateCcw, Filter, Check } from "lucide-react";
 export type RoadmapCategoryFilter =
   | "All Paths"
   | "Web Development"
-  | "Mobile Development"
-  | "AI & Data"
-  | "Design"
-  | "Cybersecurity";
+  | "AI & Data Science"
+  | "Systems & Software Engineering"
+  | "Cloud & Cybersecurity"
+  | "Programming & Scripting";
 
 export type RoadmapDifficultyFilter = "All" | "Beginner" | "Intermediate" | "Advanced";
 
@@ -34,10 +34,10 @@ interface RoadmapFilterPanelProps {
 const CATEGORIES: RoadmapCategoryFilter[] = [
   "All Paths",
   "Web Development",
-  "Mobile Development",
-  "AI & Data",
-  "Design",
-  "Cybersecurity",
+  "AI & Data Science",
+  "Systems & Software Engineering",
+  "Cloud & Cybersecurity",
+  "Programming & Scripting",
 ];
 
 const DIFFICULTIES: RoadmapDifficultyFilter[] = ["All", "Beginner", "Intermediate", "Advanced"];

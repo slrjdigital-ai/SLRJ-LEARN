@@ -4,7 +4,17 @@ import { useState, useCallback } from "react";
 import Link from "next/link";
 import { Course, PdfLesson } from "@/data/courses";
 import { useCourseProgress } from "@/lib/courseProgress";
+import { useCertificatesManager } from "@/lib/certificateStorage";
 import PdfReaderModal from "@/components/courses/PdfReaderModal";
+import TopicQuizModal from "@/components/course/TopicQuizModal";
+import TopicCodeModal from "@/components/course/TopicCodeModal";
+import {
+  getTopicQuizQuestions,
+  getCombinedQuizQuestions,
+  getTopicCodeData,
+  getCombinedCodeData,
+  QuizQuestionItem,
+} from "@/components/course/topicPracticeData";
 import {
   BookOpen,
   Clock,
@@ -12,6 +22,7 @@ import {
   CheckCircle2,
   FileText,
   ArrowRight,
+  ChevronRight,
   ChevronDown,
   Layers,
   Sparkles,
@@ -19,6 +30,14 @@ import {
   Eye,
   Check,
   ArrowLeft,
+  HelpCircle,
+  Code2,
+  Terminal,
+  Trophy,
+  AlertTriangle,
+  Compass,
+  ShieldCheck,
+  FolderGit2,
 } from "lucide-react";
 
 interface CourseDetailsViewProps {
@@ -26,19 +45,111 @@ interface CourseDetailsViewProps {
 }
 
 export default function CourseDetailsView({ course }: CourseDetailsViewProps) {
-  const { getProgress, recordAccess, toggleCompletion } = useCourseProgress();
+  const { allProgress, getProgress, recordAccess, toggleCompletion } = useCourseProgress();
+  const { certificates } = useCertificatesManager();
   const progress = getProgress(course.id);
+  const courseModules = course.modules || [];
 
-  const [expandedModules, setExpandedModules] = useState<Record<string, boolean>>({
-    [course.modules[0]?.id || ""]: true,
-  });
+  const isCertUnlocked =
+    certificates.some((cert) => {
+      const cleanCert = cert.sourceId.toLowerCase().replace(/^course-/, "");
+      const cleanCourse = course.id.toLowerCase().replace(/^course-/, "");
+      const cleanSlug = course.slug.toLowerCase().replace(/^course-/, "");
+      return (
+        cleanCert === cleanCourse ||
+        cleanCert === cleanSlug ||
+        course.id.toLowerCase().includes(cert.sourceId.toLowerCase())
+      );
+    }) || (progress?.progressPercentage || 0) >= 100;
 
   // PDF Reader Modal state
   const [activePdfLesson, setActivePdfLesson] = useState<PdfLesson | null>(null);
   const [isPdfModalOpen, setIsPdfModalOpen] = useState(false);
 
-  const toggleModule = (id: string) => {
-    setExpandedModules((prev) => ({ ...prev, [id]: !prev[id] }));
+  // Topic Quiz Modal state
+  const [quizModalState, setQuizModalState] = useState<{
+    isOpen: boolean;
+    topicTitle: string;
+    topicNumber?: number | string;
+    questions: QuizQuestionItem[];
+    isFinalCombined?: boolean;
+  }>({
+    isOpen: false,
+    topicTitle: "",
+    questions: [],
+    isFinalCombined: false,
+  });
+
+  // Topic Code Modal state
+  const [codeModalState, setCodeModalState] = useState<{
+    isOpen: boolean;
+    topicTitle: string;
+    topicNumber?: number | string;
+    language: string;
+    initialCode: string;
+    expectedOutput?: string;
+    explanation?: string;
+    isFinalCombined?: boolean;
+  }>({
+    isOpen: false,
+    topicTitle: "",
+    language: "c",
+    initialCode: "",
+    isFinalCombined: false,
+  });
+
+  const handleOpenTopicQuiz = (modIdx: number) => {
+    const mod = courseModules[modIdx];
+    if (!mod) return;
+    const questions = getTopicQuizQuestions(course, modIdx);
+    setQuizModalState({
+      isOpen: true,
+      topicTitle: mod.title,
+      topicNumber: modIdx + 1,
+      questions,
+      isFinalCombined: false,
+    });
+  };
+
+  const handleOpenTopicCode = (modIdx: number) => {
+    const mod = courseModules[modIdx];
+    if (!mod) return;
+    const codeData = getTopicCodeData(course, modIdx);
+    setCodeModalState({
+      isOpen: true,
+      topicTitle: mod.title,
+      topicNumber: modIdx + 1,
+      language: codeData.language,
+      initialCode: codeData.code,
+      expectedOutput: codeData.output,
+      explanation: codeData.explanation,
+      isFinalCombined: false,
+    });
+  };
+
+  const handleOpenCombinedQuiz = () => {
+    const questions = getCombinedQuizQuestions(course);
+    setQuizModalState({
+      isOpen: true,
+      topicTitle: "All Topics Comprehensive Quiz",
+      topicNumber: "All",
+      questions,
+      isFinalCombined: true,
+    });
+  };
+
+  const handleOpenCombinedCode = () => {
+    const codeData = getCombinedCodeData(course);
+    setCodeModalState({
+      isOpen: true,
+      topicTitle: "All Topics Combined Capstone Project",
+      topicNumber: "All",
+      language: codeData.language,
+      initialCode: codeData.code,
+      expectedOutput: codeData.output,
+      explanation: codeData.explanation,
+      isFinalCombined: true,
+    });
   };
 
   const handleOpenPdf = (lesson: PdfLesson) => {
@@ -202,6 +313,29 @@ export default function CourseDetailsView({ course }: CourseDetailsViewProps) {
                   <strong className="text-[#16865C]">100% Free</strong>
                 </div>
               </div>
+
+              {/* Certificate Unlock Status */}
+              {isCertUnlocked ? (
+                <div className="p-3 rounded-xl bg-emerald-50 border border-emerald-200 flex items-center justify-between text-xs">
+                  <span className="font-bold text-emerald-800 flex items-center gap-1.5">
+                    <Award size={15} className="text-emerald-600 shrink-0" />
+                    <span>Certificate Unlocked!</span>
+                  </span>
+                  <Link
+                    href="/certificates"
+                    className="text-emerald-700 font-bold hover:underline flex items-center gap-1 shrink-0"
+                  >
+                    <span>View</span>
+                    <ArrowRight size={12} />
+                  </Link>
+                </div>
+              ) : (
+                <div className="p-2.5 rounded-xl bg-slate-50 border border-slate-200 text-[11px] text-slate-600 flex items-center gap-2">
+                  <Award size={14} className="text-amber-500 shrink-0" />
+                  <span>Complete final evaluation below to unlock certificate</span>
+                </div>
+              )}
+
             </div>
           </div>
         </div>
@@ -301,157 +435,173 @@ export default function CourseDetailsView({ course }: CourseDetailsViewProps) {
             </div>
           </section>
 
-          {/* Interactive Modules Curriculum */}
-          <section className="clean-card p-6 sm:p-8 space-y-5 bg-white rounded-2xl border border-[#E2E8F0]">
-            <div className="flex items-center justify-between">
-              <div>
-                <h2 className="text-lg font-extrabold text-[#182230] font-brand flex items-center gap-2">
-                  <Layers size={18} className="text-[#173B70]" />
-                  <span>Interactive Curriculum Modules</span>
+          {/* ─── Topic Curriculum with Quiz & Code Practice ─── */}
+          <section className="clean-card p-6 sm:p-8 space-y-6 bg-white rounded-2xl border border-[#E2E8F0]">
+            {/* Section Header */}
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-slate-100">
+              <div className="space-y-1">
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 text-[#173B70] text-xs font-bold uppercase tracking-wider">
+                  <Layers size={14} className="text-[#18B6D2]" />
+                  <span>Course Curriculum & Hands-On Practice</span>
+                </div>
+                <h2 className="text-xl sm:text-2xl font-black text-[#182230] font-brand">
+                  Topics, Quizzes & In-Browser Code
                 </h2>
-                <p className="text-xs text-[#64748B] mt-1">
-                  {course.modules.length} Modules • {course.totalLessons} Lessons with In-Browser Exercises
+                <p className="text-xs text-[#64748B]">
+                  {courseModules.length} Core Topics • Test your mastery with topic-level quizzes and live code sandboxes.
                 </p>
               </div>
-
-              <button
-                onClick={() => {
-                  const allExpanded = Object.keys(expandedModules).length === course.modules.length;
-                  if (allExpanded) {
-                    setExpandedModules({});
-                  } else {
-                    const all: Record<string, boolean> = {};
-                    course.modules.forEach((m) => (all[m.id] = true));
-                    setExpandedModules(all);
-                  }
-                }}
-                className="text-xs font-bold text-[#173B70] hover:underline cursor-pointer"
-              >
-                Toggle All
-              </button>
-            </div>
-
-            <div className="space-y-3">
-              {course.modules.map((mod, modIdx) => {
-                const isOpen = !!expandedModules[mod.id];
-                return (
-                  <div
-                    key={mod.id}
-                    className="rounded-xl border border-[#E2E8F0] overflow-hidden transition-all bg-[#F8FAFC]"
-                  >
-                    <button
-                      onClick={() => toggleModule(mod.id)}
-                      className="w-full p-4 text-left flex items-center justify-between gap-4 cursor-pointer hover:bg-slate-100/80 transition-colors"
-                    >
-                      <div className="flex items-center gap-3">
-                        <span className="w-7 h-7 rounded-lg bg-white border border-[#E2E8F0] flex items-center justify-center font-bold text-xs text-[#173B70]">
-                          {modIdx + 1}
-                        </span>
-                        <div>
-                          <h3 className="font-bold text-sm text-[#182230]">{mod.title}</h3>
-                          <p className="text-xs text-[#64748B] mt-0.5 line-clamp-1">{mod.description}</p>
-                        </div>
-                      </div>
-
-                      <div className="flex items-center gap-3">
-                        <span className="text-xs text-[#64748B] font-medium hidden sm:inline">
-                          {mod.lessons.length} Lessons
-                        </span>
-                        <ChevronDown
-                          size={16}
-                          className={`text-[#64748B] transition-transform duration-200 ${
-                            isOpen ? "rotate-180" : ""
-                          }`}
-                        />
-                      </div>
-                    </button>
-
-                    {isOpen && (
-                      <div className="px-4 pb-3 divide-y divide-slate-100 bg-white">
-                        {mod.lessons.map((lesson) => (
-                          <div
-                            key={lesson.id}
-                            className="py-3 flex items-center justify-between text-xs text-slate-700"
-                          >
-                            <div className="flex items-center gap-3">
-                              <BookOpen size={14} className="text-slate-400" />
-                              <span className="font-semibold text-[#182230]">
-                                {lesson.title}
-                              </span>
-                            </div>
-                            <div className="flex items-center gap-3 text-[#64748B]">
-                              <span>{lesson.duration}</span>
-                              <span className="text-[10px] font-bold text-[#18B6D2]">+{lesson.xpReward} XP</span>
-                            </div>
-                          </div>
-                        ))}
-                      </div>
-                    )}
-                  </div>
-                );
-              })}
-            </div>
-          </section>
-      </div>
-
-      {/* ── Final Assessment & Certificate Eligibility Banner ── */}
-      <section className="pt-6 border-t border-slate-200">
-        <div className="clean-card p-6 sm:p-8 bg-gradient-to-br from-blue-50/70 via-white to-indigo-50/50 rounded-2xl border border-blue-200/80 shadow-xs flex flex-col md:flex-row md:items-center justify-between gap-6">
-          <div className="space-y-3 max-w-2xl">
-            <div className="flex items-center gap-2.5">
-              <div className="w-10 h-10 rounded-xl bg-[#173B70] text-white flex items-center justify-center shadow-xs flex-shrink-0">
-                <Award size={20} />
-              </div>
-              <div>
-                <h3 className="font-extrabold text-base text-[#182230] font-brand">
-                  Final Assessment &amp; Certificate Eligibility
-                </h3>
-                <span className="text-xs font-semibold text-emerald-700">
-                  Verified QR-Linked Credential
+              <div className="flex items-center gap-2 self-start sm:self-auto">
+                <span className="text-xs font-semibold text-[#173B70] bg-blue-50 px-3 py-1.5 rounded-xl border border-blue-200">
+                  {courseModules.length} Topics
                 </span>
               </div>
             </div>
 
-            <p className="text-xs text-[#64748B] leading-relaxed">
-              Complete the rigorous 10-question evaluation with an 80%+ score to earn your verified SLRJ Learn credential with verifiable QR code.
-            </p>
+            {/* Individual Topic Cards */}
+            <div className="space-y-3.5">
+              {courseModules.map((mod, modIdx) => {
+                return (
+                  <div
+                    key={mod.id}
+                    className="p-5 rounded-2xl border border-slate-200 hover:border-[#173B70]/40 transition-all bg-[#F8FAFC] flex flex-col lg:flex-row lg:items-center justify-between gap-4 shadow-2xs hover:shadow-xs group"
+                  >
+                    {/* Left: Topic Title & Meta */}
+                    <div className="flex items-start gap-3.5 min-w-0 flex-1">
+                      <div className="w-9 h-9 rounded-xl bg-white border border-slate-200 text-[#173B70] font-black text-sm flex items-center justify-center flex-shrink-0 shadow-2xs group-hover:bg-[#173B70] group-hover:text-white transition-colors">
+                        {modIdx + 1}
+                      </div>
 
-            <div className="flex flex-wrap items-center gap-4 sm:gap-6 pt-1 text-xs text-slate-600 font-medium">
-              <div>
-                <span>Passing Criteria: </span>
-                <strong className="text-[#173B70] font-bold">80% or Higher</strong>
-              </div>
-              <div>
-                <span>Time Allowed: </span>
-                <strong className="text-slate-800 font-bold">20 Minutes</strong>
-              </div>
-              <div>
-                <span>Assessment Format: </span>
-                <strong className="text-slate-800 font-bold">Server-Evaluated MCQ</strong>
+                      <div className="space-y-1.5 min-w-0">
+                        <div className="flex items-center gap-2 flex-wrap">
+                          <span className="text-[10px] font-bold text-slate-500 uppercase tracking-wider">
+                            Topic {modIdx + 1}
+                          </span>
+                          <span className="text-[10px] text-slate-400">•</span>
+                          <span className="text-[10px] text-slate-500 font-medium">
+                            {mod.lessons.length} {mod.lessons.length === 1 ? "Lesson" : "Lessons"}
+                          </span>
+                        </div>
+
+                        <h3 className="font-extrabold text-base text-[#182230] leading-snug">
+                          {mod.title}
+                        </h3>
+
+                        <p className="text-xs text-[#64748B] line-clamp-2 leading-relaxed">
+                          {mod.description}
+                        </p>
+                      </div>
+                    </div>
+
+                    {/* Right: Topic Action Buttons (Quiz & Code) */}
+                    <div className="flex items-center gap-2.5 flex-wrap sm:flex-nowrap flex-shrink-0 pt-2 lg:pt-0 border-t lg:border-t-0 border-slate-200">
+                      {/* Topic Quiz Button */}
+                      <button
+                        type="button"
+                        suppressHydrationWarning
+                        onClick={() => handleOpenTopicQuiz(modIdx)}
+                        className="flex-1 sm:flex-none px-4 py-2.5 rounded-xl bg-blue-50 hover:bg-blue-100 text-[#173B70] border border-blue-200 text-xs font-bold transition-all flex items-center justify-center gap-2 shadow-2xs hover:shadow-xs cursor-pointer group/btn"
+                        title={`Take quiz for ${mod.title}`}
+                      >
+                        <HelpCircle size={15} className="text-[#173B70] group-hover/btn:scale-110 transition-transform" />
+                        <span>Quiz</span>
+                      </button>
+
+                      {/* Topic Code Button */}
+                      <button
+                        type="button"
+                        suppressHydrationWarning
+                        onClick={() => handleOpenTopicCode(modIdx)}
+                        className="flex-1 sm:flex-none px-4 py-2.5 rounded-xl bg-[#0F172A] hover:bg-[#1E293B] text-white text-xs font-bold transition-all flex items-center justify-center gap-2 shadow-2xs hover:shadow-xs cursor-pointer group/code"
+                        title={`Open code playground for ${mod.title}`}
+                      >
+                        <Code2 size={15} className="text-[#18B6D2] group-hover/code:scale-110 transition-transform" />
+                        <span>Code</span>
+                      </button>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+
+            {/* ─── Final Combined Topics Section (Quiz & Code for all topics) ─── */}
+            <div className="mt-8 rounded-2xl bg-gradient-to-br from-[#12316B] via-[#1A3D80] to-[#2456A6] text-white p-6 sm:p-7 shadow-xl border border-white/10 relative overflow-hidden">
+              <div className="absolute top-0 right-0 w-64 h-64 bg-[#18B6D2]/10 rounded-full blur-2xl pointer-events-none" />
+
+              <div className="relative z-10 flex flex-col lg:flex-row lg:items-center justify-between gap-6">
+                <div className="space-y-2 max-w-xl">
+                  <div className="flex items-center gap-2 flex-wrap">
+                    <span className="px-2.5 py-0.5 rounded-full bg-white/15 backdrop-blur-md text-[#18B6D2] text-[10px] font-black uppercase tracking-wider">
+                      All Topics Combined
+                    </span>
+                    <span className="text-blue-200 text-xs">•</span>
+                    <span className="text-amber-300 text-xs font-bold flex items-center gap-1">
+                      <Trophy size={13} />
+                      <span>Comprehensive Mastery</span>
+                    </span>
+                    {isCertUnlocked && (
+                      <>
+                        <span className="text-blue-200 text-xs">•</span>
+                        <span className="px-2.5 py-0.5 rounded-full bg-emerald-500/25 border border-emerald-400/40 text-emerald-300 text-[10px] font-black uppercase tracking-wider flex items-center gap-1">
+                          <Check size={12} />
+                          <span>Certificate Unlocked</span>
+                        </span>
+                      </>
+                    )}
+                  </div>
+
+                  <h3 className="text-lg sm:text-xl font-black font-brand text-white leading-tight">
+                    Final Combined Evaluation & Capstone Code
+                  </h3>
+
+                  <p className="text-xs sm:text-sm text-blue-100/90 leading-relaxed">
+                    Integrate everything you learned across all {courseModules.length} topics. Take the comprehensive full-course quiz to certify your skills, and run the complete multi-topic capstone code project.
+                  </p>
+                </div>
+
+                {/* Final Combined Buttons */}
+                <div className="flex items-center gap-3 flex-wrap sm:flex-nowrap flex-shrink-0">
+                  {/* Combined Quiz Button */}
+                  <button
+                    type="button"
+                    suppressHydrationWarning
+                    onClick={handleOpenCombinedQuiz}
+                    className="w-full sm:w-auto px-5 py-3 rounded-xl bg-white hover:bg-blue-50 text-[#12316B] text-xs sm:text-sm font-bold transition-all shadow-md hover:shadow-lg flex items-center justify-center gap-2.5 cursor-pointer group"
+                    title="Take comprehensive quiz covering all topics"
+                  >
+                    <Award size={16} className="text-[#173B70] group-hover:scale-110 transition-transform" />
+                    <span>Final Quiz (All Topics)</span>
+                  </button>
+
+                  {/* Combined Code Button */}
+                  <button
+                    type="button"
+                    suppressHydrationWarning
+                    onClick={handleOpenCombinedCode}
+                    className="w-full sm:w-auto px-5 py-3 rounded-xl bg-[#18B6D2] hover:bg-[#159eb7] text-[#090F21] text-xs sm:text-sm font-black transition-all shadow-md hover:shadow-lg flex items-center justify-center gap-2.5 cursor-pointer group"
+                    title="Run capstone code combining all topics"
+                  >
+                    <Terminal size={16} className="text-[#090F21] group-hover:scale-110 transition-transform" />
+                    <span>Final Code (All Topics)</span>
+                  </button>
+
+                  {/* Certificate Link if unlocked */}
+                  {isCertUnlocked && (
+                    <Link
+                      href="/certificates"
+                      className="w-full sm:w-auto px-5 py-3 rounded-xl bg-emerald-400 hover:bg-emerald-300 text-slate-950 text-xs sm:text-sm font-black transition-all shadow-md hover:shadow-lg flex items-center justify-center gap-2 cursor-pointer"
+                      title="View your unlocked certificate"
+                    >
+                      <Award size={16} />
+                      <span>View Certificate</span>
+                      <ArrowRight size={14} />
+                    </Link>
+                  )}
+                </div>
               </div>
             </div>
-          </div>
-
-          <div className="flex flex-wrap items-center gap-3 flex-shrink-0">
-            <Link
-              href="/courses"
-              className="px-4 py-3 rounded-xl bg-white hover:bg-slate-50 text-slate-700 border border-slate-200 text-xs font-bold transition-all text-center flex items-center justify-center gap-2 shadow-2xs hover:shadow-xs cursor-pointer"
-              title="Return to Courses Catalog"
-            >
-              <ArrowLeft size={14} />
-              <span>Back to Courses</span>
-            </Link>
-
-            <Link
-              href={`/dashboard/assessments/${course.slug}`}
-              className="px-6 py-3 rounded-xl bg-[#173B70] hover:bg-[#12316B] text-white text-xs font-bold transition-all text-center flex items-center justify-center gap-2 shadow-xs hover:shadow-md cursor-pointer"
-            >
-              <span>Take Final Assessment</span>
-              <ArrowRight size={14} />
-            </Link>
-          </div>
-        </div>
-      </section>
+          </section>
+      </div>
 
       {/* Accessible In-App PDF Reader Modal */}
       {activePdfLesson && (
@@ -468,6 +618,33 @@ export default function CourseDetailsView({ course }: CourseDetailsViewProps) {
           hasNext={hasNextLesson}
         />
       )}
+
+      {/* ── Topic Quiz Modal ── */}
+      <TopicQuizModal
+        isOpen={quizModalState.isOpen}
+        onClose={() => setQuizModalState((prev) => ({ ...prev, isOpen: false }))}
+        topicTitle={quizModalState.topicTitle}
+        topicNumber={quizModalState.topicNumber}
+        courseTitle={course.title}
+        courseSlug={course.slug}
+        questions={quizModalState.questions}
+        isFinalCombined={quizModalState.isFinalCombined}
+      />
+
+      {/* ── Topic Code Modal ── */}
+      <TopicCodeModal
+        isOpen={codeModalState.isOpen}
+        onClose={() => setCodeModalState((prev) => ({ ...prev, isOpen: false }))}
+        topicTitle={codeModalState.topicTitle}
+        topicNumber={codeModalState.topicNumber}
+        courseTitle={course.title}
+        courseSlug={course.slug}
+        language={codeModalState.language}
+        initialCode={codeModalState.initialCode}
+        expectedOutput={codeModalState.expectedOutput}
+        explanation={codeModalState.explanation}
+        isFinalCombined={codeModalState.isFinalCombined}
+      />
     </div>
   );
 }

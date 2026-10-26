@@ -14,6 +14,24 @@ export interface User {
   bookmarkedNotes: string[];
   completedRoadmapSteps: number[];
   downloadedPdfs: string[];
+  username?: string;
+  bio?: string;
+  institution?: string;
+  educationLevel?: string;
+  skills?: string[];
+  weeklyGoalHours?: number;
+  dailyGoalMinutes?: number;
+  notifications?: {
+    courseAnnouncements: boolean;
+    assessmentReminders: boolean;
+    learningReminders: boolean;
+    certificateAlerts: boolean;
+  };
+  privacy?: {
+    isPublic: boolean;
+    showCertificates: boolean;
+    showStreak: boolean;
+  };
 }
 
 export const DEFAULT_USER: User = {
@@ -25,9 +43,27 @@ export const DEFAULT_USER: User = {
   track: "Full-Stack Software Development",
   level: "Beginner",
   joinedDate: "October 2026",
-  bookmarkedNotes: [],
-  completedRoadmapSteps: [],
-  downloadedPdfs: [],
+  bookmarkedNotes: ["how-the-internet-works", "nextjs-app-router-layouts"],
+  completedRoadmapSteps: [1, 2],
+  downloadedPdfs: ["web-fundamentals-complete-handbook"],
+  username: "shahid_dev",
+  bio: "Computer science undergraduate and aspiring full-stack developer passionate about building scalable web applications.",
+  institution: "SLRJ Institute of Technology",
+  educationLevel: "Undergraduate (B.Tech CSE)",
+  skills: ["HTML5 / CSS3", "Tailwind CSS", "JavaScript (ES2024)", "TypeScript", "React 19", "Next.js", "Python", "SQL"],
+  weeklyGoalHours: 8,
+  dailyGoalMinutes: 45,
+  notifications: {
+    courseAnnouncements: true,
+    assessmentReminders: true,
+    learningReminders: true,
+    certificateAlerts: true,
+  },
+  privacy: {
+    isPublic: true,
+    showCertificates: true,
+    showStreak: true,
+  },
 };
 
 export const DEMO_USERS: Record<string, User> = {
@@ -82,6 +118,7 @@ interface AuthContextType {
   verifyCode: (email: string, code: string) => Promise<{ success: boolean; error?: string }>;
   register: (name: string, email: string, password: string, track?: string) => Promise<{ success: boolean; error?: string }>;
   logout: () => void;
+  updateProfile: (updatedData: Partial<User>) => Promise<{ success: boolean; error?: string }>;
   toggleBookmark: (noteSlug: string) => void;
   markPdfDownloaded: (pdfSlug: string) => void;
   toggleRoadmapStep: (stepId: number) => void;
@@ -279,6 +316,39 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     saveUserSession(updatedUser);
   };
 
+  const updateProfile = async (updatedData: Partial<User>): Promise<{ success: boolean; error?: string }> => {
+    if (!user) {
+      return { success: false, error: "No active authenticated session." };
+    }
+
+    if (updatedData.name !== undefined && updatedData.name.trim().length < 2) {
+      return { success: false, error: "Name must be at least 2 characters long." };
+    }
+
+    if (updatedData.email !== undefined && !updatedData.email.includes("@")) {
+      return { success: false, error: "Please provide a valid email address." };
+    }
+
+    const updatedUser: User = {
+      ...user,
+      ...updatedData,
+    };
+
+    saveUserSession(updatedUser);
+
+    try {
+      await fetch("/api/user/profile", {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(updatedData),
+      });
+    } catch (e) {
+      console.warn("Backend profile sync notice:", e);
+    }
+
+    return { success: true };
+  };
+
   return (
     <AuthContext.Provider
       value={{
@@ -289,6 +359,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         verifyCode,
         register,
         logout,
+        updateProfile,
         toggleBookmark,
         markPdfDownloaded,
         toggleRoadmapStep,

@@ -145,6 +145,8 @@ export default function BuildSomethingReal() {
                   </span>
                 ) : (
                   <button
+                    type="button"
+                    suppressHydrationWarning
                     onClick={() => {
                       setSelectedProject(project);
                       setSubmissionFeedback(null);
@@ -185,6 +187,8 @@ export default function BuildSomethingReal() {
               </div>
 
               <button
+                type="button"
+                suppressHydrationWarning
                 onClick={() => setSelectedProject(null)}
                 className="p-1.5 rounded-xl text-slate-400 hover:text-slate-800 hover:bg-slate-100 transition-all cursor-pointer"
               >
@@ -217,6 +221,8 @@ export default function BuildSomethingReal() {
                 <div className="flex items-center justify-between text-xs font-bold uppercase tracking-wider text-slate-500">
                   <span>Starter Template ({selectedProject.starterFiles[0].filename})</span>
                   <button
+                    type="button"
+                    suppressHydrationWarning
                     onClick={() => handleCopy(selectedProject.starterFiles[0].content, 0)}
                     className="flex items-center gap-1 text-[#0b69ff] hover:text-blue-700 cursor-pointer"
                   >

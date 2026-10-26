@@ -5,7 +5,6 @@ import { useRouter } from "next/navigation";
 import { Search, X, BookOpen, Compass, Code, Bot, Users, ArrowRight } from "lucide-react";
 import { getAllCourses } from "@/data/courses";
 import { getAllNotes } from "@/data/notes";
-import { PRACTICAL_PROJECTS } from "@/data/projectsData";
 
 interface GlobalSearchModalProps {
   isOpen: boolean;
@@ -17,7 +16,6 @@ export default function GlobalSearchModal({ isOpen, onClose }: GlobalSearchModal
   const [query, setQuery] = useState("");
   const courses = useMemo(() => getAllCourses(), []);
   const notes = useMemo(() => getAllNotes(), []);
-  const projects = PRACTICAL_PROJECTS;
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -74,20 +72,8 @@ export default function GlobalSearchModal({ isOpen, onClose }: GlobalSearchModal
         color: "text-emerald-400"
       }));
 
-    const matchedProjects = projects
-      .filter((p) => p.title.toLowerCase().includes(cleanQ) || p.skillsRequired.some((s) => s.toLowerCase().includes(cleanQ)))
-      .slice(0, 2)
-      .map((p) => ({
-        type: "Project",
-        title: p.title,
-        subtitle: `${p.difficulty} • ${p.category}`,
-        href: `/projects`,
-        icon: Compass,
-        color: "text-amber-400"
-      }));
-
-    return [...matchedCourses, ...matchedNotes, ...matchedProjects];
-  }, [query, courses, notes, projects]);
+    return [...matchedCourses, ...matchedNotes];
+  }, [query, courses, notes]);
 
   if (!isOpen) return null;
 
@@ -105,7 +91,7 @@ export default function GlobalSearchModal({ isOpen, onClose }: GlobalSearchModal
             autoFocus
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            placeholder="Search courses, study notes, projects, tutorials (e.g. React, Flexbox, DSA)..."
+            placeholder="Search courses, study notes, tutorials (e.g. React, Flexbox, DSA)..."
             className="w-full bg-transparent text-white text-base placeholder-slate-500 focus:outline-none"
           />
           <button
@@ -148,13 +134,6 @@ export default function GlobalSearchModal({ isOpen, onClose }: GlobalSearchModal
               >
                 <Bot size={16} className="text-cyan-400" />
                 <span>Lumio AI Chatbot</span>
-              </button>
-              <button
-                onClick={() => { router.push("/community"); onClose(); }}
-                className="flex items-center gap-2.5 p-2.5 rounded-xl hover:bg-white/5 text-left text-slate-200 transition-colors"
-              >
-                <Users size={16} className="text-amber-400" />
-                <span>Student Community Forum</span>
               </button>
             </div>
           </div>
