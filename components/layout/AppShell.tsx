@@ -43,7 +43,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
             <Menu size={20} />
             <span className="text-xs font-bold text-slate-700">Menu</span>
           </button>
-          <Image src="/logo.png" alt="SLRJ Learn" width={100} height={30} className="h-7 w-auto object-contain" />
+          <Image src="/logo.png" alt="SLRJ Learn" width={100} height={30} priority className="h-7 w-auto object-contain" />
         </div>
 
         {/* Page Content */}

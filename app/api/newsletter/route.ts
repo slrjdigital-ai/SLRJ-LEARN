@@ -26,10 +26,21 @@ function isValidEmail(email: string): boolean {
   return emailRegex.test(email);
 }
 
+// In-memory cache for subscriber count to avoid repeated sync disk reads
+let cachedCount = 0;
+let lastCountFetch = 0;
+const CACHE_TTL_MS = 60 * 1000;
+
 // GET: Fetch current subscriber count
 export async function GET() {
   try {
+    const now = Date.now();
+    if (now - lastCountFetch < CACHE_TTL_MS && cachedCount > 0) {
+      return NextResponse.json({ success: true, count: cachedCount }, { status: 200 });
+    }
     const count = getSubscriberCount();
+    cachedCount = count;
+    lastCountFetch = now;
     return NextResponse.json({ success: true, count }, { status: 200 });
   } catch (error) {
     console.error('Error fetching subscriber count:', error);

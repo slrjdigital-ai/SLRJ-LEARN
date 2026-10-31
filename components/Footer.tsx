@@ -6,19 +6,27 @@ import { useState, useEffect } from "react";
 import { Sparkles, Send, CheckCircle2, ShieldCheck, Heart, Loader2, Users } from "lucide-react";
 import { motion } from "framer-motion";
 
+let cachedSubscriberCount: number | null = null;
+
 export default function Footer() {
   const currentYear = new Date().getFullYear();
   const [email, setEmail] = useState("");
-  const [subscriberCount, setSubscriberCount] = useState<number>(0);
+  const [subscriberCount, setSubscriberCount] = useState<number>(cachedSubscriberCount ?? 0);
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "already" | "error">("idle");
   const [feedbackMsg, setFeedbackMsg] = useState("");
 
   useEffect(() => {
+    if (cachedSubscriberCount !== null) {
+      setSubscriberCount(cachedSubscriberCount);
+      return;
+    }
+
     // Fetch live subscriber count from API
     fetch("/api/newsletter")
       .then((res) => res.json())
       .then((data) => {
         if (data?.success && typeof data.count === "number") {
+          cachedSubscriberCount = data.count;
           setSubscriberCount(data.count);
         }
       })

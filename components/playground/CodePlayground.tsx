@@ -657,17 +657,18 @@ export default function CodePlayground() {
   // ── Keyboard Shortcuts ──
   useEffect(() => {
     const handleGlobalShortcuts = (e: KeyboardEvent) => {
-      if ((e.ctrlKey || e.metaKey) && e.key === "Enter") {
+      const key = e.key.toLowerCase();
+      if ((e.ctrlKey || e.metaKey) && key === "enter") {
         e.preventDefault();
         if (e.shiftKey) {
           handleVerifySolution();
         } else {
           handleRunCode();
         }
-      } else if ((e.ctrlKey || e.metaKey) && e.key === "s") {
+      } else if ((e.ctrlKey || e.metaKey) && key === "s") {
         e.preventDefault();
         handleManualSave();
-      } else if ((e.ctrlKey || e.metaKey) && e.key === "b") {
+      } else if ((e.ctrlKey || e.metaKey) && key === "b") {
         e.preventDefault();
         setSidebarOpen((prev) => !prev);
       } else if (e.key === "?" && (e.ctrlKey || e.metaKey)) {
@@ -678,7 +679,7 @@ export default function CodePlayground() {
 
     window.addEventListener("keydown", handleGlobalShortcuts);
     return () => window.removeEventListener("keydown", handleGlobalShortcuts);
-  });
+  }, [handleRunCode, handleVerifySolution, handleManualSave]);
 
   // Filtered files for sidebar search
   const filteredFileList = useMemo(() => {

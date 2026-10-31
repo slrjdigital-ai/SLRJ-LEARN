@@ -11,8 +11,9 @@ export default function SmoothScroll() {
   useEffect(() => {
     const lenis = new Lenis({
       autoRaf: true,
-      duration: 1.2,
+      duration: 0.4,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      syncTouch: false,
     });
     lenisRef.current = lenis;
 

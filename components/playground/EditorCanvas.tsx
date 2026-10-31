@@ -172,19 +172,15 @@ export default function EditorCanvas({
       return;
     }
 
-    // Bracket auto-closing: () [] {} "" '' ``
-    const pairs: Record<string, string> = {
+    // Bracket auto-closing: () [] {}
+    const bracketPairs: Record<string, string> = {
       "(": ")",
       "[": "]",
       "{": "}",
-      '"': '"',
-      "'": "'",
-      "`": "`",
     };
 
-    if (pairs[e.key] && selStart === selEnd) {
-      const closeChar = pairs[e.key];
-      // Only auto-close if followed by whitespace, punctuation, or end of line
+    if (bracketPairs[e.key] && selStart === selEnd) {
+      const closeChar = bracketPairs[e.key];
       const nextChar = val[selStart] || "";
       if (/^[\s\)\]\}\,\;\.\:\'\"\`]?$/.test(nextChar)) {
         e.preventDefault();
@@ -200,9 +196,9 @@ export default function EditorCanvas({
       }
     }
 
-    // Skip closing bracket if typed directly in front of existing closing bracket
-    const closingChars = new Set([")", "]", "}", '"', "'", "`"]);
-    if (closingChars.has(e.key) && val[selStart] === e.key && selStart === selEnd) {
+    // Skip closing bracket if typed directly in front of matching bracket (only for brackets, not quotes to allow consecutive quotes)
+    const closingBrackets = new Set([")", "]", "}"]);
+    if (closingBrackets.has(e.key) && val[selStart] === e.key && selStart === selEnd) {
       e.preventDefault();
       if (textareaRef.current) {
         textareaRef.current.selectionStart = textareaRef.current.selectionEnd = selStart + 1;
