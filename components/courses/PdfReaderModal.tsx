@@ -4,7 +4,6 @@ import { useState, useEffect, useRef } from "react";
 import { Course, PdfLesson } from "@/data/courses";
 import {
   X,
-  ExternalLink,
   ZoomIn,
   ZoomOut,
   RotateCcw,
@@ -153,18 +152,6 @@ export default function PdfReaderModal({
                 <ZoomIn size={14} />
               </button>
             </div>
-
-            {/* Open in New Tab Fallback */}
-            <a
-              href={lesson.fileUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="p-1.5 text-blue-200 hover:text-white hover:bg-white/10 rounded-xl transition-colors cursor-pointer"
-              title="Open PDF in new browser tab"
-              aria-label="Open PDF in new tab"
-            >
-              <ExternalLink size={16} />
-            </a>
 
             {/* Fullscreen Toggle */}
             <button
