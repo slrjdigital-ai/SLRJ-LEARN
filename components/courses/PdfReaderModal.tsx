@@ -2,19 +2,14 @@
 
 import { useState, useEffect, useRef } from "react";
 import { Course, PdfLesson } from "@/data/courses";
-import { useCourseProgress } from "@/lib/courseProgress";
-import { useGamification } from "@/context/GamificationContext";
 import {
   X,
-  Download,
   ExternalLink,
   ZoomIn,
   ZoomOut,
   RotateCcw,
-  CheckCircle2,
   FileText,
   BookOpen,
-  Sparkles,
   ShieldCheck,
   Maximize2,
   Minimize2,
@@ -42,12 +37,9 @@ export default function PdfReaderModal({
   hasPrev = false,
   hasNext = false,
 }: PdfReaderModalProps) {
-  const { toggleCompletion, getProgress } = useCourseProgress();
-  const { awardXP } = useGamification();
-
   const [zoomLevel, setZoomLevel] = useState<number>(100);
   const [isFullscreen, setIsFullscreen] = useState(false);
-  const [showCompleteFeedback, setShowCompleteFeedback] = useState(false);
+
   const containerRef = useRef<HTMLDivElement>(null);
 
   // Keyboard shortcut listener (Escape to close)
@@ -77,18 +69,6 @@ export default function PdfReaderModal({
   }, [isOpen]);
 
   if (!isOpen || !lesson) return null;
-
-  const courseProgress = getProgress(course.id);
-  const isCompleted = courseProgress?.completedPdfLessonIds.includes(lesson.id) ?? false;
-
-  const handleToggleComplete = () => {
-    const { isNowComplete } = toggleCompletion(course, lesson.id);
-    if (isNowComplete) {
-      awardXP(100, `Completed PDF lesson: ${lesson.title}`);
-      setShowCompleteFeedback(true);
-      setTimeout(() => setShowCompleteFeedback(false), 3000);
-    }
-  };
 
   const handleZoomIn = () => {
     setZoomLevel((prev) => Math.min(prev + 15, 175));
@@ -174,35 +154,6 @@ export default function PdfReaderModal({
               </button>
             </div>
 
-            {/* Complete Lesson Action */}
-            <button
-              onClick={handleToggleComplete}
-              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${
-                isCompleted
-                  ? "bg-emerald-500 hover:bg-emerald-600 text-white shadow-xs"
-                  : "bg-white/10 hover:bg-white/20 text-white border border-white/20"
-              }`}
-              title={isCompleted ? "Mark lesson incomplete" : "Mark lesson complete (+100 XP)"}
-            >
-              <CheckCircle2 size={14} className={isCompleted ? "text-white" : "text-emerald-400"} />
-              <span className="hidden sm:inline">
-                {isCompleted ? "Completed" : "Mark Complete"}
-              </span>
-            </button>
-
-            {/* Download Button (when allowed) */}
-            {lesson.downloadAllowed && (
-              <a
-                href={lesson.fileUrl}
-                download
-                className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white/10 hover:bg-white/20 text-white border border-white/20 text-xs font-semibold transition-colors cursor-pointer"
-                title="Download PDF"
-              >
-                <Download size={14} />
-                <span className="hidden md:inline">Download</span>
-              </a>
-            )}
-
             {/* Open in New Tab Fallback */}
             <a
               href={lesson.fileUrl}
@@ -236,19 +187,6 @@ export default function PdfReaderModal({
             </button>
           </div>
         </header>
-
-        {/* ── Success Toast Banner (XP feedback) ── */}
-        {showCompleteFeedback && (
-          <div className="bg-emerald-50 border-b border-emerald-200 px-4 py-2 flex items-center justify-between text-xs text-emerald-800 animate-in fade-in slide-in-from-top-1">
-            <div className="flex items-center gap-2">
-              <Sparkles size={14} className="text-emerald-600" />
-              <span>
-                <strong>Great job!</strong> Lesson completed. <strong>+100 XP</strong> awarded to your profile!
-              </span>
-            </div>
-            <span className="font-bold text-emerald-700">Course Progress Updated</span>
-          </div>
-        )}
 
         {/* ── Reader Main Display Pane ── */}
         <main className="flex-1 bg-slate-100/90 overflow-auto flex items-center justify-center p-2 sm:p-4 relative">
@@ -306,10 +244,6 @@ export default function PdfReaderModal({
 
           <div className="flex items-center gap-4 text-[11px]">
             <span>Press <kbd className="px-1.5 py-0.5 rounded bg-slate-200 font-mono text-[10px] text-slate-700">Esc</kbd> to exit reader</span>
-            <span className="text-slate-300">|</span>
-            <span className="text-slate-600">
-              Download status: <strong className="text-emerald-700">{lesson.downloadAllowed ? "Enabled" : "Restricted"}</strong>
-            </span>
           </div>
         </footer>
       </div>
