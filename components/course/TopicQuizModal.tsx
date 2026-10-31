@@ -240,44 +240,6 @@ export default function TopicQuizModal({
                 </div>
               </div>
 
-              {/* ── 20 Questions Quick Navigator Grid ── */}
-              <div className="p-3 bg-slate-50 rounded-2xl border border-slate-200/80 space-y-2">
-                <div className="flex items-center justify-between text-[11px] font-bold text-slate-500 px-1">
-                  <span>Question Navigator (Click to Jump)</span>
-                  <span className="text-slate-400 font-normal">
-                    {Math.round((answeredCount / questions.length) * 100)}% Complete
-                  </span>
-                </div>
-                <div className="grid grid-cols-10 sm:grid-cols-20 gap-1.5 sm:gap-1">
-                  {questions.map((q, idx) => {
-                    const isAnswered = selectedAnswers[idx] !== undefined;
-                    const isQCorrect = isAnswered && selectedAnswers[idx] === q.correctAnswer;
-                    const isCurrent = idx === currentIndex;
-
-                    let pillClass = "bg-white text-slate-600 border-slate-200 hover:bg-slate-100";
-                    if (isAnswered) {
-                      pillClass = isQCorrect
-                        ? "bg-emerald-600 text-white border-emerald-600 font-bold"
-                        : "bg-rose-500 text-white border-rose-500 font-bold";
-                    }
-
-                    return (
-                      <button
-                        key={idx}
-                        type="button"
-                        suppressHydrationWarning
-                        onClick={() => setCurrentIndex(idx)}
-                        className={`h-7 rounded-lg text-xs font-mono font-bold flex items-center justify-center border transition-all cursor-pointer ${pillClass} ${
-                          isCurrent ? "ring-2 ring-[#173B70] ring-offset-1 scale-105 shadow-xs" : ""
-                        }`}
-                        title={`Go to question ${idx + 1}`}
-                      >
-                        {idx + 1}
-                      </button>
-                    );
-                  })}
-                </div>
-              </div>
 
               {/* Question Text */}
               <div className="p-4 sm:p-5 rounded-2xl bg-slate-50 border border-slate-200/80">
