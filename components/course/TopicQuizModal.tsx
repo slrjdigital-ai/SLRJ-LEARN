@@ -62,6 +62,27 @@ export default function TopicQuizModal({
     }
   }, [isOpen, topicTitle]);
 
+  // Lock body scroll and close on Escape key
+  useEffect(() => {
+    if (!isOpen) return;
+
+    const originalOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        onClose();
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      document.body.style.overflow = originalOverflow;
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [isOpen, onClose]);
+
   if (!isOpen) return null;
 
   const currentQ = questions[currentIndex] || questions[0];
@@ -143,10 +164,16 @@ export default function TopicQuizModal({
   const answeredCount = Object.keys(selectedAnswers).length;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-slate-950/70 backdrop-blur-sm animate-in fade-in duration-200">
+    <div
+      data-lenis-prevent="true"
+      className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-slate-950/70 backdrop-blur-sm animate-in fade-in duration-200 overscroll-contain"
+      onClick={onClose}
+    >
       <div
-        className="w-full max-w-3xl bg-white rounded-3xl shadow-2xl border border-slate-200 overflow-hidden flex flex-col max-h-[94vh]"
+        data-lenis-prevent="true"
+        className="w-full max-w-3xl bg-white rounded-3xl shadow-2xl border border-slate-200 overflow-hidden flex flex-col max-h-[94vh] overscroll-contain"
         onClick={(e) => e.stopPropagation()}
+        onWheel={(e) => e.stopPropagation()}
       >
         {/* ── Modal Header ── */}
         <div className="p-5 sm:p-6 bg-gradient-to-r from-[#12316B] to-[#1A3D80] text-white flex items-start justify-between gap-4 flex-shrink-0">
@@ -179,7 +206,11 @@ export default function TopicQuizModal({
         </div>
 
         {/* ── Quiz Body ── */}
-        <div className="p-5 sm:p-7 overflow-y-auto space-y-6 flex-1">
+        <div
+          data-lenis-prevent="true"
+          className="p-5 sm:p-7 overflow-y-auto space-y-6 flex-1 overscroll-contain"
+          onWheel={(e) => e.stopPropagation()}
+        >
           {!isCompleted ? (
             <>
               {/* Progress Bar & Header Counters */}

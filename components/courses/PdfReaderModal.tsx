@@ -90,11 +90,14 @@ export default function PdfReaderModal({
       role="dialog"
       aria-modal="true"
       aria-label={`PDF Reader - ${lesson.title}`}
-      className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/80 backdrop-blur-sm p-2 sm:p-4 md:p-6 transition-all"
+      data-lenis-prevent="true"
+      className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/80 backdrop-blur-sm p-2 sm:p-4 md:p-6 transition-all overscroll-contain"
     >
       <div
         ref={containerRef}
-        className={`bg-white rounded-2xl shadow-2xl flex flex-col w-full overflow-hidden border border-slate-200 transition-all ${
+        data-lenis-prevent="true"
+        onWheel={(e) => e.stopPropagation()}
+        className={`bg-white rounded-2xl shadow-2xl flex flex-col w-full overflow-hidden border border-slate-200 transition-all overscroll-contain ${
           isFullscreen ? "fixed inset-2 z-50 rounded-xl" : "max-w-6xl h-[92vh]"
         }`}
       >
@@ -176,7 +179,10 @@ export default function PdfReaderModal({
         </header>
 
         {/* ── Reader Main Display Pane ── */}
-        <main className="flex-1 bg-slate-100/90 overflow-auto flex items-center justify-center p-2 sm:p-4 relative">
+        <main
+          data-lenis-prevent="true"
+          className="flex-1 bg-slate-100/90 overflow-auto flex items-center justify-center p-2 sm:p-4 relative overscroll-contain"
+        >
           <div
             className="w-full h-full bg-white rounded-xl shadow-inner border border-slate-200/80 overflow-hidden flex flex-col transition-transform duration-200"
             style={{

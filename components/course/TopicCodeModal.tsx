@@ -70,6 +70,27 @@ export default function TopicCodeModal({
     }
   }, [isOpen, initialCode, topicTitle]);
 
+  // Lock body scroll and close on Escape key
+  useEffect(() => {
+    if (!isOpen) return;
+
+    const originalOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        onClose();
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      document.body.style.overflow = originalOverflow;
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [isOpen, onClose]);
+
   if (!isOpen) return null;
 
   const handleRunCode = () => {
@@ -133,10 +154,16 @@ export default function TopicCodeModal({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-slate-950/70 backdrop-blur-sm animate-in fade-in duration-200">
+    <div
+      data-lenis-prevent="true"
+      className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-slate-950/70 backdrop-blur-sm animate-in fade-in duration-200 overscroll-contain"
+      onClick={onClose}
+    >
       <div
-        className="w-full max-w-4xl bg-[#0B132B] text-slate-100 rounded-3xl shadow-2xl border border-slate-800 overflow-hidden flex flex-col max-h-[92vh]"
+        data-lenis-prevent="true"
+        className="w-full max-w-4xl bg-[#0B132B] text-slate-100 rounded-3xl shadow-2xl border border-slate-800 overflow-hidden flex flex-col max-h-[92vh] overscroll-contain"
         onClick={(e) => e.stopPropagation()}
+        onWheel={(e) => e.stopPropagation()}
       >
         {/* ── Modal Header ── */}
         <div className="p-4 sm:p-5 bg-[#090F21] border-b border-slate-800 flex items-center justify-between gap-4 flex-shrink-0">
@@ -227,7 +254,11 @@ export default function TopicCodeModal({
         </div>
 
         {/* ── Editor & Terminal Workspace ── */}
-        <div className="p-4 sm:p-5 overflow-y-auto space-y-4 flex-1">
+        <div
+          data-lenis-prevent="true"
+          className="p-4 sm:p-5 overflow-y-auto space-y-4 flex-1 overscroll-contain"
+          onWheel={(e) => e.stopPropagation()}
+        >
           {/* Code Textarea */}
           <div className="relative rounded-2xl bg-[#070C18] border border-slate-800 overflow-hidden shadow-inner">
             <textarea
