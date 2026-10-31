@@ -17,9 +17,222 @@ export interface QuizQuestionItem {
 export interface TopicCodeData {
   language: string;
   code: string;
+  solutionCode?: string;
+  taskDescription?: string;
   output: string;
   explanation: string;
 }
+
+export const C_PROGRAMMING_CHALLENGES: Record<
+  number,
+  {
+    taskDescription: string;
+    starterCode: string;
+    solutionCode: string;
+    output: string;
+    explanation: string;
+  }
+> = {
+  0: {
+    taskDescription:
+      "Print the welcome message 'Welcome to SLRJ Learn C Architecture!' to standard output using printf.",
+    starterCode: `#include <stdio.h>
+
+int main(void) {
+    // CHAPTER 1 TASK: Introduction, Variables & Data Types
+    // Objective: Print "Welcome to SLRJ Learn C Architecture!" to the console.
+    
+    // --- TODO: WRITE YOUR CODE BELOW ---
+    
+    
+    // ------------------------------------
+    return 0;
+}`,
+    solutionCode: `#include <stdio.h>
+
+int main(void) {
+    // CHAPTER 1 TASK: Introduction, Variables & Data Types
+    // Objective: Print "Welcome to SLRJ Learn C Architecture!" to the console.
+    
+    // --- TODO: WRITE YOUR CODE BELOW ---
+    printf("Welcome to SLRJ Learn C Architecture!\\n");
+    // ------------------------------------
+    return 0;
+}`,
+    output: "Welcome to SLRJ Learn C Architecture!",
+    explanation:
+      "#include <stdio.h> links standard I/O functions. main() is the program entry point returning exit code 0 to the OS.",
+  },
+  1: {
+    taskDescription:
+      "Given score = 88, write if / else-if conditions: if score >= 90 print 'Grade: A', else if score >= 80 print 'Grade: B', else print 'Grade: C'.",
+    starterCode: `#include <stdio.h>
+
+int main(void) {
+    int score = 88;
+
+    // CHAPTER 2 TASK: Operators, Conditions & Loops
+    // Objective: Evaluate 'score' and print the appropriate grade.
+    
+    // --- TODO: WRITE YOUR IF-ELSE STATEMENT BELOW ---
+    
+    
+    // -----------------------------------------------
+    return 0;
+}`,
+    solutionCode: `#include <stdio.h>
+
+int main(void) {
+    int score = 88;
+
+    // CHAPTER 2 TASK: Operators, Conditions & Loops
+    // Objective: Evaluate 'score' and print the appropriate grade.
+    
+    // --- TODO: WRITE YOUR IF-ELSE STATEMENT BELOW ---
+    if (score >= 90) {
+        printf("Grade: A\\n");
+    } else if (score >= 80) {
+        printf("Grade: B\\n");
+    } else {
+        printf("Grade: C\\n");
+    }
+    // -----------------------------------------------
+    return 0;
+}`,
+    output: "Grade: B",
+    explanation:
+      "Branch evaluations execute top-down until a condition tests true, printing Grade: B.",
+  },
+  2: {
+    taskDescription:
+      "Implement calculate_power(int base, int exp) using a loop to compute and return base raised to power exp.",
+    starterCode: `#include <stdio.h>
+
+// CHAPTER 3 TASK: Functions, Arrays & Strings
+// Objective: Implement calculate_power using a loop to return base^exp
+int calculate_power(int base, int exp) {
+    int result = 1;
+
+    // --- TODO: WRITE YOUR FOR LOOP BELOW ---
+    
+    
+    // ---------------------------------------
+    return result;
+}
+
+int main(void) {
+    printf("2^5 = %d\\n", calculate_power(2, 5));
+    return 0;
+}`,
+    solutionCode: `#include <stdio.h>
+
+// CHAPTER 3 TASK: Functions, Arrays & Strings
+// Objective: Implement calculate_power using a loop to return base^exp
+int calculate_power(int base, int exp) {
+    int result = 1;
+
+    // --- TODO: WRITE YOUR FOR LOOP BELOW ---
+    for (int i = 0; i < exp; i++) {
+        result *= base;
+    }
+    // ---------------------------------------
+    return result;
+}
+
+int main(void) {
+    printf("2^5 = %d\\n", calculate_power(2, 5));
+    return 0;
+}`,
+    output: "2^5 = 32",
+    explanation:
+      "Functions isolate local state in stack frames and return values cleanly across calls.",
+  },
+  3: {
+    taskDescription:
+      "Implement swap(int *a, int *b) using pointer dereferencing (*a and *b) to swap two integer values in place.",
+    starterCode: `#include <stdio.h>
+
+// CHAPTER 4 TASK: Pointers & Dynamic Memory
+// Objective: Use pointer dereferencing to swap the values of *a and *b
+void swap(int *a, int *b) {
+    // --- TODO: DEREFERENCE AND SWAP VALUES BELOW ---
+    
+    
+    // -----------------------------------------------
+}
+
+int main(void) {
+    int x = 10, y = 20;
+    swap(&x, &y);
+    printf("x=%d, y=%d\\n", x, y);
+    return 0;
+}`,
+    solutionCode: `#include <stdio.h>
+
+// CHAPTER 4 TASK: Pointers & Dynamic Memory
+// Objective: Use pointer dereferencing to swap the values of *a and *b
+void swap(int *a, int *b) {
+    // --- TODO: DEREFERENCE AND SWAP VALUES BELOW ---
+    int temp = *a;
+    *a = *b;
+    *b = temp;
+    // -----------------------------------------------
+}
+
+int main(void) {
+    int x = 10, y = 20;
+    swap(&x, &y);
+    printf("x=%d, y=%d\\n", x, y);
+    return 0;
+}`,
+    output: "x=20, y=10",
+    explanation:
+      "Passing pointer addresses (&x, &y) allows swap() to mutate variables in main's stack frame.",
+  },
+  4: {
+    taskDescription:
+      "Initialize Student s with id=101, name='Shahid', gpa=3.95 and print 'Student #101: Shahid (GPA: 3.95)'.",
+    starterCode: `#include <stdio.h>
+
+typedef struct {
+    int id;
+    char name[32];
+    float gpa;
+} Student;
+
+int main(void) {
+    // CHAPTER 5 TASK: Structures & File Handling
+    // Objective: Instantiate Student s and print formatted profile details.
+
+    // --- TODO: INITIALIZE STUDENT AND PRINT BELOW ---
+    
+    
+    // ------------------------------------------------
+    return 0;
+}`,
+    solutionCode: `#include <stdio.h>
+
+typedef struct {
+    int id;
+    char name[32];
+    float gpa;
+} Student;
+
+int main(void) {
+    // CHAPTER 5 TASK: Structures & File Handling
+    // Objective: Instantiate Student s and print formatted profile details.
+
+    // --- TODO: INITIALIZE STUDENT AND PRINT BELOW ---
+    Student s = {101, "Shahid", 3.95f};
+    printf("Student #%d: %s (GPA: %.2f)\\n", s.id, s.name, s.gpa);
+    // ------------------------------------------------
+    return 0;
+}`,
+    output: "Student #101: Shahid (GPA: 3.95)",
+    explanation:
+      "typedef struct models heterogeneous data attributes contiguously in memory.",
+  },
+};
 
 /**
  * Normalizes course language for syntax highlighting & execution
@@ -194,23 +407,68 @@ export function getCombinedQuizQuestions(course: Course): QuizQuestionItem[] {
 export function getTopicCodeData(course: Course, moduleIndex: number): TopicCodeData {
   const targetModule = course.modules[moduleIndex];
   const lang = getCourseLanguage(course);
+  const slug = (course.slug || "").toLowerCase();
+  const id = (course.id || "").toLowerCase();
 
-  // Check if any lesson in the module has a code example
+  // 1. Dedicated handcrafted challenges for C Programming
+  if (slug.includes("c-programming") || slug.includes("c-lang") || id.includes("c-programming")) {
+    if (C_PROGRAMMING_CHALLENGES[moduleIndex]) {
+      const ch = C_PROGRAMMING_CHALLENGES[moduleIndex];
+      return {
+        language: "c",
+        code: ch.starterCode,
+        solutionCode: ch.solutionCode,
+        taskDescription: ch.taskDescription,
+        output: ch.output,
+        explanation: ch.explanation,
+      };
+    }
+  }
+
+  // 2. Check if any lesson in the module has a code example
   for (const lesson of targetModule?.lessons || []) {
     if (lesson.codeExample?.code) {
+      const fullCode = lesson.codeExample.code;
+      const expectedOut = lesson.codeExample.output || "Program compiled and executed with exit code 0.";
+      const desc = `Complete the chapter code for "${targetModule.title}" to achieve the target output.`;
+
+      // Scaffold the code by inserting a clear TODO block
+      let scaffold = fullCode;
+      if (fullCode.includes("main") && fullCode.includes("return")) {
+        scaffold = fullCode.replace(/int\s+main\s*\([^)]*\)\s*\{[\s\S]*?\n\s*return/m, () => {
+          return `int main(void) {\n    // CHAPTER TASK: ${targetModule.title}\n    // Objective: Produce the target output below\n    \n    // --- TODO: WRITE YOUR CODE BELOW ---\n    \n    \n    // ------------------------------------\n    return`;
+        });
+      }
+
       return {
         language: lesson.codeExample.language || lang,
-        code: lesson.codeExample.code,
-        output: lesson.codeExample.output || "Program compiled and executed with exit code 0.",
+        code: scaffold,
+        solutionCode: fullCode,
+        taskDescription: desc,
+        output: expectedOut,
         explanation: lesson.codeExample.explanation || `Hands-on example for ${targetModule.title}.`,
       };
     }
   }
 
-  // Default fallback code based on topic & language
+  // 3. Default fallback code based on topic & language
   return {
     language: lang,
     code: `// Topic: ${targetModule?.title || "Foundations"}
+// Course: ${course.title}
+#include <stdio.h>
+
+int main(void) {
+    // CHAPTER TASK: ${targetModule?.title || "Architecture"}
+    // Objective: Print the message to console.
+    
+    // --- TODO: WRITE YOUR CODE BELOW ---
+    
+    
+    // ------------------------------------
+    return 0;
+}`,
+    solutionCode: `// Topic: ${targetModule?.title || "Foundations"}
 // Course: ${course.title}
 #include <stdio.h>
 
@@ -219,6 +477,7 @@ int main(void) {
     printf("Status: Ready to practice and compile.\\n");
     return 0;
 }`,
+    taskDescription: `Complete the code for ${targetModule?.title || "this chapter"} to produce the target output.`,
     output: `Exploring ${targetModule?.title || "Architecture"} in ${course.title}!\nStatus: Ready to practice and compile.`,
     explanation: `Interactive starter environment for ${targetModule?.title || "Topic"}.`,
   };

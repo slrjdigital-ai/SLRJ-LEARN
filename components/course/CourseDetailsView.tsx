@@ -87,6 +87,8 @@ export default function CourseDetailsView({ course }: CourseDetailsViewProps) {
     topicNumber?: number | string;
     language: string;
     initialCode: string;
+    solutionCode?: string;
+    taskDescription?: string;
     expectedOutput?: string;
     explanation?: string;
     isFinalCombined?: boolean;
@@ -121,6 +123,8 @@ export default function CourseDetailsView({ course }: CourseDetailsViewProps) {
       topicNumber: modIdx + 1,
       language: codeData.language,
       initialCode: codeData.code,
+      solutionCode: codeData.solutionCode,
+      taskDescription: codeData.taskDescription,
       expectedOutput: codeData.output,
       explanation: codeData.explanation,
       isFinalCombined: false,
@@ -146,6 +150,8 @@ export default function CourseDetailsView({ course }: CourseDetailsViewProps) {
       topicNumber: "All",
       language: codeData.language,
       initialCode: codeData.code,
+      solutionCode: codeData.solutionCode,
+      taskDescription: codeData.taskDescription,
       expectedOutput: codeData.output,
       explanation: codeData.explanation,
       isFinalCombined: true,
@@ -641,6 +647,8 @@ export default function CourseDetailsView({ course }: CourseDetailsViewProps) {
         courseSlug={course.slug}
         language={codeModalState.language}
         initialCode={codeModalState.initialCode}
+        solutionCode={codeModalState.solutionCode}
+        taskDescription={codeModalState.taskDescription}
         expectedOutput={codeModalState.expectedOutput}
         explanation={codeModalState.explanation}
         isFinalCombined={codeModalState.isFinalCombined}
