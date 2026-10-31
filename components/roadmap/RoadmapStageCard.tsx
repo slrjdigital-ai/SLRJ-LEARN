@@ -25,7 +25,7 @@ interface RoadmapStageCardProps {
   totalStages: number;
   isCompleted: boolean;
   isCurrent: boolean;
-  onToggleComplete: () => void;
+  onToggleComplete?: () => void;
   onOpenPdf: (course: Course, lesson: PdfLesson) => void;
   defaultExpanded?: boolean;
 }
@@ -104,25 +104,8 @@ export default function RoadmapStageCard({
           </div>
         </div>
 
-        {/* Right Header Controls: Mark Complete & Collapse Toggle */}
+        {/* Right Header Controls: Collapse Toggle */}
         <div className="flex items-center gap-2.5 self-end sm:self-center">
-          <button
-            type="button"
-            onClick={onToggleComplete}
-            className={`inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer ${
-              isCompleted
-                ? "bg-emerald-50 text-emerald-800 hover:bg-emerald-100 border border-emerald-200"
-                : "bg-slate-100 text-slate-800 hover:bg-slate-200 border border-slate-200"
-            }`}
-          >
-            <CheckCircle2
-              className={`w-4 h-4 ${
-                isCompleted ? "text-emerald-600" : "text-slate-400"
-              }`}
-            />
-            <span>{isCompleted ? "Completed" : "Mark Complete"}</span>
-          </button>
-
           <button
             type="button"
             onClick={() => setIsExpanded(!isExpanded)}
