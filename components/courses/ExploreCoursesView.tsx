@@ -438,27 +438,6 @@ export default function ExploreCoursesView() {
         filteredCount={activeDisplayedCoursesCount}
         searchQuery={searchQuery}
         onSearchChange={setSearchQuery}
-        isFilterOpen={isFilterPanelOpen}
-        onToggleFilter={() => setIsFilterPanelOpen((prev) => !prev)}
-        activeFilterCount={activeFilterCount}
-      />
-
-      {/* ── Filter Panel Popover (when toggled) ── */}
-      <CourseFilterPanel
-        isOpen={isFilterPanelOpen}
-        onClose={() => setIsFilterPanelOpen(false)}
-        selectedCategory={selectedCategory}
-        onCategoryChange={handleSelectCategory}
-        selectedDifficulty={selectedDifficulty}
-        onDifficultyChange={setSelectedDifficulty}
-        selectedStatus={selectedStatus}
-        onStatusChange={setSelectedStatus}
-        selectedAccess={selectedAccess}
-        onAccessChange={setSelectedAccess}
-        selectedDuration={selectedDuration}
-        onDurationChange={setSelectedDuration}
-        onResetFilters={handleResetFilters}
-        activeFilterCount={activeFilterCount}
       />
 
       {/* ── Category Tabs ── */}

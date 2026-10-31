@@ -1,6 +1,6 @@
 "use client";
 
-import { Search, Filter, X, BookOpen, SlidersHorizontal } from "lucide-react";
+import { Search, X, BookOpen } from "lucide-react";
 
 export type SortOption = "recommended" | "newest" | "popular" | "shortest";
 
@@ -9,9 +9,9 @@ interface ExploreCoursesHeaderProps {
   filteredCount: number;
   searchQuery: string;
   onSearchChange: (query: string) => void;
-  isFilterOpen: boolean;
-  onToggleFilter: () => void;
-  activeFilterCount: number;
+  isFilterOpen?: boolean;
+  onToggleFilter?: () => void;
+  activeFilterCount?: number;
   sortBy?: SortOption;
   onSortChange?: (sort: SortOption) => void;
 }
@@ -21,9 +21,6 @@ export default function ExploreCoursesHeader({
   filteredCount,
   searchQuery,
   onSearchChange,
-  isFilterOpen,
-  onToggleFilter,
-  activeFilterCount,
 }: ExploreCoursesHeaderProps) {
   return (
     <section className="space-y-6">
@@ -56,8 +53,8 @@ export default function ExploreCoursesHeader({
         </div>
       </div>
 
-      {/* ── Search & Filter Controls Bar ── */}
-      <div className="p-3 sm:p-4 rounded-2xl bg-white border border-[#E2E8F0] shadow-xs flex flex-col md:flex-row items-center gap-3">
+      {/* ── Search Bar ── */}
+      <div className="p-3 sm:p-4 rounded-2xl bg-white border border-[#E2E8F0] shadow-xs flex items-center">
         {/* Search Input Bar */}
         <div className="relative w-full flex-1">
           <Search
@@ -81,29 +78,6 @@ export default function ExploreCoursesHeader({
               <X size={14} />
             </button>
           )}
-        </div>
-
-        {/* Right Action Controls: Filter Toggle Button */}
-        <div className="flex items-center gap-2.5 w-full md:w-auto justify-end">
-          {/* Filter Toggle Button */}
-          <button
-            onClick={onToggleFilter}
-            className={`flex items-center gap-2 px-3.5 py-2.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${
-              isFilterOpen || activeFilterCount > 0
-                ? "bg-[#173B70] text-white shadow-xs"
-                : "bg-[#F8FAFC] hover:bg-slate-100 text-[#182230] border border-[#E2E8F0]"
-            }`}
-            aria-expanded={isFilterOpen}
-            aria-label="Toggle filter panel"
-          >
-            <SlidersHorizontal size={14} />
-            <span>Filters</span>
-            {activeFilterCount > 0 && (
-              <span className="w-5 h-5 rounded-full bg-white text-[#173B70] text-[10px] font-black flex items-center justify-center">
-                {activeFilterCount}
-              </span>
-            )}
-          </button>
         </div>
       </div>
     </section>
