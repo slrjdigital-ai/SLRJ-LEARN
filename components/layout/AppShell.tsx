@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, Suspense } from "react";
+import { useState, useEffect, Suspense } from "react";
 import { usePathname } from "next/navigation";
 import Image from "next/image";
 import { Menu } from "lucide-react";
@@ -10,9 +10,50 @@ import Footer from "@/components/Footer";
 export default function AppShell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const isHomePage = pathname === "/";
+  const isIDEPage = pathname.startsWith("/practice/") && pathname !== "/practice";
 
   const [collapsed, setCollapsed] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+
+  useEffect(() => {
+    // Automatically purge old test session artifacts once so the user starts with clean slate
+    const PURGE_KEY = "slrj_activity_reset_v4";
+    if (typeof window !== "undefined") {
+      const isAlreadyPurged = localStorage.getItem(PURGE_KEY);
+      if (!isAlreadyPurged || window.location.search.includes("reset=true")) {
+        const keysToRemove: string[] = [];
+        for (let i = 0; i < localStorage.length; i++) {
+          const key = localStorage.key(i);
+          if (
+            key &&
+            (key.startsWith("slrj_") ||
+              key.startsWith("todos") ||
+              key.startsWith("course_") ||
+              key === "bookmarkedNotes" ||
+              key === "completedRoadmapSteps")
+          ) {
+            keysToRemove.push(key);
+          }
+        }
+        keysToRemove.forEach((k) => localStorage.removeItem(k));
+        localStorage.setItem(PURGE_KEY, "true");
+        window.dispatchEvent(new Event("storage"));
+        window.dispatchEvent(new Event("slrj_course_progress_updated"));
+        window.dispatchEvent(new Event("slrj_roadmap_progress_updated"));
+        window.dispatchEvent(new Event("gamification-update"));
+        window.dispatchEvent(new CustomEvent("slrj-certificates-updated"));
+      }
+    }
+  }, []);
+
+  // Full-screen IDE mode — no sidebar, no padding
+  if (isIDEPage) {
+    return (
+      <div className="h-screen w-screen overflow-hidden">
+        {children}
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-[#F7F9FC] text-[#182230] flex">

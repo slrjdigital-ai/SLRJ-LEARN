@@ -43,9 +43,9 @@ export const DEFAULT_USER: User = {
   track: "Full-Stack Software Development",
   level: "Beginner",
   joinedDate: "October 2026",
-  bookmarkedNotes: ["how-the-internet-works", "nextjs-app-router-layouts"],
-  completedRoadmapSteps: [1, 2],
-  downloadedPdfs: ["web-fundamentals-complete-handbook"],
+  bookmarkedNotes: [],
+  completedRoadmapSteps: [],
+  downloadedPdfs: [],
   username: "shahid_dev",
   bio: "Computer science undergraduate and aspiring full-stack developer passionate about building scalable web applications.",
   institution: "SLRJ Institute of Technology",
@@ -122,6 +122,7 @@ interface AuthContextType {
   toggleBookmark: (noteSlug: string) => void;
   markPdfDownloaded: (pdfSlug: string) => void;
   toggleRoadmapStep: (stepId: number) => void;
+  resetAllActivity: () => void;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -349,6 +350,30 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     return { success: true };
   };
 
+  const resetAllActivity = () => {
+    if (typeof window !== "undefined") {
+      try {
+        const keysToRemove: string[] = [];
+        for (let i = 0; i < localStorage.length; i++) {
+          const k = localStorage.key(i);
+          if (k && (k.startsWith("slrj_") || k.startsWith("todos"))) {
+            keysToRemove.push(k);
+          }
+        }
+        keysToRemove.forEach((k) => localStorage.removeItem(k));
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(DEFAULT_USER));
+        window.dispatchEvent(new Event("storage"));
+        window.dispatchEvent(new Event("slrj_course_progress_updated"));
+        window.dispatchEvent(new Event("slrj_roadmap_progress_updated"));
+        window.dispatchEvent(new Event("gamification-update"));
+        window.dispatchEvent(new CustomEvent("slrj-certificates-updated"));
+      } catch (err) {
+        console.error("Failed to reset local activity:", err);
+      }
+    }
+    setUser(DEFAULT_USER);
+  };
+
   return (
     <AuthContext.Provider
       value={{
@@ -363,6 +388,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         toggleBookmark,
         markPdfDownloaded,
         toggleRoadmapStep,
+        resetAllActivity,
       }}
     >
       {children}

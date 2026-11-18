@@ -264,16 +264,7 @@ export default function LumioChatbot() {
     <>
       {/* ─── Floating Trigger Button (Bottom-Right) ─── */}
       <div className="fixed bottom-6 right-6 z-50 flex items-center gap-3">
-        {!isOpen && (
-          <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            className="hidden sm:flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#0a0f1d]/90 border border-cyan-500/30 text-xs text-slate-200 shadow-xl backdrop-blur-md pointer-events-none"
-          >
-            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse shadow-[0_0_8px_#34d399]" />
-            <span>Need help? Chat with <strong className="text-cyan-300 font-semibold">Samy</strong></span>
-          </motion.div>
-        )}
+
 
         <motion.button
           whileHover={{ scale: 1.05 }}

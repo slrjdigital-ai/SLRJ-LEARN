@@ -224,16 +224,9 @@ export default function TopicCodeModal({
     setSubmissionStatus(null);
   };
 
-  // Toggle reveal solution
+  // Toggle reveal solution (does not overwrite entered code)
   const handleToggleSolution = () => {
-    if (!activeChallenge) return;
-    if (isSolutionRevealed) {
-      setCode(activeChallenge.starterCode);
-      setIsSolutionRevealed(false);
-    } else {
-      setCode(activeChallenge.solutionCode);
-      setIsSolutionRevealed(true);
-    }
+    setIsSolutionRevealed((prev) => !prev);
   };
 
   // Copy code to clipboard
@@ -402,24 +395,7 @@ export default function TopicCodeModal({
               </div>
             </div>
 
-            <span className="text-slate-700 hidden md:inline">|</span>
 
-            {/* Topic Dropdown Switcher */}
-            <div className="relative">
-              <select
-                aria-label="Select Course Topic"
-                value={activeTopicIndex}
-                onChange={(e) => setActiveTopicIndex(parseInt(e.target.value, 10))}
-                className="bg-[#0B132B] hover:bg-[#101C3D] text-slate-200 text-xs font-bold py-1.5 pl-3 pr-8 rounded-xl border border-slate-700/80 focus:outline-none focus:ring-1 focus:ring-[#18B6D2] cursor-pointer appearance-none transition-all truncate max-w-[200px] sm:max-w-xs"
-              >
-                {TOPIC_CHALLENGES_METADATA.map((t) => (
-                  <option key={t.topicIndex} value={t.topicIndex}>
-                    Topic {t.topicIndex + 1}: {t.topicTitle}
-                  </option>
-                ))}
-              </select>
-              <ChevronDown size={14} className="absolute right-2.5 top-1/2 -translate-y-1/2 pointer-events-none text-slate-400" />
-            </div>
 
             {/* Topic Progress Badge */}
             <div className="hidden lg:flex items-center gap-1.5 px-2.5 py-1 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-[11px] text-emerald-400 font-bold shrink-0">
@@ -432,45 +408,9 @@ export default function TopicCodeModal({
 
           {/* Right: Language, Themes, Controls, Close */}
           <div className="flex items-center gap-2 shrink-0">
-            {/* Language Selector */}
-            <div className="hidden sm:flex items-center gap-1 bg-[#0B132B] p-1 rounded-xl border border-slate-800 text-[11px]">
-              {["c", "python", "cpp", "java", "js"].map((lang) => (
-                <button
-                  key={lang}
-                  type="button"
-                  onClick={() => setActiveLanguage(lang)}
-                  className={`px-2 py-0.5 rounded-lg font-mono font-bold transition-all cursor-pointer ${
-                    activeLanguage === lang
-                      ? "bg-[#18B6D2] text-[#050914] shadow-2xs"
-                      : "text-slate-400 hover:text-white"
-                  }`}
-                  title={lang === "c" ? "C (Active Execution Engine)" : `${lang.toUpperCase()} (Next module)`}
-                >
-                  {lang.toUpperCase()}
-                </button>
-              ))}
-            </div>
 
-            {/* Font Size Selector */}
-            <div className="hidden md:flex items-center bg-[#0B132B] rounded-xl border border-slate-800 text-xs">
-              <button
-                type="button"
-                onClick={() => setFontSize((f) => Math.max(12, f - 1))}
-                className="px-2 py-1 text-slate-400 hover:text-white font-mono transition-colors cursor-pointer"
-                title="Decrease font size"
-              >
-                A-
-              </button>
-              <span className="text-[10px] text-slate-500 font-mono px-1">{fontSize}px</span>
-              <button
-                type="button"
-                onClick={() => setFontSize((f) => Math.min(18, f + 1))}
-                className="px-2 py-1 text-slate-400 hover:text-white font-mono transition-colors cursor-pointer"
-                title="Increase font size"
-              >
-                A+
-              </button>
-            </div>
+
+
 
             {/* Theme Toggle */}
             <button
@@ -538,8 +478,8 @@ export default function TopicCodeModal({
               </span>
             </div>
 
-            {/* Exercise Selector Pills */}
-            <div className="p-2 bg-[#060B1C] border-b border-slate-800/80 flex items-center gap-1.5 overflow-x-auto shrink-0 scrollbar-none">
+            {/* Exercise Selector Pills - 3 in first line (3 columns grid) */}
+            <div className="p-2 bg-[#060B1C] border-b border-slate-800/80 grid grid-cols-3 gap-1.5 w-full shrink-0">
               {topicChallenges.map((ch, idx) => {
                 const isSelected = ch.id === activeChallenge.id;
                 const isSolved = solvedIds.includes(ch.id);
@@ -549,7 +489,7 @@ export default function TopicCodeModal({
                     key={ch.id}
                     type="button"
                     onClick={() => setSelectedChallengeId(ch.id)}
-                    className={`px-3 py-1.5 rounded-xl text-xs font-bold flex items-center gap-1.5 whitespace-nowrap transition-all cursor-pointer ${
+                    className={`w-full px-2 py-1.5 rounded-xl text-[10px] sm:text-[11px] font-bold flex items-center gap-1 min-w-0 transition-all cursor-pointer ${
                       isSelected
                         ? "bg-[#18B6D2] text-[#050914] shadow-xs"
                         : isSolved
@@ -558,11 +498,11 @@ export default function TopicCodeModal({
                     }`}
                   >
                     {isSolved ? (
-                      <CheckCircle2 size={13} className={isSelected ? "text-[#050914]" : "text-emerald-400"} />
+                      <CheckCircle2 size={11} className={`shrink-0 ${isSelected ? "text-[#050914]" : "text-emerald-400"}`} />
                     ) : (
-                      <span className="font-mono text-[10px] opacity-75">{idx + 1}.</span>
+                      <span className="font-mono text-[9px] opacity-75 shrink-0">{idx + 1}.</span>
                     )}
-                    <span>{ch.title}</span>
+                    <span className="truncate text-left">{ch.title}</span>
                   </button>
                 );
               })}
@@ -607,22 +547,7 @@ export default function TopicCodeModal({
                 </div>
               </div>
 
-              {/* Constraints */}
-              {activeChallenge.constraints?.length > 0 && (
-                <div className="space-y-1.5 pt-1">
-                  <div className="text-[11px] font-bold uppercase tracking-wider text-slate-400">
-                    Constraints & Specification
-                  </div>
-                  <ul className="space-y-1 text-xs text-slate-300">
-                    {activeChallenge.constraints.map((c, i) => (
-                      <li key={i} className="flex items-start gap-1.5">
-                        <span className="text-[#18B6D2] font-mono">•</span>
-                        <span>{c}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              )}
+
 
               {/* Sample Input & Expected Output Box */}
               <div className="space-y-2 pt-1">
@@ -692,9 +617,7 @@ export default function TopicCodeModal({
                   <FileCode size={13} />
                   <span>main.c</span>
                 </div>
-                <span className="text-[11px] text-slate-500 font-mono hidden sm:inline">
-                  ANSI C • GCC 14.2
-                </span>
+
               </div>
 
               <div className="flex items-center gap-2">
@@ -738,6 +661,30 @@ export default function TopicCodeModal({
 
             {/* Code Editor Body */}
             <div className="flex-1 min-h-[220px] max-h-[50vh] lg:max-h-none overflow-hidden relative bg-[#070C18]">
+              {/* Solution Modal/Overlay - User code remains preserved underneath */}
+              {isSolutionRevealed && (
+                <div className="absolute inset-0 z-20 bg-[#070C18]/95 backdrop-blur-sm flex flex-col overflow-auto border-b border-slate-800">
+                  <div className="flex items-center justify-between px-4 py-2 bg-[#050A16] border-b border-slate-800 flex-shrink-0">
+                    <div className="flex items-center gap-2">
+                      <Lightbulb size={13} className="text-amber-400" />
+                      <span className="text-[11px] font-bold text-amber-300 uppercase tracking-wider">
+                        Official Solution (Reference)
+                      </span>
+                    </div>
+                    <button
+                      type="button"
+                      onClick={() => setIsSolutionRevealed(false)}
+                      className="text-xs text-slate-400 hover:text-white px-2 py-1 rounded-md bg-slate-800/80 hover:bg-slate-700 cursor-pointer transition-colors"
+                    >
+                      Close Solution ✕
+                    </button>
+                  </div>
+                  <div className="flex-1 p-4 font-mono text-xs overflow-auto text-emerald-300 leading-relaxed whitespace-pre">
+                    {activeChallenge.solutionCode}
+                  </div>
+                </div>
+              )}
+
               <EditorCanvas
                 code={code}
                 language={activeLanguage}
@@ -753,45 +700,11 @@ export default function TopicCodeModal({
                 BOTTOM PANEL: Console Output & Test Cases
             ────────────────────────────────────────────────────────── */}
             <div className="h-64 sm:h-72 bg-[#050A16] border-t border-slate-800 flex flex-col shrink-0">
-              {/* Console Tabs & Status Indicator */}
+              {/* Console Header */}
               <div className="px-4 py-2 bg-[#040812] border-b border-slate-800/90 flex items-center justify-between gap-3 text-xs shrink-0">
-                <div className="flex items-center gap-2">
-                  <button
-                    type="button"
-                    onClick={() => setActiveConsoleTab("testcases")}
-                    className={`px-3 py-1 rounded-lg font-bold text-xs flex items-center gap-1.5 transition-all cursor-pointer ${
-                      activeConsoleTab === "testcases"
-                        ? "bg-[#18B6D2]/15 text-[#18B6D2] border border-[#18B6D2]/30"
-                        : "text-slate-400 hover:text-slate-200"
-                    }`}
-                  >
-                    <Target size={13} />
-                    <span>Test Cases ({activeChallenge.testCases.length})</span>
-                    {submissionStatus && (
-                      <span
-                        className={`px-1.5 py-0.2 rounded text-[10px] font-mono ${
-                          submissionStatus === "Passed"
-                            ? "bg-emerald-500/20 text-emerald-400"
-                            : "bg-rose-500/20 text-rose-400"
-                        }`}
-                      >
-                        {submissionStatus}
-                      </span>
-                    )}
-                  </button>
-
-                  <button
-                    type="button"
-                    onClick={() => setActiveConsoleTab("terminal")}
-                    className={`px-3 py-1 rounded-lg font-bold text-xs flex items-center gap-1.5 transition-all cursor-pointer ${
-                      activeConsoleTab === "terminal"
-                        ? "bg-[#18B6D2]/15 text-[#18B6D2] border border-[#18B6D2]/30"
-                        : "text-slate-400 hover:text-slate-200"
-                    }`}
-                  >
-                    <Terminal size={13} />
-                    <span>Output Console</span>
-                  </button>
+                <div className="flex items-center gap-2 text-cyan-400 font-bold">
+                  <Terminal size={13} />
+                  <span>Output</span>
                 </div>
 
                 <div className="flex items-center gap-3 text-[11px] text-slate-500 font-mono">
@@ -803,147 +716,28 @@ export default function TopicCodeModal({
 
               {/* Console Body */}
               <div className="flex-1 p-3 sm:p-4 overflow-y-auto font-mono text-xs">
-                {activeConsoleTab === "testcases" ? (
-                  <div className="space-y-3">
-                    {/* Test Case Selection Chips */}
-                    <div className="flex items-center gap-2 flex-wrap">
-                      {(testResults.length > 0 ? testResults : activeChallenge.testCases).map((tc, idx) => {
-                        const isSelected = (tc as any).id === selectedTestCaseId;
-                        const result = testResults.find((r) => r.id === (tc as any).id);
-                        const isPassed = result?.passed;
-                        const isRun = !!result;
-
-                        return (
-                          <button
-                            key={(tc as any).id}
-                            type="button"
-                            onClick={() => setSelectedTestCaseId((tc as any).id)}
-                            className={`px-3 py-1 rounded-xl text-xs font-bold flex items-center gap-1.5 border transition-all cursor-pointer ${
-                              isSelected
-                                ? "bg-[#18B6D2] text-[#050914] border-[#18B6D2]"
-                                : isRun && isPassed
-                                ? "bg-emerald-500/10 text-emerald-300 border-emerald-500/30"
-                                : isRun && !isPassed
-                                ? "bg-rose-500/10 text-rose-300 border-rose-500/30"
-                                : "bg-[#091124] text-slate-400 border-slate-800 hover:text-slate-200"
-                            }`}
-                          >
-                            {isRun ? (
-                              isPassed ? (
-                                <Check size={12} className={isSelected ? "text-[#050914]" : "text-emerald-400"} />
-                              ) : (
-                                <XCircle size={12} className={isSelected ? "text-[#050914]" : "text-rose-400"} />
-                              )
-                            ) : (
-                              <span className="w-2 h-2 rounded-full bg-slate-600" />
-                            )}
-                            <span>
-                              {tc.isHidden ? `Test ${idx + 1} (Hidden)` : `Case ${idx + 1}`}
-                            </span>
-                          </button>
-                        );
-                      })}
-                    </div>
-
-                    {/* Selected Test Case Details */}
-                    {activeTestCase && (
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-3 pt-1">
-                        <div className="p-3 rounded-xl bg-[#030610] border border-slate-800/80 space-y-1.5">
-                          <div className="flex items-center justify-between text-[11px] font-sans font-bold text-slate-400">
-                            <span>Input</span>
-                            <span className="text-[10px] text-slate-500">stdin</span>
-                          </div>
-                          <div className="text-slate-300 text-[11px] bg-[#070E22] p-2 rounded-lg min-h-[36px]">
-                            {activeTestCase.input || "(no input)"}
-                          </div>
-
-                          <div className="flex items-center justify-between text-[11px] font-sans font-bold text-emerald-400 pt-1">
-                            <span>Expected Output</span>
-                            <span className="text-[10px] text-emerald-500">Required</span>
-                          </div>
-                          <div className="text-emerald-300 text-[11px] bg-[#070E22] p-2 rounded-lg whitespace-pre-wrap min-h-[36px]">
-                            {activeTestCase.expectedOutput}
-                          </div>
-                        </div>
-
-                        <div className="p-3 rounded-xl bg-[#030610] border border-slate-800/80 space-y-1.5">
-                          <div className="flex items-center justify-between text-[11px] font-sans font-bold text-slate-400">
-                            <span>Your Output</span>
-                            {activeTestCase.actualOutput !== undefined && activeTestCase.actualOutput !== "" ? (
-                              activeTestCase.passed ? (
-                                <span className="text-[10px] font-bold text-emerald-400">Passed ✅</span>
-                              ) : (
-                                <span className="text-[10px] font-bold text-rose-400">Failed ❌</span>
-                              )
-                            ) : (
-                              <span className="text-[10px] text-slate-500">Not executed yet</span>
-                            )}
-                          </div>
-                          <div
-                            className={`text-[11px] p-2 rounded-lg whitespace-pre-wrap min-h-[96px] ${
-                              activeTestCase.actualOutput !== undefined && activeTestCase.actualOutput !== ""
-                                ? activeTestCase.passed
-                                  ? "bg-emerald-950/20 text-emerald-200 border border-emerald-500/30"
-                                  : "bg-rose-950/20 text-rose-200 border border-rose-500/30"
-                                : "bg-[#070E22] text-slate-500 italic"
-                            }`}
-                          >
-                            {activeTestCase.actualOutput || "Run or Submit your code to evaluate against this test case."}
-                          </div>
-                        </div>
-                      </div>
-                    )}
+                {outputStderr && (
+                  <div className="p-3 rounded-xl bg-rose-950/40 border border-rose-500/40 text-rose-300 text-xs whitespace-pre-wrap leading-relaxed mb-2">
+                    {outputStderr}
+                  </div>
+                )}
+                {outputStdout ? (
+                  <div className="p-3 rounded-xl bg-[#030610] border border-slate-800 text-emerald-300 text-xs whitespace-pre-wrap leading-relaxed">
+                    {outputStdout}
                   </div>
                 ) : (
-                  /* Terminal Tab */
-                  <div className="space-y-2">
-                    {outputStderr && (
-                      <div className="p-3 rounded-xl bg-rose-950/40 border border-rose-500/40 text-rose-300 text-xs whitespace-pre-wrap leading-relaxed">
-                        {outputStderr}
-                      </div>
-                    )}
-                    {outputStdout ? (
-                      <div className="p-3 rounded-xl bg-[#030610] border border-slate-800 text-emerald-300 text-xs whitespace-pre-wrap leading-relaxed">
-                        {outputStdout}
-                      </div>
-                    ) : (
-                      !outputStderr && (
-                        <div className="text-slate-500 italic text-xs py-4 text-center">
-                          Click &apos;Run Code&apos; to execute in live C sandbox or &apos;Submit Code&apos; to evaluate against all test cases.
-                        </div>
-                      )
-                    )}
-                  </div>
+                  !outputStderr && (
+                    <div className="text-slate-500 italic text-xs py-4 text-center">
+                      Click &apos;Run Code&apos; to execute and view output here.
+                    </div>
+                  )
                 )}
               </div>
 
               {/* ──────────────────────────────────────────────────────────
                   STICKY ACTION TOOLBAR
               ────────────────────────────────────────────────────────── */}
-              <div className="px-4 py-2.5 bg-[#030713] border-t border-slate-800 flex items-center justify-between gap-3 shrink-0">
-                <div className="flex items-center gap-2">
-                  <button
-                    type="button"
-                    onClick={() => {
-                      if (activeChallenge.hints?.length > 0) {
-                        setExpandedHintIndex(0);
-                      }
-                    }}
-                    className="px-3 py-1.5 rounded-xl bg-slate-800/80 hover:bg-slate-700 text-amber-300 border border-slate-700/80 text-xs font-bold flex items-center gap-1.5 transition-all cursor-pointer"
-                  >
-                    <Lightbulb size={13} />
-                    <span>Get Hint</span>
-                  </button>
-
-                  <button
-                    type="button"
-                    onClick={handleToggleSolution}
-                    className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-800/80 hover:bg-slate-700 text-slate-300 border border-slate-700/80 text-xs font-bold transition-all cursor-pointer"
-                  >
-                    <BookOpen size={13} />
-                    <span>{isSolutionRevealed ? "Hide Code" : "Solution"}</span>
-                  </button>
-                </div>
+              <div className="px-4 py-2.5 bg-[#030713] border-t border-slate-800 flex items-center justify-end gap-3 shrink-0">
 
                 <div className="flex items-center gap-2.5">
                   {/* Run Code Button */}

@@ -4,7 +4,8 @@ import { useState, useEffect, useCallback } from "react";
 import { Course, getCourseById } from "@/data/courses";
 import { ROADMAP_STEPS } from "@/data/roadmap";
 import { getStoredProgress } from "./courseProgress";
-import { getAllCertificates } from "@/data/certificatesStore";
+import { getCertificateById } from "@/data/certificatesStore";
+import { getStoredCertificateIds } from "./certificateStorage";
 import { getRoadmapProgress } from "./roadmapProgress";
 
 export interface CourseDetailedProgress {
@@ -187,15 +188,18 @@ export function getCourseDetailedProgress(course: Course): CourseDetailedProgres
     const codePercentage = Math.round((codeCompleted / totalCode) * 100);
 
     // 4. CERTIFICATE CHECK: If certificate is already earned, full 100%
-    const certs = getAllCertificates();
-    const hasCert = certs.some(
-      (c) =>
+    const storedCertIds = getStoredCertificateIds();
+    const hasCert = storedCertIds.some((certId) => {
+      const c = getCertificateById(certId);
+      if (!c) return false;
+      return (
         (c.sourceId?.toLowerCase() === idLower ||
           c.sourceId?.toLowerCase() === slugLower ||
           c.courseId?.toLowerCase() === idLower ||
           c.courseId?.toLowerCase() === slugLower) &&
         (c.status === "valid" || (c.status as any) === "Valid")
-    );
+      );
+    });
 
     if (hasCert) {
       return {
@@ -390,13 +394,16 @@ export function getRoadmapDetailedProgress(trackId: string, isSSR: boolean = fal
 
     // Check certificate for this track (client only)
     if (isClient) {
-      const certs = getAllCertificates();
-      const hasCert = certs.some(
-        (c) =>
+      const storedIds = getStoredCertificateIds();
+      const hasCert = storedIds.some((id) => {
+        const c = getCertificateById(id);
+        return (
+          c &&
           (c.sourceId?.toLowerCase() === trackId.toLowerCase() ||
             (c as any).trackId?.toLowerCase() === trackId.toLowerCase()) &&
           (c.status === "valid" || (c.status as any) === "Valid")
-      );
+        );
+      });
 
       if (hasCert) {
         return {

@@ -16,26 +16,20 @@ import {
 const CERTIFICATES_STORAGE_KEY = "slrj_learner_certificates_v2";
 const CERTIFICATES_EVENT = "slrj-certificates-updated";
 
-// Default initial certificates seeded for the learner
-const DEFAULT_CERT_IDS = [
-  "SLRJ-CERT-2026-WD101",
-  "SLRJ-CERT-2026-PY101",
-  "SLRJ-CERT-2026-HACK-SAAS",
-  "SLRJ-CERT-2026-ROADMAP-FE",
-];
+// Default initial certificates seeded for the learner (empty for clean slate)
+const DEFAULT_CERT_IDS: string[] = [];
 
 export function getStoredCertificateIds(): string[] {
-  if (typeof window === "undefined") return DEFAULT_CERT_IDS;
+  if (typeof window === "undefined") return [];
   try {
     const raw = localStorage.getItem(CERTIFICATES_STORAGE_KEY);
     if (!raw) {
-      localStorage.setItem(CERTIFICATES_STORAGE_KEY, JSON.stringify(DEFAULT_CERT_IDS));
-      return DEFAULT_CERT_IDS;
+      return [];
     }
     return JSON.parse(raw) as string[];
   } catch (err) {
     console.error("Failed to parse stored certificate IDs:", err);
-    return DEFAULT_CERT_IDS;
+    return [];
   }
 }
 

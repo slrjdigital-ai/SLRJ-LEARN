@@ -100,28 +100,73 @@ export function executeCProgram(code: string, input: string = ""): {
 
     const fullCleanCode = cleanLines.join("\n");
 
-    // 2. Identify variables in scope
+    // 2. Identify variables and user-defined functions in scope
     const variables: Record<string, any> = {};
 
-    // Match primitive declarations: int a = 15; int length = 12;
+    // 2a. Extract simple user-defined functions (e.g., int add(int a, int b) { return a + b; })
+    const userFuncs: Record<string, Function> = {};
+    const funcMatches = fullCleanCode.matchAll(/\b(?:int|double|float|long)\s+([a-zA-Z_]\w*)\s*\(([^)]*)\)\s*\{([\s\S]*?)\}/g);
+    for (const fm of funcMatches) {
+      const funcName = fm[1];
+      if (funcName === "main") continue;
+      const paramStr = fm[2];
+      const bodyStr = fm[3];
+
+      // Extract parameter names
+      const paramNames = paramStr
+        .split(",")
+        .map((p) => p.trim().replace(/^.*?\s+([a-zA-Z_]\w*)$/, "$1"))
+        .filter(Boolean);
+
+      // Extract return expression if simple return: return a + b;
+      const returnMatch = bodyStr.match(/return\s+([^;]+);/);
+      if (returnMatch) {
+        try {
+          const retExpr = returnMatch[1].trim();
+          userFuncs[funcName] = new Function(...paramNames, `"use strict"; return (${retExpr});`);
+        } catch {
+          // ignore
+        }
+      }
+    }
+
+    // Helper to evaluate an expression using known variables & user functions
+    const evalExpr = (rawExpr: string): any => {
+      try {
+        let jsExpr = rawExpr.trim();
+        // Replace user functions in expression: e.g. add(35, 65) -> userFuncs.add(35, 65)
+        Object.keys(userFuncs).forEach((fn) => {
+          jsExpr = jsExpr.replace(new RegExp(`\\b${fn}\\s*\\(`, "g"), `__funcs.${fn}(`);
+        });
+        // Replace variables
+        Object.keys(variables).forEach((k) => {
+          jsExpr = jsExpr.replace(new RegExp(`\\b${k}\\b`, "g"), JSON.stringify(variables[k]));
+        });
+        const fn = new Function("__funcs", `"use strict"; return (${jsExpr});`);
+        return fn(userFuncs);
+      } catch {
+        return undefined;
+      }
+    };
+
+    // Match primitive declarations: int a = 15; int res = add(35, 65);
     const intMatches = fullCleanCode.matchAll(/\b(?:int|long|short)\s+([a-zA-Z_]\w*)\s*=\s*([^;]+);/g);
     for (const m of intMatches) {
-      try {
-        const val = Function(`"use strict"; return (${m[2]});`)();
-        variables[m[1]] = typeof val === "number" ? Math.floor(val) : val;
-      } catch {
-        // ignore parse error for complex initializers
+      const varName = m[1];
+      const rawVal = m[2];
+      const evaluated = evalExpr(rawVal);
+      if (evaluated !== undefined && !Number.isNaN(evaluated)) {
+        variables[varName] = typeof evaluated === "number" ? Math.floor(evaluated) : evaluated;
       }
     }
 
     const floatMatches = fullCleanCode.matchAll(/\b(?:float|double)\s+([a-zA-Z_]\w*)\s*=\s*([^;]+);/g);
     for (const m of floatMatches) {
-      try {
-        const expr = m[2].replace(/f$/i, "");
-        const val = Function(`"use strict"; return (${expr});`)();
-        variables[m[1]] = typeof val === "number" ? val : parseFloat(expr);
-      } catch {
-        // ignore
+      const varName = m[1];
+      const expr = m[2].replace(/f$/i, "");
+      const evaluated = evalExpr(expr);
+      if (evaluated !== undefined && !Number.isNaN(evaluated)) {
+        variables[varName] = typeof evaluated === "number" ? evaluated : parseFloat(evaluated);
       }
     }
 
@@ -177,23 +222,14 @@ export function executeCProgram(code: string, input: string = ""): {
 
       // Evaluate arguments with local variable context
       const evaluatedArgs = rawArgs.map((arg) => {
-        try {
-          // If variable directly matches
-          if (variables[arg] !== undefined) return variables[arg];
-
-          // If expression like n * i, a + b
-          let expr = arg;
-          Object.keys(variables).forEach((k) => {
-            const regex = new RegExp(`\\b${k}\\b`, "g");
-            expr = expr.replace(regex, JSON.stringify(variables[k]));
-          });
-
-          // Ternary or formatting expressions
-          const val = Function(`"use strict"; return (${expr});`)();
-          return val;
-        } catch {
-          return arg;
+        // If variable directly matches
+        if (variables[arg] !== undefined) return variables[arg];
+        // Evaluate through evalExpr (handles user functions like add(35, 65), math like a + b)
+        const evaluated = evalExpr(arg);
+        if (evaluated !== undefined && !Number.isNaN(evaluated)) {
+          return evaluated;
         }
+        return arg;
       });
 
       // Format specifiers substitution
