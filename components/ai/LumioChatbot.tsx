@@ -54,6 +54,7 @@ const QUICK_PROMPTS = [
 ];
 
 export default function LumioChatbot() {
+  const [mounted, setMounted] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [isMinimized, setIsMinimized] = useState(false);
   const [messages, setMessages] = useState<LumioMessage[]>(INITIAL_MESSAGES);
@@ -67,6 +68,11 @@ export default function LumioChatbot() {
 
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLTextAreaElement>(null);
+
+  // Ensure client-side only mount to avoid hydration mismatch from browser extensions
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   // Auto-scroll on new messages
   useEffect(() => {
@@ -260,6 +266,8 @@ export default function LumioChatbot() {
     });
   };
 
+  if (!mounted) return null;
+
   return (
     <>
       {/* ─── Floating Trigger Button (Bottom-Right) ─── */}
@@ -267,6 +275,8 @@ export default function LumioChatbot() {
 
 
         <motion.button
+          type="button"
+          suppressHydrationWarning
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
           onClick={() => {
@@ -342,6 +352,8 @@ export default function LumioChatbot() {
 
               <div className="flex items-center gap-1">
                 <button
+                  type="button"
+                  suppressHydrationWarning
                   onClick={handleResetChat}
                   title="Clear conversation"
                   className="p-2 rounded-xl text-slate-400 hover:text-white hover:bg-white/5 transition-colors cursor-pointer"
@@ -349,6 +361,8 @@ export default function LumioChatbot() {
                   <RotateCcw size={15} />
                 </button>
                 <button
+                  type="button"
+                  suppressHydrationWarning
                   onClick={() => setIsMinimized(!isMinimized)}
                   title={isMinimized ? "Expand" : "Minimize"}
                   className="p-2 rounded-xl text-slate-400 hover:text-white hover:bg-white/5 transition-colors cursor-pointer"
@@ -356,6 +370,8 @@ export default function LumioChatbot() {
                   {isMinimized ? <Maximize2 size={15} /> : <Minimize2 size={15} />}
                 </button>
                 <button
+                  type="button"
+                  suppressHydrationWarning
                   onClick={() => setIsOpen(false)}
                   title="Close"
                   className="p-2 rounded-xl text-slate-400 hover:text-white hover:bg-white/5 transition-colors cursor-pointer"

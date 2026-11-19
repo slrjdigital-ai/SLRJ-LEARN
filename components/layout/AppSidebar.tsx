@@ -260,6 +260,7 @@ export default function AppSidebar({
                 className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400"
               />
               <input
+                suppressHydrationWarning
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
@@ -268,6 +269,8 @@ export default function AppSidebar({
               />
               {searchQuery ? (
                 <button
+                  type="button"
+                  suppressHydrationWarning
                   onClick={() => setSearchQuery("")}
                   className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-700 text-xs font-bold p-1"
                 >
@@ -343,6 +346,8 @@ export default function AppSidebar({
                           )}
                           {hasChildren && (
                             <button
+                              type="button"
+                              suppressHydrationWarning
                               onClick={(e) => toggleExpand(item.name, e)}
                               className={`p-1 rounded-md hover:bg-black/10 transition-transform ${
                                 isExpanded ? "rotate-180" : ""
@@ -364,6 +369,8 @@ export default function AppSidebar({
                     <div key={item.name} className="space-y-1">
                       {item.action ? (
                         <button
+                          type="button"
+                          suppressHydrationWarning
                           onClick={item.action}
                           className={`w-full flex items-center justify-between px-3 py-2 rounded-xl text-sm font-semibold text-slate-700 hover:text-slate-950 hover:bg-slate-100 transition-all cursor-pointer group ${
                             collapsed ? "justify-center px-2" : ""
@@ -374,6 +381,7 @@ export default function AppSidebar({
                         </button>
                       ) : (
                         <Link
+                          suppressHydrationWarning
                           href={item.href!}
                           onClick={() => {
                             if (hasChildren) {
