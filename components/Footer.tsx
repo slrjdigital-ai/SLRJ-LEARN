@@ -3,8 +3,22 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useState, useEffect } from "react";
-import { Sparkles, Send, CheckCircle2, ShieldCheck, Heart, Loader2, Users } from "lucide-react";
-import { motion } from "framer-motion";
+import {
+  Sparkles,
+  Send,
+  CheckCircle2,
+  ShieldCheck,
+  Loader2,
+  Users,
+  Mail,
+  Activity,
+  ArrowUpRight,
+  Code,
+  BookOpen,
+  Award,
+} from "lucide-react";
+import GithubIcon from "@/components/icons/GithubIcon";
+import LinkedinIcon from "@/components/icons/LinkedinIcon";
 
 let cachedSubscriberCount: number | null = null;
 
@@ -55,10 +69,10 @@ export default function Footer() {
         }
         if (data.alreadySubscribed) {
           setStatus("already");
-          setFeedbackMsg("You're already subscribed to our dispatch!");
+          setFeedbackMsg("You're already subscribed to our tech dispatch!");
         } else {
           setStatus("success");
-          setFeedbackMsg("Welcome aboard! A confirmation has been dispatched.");
+          setFeedbackMsg("Welcome aboard! Check your inbox for confirmation.");
           setEmail("");
         }
       } else {
@@ -83,6 +97,8 @@ export default function Footer() {
         { name: "All Courses", href: "/courses" },
         { name: "Career Roadmaps (8 Tracks)", href: "/roadmap" },
         { name: "Coding Playground", href: "/practice" },
+        { name: "Engineering Notes & PDFs", href: "/notes" },
+        { name: "C Systems Architecture", href: "/courses" },
       ],
     },
     {
@@ -92,6 +108,7 @@ export default function Footer() {
         { name: "Verified Certificates", href: "/certificates" },
         { name: "Certificate Verification", href: "/verify-certificate/demo" },
         { name: "Student Dashboard", href: "/dashboard" },
+        { name: "Skill Milestones & XP", href: "/gamification" },
       ],
     },
     {
@@ -101,39 +118,66 @@ export default function Footer() {
         { name: "Contact & Support", href: "/contact" },
         { name: "Privacy Policy", href: "/privacy-policy" },
         { name: "Terms & Conditions", href: "/terms-and-conditions" },
+        { name: "System Architecture", href: "/about" },
       ],
     },
   ];
 
   return (
-    <footer className="relative bg-white border-t border-[#E2E8F0] pt-16 pb-24 sm:pb-32 overflow-hidden select-none" suppressHydrationWarning>
-      {/* ── Top Subtle Brand Stripe ── */}
-      <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[#12316B] via-[#2456A6] to-[#18B6D2]" />
+    <footer
+      className="relative bg-[#070D1E] text-slate-200 pt-20 pb-24 sm:pb-32 overflow-hidden select-none border-t border-slate-800/80 shadow-2xl"
+      suppressHydrationWarning
+    >
+      {/* ─── 1. Ultra-Luminous Top Gradient Accent Bar ─── */}
+      <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-cyan-400 to-transparent shadow-[0_0_24px_rgba(6,182,212,0.8)]" />
+      <div className="absolute top-[2px] left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-blue-500/40 to-transparent" />
+
+      {/* ─── 2. Tech Blueprint SVG Grid Pattern Background ─── */}
+      <div
+        className="absolute inset-0 pointer-events-none opacity-25"
+        style={{
+          backgroundImage: `radial-gradient(circle at 1px 1px, rgba(14, 165, 233, 0.22) 1px, transparent 0)`,
+          backgroundSize: "32px 32px",
+          maskImage: "radial-gradient(ellipse at 50% 10%, black 40%, transparent 90%)",
+          WebkitMaskImage: "radial-gradient(ellipse at 50% 10%, black 40%, transparent 90%)",
+        }}
+      />
+
+      {/* ─── 3. Ambient Lighting Glow Orbs ─── */}
+      <div className="absolute -top-32 -left-20 w-[550px] h-[350px] bg-blue-600/15 blur-[130px] rounded-full pointer-events-none" />
+      <div className="absolute top-10 right-0 w-[550px] h-[380px] bg-cyan-500/12 blur-[140px] rounded-full pointer-events-none" />
+      <div className="absolute bottom-0 left-1/3 w-[600px] h-[300px] bg-indigo-600/10 blur-[150px] rounded-full pointer-events-none" />
 
       <div className="max-w-[1780px] w-full mx-auto px-4 sm:px-8 lg:px-12 relative z-10">
         {/* ══════════════════════════════════════════════════════════════
-            NEWSLETTER & DISPATCH CALLOUT
+            NEWSLETTER & DISPATCH CALLOUT (Frosted Tech Card)
            ══════════════════════════════════════════════════════════════ */}
-        <div className="pb-12 mb-12 border-b border-[#E2E8F0]">
-          <div className="p-8 sm:p-10 rounded-3xl bg-[#F7F9FC] border border-[#E2E8F0] relative overflow-hidden flex flex-col lg:flex-row items-center justify-between gap-8 shadow-xs">
-            <div className="max-w-xl text-center lg:text-left">
-              <div className="flex flex-wrap items-center justify-center lg:justify-start gap-2.5 mb-2.5">
-                <span className="inline-flex items-center gap-1.5 text-xs font-bold text-[#12316B] tracking-wider uppercase">
-                  <Sparkles size={13} className="text-[#18B6D2]" />
+        <div className="pb-14 mb-14 border-b border-white/[0.08]">
+          <div className="p-8 sm:p-10 lg:p-12 rounded-3xl bg-gradient-to-br from-white/[0.06] via-slate-900/60 to-white/[0.02] border border-white/10 relative overflow-hidden flex flex-col lg:flex-row items-center justify-between gap-8 shadow-2xl backdrop-blur-xl">
+            {/* Ambient Corner Accent */}
+            <div className="absolute -right-20 -bottom-20 w-64 h-64 bg-cyan-500/15 rounded-full blur-3xl pointer-events-none" />
+
+            <div className="max-w-xl text-center lg:text-left relative z-10">
+              <div className="flex flex-wrap items-center justify-center lg:justify-start gap-2.5 mb-3">
+                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-cyan-950/60 border border-cyan-800/60 text-xs font-bold text-cyan-300 tracking-wider uppercase">
+                  <Sparkles size={13} className="text-cyan-400" />
                   Weekly Tech Dispatch
                 </span>
 
                 {/* Live Subscriber Count Pill */}
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 border border-blue-200 text-xs font-semibold text-[#12316B]" suppressHydrationWarning>
+                <div
+                  className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/[0.05] border border-white/10 text-xs font-semibold text-slate-300 backdrop-blur-md"
+                  suppressHydrationWarning
+                >
                   <span className="relative flex h-2 w-2">
-                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#16865C] opacity-75" />
-                    <span className="relative inline-flex rounded-full h-2 w-2 bg-[#16865C]" />
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+                    <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-400" />
                   </span>
-                  <Users size={12} className="text-[#2456A6]" />
+                  <Users size={12} className="text-cyan-400" />
                   <span suppressHydrationWarning>
                     {subscriberCount > 0 ? (
                       <>
-                        <strong className="text-[#12316B] font-extrabold">{subscriberCount.toLocaleString()}</strong> Active Learners
+                        <strong className="text-white font-extrabold">{subscriberCount.toLocaleString()}</strong> Active Learners
                       </>
                     ) : (
                       <>Join 2,400+ Active Learners</>
@@ -142,16 +186,16 @@ export default function Footer() {
                 </div>
               </div>
 
-              <h3 className="text-2xl sm:text-3xl font-black text-[#182230] font-brand tracking-tight">
+              <h3 className="text-2xl sm:text-3xl font-black text-white font-brand tracking-tight">
                 Learn Skills. Build Projects. Grow Your Future.
               </h3>
-              <p className="text-slate-600 text-base mt-2 leading-relaxed">
+              <p className="text-slate-300 text-sm sm:text-base mt-2.5 leading-relaxed">
                 Receive curated computer science notes, practical project walkthroughs, and updates on new verified certification courses directly in your inbox.
               </p>
             </div>
 
-            {/* Newsletter Input */}
-            <div className="w-full lg:w-auto flex-shrink-0 flex flex-col items-center lg:items-end">
+            {/* Newsletter Input Form */}
+            <div className="w-full lg:w-auto flex-shrink-0 flex flex-col items-center lg:items-end relative z-10">
               <form onSubmit={handleSubscribe} className="w-full flex flex-col sm:flex-row gap-3" suppressHydrationWarning>
                 <div className="relative w-full sm:w-80">
                   <input
@@ -162,7 +206,7 @@ export default function Footer() {
                     required
                     disabled={status === "loading"}
                     suppressHydrationWarning
-                    className="w-full px-4 py-3 rounded-xl bg-white border border-[#E2E8F0] text-[#182230] placeholder-[#64748B] text-sm focus:outline-none focus:border-[#12316B] focus:ring-2 focus:ring-[#12316B]/10 transition-all disabled:opacity-60 shadow-xs"
+                    className="w-full px-4 py-3.5 rounded-xl bg-slate-950/80 border border-slate-700/80 text-white placeholder-slate-400 text-sm focus:outline-none focus:border-cyan-400 focus:ring-2 focus:ring-cyan-400/20 transition-all disabled:opacity-60 shadow-inner"
                   />
                 </div>
 
@@ -170,39 +214,32 @@ export default function Footer() {
                   type="submit"
                   disabled={status === "loading"}
                   suppressHydrationWarning
-                  className="px-6 py-3 rounded-xl font-bold text-sm text-white bg-[#12316B] hover:bg-[#2456A6] shadow-md shadow-[#12316B]/20 transition-all duration-200 flex items-center justify-center gap-2 cursor-pointer active:scale-98 disabled:opacity-60 disabled:cursor-not-allowed flex-shrink-0"
+                  className="px-6 py-3.5 rounded-xl font-bold text-sm text-slate-950 bg-gradient-to-r from-cyan-400 via-cyan-300 to-cyan-500 hover:from-cyan-300 hover:to-cyan-400 shadow-lg shadow-cyan-500/25 transition-all duration-200 flex items-center justify-center gap-2 cursor-pointer active:scale-95 disabled:opacity-60 disabled:cursor-not-allowed flex-shrink-0"
                 >
                   {status === "loading" ? (
                     <>
-                      <Loader2 size={16} className="animate-spin text-white" />
+                      <Loader2 size={16} className="animate-spin text-slate-950" />
                       <span>Subscribing...</span>
                     </>
-                  ) : status === "success" ? (
+                  ) : status === "success" || status === "already" ? (
                     <>
-                      <CheckCircle2 size={16} className="text-[#18B6D2]" />
+                      <CheckCircle2 size={16} className="text-slate-950" />
                       <span>Subscribed!</span>
-                    </>
-                  ) : status === "already" ? (
-                    <>
-                      <CheckCircle2 size={16} className="text-[#18B6D2]" />
-                      <span>Subscribed</span>
                     </>
                   ) : (
                     <>
                       <span>Subscribe</span>
-                      <Send size={14} />
+                      <Send size={14} className="text-slate-950" />
                     </>
                   )}
                 </button>
               </form>
 
-              {/* Status message */}
+              {/* Status message feedback */}
               {feedbackMsg && (
                 <div
-                  className={`mt-2.5 text-xs font-medium flex items-center gap-1.5 self-center lg:self-start ${
-                    status === "success" || status === "already"
-                      ? "text-[#16865C]"
-                      : "text-[#C83C4A]"
+                  className={`mt-2.5 text-xs font-semibold flex items-center gap-1.5 self-center lg:self-start ${
+                    status === "success" || status === "already" ? "text-emerald-400" : "text-rose-400"
                   }`}
                 >
                   <Sparkles size={12} />
@@ -214,9 +251,9 @@ export default function Footer() {
         </div>
 
         {/* ══════════════════════════════════════════════════════════════
-            MAIN FOOTER GRID: BRAND + 3 LINK COLUMNS
+            MAIN FOOTER GRID: BRAND + CURRICULUM + ASSESSMENTS + COMPANY
            ══════════════════════════════════════════════════════════════ */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 lg:gap-14 mb-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 lg:gap-14 mb-14">
           {/* Brand Column (5 Cols) */}
           <div className="lg:col-span-5 flex flex-col items-start">
             <Link
@@ -224,30 +261,76 @@ export default function Footer() {
               className="inline-block mb-4 group"
               title="SLRJ Learn"
             >
-              <Image
-                src="/logo.png"
-                alt="SLRJ Learn"
-                width={170}
-                height={50}
-                className="h-10 w-auto object-contain group-hover:scale-105 transition-transform"
-              />
+              <div className="relative">
+                <Image
+                  src="/logo-white.png"
+                  alt="SLRJ Learn"
+                  width={180}
+                  height={52}
+                  className="h-10 sm:h-11 w-auto object-contain drop-shadow-[0_0_20px_rgba(6,182,212,0.4)] group-hover:scale-105 transition-all duration-300"
+                  priority
+                />
+              </div>
             </Link>
 
-            <p className="text-[#12316B] font-bold text-xs tracking-wider uppercase mb-2">
+            <p className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-400 font-extrabold text-xs tracking-wider uppercase mb-3">
               Learn Skills. Build Projects. Grow Your Future.
             </p>
 
-            <p className="text-slate-600 text-[15px] sm:text-base leading-relaxed mb-6 max-w-md">
+            <p className="text-slate-300 text-[14px] sm:text-[15px] leading-relaxed mb-6 max-w-md">
               SLRJ Learn is an online learning platform providing PDF-based courses, digital handwritten notes, structured career roadmaps, hands-on programming challenges, and verifiable completion certificates.
             </p>
 
-            {/* Platform Status Pill */}
-            <div className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-slate-100 border border-[#E2E8F0] text-xs font-semibold text-[#182230]">
-              <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#16865C] opacity-75" />
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-[#16865C]" />
-              </span>
-              <span>100% Free Learning Resources &bull; Verified Certificates</span>
+            {/* Badges & Trust Metrics */}
+            <div className="flex flex-col sm:flex-row flex-wrap items-start sm:items-center gap-2.5 mb-6">
+              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-900/80 border border-white/10 text-xs font-semibold text-slate-200 backdrop-blur-md">
+                <span className="relative flex h-2 w-2">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-400" />
+                </span>
+                <span>100% Free Learning Resources &bull; Verified Certificates</span>
+              </div>
+
+              <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-emerald-950/40 border border-emerald-800/40 text-xs font-medium text-emerald-300">
+                <Activity size={12} className="text-emerald-400" />
+                <span>All Systems Operational</span>
+              </div>
+            </div>
+
+            {/* Developer Community & Social Links */}
+            <div className="flex items-center gap-2.5">
+              <a
+                href="https://github.com/slrjdigital-ai"
+                target="_blank"
+                rel="noopener noreferrer"
+                title="GitHub"
+                className="w-10 h-10 rounded-xl bg-white/[0.05] border border-white/10 hover:border-cyan-400/50 hover:bg-cyan-500/10 text-slate-300 hover:text-cyan-300 flex items-center justify-center transition-all duration-200"
+              >
+                <GithubIcon size={18} />
+              </a>
+              <a
+                href="https://linkedin.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                title="LinkedIn"
+                className="w-10 h-10 rounded-xl bg-white/[0.05] border border-white/10 hover:border-cyan-400/50 hover:bg-cyan-500/10 text-slate-300 hover:text-cyan-300 flex items-center justify-center transition-all duration-200"
+              >
+                <LinkedinIcon size={18} />
+              </a>
+              <Link
+                href="/contact"
+                title="Contact Support"
+                className="w-10 h-10 rounded-xl bg-white/[0.05] border border-white/10 hover:border-cyan-400/50 hover:bg-cyan-500/10 text-slate-300 hover:text-cyan-300 flex items-center justify-center transition-all duration-200"
+              >
+                <Mail size={18} />
+              </Link>
+              <Link
+                href="/practice"
+                title="Coding Playground"
+                className="w-10 h-10 rounded-xl bg-white/[0.05] border border-white/10 hover:border-cyan-400/50 hover:bg-cyan-500/10 text-slate-300 hover:text-cyan-300 flex items-center justify-center transition-all duration-200"
+              >
+                <Code size={18} />
+              </Link>
             </div>
           </div>
 
@@ -255,7 +338,8 @@ export default function Footer() {
           <div className="lg:col-span-7 grid grid-cols-2 sm:grid-cols-3 gap-8 sm:gap-10">
             {navSections.map((section, idx) => (
               <div key={idx}>
-                <h4 className="text-[#12316B] font-extrabold text-sm tracking-wider uppercase mb-4">
+                <h4 className="text-white font-extrabold text-xs tracking-wider uppercase mb-4 flex items-center gap-2">
+                  <span className="w-1.5 h-1.5 rounded-full bg-cyan-400" />
                   {section.title}
                 </h4>
                 <ul className="space-y-3">
@@ -263,9 +347,10 @@ export default function Footer() {
                     <li key={lIdx}>
                       <Link
                         href={link.href}
-                        className="text-slate-600 hover:text-[#12316B] font-medium hover:translate-x-1 transition-all duration-200 text-sm block"
+                        className="text-slate-400 hover:text-cyan-300 font-medium hover:translate-x-1.5 transition-all duration-200 text-sm flex items-center gap-1.5 group"
                       >
-                        {link.name}
+                        <span className="w-1 h-1 rounded-full bg-slate-600 group-hover:bg-cyan-400 transition-colors" />
+                        <span>{link.name}</span>
                       </Link>
                     </li>
                   ))}
@@ -278,28 +363,34 @@ export default function Footer() {
         {/* ══════════════════════════════════════════════════════════════
             BOTTOM LEGAL & PARENT BRAND
            ══════════════════════════════════════════════════════════════ */}
-        <div className="border-t border-[#E2E8F0] pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-[#64748B]">
+        <div className="border-t border-white/[0.08] pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-slate-400">
           <div className="flex flex-col sm:flex-row items-center justify-center md:justify-start gap-1.5 sm:gap-2 text-center md:text-left">
             <span>&copy; {currentYear} SLRJ Learn. All rights reserved.</span>
-            <span className="hidden sm:inline text-slate-300">&bull;</span>
-            <span className="text-[#12316B] font-semibold">
-              An educational initiative of SLRJ Digital
+            <span className="hidden sm:inline text-slate-600">&bull;</span>
+            <span className="text-slate-300 font-medium">
+              An educational initiative of{" "}
+              <span className="text-cyan-400 font-bold hover:underline cursor-pointer">
+                SLRJ Digital
+              </span>
             </span>
           </div>
 
-          <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-6 text-[#64748B]">
-            <Link href="/privacy-policy" className="hover:text-[#12316B] transition-colors">
+          <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-6 text-slate-400">
+            <Link href="/privacy-policy" className="hover:text-cyan-300 transition-colors">
               Privacy Policy
             </Link>
-            <span className="text-slate-300">&bull;</span>
-            <Link href="/terms-and-conditions" className="hover:text-[#12316B] transition-colors">
+            <span className="text-slate-700">&bull;</span>
+            <Link href="/terms-and-conditions" className="hover:text-cyan-300 transition-colors">
               Terms of Service
             </Link>
-            <span className="text-slate-300">&bull;</span>
-            <span className="text-[#16865C] flex items-center gap-1 font-semibold text-xs">
-              <ShieldCheck size={14} className="text-[#16865C]" />
-              Authentic Certificate Verification
-            </span>
+            <span className="text-slate-700">&bull;</span>
+            <Link
+              href="/verify-certificate/demo"
+              className="inline-flex items-center gap-1.5 text-emerald-400 hover:text-emerald-300 font-semibold text-xs px-2.5 py-1 rounded-full bg-emerald-950/40 border border-emerald-800/40 transition-colors"
+            >
+              <ShieldCheck size={14} className="text-emerald-400" />
+              <span>Authentic Certificate Verification</span>
+            </Link>
           </div>
         </div>
       </div>
